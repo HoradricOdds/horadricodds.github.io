@@ -29,9 +29,15 @@ No ads, no sign-up, works on PC and phone.
 - Areas are ranked by experience per full clear or per kill for your difficulty, players, party and experience bonuses. Tap one to see what to kill there.
 - Terror zone experience, boss kill experience and a suggested route to your goal level.
 
+### Tools
+- **Holy Grail tracker:** tick off every unique, set item and rune you find, with progress by type and a link to where each missing item drops.
+- **Rune helper:** enter your runes to see which runewords you can make now, which you could make after cubing runes up (with the exact steps and gems), and which you're one rune short of.
+- **Run tracker:** count and time your boss runs, log drops, and compare your luck with the calculator's odds.
+- **Cube recipes:** every Horadric Cube recipe from the game files, searchable by ingredient.
+
 ### How to use
 - The **How to use** tab walks through each tool step by step and answers common questions.
-- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner) or [#experience](https://horadricodds.github.io/#experience). Drop odds links carry the item and settings you picked.
+- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner), [#experience](https://horadricodds.github.io/#experience), [#grail](https://horadricodds.github.io/#grail), [#runes](https://horadricodds.github.io/#runes), [#runs](https://horadricodds.github.io/#runs) or [#cube](https://horadricodds.github.io/#cube). Drop odds links carry the item and settings you picked.
 
 ## Reporting problems
 
@@ -53,4 +59,4 @@ Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Bliz
 
 ## How it's built
 
-The whole site is a single `index.html` file with no server. Odds are calculated in your browser from the game's own tables. Saved builds and settings stay in your browser.
+The whole site is a single `index.html` file with no server. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.

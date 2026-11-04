@@ -6,7 +6,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Horadric Odds">
 <meta property="og:title" content="Horadric Odds: free D2R drop calculator, build planner &amp; experience calculator">
-<meta property="og:description" content="See where any Diablo II: Resurrected item drops and your odds per kill, plan builds with skill damage and breakpoints, and work out the fastest places to level. Free, no ads, no sign-up.">
+<meta property="og:description" content="See where any Diablo II: Resurrected item drops and your odds per kill, plan builds with skill damage and breakpoints, work out the fastest places to level, and track your Holy Grail and runs. Free, no ads, no sign-up.">
 <meta property="og:url" content="https://horadricodds.github.io/">
 <meta property="og:image" content="https://horadricodds.github.io/preview.png">
 <meta property="og:image:width" content="1200">
@@ -459,10 +459,107 @@ footer a { color: inherit; }
 #help .hu-faq dd{margin-bottom:10px}
 #help .hu-tip{background:var(--sunk);border-left:3px solid var(--accent);padding:8px 12px;max-width:75ch;font-size:.92rem}
 #help .hu-mail{user-select:all;font-family:var(--font-data);color:var(--text)}
-#help .hu-go{align-self:flex-start;background:var(--sunk);border:1px solid var(--line2,var(--line));border-radius:3px;padding:6px 12px;font:inherit;font-size:.88rem;color:var(--text);cursor:pointer}
+#help .hu-row{display:flex;flex-wrap:wrap;gap:8px}#help .hu-go{align-self:flex-start;background:var(--sunk);border:1px solid var(--line2,var(--line));border-radius:3px;padding:6px 12px;font:inherit;font-size:.88rem;color:var(--text);cursor:pointer}
 #help .hu-go:hover,#help .hu-go:focus-visible{border-color:var(--unique);color:var(--unique)}
 @media (max-width:560px){#help dl{grid-template-columns:minmax(0,1fr);gap:2px}#help dd{margin-bottom:8px}#help .hu-sec{padding:14px}}
 .buildtag a{color:var(--magic)}.buildtag{max-width:1400px;margin:28px auto 18px;padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));text-align:center;font-size:.76rem;letter-spacing:.04em;color:var(--muted);opacity:.8;font-variant-numeric:tabular-nums}
+
+/* ===== Tools tab (scoped to #tools) ===== */
+#tools{max-width:1400px;margin:0 auto;padding:18px 0 0;color:var(--text);font-size:15px}
+#tools .tl{display:flex;flex-direction:column;gap:14px}
+#tools button,#tools input,#tools select,#tools textarea{font:inherit;color:inherit}
+#tools button{cursor:pointer}
+#tools .tl-subs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+#tools .tl-subs button{background:none;border:0;border-bottom:2px solid transparent;padding:6px 12px;color:var(--muted);font-family:var(--font-display);font-size:1rem;margin-bottom:-1px}
+#tools .tl-subs button[aria-selected=true]{color:var(--unique);border-bottom-color:var(--unique)}
+#tools .tl-card{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+#tools h3{margin:0;font-family:var(--font-display);font-size:1.15rem;color:var(--unique)}
+#tools h4{margin:0 0 6px;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+#tools .tl-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;justify-content:space-between}
+#tools .tl-big{font-family:var(--font-data);font-size:1.35rem;color:var(--unique);font-variant-numeric:tabular-nums}
+#tools .tl-big i,#tools .tl-stat b i{font-style:normal;font-size:.8rem;color:var(--muted)}
+#tools .tl-note{margin:0;font-size:.86rem;color:var(--muted);max-width:80ch}
+#tools .tl-msg{margin:0;font-size:.9rem;color:var(--text);border-left:3px solid var(--accent);padding-left:8px}
+#tools .tl-empty{margin:4px 0;color:var(--muted);font-size:.9rem}
+#tools .tl-sub{font-size:.8rem;color:var(--muted)}
+#tools .tl-bar{height:6px;background:var(--sunk);border-radius:3px;overflow:hidden}
+#tools .tl-bar b{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--unique))}
+#tools .tl-stats,#tools .tl-counter{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+#tools .tl-stat{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--sunk);border:1px solid var(--line);border-radius:3px;padding:10px;min-width:0}
+#tools button.tl-stat.on{border-color:var(--unique)}
+#tools .tl-stat>span:first-child{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+#tools .tl-stat b{font-family:var(--font-data);font-size:1.4rem;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+#tools .tl-row{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+#tools .tl-filters{display:flex;flex-direction:column;gap:6px}
+#tools input[type=search],#tools input[type=text],#tools input[type=number],#tools select,#tools textarea{background:var(--bg);border:1px solid var(--line);border-radius:3px;padding:6px 8px;min-width:0}
+#tools input[type=search],#tools .tl-add input{flex:1 1 220px}
+#tools textarea{width:100%;font-family:var(--font-data);font-size:.85rem}
+#tools .tl-chip{background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.84rem;color:var(--muted)}
+#tools .tl-chip[aria-pressed=true]{border-color:var(--unique);color:var(--text);background:color-mix(in srgb,var(--unique) 14%,var(--sunk))}
+#tools .tl-chip i{font-style:normal;color:var(--muted);margin-left:4px}
+#tools .tl-btn{background:var(--sunk);border:1px solid var(--line);border-radius:3px;padding:5px 12px;font-size:.88rem}
+#tools .tl-btn:hover{border-color:var(--unique)}
+#tools .tl-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink,#fff)}
+#tools .tl-btn.danger{border-color:#b4442f;color:#d4573e}
+#tools .tl-btn.ghost{background:none;color:var(--muted)}
+#tools .tl-warn{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.88rem}
+#tools .tl-code{display:block;font-family:var(--font-data);font-size:.78rem;word-break:break-all;user-select:all;background:var(--sunk);padding:8px;border-radius:3px}
+#tools .tl-group{display:flex;flex-direction:column;gap:4px}#tools details.tl-group>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;padding:4px 0}#tools details.tl-group>summary::-webkit-details-marker{display:none}#tools details.tl-group>summary::before{content:'▸';color:var(--muted);font-size:.8rem;transition:transform .15s}#tools details.tl-group[open]>summary::before{transform:rotate(90deg)}#tools details.tl-group>summary h4{margin:0}
+#tools .tl-count{font-family:var(--font-data);letter-spacing:0;color:var(--muted);font-weight:400}
+#tools .tl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 12px}
+#tools .tl-grid.runes{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+#tools .tl-item{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:3px;cursor:pointer;min-width:0}
+#tools .tl-item:hover{background:var(--sunk)}
+#tools .tl-item input{width:17px;height:17px;flex:none;accent-color:var(--accent)}
+#tools .tl-item .tl-n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}
+#tools .tl-item .tl-sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 0}
+#tools .tl-item:not(.got) .tl-n{opacity:.62}
+#tools .tl-item.got .tl-n{font-weight:600}
+#tools .q-u{color:var(--unique)}#tools .q-s{color:var(--set)}#tools .q-r{color:var(--rune)}
+#tools .tl-odds{background:none;border:1px solid var(--line);border-radius:3px;font-size:.72rem;padding:1px 6px;color:var(--muted);flex:none}
+#tools .tl-odds:hover{color:var(--text);border-color:var(--unique)}
+#tools .tl-rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+#tools .tl-rcell{display:flex;align-items:center;justify-content:space-between;gap:4px;background:var(--sunk);border:1px solid var(--line);border-radius:3px;padding:4px 6px}
+#tools .tl-rcell.has{border-color:color-mix(in srgb,var(--rune) 55%,var(--line))}
+#tools .tl-rn{font-weight:600;color:var(--rune);font-size:.9rem}
+#tools .tl-rctl{display:flex;align-items:center;gap:2px}
+#tools .tl-rctl button{width:22px;height:24px;padding:0;background:var(--bg);border:1px solid var(--line);border-radius:3px;line-height:1}
+#tools .tl-rctl input{width:38px;text-align:center;padding:3px 2px;font-family:var(--font-data);-moz-appearance:textfield}
+#tools .tl-rctl input::-webkit-inner-spin-button{-webkit-appearance:none}
+#tools .tl-check{display:flex;gap:6px;align-items:center;font-size:.9rem}
+#tools .tl-rws{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+#tools .tl-rw{background:var(--sunk);border:1px solid var(--line);border-radius:3px;padding:8px 10px;display:flex;flex-direction:column;gap:6px;min-width:0}
+#tools .tl-rwh{display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline}
+#tools .tl-rwh b{color:var(--unique)}
+#tools .tl-runes{display:flex;flex-wrap:wrap;gap:4px}
+#tools .tl-rune{font-size:.8rem;padding:1px 7px;border-radius:999px;border:1px solid var(--line)}
+#tools .tl-rune.ok{color:var(--rune);border-color:color-mix(in srgb,var(--rune) 50%,var(--line))}
+#tools .tl-rune.no{color:var(--muted);border-style:dashed}
+#tools .tl-steps{margin:0;font-size:.84rem;color:var(--muted)}
+#tools .tl-steps i{font-style:normal}
+#tools .tl-form{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px 14px;align-items:end}
+#tools .tl-f{display:flex;flex-direction:column;gap:4px;min-width:0}
+#tools .tl-f>span{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+#tools .tl-plus{background:var(--accent);color:var(--accent-ink,#fff);border:0;border-radius:4px;font-family:var(--font-display);font-size:1.4rem;font-weight:700;padding:12px;min-height:84px}
+#tools .tl-plus:active{transform:translateY(1px)}
+#tools .tl-x{align-self:flex-start;background:none;border:1px solid var(--line);border-radius:3px;font-size:.75rem;padding:1px 6px;color:var(--muted)}
+#tools .tl-tw{overflow-x:auto}
+#tools .tl-t{border-collapse:collapse;width:100%;min-width:520px}
+#tools .tl-t th,#tools .tl-t td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+#tools .tl-t th{font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--sunk);white-space:nowrap}
+#tools .num{font-family:var(--font-data);font-variant-numeric:tabular-nums;white-space:nowrap}
+#tools .tl-top summary{cursor:pointer;color:var(--muted);font-size:.9rem;margin-bottom:6px}
+#tools .tl-foot{justify-content:flex-start}
+#tools .tl-recipes{display:flex;flex-direction:column;gap:2px}
+#tools .tl-recipe{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,.55fr);gap:10px;align-items:baseline;padding:5px 8px;border-radius:3px;font-size:.9rem}
+#tools .tl-recipe:nth-child(odd){background:var(--sunk)}
+#tools .tl-arrow{color:var(--accent)}
+#tools .tl-out{color:var(--unique);font-weight:600}
+@media (max-width:480px){.wrap .modes{gap:0}.wrap .modes button{padding:8px 7px}}
+@media (max-width:374px){.wrap .modes button{padding:8px 5px;font-size:.95rem}}
+@media (max-width:560px){#tools .tl-recipe{grid-template-columns:minmax(0,1fr);gap:0}#tools .tl-arrow{display:none}#tools .tl-out::before{content:"→ ";color:var(--accent)}
+  #tools .tl-grid{grid-template-columns:minmax(0,1fr)}#tools .tl-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}#tools .tl-stats .tl-stat{padding:8px}#tools .tl-stats .tl-stat>span:first-child{font-size:.66rem}#tools .tl-stats .tl-stat b{font-size:1.1rem}
+  #tools .tl-counter{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}#tools .tl-counter .tl-plus{grid-column:1/-1}#tools .tl-counter .tl-stat b{font-size:1.15rem}#tools .tl-subs button{padding:6px 8px;font-size:.92rem}#tools .tl-plus{min-height:64px}}
 #hp .guidelist summary{cursor:pointer;margin:2px 0 6px}#hp .ledger{min-width:760px}
 #hp .farms{display:flex;flex-direction:column;gap:6px}
 #hp .farm{border:1px solid var(--line);border-radius:3px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;background:var(--panel2)}
@@ -713,14 +810,14 @@ footer a { color: inherit; }
 <div class="wrap">
   <header>
     <div class="mark"><h1>Horadric Odds</h1><small>D2R drop calculator</small></div>
-    <nav class="modes" aria-label="Tools"><button type="button" data-mode="odds" aria-pressed="true"><span class="ml-long">Drop odds</span><span class="ml-short">Odds</span></button><button type="button" data-mode="planner" aria-pressed="false"><span class="ml-long">Build planner</span><span class="ml-short">Planner</span></button><button type="button" data-mode="xp" aria-pressed="false"><span class="ml-long">Experience</span><span class="ml-short">XP</span></button><button type="button" data-mode="help" aria-pressed="false"><span class="ml-long">How to use</span><span class="ml-short">Guide</span></button>
+    <nav class="modes" aria-label="Tools"><button type="button" data-mode="odds" aria-pressed="true"><span class="ml-long">Drop odds</span><span class="ml-short">Odds</span></button><button type="button" data-mode="planner" aria-pressed="false"><span class="ml-long">Build planner</span><span class="ml-short">Planner</span></button><button type="button" data-mode="xp" aria-pressed="false"><span class="ml-long">Experience</span><span class="ml-short">XP</span></button><button type="button" data-mode="tools" aria-pressed="false"><span class="ml-long">Tools</span><span class="ml-short">Tools</span></button><button type="button" data-mode="help" aria-pressed="false"><span class="ml-long">How to use</span><span class="ml-short">Guide</span></button>
       <div class="pricectl"><label class="pswitch"><input type="checkbox" id="priceOn"><span>diablo2.io price links</span></label><select id="priceMkt" aria-label="Market for price links"></select></div></nav>
     <div class="welcome" id="welcome" hidden><div><b>Welcome to Horadric Odds</b> — a free, fan-made Diablo II: Resurrected toolkit.</div>
       <ol><li><b>Drop odds:</b> search any item (nicknames like "shako" work) to see which monsters drop it and your chance per kill at your difficulty, players and magic find.</li>
       <li><b>Build planner:</b> open <i>Share &amp; Library</i>, pick a starter build or make your own, and spend points on <i>Skills &amp; Stats</i>.</li>
       <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item.</li></ol>
       <div class="wbtns"><button type="button" class="wbtn" id="welcomeOk">Got it</button><button type="button" class="wbtn wguide" id="welcomeGuide">Full guide →</button></div></div>
-    <div class="whatsnew" id="whatsnew" data-v="2026-11-05b" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">New <i>How to use</i> tab with a short guide to every tool. The planner's Gear tab now has an equipment panel: see your gear at any level and hover or tap an item for its stats. Links can open a tab directly, e.g. horadricodds.github.io/#how-to-use.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
+    <div class="whatsnew" id="whatsnew" data-v="2026-11-05c" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">New <i>Tools</i> tab: a Holy Grail tracker, a rune helper that shows which runewords you can make (and what to cube), a run tracker that compares your drops with the calculator, and every Horadric Cube recipe. Also new: a <i>How to use</i> guide and an equipment panel on the planner's Gear tab.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <details class="about"><summary>About &amp; credits</summary><div class="aboutbody">
       <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment.</p>
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
@@ -862,17 +959,19 @@ footer a { color: inherit; }
   <p class="xp-credit"><b>How it works.</b> Experience follows the game's rules: monster base experience by level, the player count bonus (+50% per extra player), the party bonus and level-based split, the level difference penalty, the high-level reduction from level 70 and the 8,388,607 per-kill cap. Champions give 3× (berserkers 5×), uniques, minions and super uniques 5×. Monster counts per area (regular monsters, champions, uniques and their minions, with separate counts for terror zones) come from <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a>'s Experience Calculator, which covers Hell; Nightmare uses the same monsters with its own number of elite packs, and Normal Act V keeps its own monster mix scaled to his totals. Treat clears as averages. Baal's five waves are counted, but each wave is treated as its boss plus that boss's minion type, so the Throne numbers are close rather than exact. Not counted: monsters that appear mid-fight (Fallen revived by Shamans, Vile Children from Vile Mothers and the like), because how many you get depends on how you play, and the one-time reward from the Ancients quest, since it can't be farmed. Data from <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT); rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>. Big thanks to <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a> on Reddit, whose Experience Calculator supplies the monster counts and was used to check every number here.</p>
 </div>
 </div>
+<div id="tools" hidden></div>
 <div id="help" hidden>
 <div class="hu">
   <section class="hu-intro">
     <h2>How to use Horadric Odds</h2>
-    <p>Three free tools for Diablo II: Resurrected, worked out from the game's own data. There's nothing to install or sign up for, it works on PC and phone, and everything you save stays in your browser.</p>
+    <p>Free tools for Diablo II: Resurrected, worked out from the game's own data. There's nothing to install or sign up for, it works on PC and phone, and everything you save stays in your browser.</p>
     <div class="hu-cards">
       <div class="hu-card"><h3>Drop odds</h3><p>Where an item drops and your chance per kill.</p><p class="hu-ex">“Where should I farm Shako with 300 MF?”</p><button type="button" class="hu-go" data-go="odds">Open Drop odds →</button></div>
       <div class="hu-card"><h3>Build planner</h3><p>Skills, stats and gear for a character, with a level-by-level guide.</p><p class="hu-ex">“What does my Blizzard Sorceress need for 105 FCR?”</p><button type="button" class="hu-go" data-go="planner">Open Build planner →</button></div>
       <div class="hu-card"><h3>Experience</h3><p>How long a level takes and where to level.</p><p class="hu-ex">“How many Baal runs from 92 to 93?”</p><button type="button" class="hu-go" data-go="xp">Open Experience →</button></div>
+      <div class="hu-card"><h3>Tools</h3><p>Holy Grail tracker, rune helper, run tracker and cube recipes.</p><p class="hu-ex">“What can I make with my runes?”</p><button type="button" class="hu-go" data-go="tools">Open Tools →</button></div>
     </div>
-    <nav class="hu-toc" aria-label="On this page"><a href="#hu-odds">Drop odds</a><a href="#hu-planner">Build planner</a><a href="#hu-xp">Experience</a><a href="#hu-faq">Questions</a></nav>
+    <nav class="hu-toc" aria-label="On this page"><a href="#hu-odds">Drop odds</a><a href="#hu-planner">Build planner</a><a href="#hu-xp">Experience</a><a href="#hu-tools">Tools</a><a href="#hu-faq">Questions</a></nav>
   </section>
 
   <section class="hu-sec" id="hu-odds">
@@ -926,20 +1025,32 @@ footer a { color: inherit; }
     <button type="button" class="hu-go" data-go="xp">Open Experience →</button>
   </section>
 
+
+  <section class="hu-sec" id="hu-tools">
+    <h2>Tools</h2>
+    <dl>
+      <dt>Holy Grail</dt><dd>Tick every unique, set item and rune as you find it, and watch your progress by type. Filter by armor, weapons or jewelry and by tier, or show only what you're missing. Every item has an <i>odds</i> button that shows where it drops.</dd>
+      <dt>Runes</dt><dd>Enter the runes you own. You'll see which runewords you can make right now, which ones you could make after cubing runes up (with the exact cube steps and gems), and which ones you're one rune short of.</dd>
+      <dt>Run tracker</dt><dd>Pick a boss or super unique, press <i>+1 run</i> after each run and log what drops. A timer gives your runs per hour, and your drops are compared with the drop calculator's odds, so you can see whether you're lucky or the farm just isn't worth it.</dd>
+      <dt>Cube recipes</dt><dd>Every Horadric Cube recipe from the game files: rune and gem upgrades, sockets, item upgrades, crafting, rerolls and uber keys. Search by any ingredient.</dd>
+    </dl>
+    <p class="hu-tip"><b>Back up your Grail.</b> Like saved builds, your Grail, runes and runs live in this browser. Use <i>Copy Grail code</i> to keep a backup or move it to another device.</p>
+    <div class="hu-row"><button type="button" class="hu-go" data-go="tools:grail">Holy Grail →</button><button type="button" class="hu-go" data-go="tools:runes">Runes →</button><button type="button" class="hu-go" data-go="tools:runs">Run tracker →</button><button type="button" class="hu-go" data-go="tools:cube">Cube recipes →</button></div>
+  </section>
   <section class="hu-sec" id="hu-faq">
     <h2>Questions</h2>
     <dl class="hu-faq">
       <dt>Which game version does it use?</dt><dd>D2R Reign of the Warlock by default. Drop odds can also use D2R before the expansion or classic Lord of Destruction 1.14d. Choose with <i>Game version</i>.</dd>
       <dt>How accurate are the numbers?</dt><dd>Drop chances come straight from the game's drop tables and rules, and they've been checked against other calculators. They're averages, so luck still decides any single run. How each tool works is explained at the bottom of its page.</dd>
-      <dt>Can I link someone straight to a tab?</dt><dd>Yes. Add <span class="hu-mail">#planner</span>, <span class="hu-mail">#experience</span> or <span class="hu-mail">#how-to-use</span> to the address, e.g. <span class="hu-mail">horadricodds.github.io/#how-to-use</span>. A drop odds link already carries the item and settings you picked.</dd>
-      <dt>Where is my stuff saved?</dt><dd>Settings, saved builds and leveling ticks stay in your browser on this device. Nothing is sent anywhere. Build codes are the way to move a build to another device.</dd>
+      <dt>Can I link someone straight to a tab?</dt><dd>Yes. Add <span class="hu-mail">#planner</span>, <span class="hu-mail">#experience</span>, <span class="hu-mail">#grail</span>, <span class="hu-mail">#runes</span>, <span class="hu-mail">#runs</span>, <span class="hu-mail">#cube</span> or <span class="hu-mail">#how-to-use</span> to the address, e.g. <span class="hu-mail">horadricodds.github.io/#how-to-use</span>. A drop odds link already carries the item and settings you picked.</dd>
+      <dt>Where is my stuff saved?</dt><dd>Settings, saved builds, leveling ticks, your Grail, runes and run trackers stay in your browser on this device. Nothing is sent anywhere. Build codes are the way to move a build to another device.</dd>
       <dt>The page looks out of date.</dt><dd>Your browser may be showing an old copy. Press Ctrl+F5 on PC, or pull down to refresh on a phone.</dd>
       <dt>Something's wrong, or I have an idea.</dt><dd>Use <i>Something wrong? Report it</i> at the bottom of any page. It opens a GitHub issue with your version, tab and settings already filled in, so you only need to say what happened. You can also <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">open an issue yourself</a> or email <span class="hu-mail">HoradricOdds@hotmail.com</span>. Include the item or build, your settings, and what you expected.</dd>
     </dl>
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 3:17 am</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 3:38 am</span></p>
 
 
 <script>
@@ -2245,21 +2356,21 @@ window.addEventListener('resize',queueLinks);
 (function(){
   const wrap=document.querySelector('.wrap'),hp=document.getElementById('hp'),tag=document.querySelector('.mark small');
   const btns=[...document.querySelectorAll('.modes button')];
-  const xp=document.getElementById('xp'),help=document.getElementById('help');
-  const MH={planner:'planner',xp:'experience',help:'how-to-use'},HM={planner:'planner',experience:'xp','how-to-use':'help','drop-odds':'odds'};
-  function setHash(m){try{if(m!=='odds'){const h='#'+MH[m];if(location.hash!==h)history.replaceState(null,'',h)}
+  const xp=document.getElementById('xp'),help=document.getElementById('help'),tools=document.getElementById('tools');
+  const MH={planner:'planner',xp:'experience',help:'how-to-use'},HM={planner:'planner',experience:'xp','how-to-use':'help','drop-odds':'odds',tools:'tools',grail:'tools',runes:'tools',runs:'tools',cube:'tools'};
+  function setHash(m){try{if(m==='tools'&&!window.__toolsSub&&HM[location.hash.slice(1)]==='tools')return;if(m!=='odds'){const h='#'+(m==='tools'?(window.__toolsSub||'grail'):MH[m]);if(location.hash!==h)history.replaceState(null,'',h)}
     else if(HM[location.hash.slice(1)]){history.replaceState(null,'',location.pathname+location.search);if(window.__oddsSync)window.__oddsSync()}}catch(e){}}
-  function set(m){if(!['odds','planner','xp','help'].includes(m))m='odds';wrap.classList.toggle('mode-planner',m!=='odds');hp.hidden=m!=='planner';if(help)help.hidden=m!=='help';if(xp){xp.hidden=m!=='xp';if(m==='xp'&&window.__xpShow)window.__xpShow()}
+  function set(m,sub){if(!['odds','planner','xp','help','tools'].includes(m))m='odds';wrap.classList.toggle('mode-planner',m!=='odds');hp.hidden=m!=='planner';if(help)help.hidden=m!=='help';if(tools){tools.hidden=m!=='tools';if(m==='tools'&&window.__toolsShow)window.__toolsShow(sub)}if(xp){xp.hidden=m!=='xp';if(m==='xp'&&window.__xpShow)window.__xpShow()}
     btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===m)));
-    if(tag)tag.textContent=m==='planner'?'D2R build planner':m==='xp'?'D2R experience calculator':m==='help'?'How to use':'D2R drop calculator';
+    if(tag)tag.textContent=m==='planner'?'D2R build planner':m==='xp'?'D2R experience calculator':m==='help'?'How to use':m==='tools'?'D2R tools':'D2R drop calculator';
     try{localStorage.setItem('horadric-mode',m)}catch(e){}setHash(m)}
   btns.forEach(b=>b.addEventListener('click',()=>{set(b.dataset.mode);window.scrollTo(0,0)}));
-  if(help)help.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){set(g.dataset.go);window.scrollTo(0,0);return}
+  if(help)help.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){const[gm,gs]=g.dataset.go.split(':');set(gm,gs);window.scrollTo(0,0);return}
     const a=e.target.closest('.hu-toc a');if(a){e.preventDefault();const s=document.querySelector(a.getAttribute('href'));if(s)s.scrollIntoView({behavior:'smooth',block:'start'})}});
   let m='odds';try{m=localStorage.getItem('horadric-mode')||'odds'}catch(e){}
   const hm=HM[location.hash.slice(1)];if(hm)m=hm;else if(location.hash.length>1)m='odds';
   set(m);
-  window.addEventListener('hashchange',()=>{const h=HM[location.hash.slice(1)];if(h){set(h);window.scrollTo(0,0)}});
+  window.addEventListener('hashchange',()=>{const k=location.hash.slice(1),h=HM[k];if(h){set(h,h==='tools'&&k!=='tools'?k:undefined);window.scrollTo(0,0)}});
   const wl=document.getElementById('welcome');let seen=false;try{seen=!!localStorage.getItem('horadric-welcome')}catch(e){}if(wl&&!seen)wl.hidden=false;
   const wok=document.getElementById('welcomeOk');if(wok)wok.addEventListener('click',()=>{wl.hidden=true;try{localStorage.setItem('horadric-welcome','1')}catch(e){}});
   const wgd=document.getElementById('welcomeGuide');if(wgd)wgd.addEventListener('click',()=>{wl.hidden=true;try{localStorage.setItem('horadric-welcome','1')}catch(e){}const hb=document.querySelector('.modes button[data-mode="help"]');if(hb)hb.click()});
@@ -3648,7 +3759,7 @@ const DATA = (() => {
     if (st.g && mode !== "gamble") setMode("gamble");
     return true;
   }
-  const TAB_HASH = /^#(planner|experience|how-to-use|drop-odds)$/;
+  const TAB_HASH = /^#(planner|experience|how-to-use|drop-odds|tools|grail|runes|runs|cube)$/;
   window.addEventListener("hashchange", () => { if (location.hash !== lastHash && !TAB_HASH.test(location.hash)) applyHash(location.hash); });
   window.__oddsSync = () => { lastHash = ""; writeHash(); };
   window.__oddsHas = (id) => byId.has(id);
@@ -4802,6 +4913,305 @@ const DATA = (() => {
   const upd=()=>{try{a.href=build()}catch(e){}};
   ['pointerdown','focus','mouseenter'].forEach(ev=>a.addEventListener(ev,upd));a.addEventListener('click',upd);
 })();
+</script>
+<script>
+/* ---- Tools tab: Holy Grail tracker, rune & cube helper, run tracker, cube recipes.
+   Item lists and drop chances come from the same game data (DATA) and engine (DropEngine) as the drop calculator.
+   Everything a player enters is kept in this browser (localStorage). ---- */
+(function(){
+"use strict";
+const root=document.getElementById('tools');if(!root||typeof DATA==='undefined'||typeof DropEngine==='undefined')return;
+const E=DropEngine(DATA);
+const CUBE=[["Rune upgrades", "3 El Runes", "Eld Rune"], ["Rune upgrades", "3 Eld Runes", "Tir Rune"], ["Rune upgrades", "3 Tir Runes", "Nef Rune"], ["Rune upgrades", "3 Nef Runes", "Eth Rune"], ["Rune upgrades", "3 Eth Runes", "Ith Rune"], ["Rune upgrades", "3 Ith Runes", "Tal Rune"], ["Rune upgrades", "3 Tal Runes", "Ral Rune"], ["Rune upgrades", "3 Ral Runes", "Ort Rune"], ["Rune upgrades", "3 Ort Runes", "Thul Rune"], ["Rune upgrades", "3 Thul Runes + 1 Chipped Topaz", "Amn Rune"], ["Rune upgrades", "3 Amn Runes + 1 Chipped Amethyst", "Sol Rune"], ["Rune upgrades", "3 Sol Runes + 1 Chipped Sapphire", "Shael Rune"], ["Rune upgrades", "3 Shael Runes + 1 Chipped Ruby", "Dol Rune"], ["Rune upgrades", "3 Dol Runes + 1 Chipped Emerald", "Hel Rune"], ["Rune upgrades", "3 Hel Runes + 1 Chipped Diamond", "Io Rune"], ["Rune upgrades", "3 Io Runes + 1 Flawed Topaz", "Lum Rune"], ["Rune upgrades", "3 Lum Runes + 1 Flawed Amethyst", "Ko Rune"], ["Rune upgrades", "3 Ko Runes + 1 Flawed Sapphire", "Fal Rune"], ["Rune upgrades", "3 Fal Runes + 1 Flawed Ruby", "Lem Rune"], ["Rune upgrades", "3 Lem Runes + 1 Flawed Emerald", "Pul Rune"], ["Rune upgrades", "2 Pul Runes + 1 Flawed Diamond", "Um Rune"], ["Rune upgrades", "2 Um Runes + 1 Topaz", "Mal Rune"], ["Rune upgrades", "2 Mal Runes + 1 Amethyst", "Ist Rune"], ["Rune upgrades", "2 Ist Runes + 1 Sapphire", "Gul Rune"], ["Rune upgrades", "2 Gul Runes + 1 Ruby", "Vex Rune"], ["Rune upgrades", "2 Vex Runes + 1 Emerald", "Ohm Rune"], ["Rune upgrades", "2 Ohm Runes + 1 Diamond", "Lo Rune"], ["Rune upgrades", "2 Lo Runes + 1 Flawless Topaz", "Sur Rune"], ["Rune upgrades", "2 Sur Runes + 1 Flawless Amethyst", "Ber Rune"], ["Rune upgrades", "2 Ber Runes + 1 Flawless Sapphire", "Jah Rune"], ["Rune upgrades", "2 Jah Runes + 1 Flawless Ruby", "Cham Rune"], ["Rune upgrades", "2 Cham Runes + 1 Flawless Emerald", "Zod Rune"], ["Gem upgrades", "3 Chipped Amethysts", "Flawed Amethyst"], ["Gem upgrades", "3 Flawed Amethysts", "Amethyst"], ["Gem upgrades", "3 Amethysts", "Flawless Amethyst"], ["Gem upgrades", "3 Flawless Amethysts", "Perfect Amethyst"], ["Gem upgrades", "3 Chipped Rubies", "Flawed Ruby"], ["Gem upgrades", "3 Flawed Rubies", "Ruby"], ["Gem upgrades", "3 Rubies", "Flawless Ruby"], ["Gem upgrades", "3 Flawless Rubies", "Perfect Ruby"], ["Gem upgrades", "3 Chipped Sapphires", "Flawed Sapphire"], ["Gem upgrades", "3 Flawed Sapphires", "Sapphire"], ["Gem upgrades", "3 Sapphires", "Flawless Sapphire"], ["Gem upgrades", "3 Flawless Sapphires", "Perfect Sapphire"], ["Gem upgrades", "3 Chipped Topazes", "Flawed Topaz"], ["Gem upgrades", "3 Flawed Topazes", "Topaz"], ["Gem upgrades", "3 Topazes", "Flawless Topaz"], ["Gem upgrades", "3 Flawless Topazes", "Perfect Topaz"], ["Gem upgrades", "3 Chipped Emeralds", "Flawed Emerald"], ["Gem upgrades", "3 Flawed Emeralds", "Emerald"], ["Gem upgrades", "3 Emeralds", "Flawless Emerald"], ["Gem upgrades", "3 Flawless Emeralds", "Perfect Emerald"], ["Gem upgrades", "3 Chipped Diamonds", "Flawed Diamond"], ["Gem upgrades", "3 Flawed Diamonds", "Diamond"], ["Gem upgrades", "3 Diamonds", "Flawless Diamond"], ["Gem upgrades", "3 Flawless Diamonds", "Perfect Diamond"], ["Gem upgrades", "3 Chipped Skulls", "Flawed Skull"], ["Gem upgrades", "3 Flawed Skulls", "Skull"], ["Gem upgrades", "3 Skulls", "Flawless Skull"], ["Gem upgrades", "3 Flawless Skulls", "Perfect Skull"], ["Item upgrades", "1 Eld Rune + 1 Chipped Gem (Any) + 1 Low Quality Weapon", "Normal Weapon"], ["Item upgrades", "1 El Rune + 1 Chipped Gem (Any) + 1 Low Quality Armor", "Normal Armor"], ["Item upgrades", "1 Ral Rune + 1 Sol Rune + 1 Perfect Emerald + 1 Normal Unique Weapon", "Exceptional Unique Weapon"], ["Item upgrades", "1 Tal Rune + 1 Shael Rune + 1 Perfect Diamond + 1 Normal Unique Armor", "Exceptional Unique Armor"], ["Item upgrades", "1 Lum Rune + 1 Pul Rune + 1 Perfect Emerald + 1 Exceptional Unique Weapon", "Elite Unique Weapon"], ["Item upgrades", "1 Ko Rune + 1 Lem Rune + 1 Perfect Diamond + 1 Exceptional Unique Armor", "Elite Unique Armor"], ["Item upgrades", "1 Ort Rune + 1 Amn Rune + 1 Perfect Sapphire + 1 Normal Rare Weapon", "Exceptional Rare Weapon"], ["Item upgrades", "1 Ral Rune + 1 Thul Rune + 1 Perfect Amethyst + 1 Normal Rare Armor", "Exceptional Rare Armor"], ["Item upgrades", "1 Fal Rune + 1 Um Rune + 1 Perfect Sapphire + 1 Exceptional Rare Weapon", "Elite Rare Weapon"], ["Item upgrades", "1 Ko Rune + 1 Pul Rune + 1 Perfect Amethyst + 1 Exceptional Rare Armor", "Elite Rare Armor"], ["Sockets", "3 Gems + 1 Socketed Weapon", "Socketed Magic Weapon"], ["Sockets", "3 Flawless Gems + 1 Magic Weapon", "Socketed Magic Weapon"], ["Sockets", "3 Perfect Skull + 1 Rare Item + 1 Stone of Jordan", "Add 1 Socket to Rare Item"], ["Sockets", "1 Tal Rune + 1 Thul Rune + 1 Perfect Topaz + 1 Normal Torso Armor", "Socketed Torso Armor"], ["Sockets", "1 Ral Rune + 1 Amn Rune + 1 Perfect Amethyst + 1 Normal Weapon", "Socketed Weapon"], ["Sockets", "1 Ral Rune + 1 Thul Rune + 1 Perfect Sapphire + 1 Normal Helm", "Socketed Helm"], ["Sockets", "1 Tal Rune + 1 Amn Rune + 1 Perfect Ruby + 1 Normal Shield", "Socketed Shield"], ["Sockets", "1 Hel Rune + 1 Scroll of Town Portal + 1 Socketed Item", "Clear Sockets on Item"], ["Sockets", "3 Chipped Gems (Any) + 1 Magic Weapon", "Socketed Magic Weapon"], ["Crafted items", "1 Magic Full Helm + 1 Jewel + 1 Ith Rune + 1 Perfect Sapphire", "Hit Power Helm"], ["Crafted items", "1 Magic Chain Boots + 1 Jewel + 1 Ral Rune + 1 Perfect Sapphire", "Hit Power Boots"], ["Crafted items", "1 Magic Chain Gloves + 1 Jewel + 1 Ort Rune + 1 Perfect Sapphire", "Hit Power Gloves"], ["Crafted items", "1 Magic Heavy Belt + 1 Jewel + 1 Tal Rune + 1 Perfect Sapphire", "Hit Power Belt"], ["Crafted items", "1 Magic Gothic Shield + 1 Jewel + 1 Eth Rune + 1 Perfect Sapphire", "Hit Power Shield"], ["Crafted items", "1 Magic Field Plate + 1 Jewel + 1 Nef Rune + 1 Perfect Sapphire", "Hit Power Body"], ["Crafted items", "1 Magic Amulet + 1 Jewel + 1 Thul Rune + 1 Perfect Sapphire", "Hit Power Amulet"], ["Crafted items", "1 Magic Ring + 1 Jewel + 1 Amn Rune + 1 Perfect Sapphire", "Hit Power Ring"], ["Crafted items", "1 Magic Blunt Weapon + 1 Jewel + 1 Tir Rune + 1 Perfect Sapphire", "Hit Power Weapon"], ["Crafted items", "1 Magic Helm + 1 Jewel + 1 Ral Rune + 1 Perfect Ruby", "Blood Helm"], ["Crafted items", "1 Magic Light Plated Boots + 1 Jewel + 1 Eth Rune + 1 Perfect Ruby", "Blood Boots"], ["Crafted items", "1 Magic Heavy Gloves + 1 Jewel + 1 Nef Rune + 1 Perfect Ruby", "Blood Gloves"], ["Crafted items", "1 Magic Belt + 1 Jewel + 1 Tal Rune + 1 Perfect Ruby", "Blood Belt"], ["Crafted items", "1 Magic Spiked Shield + 1 Jewel + 1 Ith Rune + 1 Perfect Ruby", "Blood Shield"], ["Crafted items", "1 Magic Plate Mail + 1 Jewel + 1 Thul Rune + 1 Perfect Ruby", "Blood Body"], ["Crafted items", "1 Magic Amulet + 1 Jewel + 1 Amn Rune + 1 Perfect Ruby", "Blood Amulet"], ["Crafted items", "1 Magic Ring + 1 Jewel + 1 Sol Rune + 1 Perfect Ruby", "Blood Ring"], ["Crafted items", "1 Magic Axe + 1 Jewel + 1 Ort Rune + 1 Perfect Ruby", "Blood Weapon"], ["Crafted items", "1 Magic Mask + 1 Jewel + 1 Nef Rune + 1 Perfect Amethyst", "Caster Helm"], ["Crafted items", "1 Magic Boots + 1 Jewel + 1 Thul Rune + 1 Perfect Amethyst", "Caster Boots"], ["Crafted items", "1 Magic Leather Gloves + 1 Jewel + 1 Ort Rune + 1 Perfect Amethyst", "Caster Gloves"], ["Crafted items", "1 Magic Light Belt + 1 Jewel + 1 Ith Rune + 1 Perfect Amethyst", "Caster Belt"], ["Crafted items", "1 Magic Small Shield + 1 Jewel + 1 Eth Rune + 1 Perfect Amethyst", "Caster Shield"], ["Crafted items", "1 Magic Light Plate + 1 Jewel + 1 Tal Rune + 1 Perfect Amethyst", "Caster Body"], ["Crafted items", "1 Magic Amulet + 1 Jewel + 1 Ral Rune + 1 Perfect Amethyst", "Caster Amulet"], ["Crafted items", "1 Magic Ring + 1 Jewel + 1 Amn Rune + 1 Perfect Amethyst", "Caster Ring"], ["Crafted items", "1 Magic Rod + 1 Jewel + 1 Tir Rune + 1 Perfect Amethyst", "Caster Weapon"], ["Crafted items", "1 Magic Crown + 1 Jewel + 1 Ith Rune + 1 Perfect Emerald", "Safety Helm"], ["Crafted items", "1 Magic Plated Boots + 1 Jewel + 1 Ort Rune + 1 Perfect Emerald", "Safety Boots"], ["Crafted items", "1 Magic Gauntlets + 1 Jewel + 1 Ral Rune + 1 Perfect Emerald", "Safety Gloves"], ["Crafted items", "1 Magic Sash + 1 Jewel + 1 Tal Rune + 1 Perfect Emerald", "Safety Belt"], ["Crafted items", "1 Magic Kite Shield + 1 Jewel + 1 Nef Rune + 1 Perfect Emerald", "Safety Shield"], ["Crafted items", "1 Magic Breast Plate + 1 Jewel + 1 Eth Rune + 1 Perfect Emerald", "Safety Body"], ["Crafted items", "1 Magic Amulet + 1 Jewel + 1 Thul Rune + 1 Perfect Emerald", "Safety Amulet"], ["Crafted items", "1 Magic Ring + 1 Jewel + 1 Amn Rune + 1 Perfect Emerald", "Safety Ring"], ["Crafted items", "1 Magic Spear + 1 Jewel + 1 Sol Rune + 1 Perfect Emerald", "Safety Weapon"], ["Rerolls & other", "6 Perfect Gems (1 of each type) + 1 Magic Amulet", "Prismatic Amulet"], ["Rerolls & other", "1 Magic Ring + 1 Perfect Ruby + 1 Exploding Potion", "Garnet Ring"], ["Rerolls & other", "1 Magic Ring + 1 Perfect Sapphire + 1 Thawing Potion", "Cobalt Ring"], ["Rerolls & other", "1 Magic Ring + 1 Perfect Topaz + 1 Rejuvenation Potion", "Coral Ring"], ["Rerolls & other", "1 Magic Ring + 1 Emerald + 1 Antidote Potion", "Jade Ring"], ["Rerolls & other", "1 Axe (Any) + 1 Dagger (Any)", "Throwing Axe"], ["Rerolls & other", "1 Spear (Any) + 1 Arrows", "Javelins"], ["Rerolls & other", "3 Magic Rings", "Magic Amulet"], ["Rerolls & other", "3 Magic Amulets", "Magic Ring"], ["Rerolls & other", "1 Magic Shield + 1 Spiked Club + 2 Skulls (Any)", "Magic Shield of Spikes"], ["Rerolls & other", "4 Healing Potions (Any) + 1 Ruby + 1 Magic Sword", "Sword of the Leech"], ["Rerolls & other", "1 Diamond (Any) + 1 Kris + 1 Staff + 1 Belt", "Savage Polearm"], ["Rerolls & other", "2 Arrows", "Bolts"], ["Rerolls & other", "2 Bolts", "Arrows"], ["Rerolls & other", "3 Perfect Gems (Any) + 1 Magic Item", "Re-rolled Magic Item"], ["Rerolls & other", "6 Perfect Skulls + 1 Rare Item", "Low Quality Rare Item"], ["Rerolls & other", "1 Perfect Skull + 1 Rare Item + 1 Stone of Jordan", "High Quality Rare Item"], ["Repair & recharge", "1 Ort Rune + 1 Weapon", "Fully Repaired Weapon"], ["Repair & recharge", "1 Ral Rune + 1 Armor", "Fully Repaired Armor"], ["Repair & recharge", "1 Ort Rune + 1 Chipped Gem (Any) + 1 Weapon", "Fully Repaired and Recharged Weapon"], ["Repair & recharge", "1 Ral Rune + 1 Flawed Gem (Any) + 1 Armor", "Fully Repaired and Recharged Armor"], ["Potions", "3 Healing Potions (Any) + 3 Mana Potions (Any) + 1 Gem (Any)", "Full Rejuvenation Potion"], ["Potions", "3 Healing Potions (Any) + 3 Mana Potions (Any) + 1 Chipped Gem (Any)", "Rejuvenation Potion"], ["Potions", "3 Rejuvenation Potions", "Full Rejuvenation Potion"], ["Potions", "1 Strangling Gas Potion + 1 Healing Potion (Any)", "Antidote Potion"], ["Quests, portals & ubers", "1 Staff of Kings + 1 Amulet of the Viper", "Horadric Staff"], ["Quests, portals & ubers", "1 Khalim's Flail + 1 Khalim's Heart + 1 Khalim's Eye + 1 Khalim's Brain", "Khalim's Will"], ["Quests, portals & ubers", "1 Wirt's Leg + 1 Tome of Town Portal", "Portal to The Secret Cow Level"], ["Quests, portals & ubers", "1 Key of Terror + 1 Key of Hate + 1 Key of Destruction", "Portal to Matron's Den/Forgotten Sands/Furnace of Pain (Random)"], ["Quests, portals & ubers", "1 Diablo's Horn + 1 Baal's Eye + 1 Mephisto's Brain", "Portal to Tristram (Pandemonium Finale)"], ["Quests, portals & ubers", "1 Twisted Essence of Suffering + 1 Charged Essence of Hatred + 1 Burning Essence of Terror + 1 Festering Essence of Destruction", "Token of Absolution"], ["Quests, portals & ubers", "1 Talic's Anguish + 1 Korlic's Pain + 1 Madawc's Ire + 1 Bul-Kathos' Nightmare + 1 Worusk's End", "Portal to the Colossal Summit (Hell only)"], ["Reign of the Warlock", "1 Ko Rune + 1 Perfect Emerald + 1 Western Worldstone Shard + 1 Latent Rotting Fissure", "Renewed Rotting Fissure"], ["Reign of the Warlock", "1 Lum Rune + 1 Perfect Sapphire + 1 Eastern Worldstone Shard + 1 Latent Cold Rupture", "Renewed Cold Rupture"], ["Reign of the Warlock", "1 Fal Rune + 1 Perfect Topaz + 1 Southern Worldstone Shard + 1 Latent Crack of the Heavens", "Renewed Crack of the Heavens"], ["Reign of the Warlock", "1 Io Rune + 1 Perfect Ruby + 1 Deep Worldstone Shard + 1 Latent Flame Rift", "Renewed Flame Rift"], ["Reign of the Warlock", "1 Pul Rune + 1 Perfect Amethyst + 1 Northern Worldstone Shard + 1 Latent Bone Break", "Renewed Bone Break"], ["Reign of the Warlock", "1 Mal Rune + 1 Perfect Diamond + 1 Southern Worldstone Shard + 1 Deep Worldstone Shard + 1 Northern Worldstone Shard + 1 Latent Black Cleft", "Renewed Black Cleft"]];            // [category, inputs, output] from the game's cube recipes
+const RUNEUP=[[0, 3, null], [1, 3, null], [2, 3, null], [3, 3, null], [4, 3, null], [5, 3, null], [6, 3, null], [7, 3, null], [8, 3, null], [9, 3, "Chipped Topaz"], [10, 3, "Chipped Amethyst"], [11, 3, "Chipped Sapphire"], [12, 3, "Chipped Ruby"], [13, 3, "Chipped Emerald"], [14, 3, "Chipped Diamond"], [15, 3, "Flawed Topaz"], [16, 3, "Flawed Amethyst"], [17, 3, "Flawed Sapphire"], [18, 3, "Flawed Ruby"], [19, 3, "Flawed Emerald"], [20, 2, "Flawed Diamond"], [21, 2, "Topaz"], [22, 2, "Amethyst"], [23, 2, "Sapphire"], [24, 2, "Ruby"], [25, 2, "Emerald"], [26, 2, "Diamond"], [27, 2, "Flawless Topaz"], [28, 2, "Flawless Amethyst"], [29, 2, "Flawless Sapphire"], [30, 2, "Flawless Ruby"], [31, 2, "Flawless Emerald"]];        // [from rune index, how many, gem or null] -> next rune
+const RUNES=["El","Eld","Tir","Nef","Eth","Ith","Tal","Ral","Ort","Thul","Amn","Sol","Shael","Dol","Hel","Io","Lum","Ko","Fal","Lem","Pul","Um","Mal","Ist","Gul","Vex","Ohm","Lo","Sur","Ber","Jah","Cham","Zod"];
+const RI=Object.fromEntries(RUNES.map((r,i)=>[r,i]));
+const DIFF=['Normal','Nightmare','Hell'];
+const $=s=>root.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+const slug=s=>s.toLowerCase().normalize('NFKD').replace(/['’]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const load=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k)||'null');return v==null?d:v}catch(e){return d}};
+const store=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const oneIn=p=>p>0?'1 in '+fmt(1/p):'—';
+const today=()=>new Date().toISOString().slice(0,10);
+
+/* ===================== item lists ===================== */
+const ARMOR=new Set(['helm','tors','shie','glov','boot','belt','circ','phlm','pelt','ashd','head','grim']);
+const JEWEL=new Set(['ring','amul','jewl','cjwl','lcha','mcha','scha']);
+const EXC=new Set(),ELI=new Set();Object.values(DATA.items).forEach(it=>{if(it.uc)EXC.add(it.uc);if(it.xc)ELI.add(it.xc)});
+const tierOf=c=>ELI.has(c)?'Elite':EXC.has(c)?'Exceptional':'Normal';
+const GRAIL=[];
+{const seen=new Map();
+ DATA.uniques.forEach(u=>{if(u.sp===0||seen.has(u.n))return;const it=DATA.items[u.c]||{};const t=it.t||'';
+   const cat=JEWEL.has(t)?'Jewelry & charms':ARMOR.has(t)?'Armor':'Weapons';
+   const g={id:'u-'+slug(u.n),n:u.n,kind:'u',cat,tier:JEWEL.has(t)?'':tierOf(u.c),base:it.n||'',l:u.l};seen.set(u.n,g);GRAIL.push(g)});
+ DATA.sets.forEach(s=>{const it=DATA.items[s.c]||{};GRAIL.push({id:'s-'+slug(s.n),n:s.n,kind:'s',cat:s.set,tier:'',base:it.n||'',l:s.l})});
+ RUNES.forEach((r,i)=>GRAIL.push({id:'r-'+slug(r+' Rune'),n:r+' Rune',kind:'r',cat:'Runes',tier:'',base:'',l:i}));}
+const GBY=new Map(GRAIL.map(g=>[g.id,g]));
+const KINDN={u:'Uniques',s:'Set items',r:'Runes'};
+
+/* ===================== shared helpers ===================== */
+function goOdds(id){const b=document.querySelector('.modes button[data-mode="odds"]');if(b)b.click();
+  if(typeof window.__oddsGo==='function')window.__oddsGo(id);else location.hash=id}
+const oddsBtn=id=>window.__oddsHas&&window.__oddsHas(id)?`<button type="button" class="tl-odds" data-odds="${esc(id)}">odds</button>`:'';
+async function packCode(prefix,obj){const json=JSON.stringify(obj);
+  try{if(typeof CompressionStream!=='undefined'){const s=new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw'));
+    const buf=new Uint8Array(await new Response(s).arrayBuffer());let bin='';buf.forEach(b=>bin+=String.fromCharCode(b));
+    return prefix+'1.'+btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}}catch(e){}
+  return prefix+'0.'+btoa(unescape(encodeURIComponent(json))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+async function unpackCode(prefix,text){const m=String(text).match(new RegExp(prefix+'([01])\\.([A-Za-z0-9_-]+)'));if(!m)throw Error('No code found. Codes start with '+prefix+'.');
+  const b64=m[2].replace(/-/g,'+').replace(/_/g,'/');const bin=atob(b64+'==='.slice((b64.length+3)%4));
+  if(m[1]==='0')return JSON.parse(decodeURIComponent(escape(bin)));
+  if(typeof DecompressionStream==='undefined')throw Error('This browser can\'t read compressed codes.');
+  const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));const s=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+  return JSON.parse(await new Response(s).text())}
+async function copyText(text,btn){let ok=false;try{await navigator.clipboard.writeText(text);ok=true}catch(e){}
+  if(btn){const o=btn.textContent;btn.textContent=ok?'Copied':'Select and copy the code';setTimeout(()=>btn.textContent=o,1600)}return ok}
+
+/* ===================== sub-tabs ===================== */
+const SUBS=[['grail','Holy Grail'],['runes','Runes'],['runs','Run tracker'],['cube','Cube recipes']];
+let SUB=load('horadric-tools-sub','grail');{const h=location.hash.slice(1);if(SUBS.some(s=>s[0]===h))SUB=h}if(!SUBS.some(s=>s[0]===SUB))SUB='grail';
+function setSub(s,keepHash){SUB=s;store('horadric-tools-sub',s);window.__toolsSub=s;
+  if(!keepHash){try{if(!root.hidden&&location.hash!=='#'+s)history.replaceState(null,'','#'+s)}catch(e){}}
+  render()}
+window.__toolsSub=SUB;
+window.__toolsShow=s=>{if(s&&SUBS.some(x=>x[0]===s)){SUB=s;store('horadric-tools-sub',s);window.__toolsSub=s}render();startTick()};
+
+function render(){
+  const nav=`<nav class="tl-subs" role="tablist" aria-label="Tools">${SUBS.map(([k,n])=>`<button type="button" role="tab" data-sub="${k}" aria-selected="${k===SUB}">${n}</button>`).join('')}</nav>`;
+  const body=SUB==='grail'?grailHTML():SUB==='runes'?runesHTML():SUB==='runs'?runsHTML():cubeHTML();
+  const focus=document.activeElement&&root.contains(document.activeElement)&&document.activeElement.id;
+  const pos=focus&&document.activeElement.selectionStart;
+  root.innerHTML=`<div class="tl">${nav}${body}</div>`;
+  if(focus){const f=document.getElementById(focus);if(f){f.focus();try{f.setSelectionRange(pos,pos)}catch(e){}}}
+}
+
+const OPEN=new Map();const phone=()=>{try{return matchMedia('(max-width:560px)').matches}catch(e){return false}};
+const isOpen=(k,force)=>force||(OPEN.has(k)?OPEN.get(k):!phone());
+/* ===================== Holy Grail ===================== */
+let G=load('horadric-grail',{f:{}});if(!G||typeof G.f!=='object')G={f:{}};
+const gUI=load('horadric-grail-ui',{k:'u',st:'all',cat:'all',tier:'all',q:''});
+let gMsg='',gImport=false,gClear=false;
+const saveG=()=>store('horadric-grail',G),saveGUI=()=>store('horadric-grail-ui',gUI);
+function gStats(kind){const xs=GRAIL.filter(g=>!kind||g.kind===kind);const f=xs.filter(g=>G.f[g.id]).length;return [f,xs.length]}
+function bar(f,t){const p=t?Math.round(f/t*1000)/10:0;return `<div class="tl-bar" role="img" aria-label="${p}%"><b style="width:${p}%"></b></div>`}
+function grailHTML(){
+  const [fa,ta]=gStats();
+  const sum=['u','s','r'].map(k=>{const [f,t]=gStats(k);return `<button type="button" class="tl-stat${gUI.k===k?' on':''}" data-gk="${k}"><span>${KINDN[k]}</span><b>${f}<i> / ${t}</i></b>${bar(f,t)}</button>`}).join('');
+  const recent=Object.entries(G.f).sort((a,b)=>String(b[1]).localeCompare(String(a[1]))).slice(0,5).map(([id,d])=>GBY.get(id)?`<span class="q-${GBY.get(id).kind}">${esc(GBY.get(id).n)}</span>`:'').filter(Boolean).join(', ');
+  let xs=GRAIL.filter(g=>g.kind===gUI.k);
+  const cats=[...new Set(xs.map(g=>g.cat))];
+  if(gUI.k==='u'&&gUI.cat!=='all')xs=xs.filter(g=>g.cat===gUI.cat);
+  if(gUI.k==='u'&&gUI.tier!=='all')xs=xs.filter(g=>g.tier===gUI.tier);
+  if(gUI.st==='miss')xs=xs.filter(g=>!G.f[g.id]);if(gUI.st==='found')xs=xs.filter(g=>G.f[g.id]);
+  const q=gUI.q.trim().toLowerCase();if(q)xs=xs.filter(g=>(g.n+' '+g.base+' '+g.cat).toLowerCase().includes(q));
+  const chip=(attr,v,label,cur)=>`<button type="button" class="tl-chip" data-${attr}="${v}" aria-pressed="${cur===v}">${label}</button>`;
+  const filters=`<div class="tl-filters">
+    <div class="tl-row">${chip('gst','all','All',gUI.st)}${chip('gst','miss','Missing',gUI.st)}${chip('gst','found','Found',gUI.st)}
+      <input id="g-q" type="search" placeholder="Search ${KINDN[gUI.k].toLowerCase()}" value="${esc(gUI.q)}" aria-label="Search"></div>
+    ${gUI.k==='u'?`<div class="tl-row">${chip('gcat','all','All types',gUI.cat)}${['Armor','Weapons','Jewelry & charms'].map(c=>chip('gcat',c,c,gUI.cat)).join('')}</div>
+      <div class="tl-row">${chip('gtier','all','All tiers',gUI.tier)}${['Normal','Exceptional','Elite'].map(c=>chip('gtier',c,c,gUI.tier)).join('')}</div>`:''}</div>`;
+  let list='';
+  const row=g=>`<label class="tl-item${G.f[g.id]?' got':''}"><input type="checkbox" data-gid="${esc(g.id)}" ${G.f[g.id]?'checked':''}><span class="tl-n q-${g.kind}">${esc(g.kind==='r'?g.n.replace(/ Rune$/,''):g.n)}</span><span class="tl-sub">${esc([g.base,g.kind==='r'?'':'L'+g.l].filter(Boolean).join(' · '))}${G.f[g.id]&&G.f[g.id]!==1?` · found ${esc(G.f[g.id])}`:''}</span>${oddsBtn(g.id)}</label>`;
+  if(!xs.length)list=`<p class="tl-empty">${gUI.st==='miss'&&!q?'Nothing missing here. Well done!':'No items match.'}</p>`;
+  else if(gUI.k==='r')list=`<div class="tl-grid runes">${xs.map(row).join('')}</div>`;
+  else{const groups=new Map();xs.forEach(g=>{const k=gUI.k==='u'?g.cat+(g.tier?' · '+g.tier:''):g.cat;(groups.get(k)||groups.set(k,[]).get(k)).push(g)});
+    const order=gUI.k==='u'?(a,b)=>{const O=['Armor','Weapons','Jewelry & charms'],T=['Normal','Exceptional','Elite',''];const[ca,ta]=a.split(' · '),[cb,tb]=b.split(' · ');return O.indexOf(ca)-O.indexOf(cb)||T.indexOf(ta||'')-T.indexOf(tb||'')}:(a,b)=>a.localeCompare(b);
+    list=[...groups.keys()].sort(order).map(k=>{const all=GRAIL.filter(g=>g.kind===gUI.k&&(gUI.k==='u'?g.cat+(g.tier?' · '+g.tier:''):g.cat)===k);const f=all.filter(g=>G.f[g.id]).length;
+      return `<details class="tl-group" data-gkey="g|${esc(k)}" ${isOpen('g|'+k,!!q)?'open':''}><summary><h4>${esc(k)} <span class="tl-count">${f} / ${all.length}</span></h4></summary><div class="tl-grid">${groups.get(k).map(row).join('')}</div></details>`}).join('')}
+  return `<section class="tl-card"><div class="tl-head"><h3>Holy Grail</h3><span class="tl-big">${fa} / ${ta} <i>(${ta?Math.round(fa/ta*1000)/10:0}%)</i></span></div>
+    ${bar(fa,ta)}<div class="tl-stats">${sum}</div>
+    ${recent?`<p class="tl-note">Latest finds: ${recent}</p>`:'<p class="tl-note">Tick items as you find them. Each one links to where it drops. Your list is saved in this browser.</p>'}</section>
+  <section class="tl-card">${filters}${list}</section>
+  <section class="tl-card"><h3>Back up or move your Grail</h3><p class="tl-note">Your Grail lives in this browser only. Copy the code somewhere safe, or paste it on another device to bring your finds across. Importing adds to what's already ticked.</p>
+    <div class="tl-row"><button type="button" class="tl-btn" data-act="g-export">Copy Grail code</button><button type="button" class="tl-btn" data-act="g-import-open">Import a code</button>
+    ${gClear?`<span class="tl-warn">Untick everything? <button type="button" class="tl-btn danger" data-act="g-clear-yes">Yes, clear</button><button type="button" class="tl-btn" data-act="g-clear-no">Cancel</button></span>`:`<button type="button" class="tl-btn ghost" data-act="g-clear">Clear Grail</button>`}</div>
+    ${gImport?`<textarea id="g-imp" rows="3" placeholder="HOG1.…" aria-label="Grail code"></textarea><div class="tl-row"><button type="button" class="tl-btn primary" data-act="g-import">Import</button><button type="button" class="tl-btn" data-act="g-import-close">Cancel</button></div>`:''}
+    ${gMsg?`<p class="tl-msg">${esc(gMsg)}</p>`:''}<output id="g-code" class="tl-code" hidden></output></section>`;
+}
+
+/* ===================== Runes & cube helper ===================== */
+const TYPEN={tors:'Body armor',helm:'Helm',shld:'Shield',miss:'Missile weapon',weap:'Weapon',mele:'Melee weapon',h2h:'Claw',pala:'Paladin shield',spea:'Spear',knif:'Dagger',grim:'Grimoire',head:'Necromancer head',ashd:'Paladin shield'};
+const typeName=c=>TYPEN[c]||(DATA.types&&DATA.types[c]?DATA.types[c].n:c);
+const RW=(DATA.runewords||[]).map(w=>{const r=w.r.map(c=>parseInt(c.slice(1),10)-1);
+  return {n:w.n,r,b:w.it.map(typeName).join(', '),l:Math.max(...w.r.map(c=>(DATA.items[c]||{}).q||0))}}).filter(w=>w.r.every(i=>i>=0&&i<33)).sort((a,b)=>a.l-b.l||a.n.localeCompare(b.n));
+const UP=new Map(RUNEUP.map(([f,c,g])=>[f+1,{from:f,c,g}]));   // to -> recipe
+let INV=load('horadric-runes',{});const rUI=load('horadric-runes-ui',{cube:true,q:''});
+const inv=i=>Math.max(0,INV[RUNES[i]]|0);
+const saveInv=()=>store('horadric-runes',INV);
+/* try to make the runes a runeword needs from inv; returns {ok,steps,gems,missing} */
+function plan(need,useCube){
+  const have=RUNES.map((_,i)=>inv(i));const steps=new Map(),gems=new Map();const missing=[];
+  const sorted=[...need].sort((a,b)=>b-a);
+  const take=[];for(const r of sorted){if(have[r]>0){have[r]--}else take.push(r)}
+  function make(r,depth){if(have[r]>0){have[r]--;return true}
+    if(!useCube||depth>40)return false;const u=UP.get(r);if(!u)return false;
+    const snap=have.slice(),ss=new Map(steps),gs=new Map(gems);
+    for(let k=0;k<u.c;k++)if(!make(u.from,depth+1)){have.splice(0,have.length,...snap);steps.clear();ss.forEach((v,k2)=>steps.set(k2,v));gems.clear();gs.forEach((v,k2)=>gems.set(k2,v));return false}
+    steps.set(r,(steps.get(r)||0)+1);if(u.g)gems.set(u.g,(gems.get(u.g)||0)+1);return true}
+  for(const r of take){if(!make(r,0))missing.push(r)}
+  return {ok:!missing.length,steps:[...steps.entries()].sort((a,b)=>a[0]-b[0]),gems:[...gems.entries()],missing,cubed:steps.size>0}
+}
+const runeChip=(i,cls)=>`<span class="tl-rune ${cls||''}">${RUNES[i]}</span>`;
+function runesHTML(){
+  const total=RUNES.reduce((s,_,i)=>s+inv(i),0);
+  const grid=RUNES.map((r,i)=>`<div class="tl-rcell${inv(i)?' has':''}"><span class="tl-rn">${r}</span><span class="tl-rctl"><button type="button" data-rd="${i}" aria-label="One fewer ${r}">−</button><input type="number" min="0" max="999" inputmode="numeric" id="rv-${i}" data-rv="${i}" value="${inv(i)}" aria-label="${r} runes you have"><button type="button" data-ru="${i}" aria-label="One more ${r}">+</button></span></div>`).join('');
+  const q=rUI.q.trim().toLowerCase();
+  const res=RW.map(w=>({w,p:plan(w.r,rUI.cube)})).filter(x=>!q||(x.w.n+' '+x.w.b).toLowerCase().includes(q));
+  const ready=res.filter(x=>x.p.ok&&!x.p.cubed),cubed=res.filter(x=>x.p.ok&&x.p.cubed),near=res.filter(x=>!x.p.ok&&x.p.missing.length===1).sort((a,b)=>a.p.missing[0]-b.p.missing[0]);
+  const rwRow=(x,extra)=>{const owned=RUNES.map((_,i)=>inv(i));const tags=x.w.r.map(i=>{const ok=owned[i]>0;if(ok)owned[i]--;return runeChip(i,ok?'ok':'no')}).join('');
+    return `<div class="tl-rw"><div class="tl-rwh"><b>${esc(x.w.n)}</b><span class="tl-sub">${esc(x.w.b)} · ${x.w.r.length} sockets · L${x.w.l}</span>${oddsBtn('w-'+slug(x.w.n))}</div><div class="tl-runes">${tags}</div>${extra||''}</div>`};
+  const stepTxt=p=>`<p class="tl-steps">Cube: ${p.steps.map(([to,n])=>{const u=UP.get(to);return `${n>1?n+'× ':''}${u.c} ${RUNES[u.from]}${u.g?' + '+u.g:''} → ${RUNES[to]}`}).join('; ')}</p>`;
+  const sect=(title,xs,fn,empty)=>`<section class="tl-group"><h4>${title} <span class="tl-count">${xs.length}</span></h4>${xs.length?`<div class="tl-rws">${xs.map(fn).join('')}</div>`:`<p class="tl-empty">${empty}</p>`}</section>`;
+  const ups=RUNES.map((_,i)=>UP.get(i+1)&&inv(i)>=UP.get(i+1).c?[i,Math.floor(inv(i)/UP.get(i+1).c)]:null).filter(Boolean);
+  return `<section class="tl-card"><div class="tl-head"><h3>Your runes</h3><span class="tl-big">${total} <i>rune${total===1?'':'s'}</i></span></div>
+    <p class="tl-note">Enter the runes you have (stash, mules, everywhere). They're saved in this browser.</p>
+    <div class="tl-rgrid">${grid}</div>
+    <div class="tl-row"><label class="tl-check"><input type="checkbox" data-act="r-cube" ${rUI.cube?'checked':''}> Count cube upgrades (3 Tal → Ral and so on)</label>${total?'<button type="button" class="tl-btn ghost" data-act="r-clear">Set all to 0</button>':''}</div></section>
+  <section class="tl-card"><div class="tl-row"><input id="r-q" type="search" placeholder="Search runewords or bases" value="${esc(rUI.q)}" aria-label="Search runewords"></div>
+    ${total?sect('Ready to make',ready,x=>rwRow(x),'None yet with these runes.')+(rUI.cube?sect('With cube upgrades',cubed,x=>rwRow(x,stepTxt(x.p)+(x.p.gems.length?`<p class="tl-steps">Gems: ${x.p.gems.map(([g,n])=>`${n}× ${esc(g)}`).join(', ')}</p>`:'')),'Nothing extra from cubing your runes.'):'')+
+      sect('One rune short',near,x=>rwRow(x,`<p class="tl-steps">Missing: ${runeChip(x.p.missing[0],'no')}</p>`),'None.'):'<p class="tl-empty">Add your runes above to see what you can make.</p>'}
+    ${ups.length?`<section class="tl-group"><h4>Upgrades you can cube now</h4><p class="tl-steps">${ups.map(([i,n])=>{const u=UP.get(i+1);return `${u.c} ${RUNES[i]}${u.g?' + '+esc(u.g):''} → ${RUNES[i+1]}${n>1?` <i>(×${n})</i>`:''}`}).join(' · ')}</p></section>`:''}
+    <p class="tl-note">Put the runes in order into a plain (white or grey, not magic) item with exactly that many sockets. Bases shown are the item types each runeword can go in.</p></section>`;
+}
+
+/* ===================== Run tracker ===================== */
+const TARGETS=[];{const seen=new Set();DATA.sources.forEach((s,i)=>{if((s.k==='boss'||s.k==='super')&&!seen.has(s.m+'|'+s.d)){seen.add(s.m+'|'+s.d);TARGETS.push({m:s.m,d:s.d,k:s.k,a:s.a,i})}})}
+let R=load('horadric-runs',{list:[],cur:null});if(!R||!Array.isArray(R.list))R={list:[],cur:null};
+const rnUI=load('horadric-runs-ui',{d:2,m:'Mephisto',players:1,mf:300});
+let rnDel=false,rnReset=false;
+const saveR=()=>store('horadric-runs',R);
+const curRun=()=>R.list.find(x=>x.id===R.cur)||null;
+const DROPS=new Map();
+function dropsFor(t){if(!t||t.m==null)return null;const key=[t.m,t.d,t.players,t.mf].join('|');if(DROPS.has(key))return DROPS.get(key);
+  const src=DATA.sources.find(s=>s.m===t.m&&s.d===t.d&&(s.k==='boss'||s.k==='super'));if(!src){DROPS.set(key,null);return null}
+  let res=null;try{const r=E.sourceDrops(src,{difficulty:t.d,players:t.players||1,party:1,mf:t.mf|0,findItem:false,questKill:false,terror:false,charLevel:90,heraldTier:1});
+    const by=new Map();r.list.forEach(x=>{const e=by.get(x.label)||{label:x.label,kind:x.kind,chance:0};e.chance+=x.chance;by.set(x.label,e)});res=[...by.values()].sort((a,b)=>b.chance-a.chance)}catch(e){res=null}
+  DROPS.set(key,res);return res}
+const elapsed=r=>(r.ms||0)+(r.t0?Date.now()-r.t0:0);
+const hms=ms=>{const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s/60)%60,ss=s%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(ss).padStart(2,'0')};
+const ALLNAMES=[...new Set(GRAIL.map(g=>g.n))].sort();
+function runsHTML(){
+  const r=curRun();
+  const tsel=d=>{const xs=TARGETS.filter(t=>t.d===d);const bosses=xs.filter(t=>t.k==='boss'),sup=xs.filter(t=>t.k==='super').sort((a,b)=>a.m.localeCompare(b.m));
+    const o=t=>`<option value="${esc(t.m)}" ${t.m===rnUI.m?'selected':''}>${esc(t.m)}</option>`;
+    return `<optgroup label="Bosses">${bosses.map(o).join('')}</optgroup><optgroup label="Super uniques">${sup.map(o).join('')}</optgroup><option value="__other" ${rnUI.m==='__other'?'selected':''}>Something else (no odds)</option>`};
+  const newForm=`<section class="tl-card"><h3>${R.list.length?'Start another tracker':'Start tracking runs'}</h3>
+    <p class="tl-note">Count your runs, time them and log what drops. For bosses and super uniques you'll see how your luck compares with the drop calculator.</p>
+    <div class="tl-form">
+      <label class="tl-f"><span>Difficulty</span><select id="rn-d">${DIFF.map((n,i)=>`<option value="${i}" ${i===rnUI.d?'selected':''}>${n}</option>`).join('')}</select></label>
+      <label class="tl-f"><span>Farming</span><select id="rn-m">${tsel(rnUI.d)}</select></label>
+      ${rnUI.m==='__other'?`<label class="tl-f"><span>Name</span><input id="rn-name" type="text" maxlength="40" placeholder="e.g. Chaos Sanctuary"></label>`:''}
+      <label class="tl-f"><span>Players in game</span><select id="rn-p">${[1,2,3,4,5,6,7,8].map(n=>`<option ${n===rnUI.players?'selected':''}>${n}</option>`).join('')}</select></label>
+      <label class="tl-f"><span>Magic find %</span><input id="rn-mf" type="number" min="0" max="1500" inputmode="numeric" value="${rnUI.mf}"></label>
+      <button type="button" class="tl-btn primary" data-act="rn-new">Start tracker</button></div></section>`;
+  const tabs=R.list.length>1?`<div class="tl-row tl-runlist">${R.list.map(x=>`<button type="button" class="tl-chip" data-rsel="${x.id}" aria-pressed="${x.id===R.cur}">${esc(x.name)} <i>${x.runs}</i></button>`).join('')}</div>`:'';
+  if(!r)return tabs+newForm;
+  const t=elapsed(r),dl=dropsFor(r);const per=r.runs?t/r.runs:0;
+  const counts=new Map();r.drops.forEach(d=>counts.set(d.n,(counts.get(d.n)||0)+1));
+  const chanceOf=n=>{if(!dl)return null;const x=dl.find(e=>e.label===n);return x?x.chance:0};
+  const kindOf=n=>{const g=[...GBY.values()].find(x=>x.n===n);return g?g.kind:''};
+  let luck='';
+  if(dl&&r.runs){const exp=dl.filter(x=>x.kind==='unique'||x.kind==='set').reduce((s,x)=>s+x.chance,0)*r.runs;
+    const got=r.drops.filter(d=>{const k=kindOf(d.n);return k==='u'||k==='s'}).length;
+    const ratio=exp>0?got/exp:0;
+    luck=`<div class="tl-stat static"><span>Uniques & set items</span><b>${got}<i> found · ${exp<10?exp.toFixed(1):fmt(exp)} expected</i></b><span class="tl-sub">${exp<1?'Too early to tell':ratio>=1.25?'Luckier than average':ratio<=0.75?'Unluckier than average':'About average'}</span></div>`}
+  const drows=[...counts.entries()].map(([n,c])=>{const p=chanceOf(n);const k=kindOf(n);const exp=p?p*r.runs:0;
+    return `<tr><td><span class="q-${k||'x'}">${esc(n)}</span></td><td class="num">${c}</td><td class="num">${r.runs?'1 in '+fmt(r.runs/c):'—'}</td><td class="num">${p==null?'—':p?oneIn(p):'<span class="tl-sub">not from here</span>'}</td><td class="num">${p?(exp<0.01?'under 0.01':exp<10?exp.toFixed(2):fmt(exp)):'—'}</td><td><button type="button" class="tl-x" data-rmdrop="${esc(n)}" aria-label="Remove one ${esc(n)}">−1</button></td></tr>`}).join('');
+  const top=dl?dl.filter(x=>x.kind!=='base').slice(0,12):null;
+  const sugg=[...new Set([...(dl||[]).map(x=>x.label),...ALLNAMES])];
+  return `${tabs}<section class="tl-card tl-run"><div class="tl-head"><h3>${esc(r.name)}</h3><span class="tl-sub">${r.m==null?'':DIFF[r.d]+' · '}${r.players||1} player${(r.players||1)>1?'s':''}${r.m==null?'':' · '+(r.mf|0)+'% MF'}</span></div>
+    <div class="tl-counter"><button type="button" class="tl-plus" data-act="rn-inc">+1 run</button>
+      <div class="tl-stat static"><span>Runs</span><b>${fmt(r.runs)}</b><button type="button" class="tl-x" data-act="rn-dec" aria-label="Take one run off" ${r.runs?'':'disabled'}>−1</button></div>
+      <div class="tl-stat static"><span>Time</span><b id="rn-clock">${hms(t)}</b><button type="button" class="tl-btn ${r.t0?'':'primary'}" data-act="rn-clock">${r.t0?'Pause':'Start timer'}</button></div>
+      <div class="tl-stat static"><span>Per run</span><b>${per?hms(per):'—'}</b><span class="tl-sub">${per?fmt(3600000/per)+' runs an hour':'Start the timer'}</span></div>
+      ${luck}</div>
+    <div class="tl-row tl-add"><input id="rn-drop" list="rn-dl" type="text" placeholder="Log a drop: Shako, Ber, Arachnid Mesh…" aria-label="Item that dropped" autocomplete="off"><datalist id="rn-dl">${sugg.slice(0,700).map(n=>`<option value="${esc(n)}">`).join('')}</datalist><button type="button" class="tl-btn primary" data-act="rn-add">Log drop</button></div>
+    ${drows?`<div class="tl-tw"><table class="tl-t"><thead><tr><th>Drop</th><th>Found</th><th>Your rate</th><th>Calculator</th><th>Expected so far</th><th></th></tr></thead><tbody>${drows}</tbody></table></div>`:'<p class="tl-empty">No drops logged yet. Type an item above and press Log drop.</p>'}
+    ${top?`<details class="tl-top"><summary>Best drops from ${esc(r.m)} at these settings</summary><div class="tl-tw"><table class="tl-t"><thead><tr><th>Item</th><th>Chance per kill</th><th>Expected in ${fmt(r.runs)} runs</th></tr></thead><tbody>${top.map(x=>`<tr><td><span class="q-${x.kind==='unique'?'u':x.kind==='set'?'s':'r'}">${esc(x.label)}</span></td><td class="num">${oneIn(x.chance)}</td><td class="num">${x.chance*r.runs<0.01?'under 0.01':(x.chance*r.runs).toFixed(2)}</td></tr>`).join('')}</tbody></table></div></details>`:''}
+    <div class="tl-row tl-foot">${rnReset?`<span class="tl-warn">Zero the runs, time and drops? <button type="button" class="tl-btn danger" data-act="rn-reset-yes">Yes</button><button type="button" class="tl-btn" data-act="rn-reset-no">Cancel</button></span>`:`<button type="button" class="tl-btn ghost" data-act="rn-reset">Reset</button>`}
+      ${rnDel?`<span class="tl-warn">Delete this tracker? <button type="button" class="tl-btn danger" data-act="rn-del-yes">Delete</button><button type="button" class="tl-btn" data-act="rn-del-no">Cancel</button></span>`:`<button type="button" class="tl-btn ghost" data-act="rn-del">Delete tracker</button>`}</div>
+    <p class="tl-note">"Calculator" is the chance per kill from the drop calculator at these settings. Runs are counted as one kill of ${r.m==null?'the target':esc(r.m)}; drops from the monsters around it aren't included in the expected numbers.</p></section>${newForm}`;
+}
+let tick=null;
+function startTick(){if(tick)return;tick=setInterval(()=>{if(root.hidden||SUB!=='runs'){clearInterval(tick);tick=null;return}const r=curRun();const c=document.getElementById('rn-clock');if(r&&c)c.textContent=hms(elapsed(r))},1000)}
+
+/* ===================== Cube recipes ===================== */
+const cUI={cat:'all',q:''};
+function cubeHTML(){
+  const cats=[...new Set(CUBE.map(c=>c[0]))];
+  const q=cUI.q.trim().toLowerCase();
+  const xs=CUBE.filter(c=>(cUI.cat==='all'||c[0]===cUI.cat)&&(!q||(c[1]+' '+c[2]).toLowerCase().includes(q)));
+  const groups=new Map();xs.forEach(c=>(groups.get(c[0])||groups.set(c[0],[]).get(c[0])).push(c));
+  return `<section class="tl-card"><div class="tl-head"><h3>Horadric Cube recipes</h3><span class="tl-sub">${CUBE.length} recipes from the game files</span></div>
+    <div class="tl-row"><input id="c-q" type="search" placeholder="Search: Ber, socket, Perfect Ruby, Hit Power…" value="${esc(cUI.q)}" aria-label="Search recipes"></div>
+    <div class="tl-row">${['all',...cats].map(c=>`<button type="button" class="tl-chip" data-ccat="${esc(c)}" aria-pressed="${cUI.cat===c}">${c==='all'?'All':esc(c)}</button>`).join('')}</div>
+    ${xs.length?[...groups.entries()].map(([g,list])=>`<details class="tl-group" data-gkey="c|${esc(g)}" ${isOpen('c|'+g,!!q||cUI.cat!=='all')?'open':''}><summary><h4>${esc(g)} <span class="tl-count">${list.length}</span></h4></summary><div class="tl-recipes">${list.map(c=>`<div class="tl-recipe"><span class="tl-in">${esc(c[1])}</span><span class="tl-arrow" aria-hidden="true">→</span><span class="tl-out">${esc(c[2])}</span></div>`).join('')}</div></details>`).join(''):'<p class="tl-empty">No recipes match.</p>'}
+    <p class="tl-note">Put the ingredients in the Horadric Cube and press Transmute. Set item upgrades only worked during ladder seasons 1 and 2, so they aren't listed.</p></section>`;
+}
+
+/* ===================== events ===================== */
+root.addEventListener('click',async e=>{
+  const a=e.target.closest('button,[data-act]');if(!a||!root.contains(a))return;
+  if(a.dataset.sub){setSub(a.dataset.sub);return}
+  if(a.dataset.odds){goOdds(a.dataset.odds);return}
+  /* grail */
+  if(a.dataset.gk){gUI.k=a.dataset.gk;gUI.cat='all';gUI.tier='all';saveGUI();render();return}
+  if(a.dataset.gst){gUI.st=a.dataset.gst;saveGUI();render();return}
+  if(a.dataset.gcat){gUI.cat=a.dataset.gcat;saveGUI();render();return}
+  if(a.dataset.gtier){gUI.tier=a.dataset.gtier;saveGUI();render();return}
+  const act=a.dataset.act;
+  if(act==='g-export'){const code=await packCode('HOG',{v:1,f:G.f});const ok=await copyText(code,a);const o=$('#g-code');if(o){o.hidden=ok;o.textContent=code}return}
+  if(act==='g-import-open'){gImport=true;gMsg='';render();const t=$('#g-imp');if(t)t.focus();return}
+  if(act==='g-import-close'){gImport=false;render();return}
+  if(act==='g-import'){try{const o=await unpackCode('HOG',($('#g-imp')||{}).value||'');let n=0;for(const[id,d]of Object.entries(o.f||{}))if(GBY.has(id)&&!G.f[id]){G.f[id]=d;n++}
+      saveG();gImport=false;gMsg=n?`Added ${n} item${n>1?'s':''} to your Grail.`:'Nothing new in that code.'}catch(err){gMsg=err.message||'That code could not be read.'}render();return}
+  if(act==='g-clear'){gClear=true;render();return}if(act==='g-clear-no'){gClear=false;render();return}
+  if(act==='g-clear-yes'){G={f:{}};saveG();gClear=false;gMsg='Grail cleared.';render();return}
+  /* runes */
+  if(a.dataset.ru!==undefined||a.dataset.rd!==undefined){const i=+(a.dataset.ru??a.dataset.rd);const n=Math.max(0,Math.min(999,inv(i)+(a.dataset.ru!==undefined?1:-1)*(e.shiftKey?10:1)));INV[RUNES[i]]=n;saveInv();render();return}
+  if(act==='r-clear'){INV={};saveInv();render();return}
+  /* runs */
+  if(a.dataset.rsel){R.cur=a.dataset.rsel;saveR();rnDel=rnReset=false;render();return}
+  if(act==='rn-new'){const m=rnUI.m;const other=m==='__other';const nm=other?(($('#rn-name')||{}).value||'').trim()||'My runs':m;
+    const r={id:Date.now().toString(36),name:other?nm:`${nm} (${DIFF[rnUI.d]})`,m:other?null:m,d:rnUI.d,players:rnUI.players,mf:rnUI.mf|0,runs:0,ms:0,t0:0,drops:[],c:today()};
+    R.list.push(r);R.cur=r.id;saveR();render();return}
+  const r=curRun();
+  if(r){
+    if(act==='rn-inc'){r.runs++;if(!r.t0&&!r.ms&&r.runs===1){}saveR();render();return}
+    if(act==='rn-dec'){r.runs=Math.max(0,r.runs-1);saveR();render();return}
+    if(act==='rn-clock'){if(r.t0){r.ms=elapsed(r);r.t0=0}else{r.t0=Date.now();startTick()}saveR();render();return}
+    if(act==='rn-add'){const inp=$('#rn-drop');const v=(inp&&inp.value||'').trim();if(!v)return;
+      const lv=v.toLowerCase();const g=GRAIL.find(x=>x.n.toLowerCase()===lv)||GRAIL.find(x=>x.n.toLowerCase()===lv+' rune');r.drops.push({n:g?g.n:v,t:Date.now()});saveR();render();const i2=$('#rn-drop');if(i2)i2.focus();return}
+    if(a.dataset.rmdrop){const k=r.drops.map(d=>d.n).lastIndexOf(a.dataset.rmdrop);if(k>=0)r.drops.splice(k,1);saveR();render();return}
+    if(act==='rn-reset'){rnReset=true;render();return}if(act==='rn-reset-no'){rnReset=false;render();return}
+    if(act==='rn-reset-yes'){r.runs=0;r.ms=0;r.t0=0;r.drops=[];rnReset=false;saveR();render();return}
+    if(act==='rn-del'){rnDel=true;render();return}if(act==='rn-del-no'){rnDel=false;render();return}
+    if(act==='rn-del-yes'){R.list=R.list.filter(x=>x.id!==r.id);R.cur=R.list.length?R.list[R.list.length-1].id:null;rnDel=false;saveR();render();return}
+  }
+  /* cube */
+  if(a.dataset.ccat){cUI.cat=a.dataset.ccat;render();return}
+});
+root.addEventListener('change',e=>{const el=e.target;
+  if(el.dataset.gid){const id=el.dataset.gid;if(el.checked)G.f[id]=today();else delete G.f[id];saveG();render();return}
+  if(el.dataset.act==='r-cube'){rUI.cube=el.checked;store('horadric-runes-ui',rUI);render();return}
+  if(el.dataset.rv!==undefined){INV[RUNES[+el.dataset.rv]]=Math.max(0,Math.min(999,parseInt(el.value,10)||0));saveInv();render();return}
+  if(el.id==='rn-d'){rnUI.d=+el.value;if(!TARGETS.some(t=>t.d===rnUI.d&&t.m===rnUI.m)&&rnUI.m!=='__other')rnUI.m=(TARGETS.find(t=>t.d===rnUI.d&&t.k==='boss')||{}).m;store('horadric-runs-ui',rnUI);render();return}
+  if(el.id==='rn-m'){rnUI.m=el.value;store('horadric-runs-ui',rnUI);render();return}
+  if(el.id==='rn-p'){rnUI.players=+el.value;store('horadric-runs-ui',rnUI);return}
+  if(el.id==='rn-mf'){rnUI.mf=Math.max(0,Math.min(1500,parseInt(el.value,10)||0));store('horadric-runs-ui',rnUI);return}
+});
+root.addEventListener('input',e=>{const el=e.target;
+  if(el.id==='g-q'){gUI.q=el.value;saveGUI();render();return}
+  if(el.id==='r-q'){rUI.q=el.value;store('horadric-runes-ui',rUI);render();return}
+  if(el.id==='c-q'){cUI.q=el.value;render();return}
+});
+root.addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.gkey)OPEN.set(d.dataset.gkey,d.open)},true);
+root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='rn-drop'){e.preventDefault();const b=root.querySelector('[data-act="rn-add"]');if(b)b.click()}});
+render();if(!root.hidden){startTick();try{if(location.hash!=='#'+SUB)history.replaceState(null,'','#'+SUB)}catch(e){}}
+})();
+
 </script>
 
 </body>
