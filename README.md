@@ -40,6 +40,7 @@ When reporting wrong odds or numbers, it helps to include the item or build, the
 - **Game data:** items, drop tables, skill trees and skill formulas come from the game files via [blizzhackers/d2data](https://github.com/blizzhackers/d2data) (MIT License, © 2020 blizzhackers).
 - **Attack frames:** animation frame data and timing rules follow [Warren1001's IAS Calculator](https://github.com/Warren1001/IAS_Calculator) (animation tables dumped by RuffnecKk).
 - **Breakpoints:** cast, hit-recovery and block tables from [d2runewizard](https://d2runewizard.com/breakpoints), with the Warlock tables checked against [AOEAH](https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation).
+- **Experience:** rules checked against [The Amazon Basin wiki](https://theamazonbasin.com/wiki/index.php/Experience). Monster counts per area come from [u/Pavke](https://www.reddit.com/user/Pavke/)'s Experience Calculator, which was also used to check the numbers. Thanks, Pavke!
 - **Builds:** the starter builds are written for Horadric Odds from the game data and common community knowledge. For full guides, see [Maxroll](https://maxroll.gg/d2/category/guides) and [Icy Veins](https://www.icy-veins.com/d2/); each build links to them.
 - **Prices:** the optional price links open [Traderie](https://traderie.com/diablo2resurrected)'s own pages. Horadric Odds doesn't collect or store Traderie data.
 
