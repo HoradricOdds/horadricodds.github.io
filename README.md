@@ -17,12 +17,13 @@ No ads, no sign-up, works on PC and phone.
 - Includes terror zones, Find Item and first-kill quest drops.
 
 ### Build planner
-- Skill trees for all eight classes, including Warlock. Damage, synergies and mana cost update as you spend points.
+- Skill trees for all eight classes, including Warlock. Hover over a skill (or press and hold on a phone) for its in-game tooltip: damage at your level and the next, synergies, masteries and, for attack skills, your damage with the weapon you've planned.
 - Breakpoints worked out from your gear: cast speed, hit recovery, block and attack frames.
 - An equipment panel that shows your gear at any level, with each item's stats on hover or tap.
 - Resistances per difficulty, Str/Dex requirement checks, and a gear plan that shows where to farm each item.
 - A level-by-level leveling guide with a checklist to tick off while you play.
 - Side-by-side build comparison.
+- Starter builds to open in the planner, with links to the matching Maxroll and Icy Veins guides.
 - Share builds as links or build codes.
 
 ### Experience
