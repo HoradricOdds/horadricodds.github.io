@@ -341,6 +341,15 @@ footer a { color: inherit; }
 #xp .xp-credit{color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);padding-top:14px;margin:4px 0 0;max-width:80ch}
 #xp .xp-credit a{color:inherit}
 @media (max-width:560px){.modes button{padding:8px 10px}#xp .xin{grid-template-columns:1fr 1fr}#xp .xin .xf:has(.xchips),#xp .xin .xf:has(#xDiff),#xp .xtz{grid-column:1/-1}#xp .xstat b{font-size:1.35rem}}
+
+
+#hp .treetabs{display:none;gap:6px;flex-wrap:wrap}
+@media (max-width:760px){#hp .treetabs{display:flex}#hp .trees .tree:not(.tsel){display:none}}
+#hp tr.zhide{display:none}
+#hp .zbtn{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:0;color:inherit;cursor:pointer;margin-right:8px}
+#hp .zbtn h3{margin:0}
+#hp .zbtn .chev{display:inline-block;transition:transform .12s;transform:rotate(90deg);color:var(--muted)}
+#hp tr.zclosed .zbtn .chev{transform:none}
 #hp .guidelist summary{cursor:pointer;margin:2px 0 6px}#hp .ledger{min-width:760px}
 #hp .farms{display:flex;flex-direction:column;gap:6px}
 #hp .farm{border:1px solid var(--line);border-radius:3px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;background:var(--panel2)}
@@ -1255,6 +1264,7 @@ const hpEl=document.getElementById('hp');let hpDirty=false;window.__hpRender=()=
 new MutationObserver(()=>{if(!hpEl.hidden&&hpDirty)render()}).observe(hpEl,{attributes:true,attributeFilter:['hidden']});
 
 /* ---------- planner ---------- */
+let TREE=0;                                            // on phones only one skill tree shows at a time
 function planHTML(){
   const C=CLS[B.cls];if(PI>=B.phase.length)PI=B.phase.length-1;
   const ph=B.phase[PI],cnt=counts(ph),end=phaseEnd(B,PI);
@@ -1264,9 +1274,12 @@ function planHTML(){
   const addForm=addingPhase?`<span class="inline-form"><input id="np-name" type="text" value="Respec ${B.phase.length+1}" maxlength="40" aria-label="Phase name"><input id="np-lvl" type="number" min="${B.phase[B.phase.length-1].start+1}" max="${B.level}" value="${Math.min(B.level,Math.max(B.phase[B.phase.length-1].start+1,30))}" aria-label="Respec level" style="width:5rem"><button class="btn small primary" data-act="phase-add-ok">Add respec</button><button class="btn small" data-act="phase-add-cancel">Cancel</button></span>`
     :`<button class="btn small" data-act="phase-add">+ Respec at a level</button>`;
   const del=PI>0?`<button class="btn small danger" data-act="phase-del">Remove this phase</button>`:'';
-  const trees=C.trees.map(t=>{
+  if(!(TREE<C.trees.length))TREE=0;
+  const tpts=C.trees.map(t=>t.ids.reduce((a,id)=>a+(cnt[id]||0),0));
+  const ttabs=`<div class="treetabs" role="group" aria-label="Skill tree">${C.trees.map((t,i)=>`<button class="chip" data-act="tree-tab" data-i="${i}" aria-pressed="${i===TREE}">${esc(t.name)} <span class="muted num">${tpts[i]}</span></button>`).join('')}</div>`;
+  const trees=C.trees.map((t,ti)=>{
     const tp=t.ids.reduce((a,id)=>a+(cnt[id]||0),0);
-    return `<section class="tree" data-tree="${t.ids[0]}"><header><h3>${esc(t.name)}</h3><span class="tbadges"><span class="num muted">${tp} pts</span>${budget-used>0?`<span class="lefttag num" title="Unspent points in this phase">${budget-used} left</span>`:''}</span></header>`+
+    return `<section class="tree${ti===TREE?' tsel':''}" data-tree="${t.ids[0]}"><header><h3>${esc(t.name)}</h3><span class="tbadges"><span class="num muted">${tp} pts</span>${budget-used>0?`<span class="lefttag num" title="Unspent points in this phase">${budget-used} left</span>`:''}</span></header>`+
       [1,2,3,4,5,6].map(r=>`<div class="tier"><span class="tl">${TIERS[r-1]}</span><div class="tn">${[1,2,3].map(col=>{const id=t.ids.find(i=>C.skills[i].row===r&&C.skills[i].col===col);return id===undefined?'<div class="cell" aria-hidden="true"></div>':nodeHTML(C,id,cnt,end)}).join('')}</div></div>`).join('')+`</section>`;
   }).join('');
   return `<div class="planner"><div style="display:flex;flex-direction:column;gap:12px;min-width:0">
@@ -1277,7 +1290,7 @@ function planHTML(){
     <div class="budget"><span>Skill points <b class="${used>budget?'over':''}">${used}</b> / ${budget} by level ${end}</span>${budget-used>0?`<span class="lefttag num">${budget-used} left</span>`:''}
       <span class="muted">${end-1} from levels${B.quests?` + ${qs} from quests`:''}</span>
       <span style="margin-left:auto" class="row"><button class="btn small" data-act="undo-pt" ${used?'':'disabled'}>Undo last point</button><button class="btn small danger" data-act="clear-pts" ${used?'':'disabled'}>Clear skills</button></span></div>
-    <div class="trees">${trees}</div>
+    ${ttabs}<div class="trees">${trees}</div>
     <p class="hint">Lines join each skill to its prerequisites. Click a skill to add a point, right-click to remove one. Shift-click adds or removes up to 20. Missing prerequisites are added for you. The order you click is the order the leveling guide spends points.</p>
   </div>
   <aside class="rail">${(()=>{const S=railSums(C,ph,end,sim);return `<div class="railbar"><button class="linkbtn" data-act="cards-all" data-v="open">Expand all</button><button class="linkbtn" data-act="cards-all" data-v="close">Collapse all</button></div>`+
@@ -1353,7 +1366,7 @@ function mfCard(end){
    ${mfv>=0&&mfv!==cur?`<button class="linkbtn" data-act="variant" data-i="${mfv}" style="text-align:left">Try this guide's ${esc(V[1][mfv][0])} setup →</button>`:''}
    <p class="hint" style="margin:0">Magic find has diminishing returns: the numbers above are what actually applies to uniques, sets and rares. Magic items get the full amount. Enter rare and charm MF with <b>stats</b> on the Gear tab.</p></section>`;
 }
-let CLOSED=new Set(LS.get('hbp.closed',['order','merc','egear']));
+let CLOSED=new Set(LS.get('hbp.closed2',['order','merc','egear','gear','mf','res','bp','farm','rwlist']));
 function rc(key,sum,html){if(!html)return '';const closed=CLOSED.has(key);
   html=html.replace('<section class="card"',`<section class="card rc${closed?' closed':''}" data-ck="${key}"`);
   html=html.replace(/<h2>([\s\S]*?)<\/h2>/,(m,h)=>`<h2><button class="cbtn" data-act="card-tog" data-ck="${key}" aria-expanded="${!closed}"><span class="chev" aria-hidden="true">▸</span>${h}</button></h2>${sum?`<span class="csum">${esc(sum)}</span>`:''}`);
@@ -1592,11 +1605,14 @@ function checkHTML(C,sim){
     <ol class="cklist">${list||'<li class="hint">Nothing left to show.</li>'}</ol>
     <p class="hint" style="margin:0">Ticks are saved in this browser for this build name.</p></section>`;
 }
+let GZ=null;                                           // open stages of the guide table (null = only the first)
+const zoneOpen=z=>GZ?GZ.has(z):z===0;
 function guideHTML(){
   const C=CLS[B.cls],sim=simulate(B);let zi=-1;const out=[];
   for(const r of sim.rows){
     let z=-1;ZONES.forEach((x,i)=>{if(x[0]<=r.L)z=i});
-    if(z!==zi){zi=z;const [,t,d]=ZONES[z];out.push(`<tr class="zone"><td colspan="5"><h3>${esc(t)}</h3><span class="muted">${esc(d)}</span></td></tr>`)}
+    if(z!==zi){zi=z;const [,t,d]=ZONES[z];const op=zoneOpen(z);
+      out.push(`<tr class="zone${op?'':' zclosed'}"><td colspan="5"><button class="zbtn" data-act="zone-tog" data-z="${z}" aria-expanded="${op}"><span class="chev" aria-hidden="true">▸</span><h3>${esc(t)}</h3></button><span class="muted">${esc(d)}</span></td></tr>`)}
     const g=[];r.sk.forEach(id=>{const x=g[g.length-1];if(x&&x.id===id)x.n++;else g.push({id,n:1})});
     let sk=g.map(x=>`<span class="sk">${esc(C.skills[x.id].name)}${x.n>1?' ×'+x.n:''}</span>`).join(', ');
     const tags=[];
@@ -1606,7 +1622,7 @@ function guideHTML(){
     (B.gear||[]).filter(g=>g.lv===r.L).forEach(g=>tags.push(`<span class="tag gear" title="${esc(g.why)}">${esc(SLOTS[g.s])}: ${esc(g.it)}</span>`));
     if(r.heldSk&&r.L>1)tags.push(`<span class="tag warn">Save ${r.heldSk} skill pt${r.heldSk>1?'s':''}${r.blocked?' · '+esc(r.blocked):''}</span>`);
     const st=STATS.filter(s=>r.st[s]).map(s=>`+${r.st[s]} ${SA[s]}`).join(' · ');
-    out.push(`<tr class="${r.respec?'respec':''}"><td class="lv">${r.L}</td><td>${sk||(r.L===1?'<span class="muted">Start</span>':'<span class="muted">—</span>')}<div>${tags.join('')}</div></td><td class="stt">${st}</td><td class="lm"><span class="l">${r.life}</span> / <span class="m">${r.mana}</span></td><td><input class="note" id="note-${r.L}" data-note="${r.L}" value="${esc(B.notes[r.L]||'')}" placeholder="" aria-label="Note for level ${r.L}" maxlength="200"></td></tr>`);
+    out.push(`<tr class="${r.respec?'respec':''}${zoneOpen(zi)?'':' zhide'}"><td class="lv">${r.L}</td><td>${sk||(r.L===1?'<span class="muted">Start</span>':'<span class="muted">—</span>')}<div>${tags.join('')}</div></td><td class="stt">${st}</td><td class="lm"><span class="l">${r.life}</span> / <span class="m">${r.mana}</span></td><td><input class="note" id="note-${r.L}" data-note="${r.L}" value="${esc(B.notes[r.L]||'')}" placeholder="" aria-label="Note for level ${r.L}" maxlength="200"></td></tr>`);
   }
   const fin=sim.rows[sim.rows.length-1];const ph=B.phase[B.phase.length-1];
   const finSk=Object.entries(fin.cnt).sort((a,b)=>b[1]-a[1]).map(([id,n])=>`${esc(C.skills[id].name)} ${n}`).join(', ');
@@ -1619,7 +1635,7 @@ function guideHTML(){
      ${B.phase.length>1?`<div><span class="label">Respecs</span><div>${B.phase.slice(1).map(p=>`${esc(p.name)} at level ${p.start}`).join(' · ')}. Akara gives one free respec per difficulty; a Token of Absolution works any time.</div></div>`:''}</div>
    <div class="gtools"><span class="gview" role="group" aria-label="Guide view"><button class="chip" data-act="gmode" data-m="table" aria-pressed="${GMODE!=='check'}">Full table</button><button class="chip" data-act="gmode" data-m="check" aria-pressed="${GMODE==='check'}">Checklist while playing</button></span>
      <label class="row"><input type="checkbox" id="q-toggle" data-act="quests" ${B.quests?'checked':''}> Count quest rewards (Den of Evil, Radament, Lam Esen, Izual) at typical solo levels</label>
-     <button class="btn small" data-act="copy-text">Copy guide as text</button></div>
+     <button class="btn small" data-act="copy-text">Copy guide as text</button>${GMODE==='check'?'':`<span class="row"><button class="linkbtn" data-act="zones-all" data-v="open">Expand all</button><button class="linkbtn" data-act="zones-all" data-v="close">Collapse all</button></span>`}</div>
    ${GMODE==='check'?checkHTML(C,sim):`<div class="ledger-wrap"><table class="ledger"><thead><tr><th>Lvl</th><th>Skill points</th><th>Stat points</th><th>Life / Mana</th><th>Your notes</th></tr></thead><tbody>${out.join('')}</tbody></table></div>`}
   </div>`;
 }
@@ -1709,11 +1725,11 @@ function gearHTML(){
     <div class="slots">${rows||'<p class="hint" style="margin:0">No gear planned yet.</p>'}</div>
     <div class="row"><button class="btn small" data-act="gear-starter">Add ${CLS[B.cls].name} starter gear</button>${g.length?`<button class="btn small danger" data-act="gear-clear">Clear gear</button>`:''}</div>
    </section>
-   ${farmHTML()}
-   <section class="card"><header><h2>Runewords</h2><span class="muted">Click Add to put one in the plan at its level</span></header>
+   ${rc('farm',farmTargets().length+' items to find',farmHTML())}
+   ${rc('rwlist',RW.length+' runewords · search and add',`<section class="card"><header><h2>Runewords</h2><span class="muted">Click Add to put one in the plan at its level</span></header>
     <div class="row"><input id="rw-q" type="search" placeholder="Search name, runes or base" value="${esc(rwFilter)}" style="background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:6px 8px;flex:1;min-width:0"><label class="row"><input type="checkbox" id="rw-wear" data-act="rw-wear" ${rwWear?'checked':''}> Wearable by level ${B.level}</label></div>
     <div class="ledger-wrap"><table class="rwt"><thead><tr><th>Runeword</th><th>Runes</th><th>Base</th><th>Lvl</th><th></th></tr></thead><tbody>${rw.map(r=>`<tr class="${r.l>B.level?'far':''}"><td>${esc(r.n)}</td><td class="runes">${esc(r.r)}</td><td>${esc(r.b)}</td><td class="num">${r.l}</td><td><button class="btn small" data-act="rw-add" data-n="${esc(r.n)}">Add</button>${priceBtn(r.n)}</td></tr>`).join('')||'<tr><td colspan="5" class="muted">No runewords match.</td></tr>'}</tbody></table></div>
-   </section></div>`;
+   </section>`)}</div>`;
 }
 
 /* ---------- share ---------- */
@@ -1891,9 +1907,12 @@ view.addEventListener('click',e=>{
   if(act==='farm-run'){farmRun();return}
   if(act==='cmp-swap'){[cmpA,cmpB]=[cmpB,cmpA];render();return}
   if(act==='cmp-open'){const nb=cmpBuild(a.dataset.v);if(!nb)return;undoB=B;B=nb;PI=0;TAB='plan';cmpA='cur';cmpB=null;save();render();toast(`Opened ${B.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}});return}
-  if(act==='card-tog'){const k=a.dataset.ck;if(CLOSED.has(k))CLOSED.delete(k);else CLOSED.add(k);LS.set('hbp.closed',[...CLOSED]);
+  if(act==='card-tog'){const k=a.dataset.ck;if(CLOSED.has(k))CLOSED.delete(k);else CLOSED.add(k);LS.set('hbp.closed2',[...CLOSED]);
     const sec=a.closest('.card');if(sec){sec.classList.toggle('closed',CLOSED.has(k));a.setAttribute('aria-expanded',String(!CLOSED.has(k)))}queueLinks();return}
-  if(act==='cards-all'){CLOSED=new Set(a.dataset.v==='close'?['stats','skills','weapon','gear','mf','res','bp','egear','merc','order']:[]);LS.set('hbp.closed',[...CLOSED]);render();return}
+  if(act==='tree-tab'){TREE=+a.dataset.i;render();return}
+  if(act==='zone-tog'){const z=+a.dataset.z;if(!GZ)GZ=new Set([0]);if(GZ.has(z))GZ.delete(z);else GZ.add(z);render();return}
+  if(act==='zones-all'){GZ=new Set(a.dataset.v==='open'?ZONES.map((_,i)=>i):[]);render();return}
+  if(act==='cards-all'){CLOSED=new Set(a.dataset.v==='close'?['stats','skills','weapon','gear','mf','res','bp','egear','merc','order']:[...CLOSED].filter(k=>k==='farm'||k==='rwlist'));LS.set('hbp.closed2',[...CLOSED]);render();return}
   if(act==='mf-odds'){const m=mfInfo(phaseEnd(B,PI));const ob=document.querySelector('.modes button[data-mode="odds"]');if(ob)ob.click();
     if(typeof window.__oddsSetOpts==='function')window.__oddsSetOpts({mf:m.mf,findItem:m.fi>0,charLevel:B.level});window.scrollTo(0,0);return}
   if(act==='x-edit'){editX=+a.dataset.k;render();const f=document.querySelector('#hp .xedit input');if(f)f.focus();return}
