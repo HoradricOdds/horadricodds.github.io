@@ -336,7 +336,7 @@ footer a { color: inherit; }
 #xp .xm th,#xp .xm td{padding:4px 8px;font-size:.86rem;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);text-align:left}
 #xp .xm thead th{color:var(--muted);font-weight:500;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}
 #xp .xroute{margin:10px 0 0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
-#xp .xroute span{color:var(--muted);font-size:.88rem}
+#xp .xroute span{color:var(--muted);font-size:.88rem}#xp .xroute .xdiff{font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line2);border-radius:3px;padding:0 5px;color:var(--unique)}
 #xp .xlink{background:none;border:0;padding:0;color:var(--magic);text-decoration:underline;text-underline-offset:2px}
 #xp .xp-credit{color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);padding-top:14px;margin:4px 0 0;max-width:80ch}
 #xp .xp-credit a{color:inherit}
@@ -727,12 +727,13 @@ footer a { color: inherit; }
     <label class="xf"><span>Your level</span><input id="xLvl" type="number" min="1" max="99" inputmode="numeric"></label>
     <label class="xf"><span>Through this level</span><span class="xpct"><input id="xPct" type="number" min="0" max="99" inputmode="numeric"><i>%</i></span></label>
     <label class="xf"><span>Goal level <small>(optional)</small></span><input id="xTarget" type="number" min="2" max="99" inputmode="numeric" placeholder="e.g. 90"></label>
+    <label class="xf"><span>Furthest you've reached</span><select id="xProg"></select></label>
     <div class="xf"><span>Difficulty</span><div class="xseg" id="xDiff" role="group" aria-label="Difficulty"><button data-v="0">Normal</button><button data-v="1">Nightmare</button><button data-v="2">Hell</button></div></div>
     <label class="xf"><span>Players in game</span><select id="xPlayers"></select></label>
     <label class="xf"><span>Party members sharing exp</span><select id="xParty"></select></label>
+    <label class="xf"><span>Monster level</span><select id="xCap"><option value="any">Any</option><option value="3">Up to 3 above me</option><option value="6">Up to 6 above me</option><option value="10">Up to 10 above me</option></select></label>
     <div class="xf"><span>Experience bonus</span><span class="xpct"><input id="xBonus" type="number" min="0" max="500" inputmode="numeric"><i>%</i></span>
       <span class="xchips"><button data-bonus="50" title="Experience shrine">+50 shrine</button><button data-bonus="10" title="Annihilus (5–10%)">+10 Anni</button><button data-bonus="5" title="Ondal's Wisdom">+5 Ondal's</button><button data-bonus="0">Clear</button></span></div>
-    <label class="xf"><span>Monster level</span><select id="xCap"><option value="any">Any</option><option value="3">Up to 3 above me</option><option value="6">Up to 6 above me</option><option value="10">Up to 10 above me</option></select></label>
     <label class="xf xtz"><input type="checkbox" id="xTz"><span>Terror zones only <small>(levels and +25% bonus)</small></span></label>
   </section>
   <div id="xpOut" aria-live="polite"></div>
@@ -1991,7 +1992,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const big=n=>{if(!isFinite(n))return '—';if(n<10000)return nf.format(Math.round(n));if(n<1e6)return (n/1e3).toFixed(n<1e5?1:0)+'k';if(n<1e9)return (n/1e6).toFixed(n<1e8?2:1).replace(/\.?0+$/,'')+'M';return (n/1e9).toFixed(2).replace(/\.?0+$/,'')+'B'};
 const cnt=n=>!isFinite(n)?'—':n<1?'<1':n<100?(Math.ceil(n*10)/10).toFixed(n<10?1:0).replace(/\.0$/,''):nf.format(Math.ceil(n));
 const reach=L=>L<=1?0:X.lv[L-1];            // total experience at the start of level L
-let S={lvl:1,pct:0,target:0,d:0,players:1,party:1,bonus:0,tz:false,sort:'clear',cap:'10',open:null};
+let S={lvl:1,pct:0,target:0,d:0,players:1,party:1,bonus:0,tz:false,sort:'clear',cap:'10',prog:17,open:null};
 try{S={...S,...JSON.parse(localStorage.getItem('horadric-xp')||'{}'),open:null}}catch(e){}
 const save=()=>{try{const {open,...k}=S;localStorage.setItem('horadric-xp',JSON.stringify(k))}catch(e){}};
 
@@ -2033,15 +2034,20 @@ function needAt(L,first){const span=reach(L+1)-reach(L);return first?span*(1-S.p
 /* Clears (or kills) to go from the current point to level T in one area, re-checking penalties at each level. */
 function toTarget(aid,o,T,useKills){let tot=0;for(let L=S.lvl;L<T&&L<99;L++){const st=areaStats(aid,o,L);const per=useKills?st.per:st.xp;if(!per)return Infinity;tot+=needAt(L,L===S.lvl)/per}return tot}
 
+/* Progress: value = difficulty*6 + (act-1); act 6 means Baal is dead on that difficulty. */
+const prog=()=>{const v=S.prog??17;return [Math.floor(v/6),v%6+1]};
+function unlocked(A,d){const [pd,pa]=prog();return d<pd||(d===pd&&A.a<=Math.min(pa,5))}
+function tzOK(d){const [pd,pa]=prog();return d<pd||(d===pd&&pa===6)}
 function areaList(o){const c=S.lvl;const rows=[];
-  for(const aid in X.a){const A=X.a[aid];if(+aid>=133||S.tz&&!A.tz)continue;if(!A.d[o.d])continue;
+  if(S.tz&&!tzOK(o.d))return [];
+  for(const aid in X.a){const A=X.a[aid];if(+aid>=133||S.tz&&!A.tz)continue;if(!A.d[o.d]||!unlocked(A,o.d))continue;
     const st=areaStats(aid,o,c);if(st.k<5||!st.xp)continue;
     if(S.cap!=='any'&&st.lv>c+(+S.cap))continue;
     rows.push({aid,A,st})}
   rows.sort((a,b)=>S.sort==='clear'?b.st.xp-a.st.xp:b.st.per-a.st.per);return rows}
 
 const BOSSES=[['Andariel','andariel'],['Duriel','duriel'],['Mephisto','mephisto'],['Diablo','diablo'],['Baal','baalcrab'],['Nihlathak','nihlathakboss']];
-function bossList(o,c){const out=[];for(const aid in X.a){const A=X.a[aid];if(+aid>=133||!A.d[o.d])continue;if(S.tz&&!A.tz)continue;
+function bossList(o,c){const out=[];if(S.tz&&!tzOK(o.d))return out;for(const aid in X.a){const A=X.a[aid];if(+aid>=133||!A.d[o.d]||!unlocked(A,o.d))continue;if(S.tz&&!A.tz)continue;
     for(const x of groups(aid,o,c)){const b=BOSSES.find(b=>b[1]===x.mid&&(x.k==='Boss'||x.k==='Super unique'));if(!b)continue;
       out.push({name:b[0],aid,A,ml:x.ml,xp:kill(x.mid,x.ml,x.mult,c,o)})}}
   return out.sort((a,b)=>BOSSES.findIndex(x=>x[0]===a.name)-BOSSES.findIndex(x=>x[0]===b.name))}
@@ -2059,18 +2065,25 @@ function render(){
     h+=`<p class="xnote">${pen}${o.tzOn?`Terror zones raise monsters to your level +${X.tz[o.d][2]} (up to ${X.tz[o.d][1]}) and add ${X.tz[o.d][3]}% experience. `:''}${S.party>1?`Party experience is split ${S.party} ways, assuming similar levels. `:''}</p>`}
   h+=`</section>`;
   // best spot per level, from now to the target
-  if(T&&T-c>1&&rows.length){const segs=[];for(let L=c;L<T;L++){let best=null,bv=0;
-      for(const r of rows){const st=areaStats(r.aid,o,L);const v=S.sort==='clear'?st.xp:st.per;if(v>bv){bv=v;best=r}}
-      const st=best?areaStats(best.aid,o,L):null;const need=needAt(L,L===c),n=st?need/(S.sort==='clear'?st.xp:st.per):0;
-      const last=segs[segs.length-1];if(last&&best&&last.aid===best.aid){last.to=L;last.n+=n}else segs.push({aid:best&&best.aid,from:L,to:L,n})}
-    h+=`<section class="xcard"><h3>Route to level ${T}</h3><ol class="xroute">${segs.map(s=>`<li><b>${s.from===s.to?`Level ${s.from}`:`Levels ${s.from}–${s.to}`}</b> <button class="xlink" data-open="${s.aid}">${esc(X.a[s.aid].n)}</button> <span>about ${cnt(s.n)} ${S.sort==='clear'?'clears':'kills'}</span></li>`).join('')}</ol>
-      <p class="xnote">Picks the area with the most experience ${S.sort==='clear'?'per full clear':'per kill'} at each level, within your filters.</p></section>`}
+  if(T&&T-c>1){const segs=[];let dmin=0;const rcap=Math.min(S.cap==='any'?99:+S.cap,5);
+    for(let L=c;L<T;L++){let best=null;
+      /* Like a real playthrough: move up to Nightmare and Hell when they pay more, never back down,
+         and stay in areas at most a few levels above you. */
+      for(let d=dmin;d<3;d++){const od={...o,d};
+        for(const aid in X.a){const A=X.a[aid];if(+aid>=133||!A.d[d]||(S.tz&&(!A.tz||!tzOK(d))))continue;
+          const st=areaStats(aid,od,L);if(st.k<5||!st.xp||st.lv>L+rcap)continue;
+          if(!best||st.xp>best.st.xp)best={aid,d,st}}}
+      if(!best){segs.push({none:true,from:L,to:T-1});break}
+      dmin=best.d;const n=needAt(L,L===c)/best.st.xp;
+      const last=segs[segs.length-1];if(last&&!last.none&&last.aid===best.aid&&last.d===best.d){last.to=L;last.n+=n}else segs.push({aid:best.aid,d:best.d,from:L,to:L,n})}
+    h+=`<section class="xcard"><h3>Route to level ${T}</h3><ol class="xroute">${segs.map(s=>`<li><b>${s.from===s.to?`Level ${s.from}`:`Levels ${s.from}–${s.to}`}</b> ${s.none?'<span>nothing suitable here; loosen the filters</span>':`<span class="xdiff">${DIFF[s.d]}</span> <button class="xlink" data-open="${s.aid}" data-d="${s.d}">${esc(X.a[s.aid].n)}</button> <span>about ${cnt(s.n)} clears</span>`}</li>`).join('')}</ol>
+      <p class="xnote">Picks the area with the most experience per full clear at each level, among areas no more than ${rcap} levels above you. It moves on to Nightmare and Hell once they pay more, never back down, and assumes you keep playing through the story as you level.</p></section>`}
   // areas table
   h+=`<section class="xcard"><div class="xhead"><h3>${o.tzOn?'Best terror zones':'Where to level'} · ${DIFF[o.d]}</h3>
     <div class="xseg" role="group" aria-label="Rank by"><button data-sort="clear" aria-pressed="${S.sort==='clear'}">Per full clear</button><button data-sort="kill" aria-pressed="${S.sort==='kill'}">Per kill</button></div></div>
     <p class="xnote">Tap an area to see each monster and how many kills it takes. Clears are estimated from the game's own monster counts for each area, champion and unique packs included.</p>
     <div class="xtw"><table class="xt"><thead><tr><th>Area</th><th class="n">Monster level</th><th class="n">Exp per kill</th><th class="n">Kills to ${c+1}</th><th class="n">Exp per clear</th><th class="n">Clears to ${c+1}</th>${T?`<th class="n">Clears to ${T}</th>`:''}</tr></thead><tbody>`;
-  if(!top.length)h+=`<tr><td colspan="7" class="xnote">No areas match. Try another difficulty or loosen the monster level filter.</td></tr>`;
+  if(!top.length)h+=`<tr><td colspan="7" class="xnote">${(()=>{const [pd,pa]=prog();if(S.tz&&!tzOK(o.d))return `Terror zones open once Baal is dead on ${DIFF[o.d]}.`;if(o.d>pd)return `You haven't reached ${DIFF[o.d]} yet. Change “Furthest you've reached” if you have.`;return 'No areas match. Try another difficulty or loosen the monster level filter.'})()}</td></tr>`;
   for(const r of top){const st=r.st,open=S.open===r.aid,hot=st.lv>=c+8?' title="Monsters well above your level"':'';
     h+=`<tr class="xa${open?' open':''}" data-open="${r.aid}" tabindex="0"><th><span class="xan">${esc(r.A.n)}</span><small>${ACT[r.A.a]}${r.A.x?` · each of ${r.A.x} tombs`:''}${S.tz||r.A.tz?'':' · not a terror zone'}</small></th>
       <td class="n${st.lv>=c+8?' hot':''}"${hot}>${st.lv}</td><td class="n">${big(st.per)}</td><td class="n">${cnt(need/st.per)}</td><td class="n">${big(st.xp)}</td><td class="n">${cnt(need/st.xp)}</td>${T?`<td class="n">${cnt(toTarget(r.aid,o,T,false))}</td>`:''}</tr>`;
@@ -2088,12 +2101,15 @@ function render(){
 
 /* controls */
 const $=id=>document.getElementById(id);
-function syncInputs(){$('xLvl').value=S.lvl;$('xPct').value=S.pct;$('xTarget').value=S.target||'';$('xPlayers').value=S.players;$('xParty').value=S.party;$('xBonus').value=S.bonus||0;$('xTz').checked=S.tz;$('xCap').value=S.cap;
+function syncInputs(){$('xLvl').value=S.lvl;$('xPct').value=S.pct;$('xTarget').value=S.target||'';$('xPlayers').value=S.players;$('xParty').value=S.party;$('xBonus').value=S.bonus||0;$('xTz').checked=S.tz;$('xCap').value=S.cap;$('xProg').value=String(S.prog??17);
   root.querySelectorAll('#xDiff button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.v===S.d)))}
 function init(){
   const o8=[1,2,3,4,5,6,7,8].map(n=>`<option value="${n}">${n}</option>`).join('');$('xPlayers').innerHTML=o8;$('xParty').innerHTML=o8;
   syncInputs();
   const num=(id,k,lo,hi)=>$(id).addEventListener('input',()=>{const v=parseFloat($(id).value);if(!isFinite(v)&&k!=='target')return;S[k]=isFinite(v)?Math.max(lo,Math.min(hi,Math.floor(v))):0;save();render()});
+  $('xProg').innerHTML=DIFF.map((dn,d)=>`<optgroup label="${dn}">${[1,2,3,4,5,6].map(a=>`<option value="${d*6+a-1}">${a<6?`${dn} · Act ${['I','II','III','IV','V'][a-1]}`:`${dn} · Baal killed`}</option>`).join('')}</optgroup>`).join('');
+  $('xProg').value=String(S.prog??17);
+  $('xProg').addEventListener('change',e=>{S.prog=+e.target.value;S.d=prog()[0];S.open=null;syncInputs();save();render()});
   num('xLvl','lvl',1,99);num('xPct','pct',0,99);num('xTarget','target',0,99);num('xBonus','bonus',0,500);
   $('xPlayers').addEventListener('change',e=>{S.players=+e.target.value;save();render()});
   $('xParty').addEventListener('change',e=>{S.party=+e.target.value;save();render()});
@@ -2102,7 +2118,7 @@ function init(){
   $('xDiff').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.d=+b.dataset.v;S.open=null;syncInputs();save();render()});
   root.querySelectorAll('[data-bonus]').forEach(b=>b.addEventListener('click',()=>{S.bonus=(+S.bonus||0)+(+b.dataset.bonus);if(+b.dataset.bonus===0)S.bonus=0;$('xBonus').value=S.bonus;save();render()}));
   $('xpOut').addEventListener('click',e=>{const s=e.target.closest('[data-sort]');if(s){S.sort=s.dataset.sort;save();render();return}
-    const r=e.target.closest('[data-open]');if(r){const id=r.dataset.open;S.open=S.open===id?null:id;render();if(r.classList.contains('xlink')){const row=root.querySelector(`tr.xa[data-open="${id}"]`);if(row)row.scrollIntoView({block:'center'})}}});
+    const r=e.target.closest('[data-open]');if(r){const id=r.dataset.open;if(r.dataset.d!=null&&+r.dataset.d!==S.d){S.d=+r.dataset.d;syncInputs();save();S.open=id}else S.open=r.classList.contains('xlink')?id:(S.open===id?null:id);render();if(r.classList.contains('xlink')){const row=root.querySelector(`tr.xa[data-open="${id}"]`);if(row)row.scrollIntoView({block:'center'})}}});
   $('xpOut').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('tr.xa')){e.preventDefault();e.target.click()}});
   render()}
 let ready=false;
