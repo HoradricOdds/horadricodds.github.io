@@ -3,9 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Horadric Odds">
+<meta property="og:title" content="Horadric Odds: free D2R drop calculator &amp; build planner">
+<meta property="og:description" content="See where any Diablo II: Resurrected item drops and your odds per kill, then plan builds with skill damage, breakpoints and a leveling checklist. Free, no ads, no sign-up.">
+<meta property="og:url" content="https://horadricodds.github.io/">
+<meta property="og:image" content="https://horadricodds.github.io/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Horadric Odds: drop odds, skill damage and breakpoints for Diablo II: Resurrected">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#c4513a">
+<link rel="canonical" href="https://horadricodds.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23110e0b'/%3E%3Cpath d='M18 14h28v6l-8 6v14l8 6v4H18v-4l8-6V26l-8-6z' fill='%23cdb57c'/%3E%3Ccircle cx='32' cy='33' r='4' fill='%23c4513a'/%3E%3C/svg%3E">
 <title>Horadric Odds</title>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
-<meta name="description" content="Diablo II: Resurrected drop calculator. Search any item to see where it drops and the chance per kill.">
+
+<meta name="description" content="Free Diablo II: Resurrected drop calculator and build planner. See where any item drops and your odds per kill, then plan builds with skill damage, breakpoints and a leveling checklist.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -266,7 +280,7 @@ footer a { color: inherit; }
 .about .aboutbody{border:1px solid var(--line);background:var(--panel);border-radius:4px;padding:10px 14px;margin-top:6px;color:var(--text)}
 .about .aboutbody p{margin:0 0 8px;max-width:75ch}
 .about a,.welcome a{color:var(--magic)}
-.modes{align-items:flex-end;flex-wrap:wrap}
+.whatsnew{margin:10px 0 0;display:flex;gap:10px;align-items:baseline;justify-content:space-between;font-size:.88rem;color:var(--muted);border-left:3px solid var(--accent);background:var(--panel);padding:6px 10px;border-radius:3px}.whatsnew b{color:var(--text)}.whatsnew button{background:none;border:none;color:var(--muted);cursor:pointer;font:inherit}.modes{align-items:flex-end;flex-wrap:wrap}
 .pricectl{margin-left:auto;display:flex;align-items:center;gap:8px;padding:0 0 8px;font-size:.85rem;color:var(--muted);flex-wrap:wrap}
 .pricectl .pswitch{display:flex;align-items:center;gap:6px;cursor:pointer}
 .pricectl select{width:auto;font:inherit;font-size:.82rem;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:3px;padding:3px 6px;max-width:100%}
@@ -531,12 +545,14 @@ footer a { color: inherit; }
       <li><b>Build planner:</b> open <i>Share &amp; Library</i>, pick a starter build or make your own, and spend points on <i>Skills &amp; Stats</i>.</li>
       <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item.</li></ol>
       <button type="button" class="wbtn" id="welcomeOk">Got it</button></div>
+    <div class="whatsnew" id="whatsnew" data-v="2026-11-04" hidden><span><b>What's new</b> · 4 Nov 2026: <span id="wnText">Share builds as links (Share &amp; Library → Copy share link). Fixed odds for magic items with sockets (Jeweler's and Artificer's affixes) in drops and gambling.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <details class="about"><summary>About &amp; credits</summary><div class="aboutbody">
       <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or Traderie. Diablo II: Resurrected and its game data belong to Blizzard Entertainment.</p>
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
       <p><b>Attack frames:</b> animation frame data and timing rules follow <a href="https://github.com/Warren1001/IAS_Calculator" target="_blank" rel="noopener">Warren1001's IAS Calculator</a> (animation tables dumped by RuffnecKk). <b>Cast, hit-recovery and block breakpoints:</b> <a href="https://d2runewizard.com/breakpoints" target="_blank" rel="noopener">d2runewizard</a>, with the Warlock tables confirmed against <a href="https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation" target="_blank" rel="noopener">AOEAH</a>.</p>
-      <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Share builds with friends using the build codes in Share &amp; Library.</p>
+      <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Share builds as links or build codes from Share &amp; Library.</p>
       <p><b>Prices:</b> price links open <a href="https://traderie.com/diablo2resurrected" target="_blank" rel="noopener">Traderie</a>'s own pages; Horadric Odds doesn't collect or store Traderie data.</p>
+      <p><b>Bugs and ideas:</b> open an issue on <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">GitHub</a> or email the address below.</p>
       <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>.</p></div></details>
     <p class="lede">Search any unique, set item, rune, runeword or base (player nicknames like "shako" work too), or search by the stats you want. See which monsters and areas drop it, and your chance per kill at your difficulty, player count and magic find.</p>
   </header>
@@ -1102,7 +1118,16 @@ const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.par
 let B, PI=0, TAB='plan', undoB=null, pendingDel=null, addingPhase=false;
 const draft=LS.get('hbp.draft',null);
 const DEF=()=>(LIB.find(x=>x.name==='Blizzard Sorceress')||LIB[0]).make();
-try{B=draft?decode(draft):DEF()}catch(e){B=DEF()}
+/* Share links: #b=<deflate-compressed build, base64url> (short), or #build=<build code>. */
+const u8ToB64u=u=>{let s='';for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const b64uToU8=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0))};
+async function packLink(code){const json=b64d(code.slice(5));if(typeof CompressionStream==='undefined')return '#build='+code;
+  const buf=await new Response(new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer();return '#b='+u8ToB64u(new Uint8Array(buf))}
+async function unpackLink(p){const buf=await new Response(new Blob([b64uToU8(p)]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();return 'D2R2.'+b64e(new TextDecoder().decode(buf))}
+let fromLink=null,linkPacked=null;try{const m=location.hash.match(/^#build=(D2R2\.[A-Za-z0-9_-]+)$/),m2=location.hash.match(/^#b=([A-Za-z0-9_-]+)$/);
+  if(m)fromLink=decode(m[1]);if(m2)linkPacked=m2[1];
+  if(m||m2){try{localStorage.setItem('horadric-mode','planner')}catch(e){}history.replaceState(null,'',location.pathname+location.search)}}catch(e){fromLink=null}
+try{B=fromLink||(draft?decode(draft):DEF())}catch(e){B=DEF()}
 
 
 
@@ -1727,9 +1752,9 @@ function shareHTML(){
   const sites=['all','Starter','Planner'].map(c=>`<button class="chip" data-act="lib-site" data-c="${c}" aria-pressed="${libSite===c}">${c==='all'?'All sources':c}</button>`).join('');
   return `<div class="share">
    <section class="card"><header><h2>Export</h2></header>
-     <p class="hint" style="margin:0">Share this code on forums, Discord or Reddit. Anyone can paste it into Import to get the same skills, stats, respecs and notes.</p>
+     <p class="hint" style="margin:0">The share link opens this exact build on Horadric Odds in one click. The build code does the same when pasted into Import. Both carry skills, stats, respecs, gear and notes.</p>
      <textarea id="exp" rows="5" readonly>${esc(encode(B))}</textarea>
-     <div class="row"><button class="btn primary" data-act="copy-code">Copy build code</button><button class="btn" data-act="copy-text">Copy guide as text</button></div></section>
+     <div class="row"><button class="btn primary" data-act="copy-link">Copy share link</button><button class="btn" data-act="copy-code">Copy build code</button><button class="btn" data-act="copy-text">Copy guide as text</button></div></section>
    <section class="card"><header><h2>Import</h2></header>
      <p class="hint" style="margin:0">Paste a build code, or a whole message that contains one.</p>
      <textarea id="imp" rows="5" placeholder="D2R2.…"></textarea>
@@ -1810,6 +1835,7 @@ view.addEventListener('click',e=>{
   if(act==='gal-report'){galReport(a.dataset.u,a.dataset.n);return}
   if(act==='lib-cls'){libCls=a.dataset.c;render();return}
   if(act==='lib-site'){libSite=a.dataset.c;render();return}
+  if(act==='copy-link'){packLink(encode(B)).then(h=>copy(location.origin+location.pathname+h,'Share link copied. Anyone who opens it gets this build.')).catch(()=>copy(location.origin+location.pathname+'#build='+encode(B),'Share link copied.'));return}
   if(act==='copy-code'){copy(encode(B),'Build code copied.');return}
   if(act==='copy-text'){copy(guideText(),'Guide copied as text.');return}
   if(act==='import'){try{const nb=decode($('#imp').value);undoB=B;B=nb;PI=0;TAB='plan';save();render();toast(`Loaded ${B.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}})}catch(err){$('#imp-err').textContent=err.message}return}
@@ -1843,6 +1869,9 @@ view.addEventListener('change',e=>{
   if(t.dataset.note){const L=+t.dataset.note;const v=t.value.trim();if(v)B.notes[L]=v.slice(0,200);else delete B.notes[L];save();return}
 });
 render();
+const sharedToast=()=>setTimeout(()=>toast(`Opened a shared build: ${B.name}. Save it in Share & Library to keep it.`),400);
+if(fromLink)sharedToast();
+if(linkPacked)unpackLink(linkPacked).then(c=>{B=decode(c);PI=0;TAB='plan';save();render();sharedToast()}).catch(()=>toast('That share link looks damaged or incomplete.'));
 if(typeof ResizeObserver!=='undefined')new ResizeObserver(queueLinks).observe(view);
 window.addEventListener('resize',queueLinks);
 }
@@ -1864,6 +1893,8 @@ window.addEventListener('resize',queueLinks);
   set(m);
   const wl=document.getElementById('welcome');let seen=false;try{seen=!!localStorage.getItem('horadric-welcome')}catch(e){}if(wl&&!seen)wl.hidden=false;
   const wok=document.getElementById('welcomeOk');if(wok)wok.addEventListener('click',()=>{wl.hidden=true;try{localStorage.setItem('horadric-welcome','1')}catch(e){}});
+  const wn=document.getElementById('whatsnew');if(wn){let hid='';try{hid=localStorage.getItem('horadric-wn')||''}catch(e){}if(hid!==wn.dataset.v)wn.hidden=false;
+    document.getElementById('wnClose').addEventListener('click',()=>{wn.hidden=true;try{localStorage.setItem('horadric-wn',wn.dataset.v)}catch(e){}})}
   const on=document.getElementById('priceOn'),mk=document.getElementById('priceMkt');
   let st={on:false,m:0};try{st={...st,...JSON.parse(localStorage.getItem('horadric-prices')||'{}')}}catch(e){}
   mk.innerHTML=['PC · Softcore · Non-ladder','PC · Softcore · Ladder','PC · Hardcore · Non-ladder'].map((l,i)=>`<option value="${i}">${l}</option>`).join('');
