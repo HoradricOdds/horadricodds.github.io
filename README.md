@@ -23,6 +23,11 @@ No ads, no sign-up, works on PC and phone.
 - Side-by-side build comparison.
 - Share builds as links or build codes.
 
+### Experience
+- Enter your level and see how much experience, how many kills and how many full clears it takes to reach your next level or a goal level.
+- Areas are ranked by experience per full clear or per kill for your difficulty, players, party and experience bonuses. Tap one to see what to kill there.
+- Terror zone experience, boss kill experience and a suggested route to your goal level.
+
 ## Reporting problems
 
 - **Bugs and ideas:** [open an issue](https://github.com/HoradricOdds/horadricodds.github.io/issues).
