@@ -343,6 +343,9 @@ footer a { color: inherit; }
 @media (max-width:560px){.modes button{padding:8px 10px}#xp .xin{grid-template-columns:1fr 1fr}#xp .xin .xf:has(.xchips),#xp .xin .xf:has(#xDiff),#xp .xtz{grid-column:1/-1}#xp .xstat b{font-size:1.35rem}}
 
 
+
+#hp .below{columns:3 260px;column-gap:12px;min-width:0}#hp .below > .card{break-inside:avoid;margin:0 0 12px}
+@media (min-width:1100px){#hp .planner .pmain{grid-column:1;grid-row:1}#hp .planner .rail{grid-column:2;grid-row:1 / span 2;align-self:start}#hp .planner .below{grid-column:1;grid-row:2}}
 #hp .treetabs{display:none;gap:6px;flex-wrap:wrap}
 @media (max-width:760px){#hp .treetabs{display:flex}#hp .trees .tree:not(.tsel){display:none}}
 #hp tr.zhide{display:none}
@@ -1282,7 +1285,7 @@ function planHTML(){
     return `<section class="tree${ti===TREE?' tsel':''}" data-tree="${t.ids[0]}"><header><h3>${esc(t.name)}</h3><span class="tbadges"><span class="num muted">${tp} pts</span>${budget-used>0?`<span class="lefttag num" title="Unspent points in this phase">${budget-used} left</span>`:''}</span></header>`+
       [1,2,3,4,5,6].map(r=>`<div class="tier"><span class="tl">${TIERS[r-1]}</span><div class="tn">${[1,2,3].map(col=>{const id=t.ids.find(i=>C.skills[i].row===r&&C.skills[i].col===col);return id===undefined?'<div class="cell" aria-hidden="true"></div>':nodeHTML(C,id,cnt,end)}).join('')}</div></div>`).join('')+`</section>`;
   }).join('');
-  return `<div class="planner"><div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+  return `<div class="planner"><div class="pmain" style="display:flex;flex-direction:column;gap:12px;min-width:0">
     ${srcLine()}
     ${variantBar()}
     ${overviewHTML()}
@@ -1293,9 +1296,12 @@ function planHTML(){
     ${ttabs}<div class="trees">${trees}</div>
     <p class="hint">Lines join each skill to its prerequisites. Click a skill to add a point, right-click to remove one. Shift-click adds or removes up to 20. Missing prerequisites are added for you. The order you click is the order the leveling guide spends points.</p>
   </div>
-  <aside class="rail">${(()=>{const S=railSums(C,ph,end,sim);return `<div class="railbar"><button class="linkbtn" data-act="cards-all" data-v="open">Expand all</button><button class="linkbtn" data-act="cards-all" data-v="close">Collapse all</button></div>`+
-      rc('stats',S.stats,statsCard(C,ph,end,sim))+rc('skills',S.skills,skillCard(C,ph,end))+rc('weapon','',weaponCard(C,end,sim))+rc('gear',S.gear,gearTotalsCard(C,end))+rc('mf',S.mf,mfCard(end))+
-      rc('res',S.res,resistCard(end))+rc('bp',S.bp,bpCard(C,end))+rc('egear',S.egear,gearGoalsCard())+rc('merc',S.merc,mercCard(end))+rc('order',S.order,orderCard(C,ph,sim))})()}</aside></div>`;
+  ${(()=>{const S=railSums(C,ph,end,sim);
+    /* the main cards sit beside the trees; the smaller ones fill the space under the trees (on phones they follow the rail) */
+    return `<aside class="rail"><div class="railbar"><button class="linkbtn" data-act="cards-all" data-v="open">Expand all</button><button class="linkbtn" data-act="cards-all" data-v="close">Collapse all</button></div>`+
+      rc('stats',S.stats,statsCard(C,ph,end,sim))+rc('skills',S.skills,skillCard(C,ph,end))+rc('weapon','',weaponCard(C,end,sim))+`</aside>`+
+      `<div class="below">`+rc('gear',S.gear,gearTotalsCard(C,end))+rc('mf',S.mf,mfCard(end))+rc('res',S.res,resistCard(end))+rc('bp',S.bp,bpCard(C,end))+
+      rc('egear',S.egear,gearGoalsCard())+rc('merc',S.merc,mercCard(end))+rc('order',S.order,orderCard(C,ph,sim))+`</div>`})()}</div>`;
 }
 function nodeHTML(C,id,cnt,end){
   const s=C.skills[id],c=cnt[id]||0,lock=s.lvl>end,miss=s.pre.filter(p=>!cnt[p]);
