@@ -832,7 +832,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <li><b>Build planner:</b> open <i>Share &amp; Library</i>, pick a starter build or make your own, and spend points on <i>Skills &amp; Stats</i>.</li>
       <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item.</li></ol>
       <div class="wbtns"><button type="button" class="wbtn" id="welcomeOk">Got it</button><button type="button" class="wbtn wguide" id="welcomeGuide">Full guide →</button></div></div>
-    <div class="whatsnew" id="whatsnew" data-v="2026-11-05c" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">New <i>Tools</i> tab: a Holy Grail tracker, a rune helper that shows which runewords you can make (and what to cube), a run tracker that compares your drops with the calculator, and every Horadric Cube recipe. Also new: a <i>How to use</i> guide and an equipment panel on the planner's Gear tab.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
+    <div class="whatsnew" id="whatsnew" data-v="2026-11-05d" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">Hover over any item, or tap it on a phone, to see its stats. New <i>Tools</i> tab: a Holy Grail tracker, a rune helper that shows which runewords you can make (search nicknames like cta or coh), a run tracker that compares your drops with the calculator, and every Horadric Cube recipe. Also new: a <i>How to use</i> guide and an equipment panel on the planner's Gear tab.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <details class="about"><summary>About &amp; credits</summary><div class="aboutbody">
       <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment.</p>
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
@@ -1045,7 +1045,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
     <h2>Tools</h2>
     <dl>
       <dt>Holy Grail</dt><dd>Tick every unique, set item and rune as you find it, and watch your progress by type. Filter by armor, weapons or jewelry and by tier, or show only what you're missing. Every item has an <i>odds</i> button that shows where it drops.</dd>
-      <dt>Runes</dt><dd>Enter the runes you own. You'll see which runewords you can make right now, which ones you could make after cubing runes up (with the exact cube steps and gems), and which ones you're one rune short of.</dd>
+      <dt>Runes</dt><dd>Enter the runes you own. You'll see which runewords you can make right now, which ones you could make after cubing runes up (with the exact cube steps and gems), and which ones you're one rune short of. Search by name, nickname (<i>cta</i>, <i>coh</i>, <i>hoto</i>, <i>infy</i>), rune or item type to see what any runeword needs.</dd>
       <dt>Run tracker</dt><dd>Pick a boss or super unique, press <i>+1 run</i> after each run and log what drops. A timer gives your runs per hour, and your drops are compared with the drop calculator's odds, so you can see whether you're lucky or the farm just isn't worth it.</dd>
       <dt>Cube recipes</dt><dd>Every Horadric Cube recipe from the game files: rune and gem upgrades, sockets, item upgrades, crafting, rerolls and uber keys. Search by any ingredient.</dd>
     </dl>
@@ -1055,6 +1055,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
   <section class="hu-sec" id="hu-faq">
     <h2>Questions</h2>
     <dl class="hu-faq">
+      <dt>How do I see an item's stats?</dt><dd>Hover over an item's name anywhere on the site, or tap it on a phone. Uniques, set items (with their set bonuses), runewords (including each rune's own bonus) and runes all show their stats as the game words them.</dd>
       <dt>Which game version does it use?</dt><dd>D2R Reign of the Warlock by default. Drop odds can also use D2R before the expansion or classic Lord of Destruction 1.14d. Choose with <i>Game version</i>.</dd>
       <dt>How accurate are the numbers?</dt><dd>Drop chances come straight from the game's drop tables and rules, and they've been checked against other calculators. They're averages, so luck still decides any single run. How each tool works is explained at the bottom of its page.</dd>
       <dt>Can I link someone straight to a tab?</dt><dd>Yes. Add <span class="hu-mail">#planner</span>, <span class="hu-mail">#experience</span>, <span class="hu-mail">#grail</span>, <span class="hu-mail">#runes</span>, <span class="hu-mail">#runs</span>, <span class="hu-mail">#cube</span> or <span class="hu-mail">#how-to-use</span> to the address, e.g. <span class="hu-mail">horadricodds.github.io/#how-to-use</span>. A drop odds link already carries the item and settings you picked.</dd>
@@ -1065,7 +1066,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 3:50 am</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 3:57 am</span></p>
 
 
 <script>
@@ -5097,6 +5098,11 @@ const TYPEN={tors:'Body armor',helm:'Helm',shld:'Shield',miss:'Missile weapon',w
 const typeName=c=>TYPEN[c]||(DATA.types&&DATA.types[c]?DATA.types[c].n:c);
 const RW=(DATA.runewords||[]).map(w=>{const r=w.r.map(c=>parseInt(c.slice(1),10)-1);
   return {n:w.n,r,b:w.it.map(typeName).join(', '),l:Math.max(...w.r.map(c=>(DATA.items[c]||{}).q||0))}}).filter(w=>w.r.every(i=>i>=0&&i<33)).sort((a,b)=>a.l-b.l||a.n.localeCompare(b.n));
+/* nicknames players use for runewords */
+const RWNICK={cta:'Call to Arms',coh:'Chains of Honor',hoto:'Heart of the Oak',botd:'Breath of the Dying',ebotd:'Breath of the Dying',infy:'Infinity',inf:'Infinity',nigma:'Enigma',eni:'Enigma',fort:'Fortitude',forti:'Fortitude',lw:'Last Wish',hoj:'Hand of Justice',
+  ap:"Ancients' Pledge",kg:"King's Grace",ks:'Kingslayer',cm:'Crescent Moon',lb:'Lawbringer',uw:'Unbending Will',vor:'Voice of Reason',treach:'Treachery',sanc:'Sanctuary',obe:'Obedience',pheonix:'Phoenix',phx:'Phoenix',
+  dream:'Dream',dreams:'Dream',mos:'Mosaic',bod:'Breath of the Dying',ccoh:'Chains of Honor',hos:'Hustle',spirit:'Spirit',insight:'Insight',stealth:'Stealth',smoke:'Smoke',lore:'Lore',rhyme:'Rhyme',pride:'Pride',grief:'Grief',beast:'Beast',doom:'Doom',faith:'Faith',fury:'Fury',exile:'Exile',bramble:'Bramble',dragon:'Dragon',plague:'Plague',wrath:'Wrath',silence:'Silence',eternity:'Eternity',mist:'Mist',rift:'Rift',oath:'Oath',harmony:'Harmony',ice:'Ice',chaos:'Chaos',famine:'Famine',death:'Death',destruction:'Destruction',edge:'Edge',duress:'Duress',memory:'Memory',white:'White',hustle:'Hustle',metamorphosis:'Metamorphosis',meta:'Metamorphosis'};
+const NICKOF={};for(const [k,v] of Object.entries(RWNICK))if(k!==v.toLowerCase())(NICKOF[v]=NICKOF[v]||[]).push(k);
 const UP=new Map(RUNEUP.map(([f,c,g])=>[f+1,{from:f,c,g}]));   // to -> recipe
 let INV=load('horadric-runes',{});const rUI=load('horadric-runes-ui',{cube:true,q:''});
 const inv=i=>Math.max(0,INV[RUNES[i]]|0);
@@ -5119,7 +5125,9 @@ function runesHTML(){
   const total=RUNES.reduce((s,_,i)=>s+inv(i),0);
   const grid=RUNES.map((r,i)=>`<div class="tl-rcell${inv(i)?' has':''}"><span class="tl-rn" data-tip="${r} Rune">${r}</span><span class="tl-rctl"><button type="button" data-rd="${i}" aria-label="One fewer ${r}">−</button><input type="number" min="0" max="999" inputmode="numeric" id="rv-${i}" data-rv="${i}" value="${inv(i)}" aria-label="${r} runes you have"><button type="button" data-ru="${i}" aria-label="One more ${r}">+</button></span></div>`).join('');
   const q=rUI.q.trim().toLowerCase();
-  const res=RW.map(w=>({w,p:plan(w.r,rUI.cube)})).filter(x=>!q||(x.w.n+' '+x.w.b).toLowerCase().includes(q));
+  const hay=w=>(w.n+' '+w.b+' '+w.r.map(i=>RUNES[i]).join(' ')+' '+(NICKOF[w.n]||[]).join(' ')).toLowerCase();
+  const nick=RWNICK[q];
+  const res=RW.map(w=>({w,p:plan(w.r,rUI.cube)})).filter(x=>!q||(nick?x.w.n===nick:hay(x.w).split(/[\s,]+/).some(t=>t.startsWith(q))||hay(x.w).includes(q)));
   const ready=res.filter(x=>x.p.ok&&!x.p.cubed),cubed=res.filter(x=>x.p.ok&&x.p.cubed),near=res.filter(x=>!x.p.ok&&x.p.missing.length===1).sort((a,b)=>a.p.missing[0]-b.p.missing[0]);
   const rwRow=(x,extra)=>{const owned=RUNES.map((_,i)=>inv(i));const tags=x.w.r.map(i=>{const ok=owned[i]>0;if(ok)owned[i]--;return runeChip(i,ok?'ok':'no')}).join('');
     return `<div class="tl-rw"><div class="tl-rwh"><b data-tip="${esc(x.w.n)}">${esc(x.w.n)}</b><span class="tl-sub">${esc(x.w.b)} · ${x.w.r.length} sockets · L${x.w.l}</span>${oddsBtn('w-'+slug(x.w.n))}</div><div class="tl-runes">${tags}</div>${extra||''}</div>`};
@@ -5130,7 +5138,8 @@ function runesHTML(){
     <p class="tl-note">Enter the runes you have (stash, mules, everywhere). They're saved in this browser.</p>
     <div class="tl-rgrid">${grid}</div>
     <div class="tl-row"><label class="tl-check"><input type="checkbox" data-act="r-cube" ${rUI.cube?'checked':''}> Count cube upgrades (3 Tal → Ral and so on)</label>${total?'<button type="button" class="tl-btn ghost" data-act="r-clear">Set all to 0</button>':''}</div></section>
-  <section class="tl-card"><div class="tl-row"><input id="r-q" type="search" placeholder="Search runewords or bases" value="${esc(rUI.q)}" aria-label="Search runewords"></div>
+  <section class="tl-card"><div class="tl-row"><input id="r-q" type="search" placeholder="Search: cta, Enigma, Ber, Body armor…" value="${esc(rUI.q)}" aria-label="Search runewords"></div>
+    ${q?(()=>{const other=res.filter(x=>!x.p.ok&&(x.p.missing.length>1||!total));return other.length?sect(total?'Other matches':'Matches',other,x=>rwRow(x,total?`<p class="tl-steps">Missing: ${x.p.missing.map(i=>runeChip(i,'no')).join(' ')}</p>`:''),''):(res.length?'':'<p class="tl-empty">No runewords match.</p>')})():''}
     ${total?sect('Ready to make',ready,x=>rwRow(x),'None yet with these runes.')+(rUI.cube?sect('With cube upgrades',cubed,x=>rwRow(x,stepTxt(x.p)+(x.p.gems.length?`<p class="tl-steps">Gems: ${x.p.gems.map(([g,n])=>`${n}× ${esc(g)}`).join(', ')}</p>`:'')),'Nothing extra from cubing your runes.'):'')+
       sect('One rune short',near,x=>rwRow(x,`<p class="tl-steps">Missing: ${runeChip(x.p.missing[0],'no')}</p>`),'None.'):'<p class="tl-empty">Add your runes above to see what you can make.</p>'}
     ${ups.length?`<section class="tl-group"><h4>Upgrades you can cube now</h4><p class="tl-steps">${ups.map(([i,n])=>{const u=UP.get(i+1);return `${u.c} ${RUNES[i]}${u.g?' + '+esc(u.g):''} → ${RUNES[i+1]}${n>1?` <i>(×${n})</i>`:''}`}).join(' · ')}</p></section>`:''}

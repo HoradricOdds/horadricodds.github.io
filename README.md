@@ -11,6 +11,7 @@ No ads, no sign-up, works on PC and phone.
 
 ### Drop odds
 - Search any unique, set item, rune, runeword or base. Player nicknames like "shako" work.
+- Hover over (or tap) any item name on the site to see its full stats, worded as the game shows them.
 - See every monster and area that drops it, and your chance per kill for your difficulty, player count and magic find.
 - Search by the stats you want, look up any monster's loot, or work out gambling odds.
 - Includes terror zones, Find Item and first-kill quest drops.
@@ -31,7 +32,7 @@ No ads, no sign-up, works on PC and phone.
 
 ### Tools
 - **Holy Grail tracker:** tick off every unique, set item and rune you find, with progress by type and a link to where each missing item drops.
-- **Rune helper:** enter your runes to see which runewords you can make now, which you could make after cubing runes up (with the exact steps and gems), and which you're one rune short of.
+- **Rune helper:** enter your runes to see which runewords you can make now, which you could make after cubing runes up (with the exact steps and gems), and which you're one rune short of. Search by name, nickname (cta, coh, hoto…) or rune.
 - **Run tracker:** count and time your boss runs, log drops, and compare your luck with the calculator's odds.
 - **Cube recipes:** every Horadric Cube recipe from the game files, searchable by ingredient.
 
