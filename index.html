@@ -376,6 +376,48 @@ footer a { color: inherit; }
 #hp .trees .tree svg.links path{stroke:#4a3c2a;stroke-width:2}
 #hp .trees .tree svg.links path.on{stroke:#c9a14f;stroke-width:2.2;filter:drop-shadow(0 0 3px rgba(217,178,90,.45))}
 #hp .trees .tree svg.links marker path{stroke:none}
+
+/* ---- equipment paper doll (same carved look as the skill trees) ---- */
+#hp .equip .doll,#hp .equip .eside{--q-u:#cdb57c;--q-s:#4fd65b;--q-rw:#d8bd7a;--q-rune:#eea43f;--q-rare:#ece46a;--q-magic:#8b93ff;--q-n:#ddd5c5}
+#hp .eqwrap{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:16px;align-items:start}
+
+#hp .doll{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:auto auto auto auto;gap:6px;padding:12px;border-radius:4px;border:1px solid #050403;
+  grid-template-areas:"weapon helm helm amulet offhand" "weapon armor armor armor offhand" "weapon armor armor armor offhand" "gloves ring1 belt ring2 boots";
+  background:radial-gradient(120% 80% at 50% 0%,#2a231b,#15110d 70%);box-shadow:inset 0 0 0 1px rgba(217,178,90,.16),inset 0 0 28px rgba(0,0,0,.65)}
+#hp .eslot,#hp .emini{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px;min-width:0;min-height:64px;padding:6px 4px;border-radius:4px;
+  background:linear-gradient(180deg,#110e0b,#1b1611 60%,#211a13);border:1px solid #3b3124;box-shadow:inset 0 2px 6px rgba(0,0,0,.85);color:#bfae8a;cursor:default;outline:none}
+#hp .eslot.es-weapon,#hp .eslot.es-offhand{min-height:150px}
+#hp .eslot.es-armor{min-height:110px}
+#hp .eslot.has,#hp .emini.has{border-color:#6e5630;cursor:help}
+#hp .eslot:not(.has){cursor:pointer}
+#hp .eslot:hover,#hp .eslot:focus-visible,#hp .emini:hover,#hp .emini:focus-visible{border-color:#9b7a3c;box-shadow:inset 0 2px 6px rgba(0,0,0,.85),0 0 10px rgba(217,178,90,.2)}
+#hp .eico{position:absolute;inset:0;margin:auto;width:46%;max-width:64px;height:60%;fill:none;stroke:rgba(217,178,90,.13);stroke-width:1.6;stroke-linejoin:round;pointer-events:none}
+#hp .eslot.has .eico{stroke:rgba(217,178,90,.07)}
+#hp .esn{position:relative;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#7d6d52}
+#hp .ein{position:relative;font-size:.8rem;line-height:1.15;font-weight:600;overflow-wrap:anywhere;text-shadow:0 1px 0 #000}
+#hp .elv,#hp .eempty{position:relative;font-size:.66rem;color:#7d6d52;overflow-wrap:anywhere}
+#hp .q-u{color:var(--q-u)}#hp .q-s{color:var(--q-s)}#hp .q-rw{color:var(--q-rw)}#hp .q-rune{color:var(--q-rune)}#hp .q-rare{color:var(--q-rare)}#hp .q-magic{color:var(--q-magic)}#hp .q-n{color:var(--q-n)}
+#hp .eside{display:flex;flex-direction:column;gap:10px;min-width:0}
+#hp .eblock{display:flex;flex-direction:column;gap:5px;min-width:0}
+#hp .echarms{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px}
+#hp .emerc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#hp .emini{min-height:46px}
+#hp .esteps{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+#hp .esteps .chip{padding:1px 9px;font-family:var(--f-mono);font-size:.8rem}
+/* tooltip */
+#hp .ett{display:none;position:absolute;z-index:30;top:calc(100% + 6px);left:50%;transform:translateX(-50%);width:max-content;max-width:260px;padding:9px 11px;text-align:center;
+  background:rgba(8,6,5,.97);border:1px solid #5d4a2b;border-radius:3px;box-shadow:0 6px 20px rgba(0,0,0,.6);font-size:.8rem;line-height:1.35;color:#8b93ff;cursor:default}
+#hp .es-weapon .ett,#hp .es-gloves .ett{left:0;transform:none}
+#hp .es-offhand .ett,#hp .es-boots .ett{left:auto;right:0;transform:none}
+#hp .eslot:hover .ett,#hp .eslot:focus .ett,#hp .eslot.tipon .ett,#hp .emini:hover .ett,#hp .emini:focus .ett{display:block}
+@media (hover:none){#hp .eslot:hover .ett,#hp .emini:hover .ett{display:none}#hp .eslot:focus .ett,#hp .emini:focus .ett{display:block}}
+#hp .ett .tn2{font-weight:700;font-size:.88rem;margin-bottom:2px}
+#hp .ett.q-u .tn2{color:#cdb57c}#hp .ett.q-s .tn2{color:#4fd65b}#hp .ett.q-rw .tn2{color:#d8bd7a}#hp .ett.q-rune .tn2{color:#eea43f}#hp .ett.q-rare .tn2{color:#ece46a}#hp .ett.q-n .tn2{color:#ddd5c5}
+#hp .ett .tb,#hp .ett .treq{color:#ddd5c5}#hp .ett .tset{color:#4fd65b}#hp .ett .trunes{color:#d8bd7a}
+#hp .ett .tnote,#hp .ett .twhy{color:#8d7c5f;font-size:.72rem;margin-top:4px}#hp .ett .twhy{font-style:italic}
+@media (max-width:760px){#hp .eqwrap{grid-template-columns:minmax(0,1fr)}
+  #hp .doll{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"weapon helm offhand" "weapon armor offhand" "gloves belt boots" "ring1 amulet ring2"}
+  #hp .eslot.es-weapon,#hp .eslot.es-offhand{min-height:130px}#hp .eslot.es-armor{min-height:90px}}
 #hp .below{columns:3 260px;column-gap:12px;min-width:0}#hp .below > .card{break-inside:avoid;margin:0 0 12px}
 @media (min-width:1100px){#hp .planner .pmain{grid-column:1;grid-row:1}#hp .planner .rail{grid-column:2;grid-row:1 / span 2;align-self:start}#hp .planner .below{grid-column:1;grid-row:2}}
 #hp .treetabs{display:none;gap:6px;flex-wrap:wrap}
@@ -1747,6 +1789,71 @@ async function farmRun(){if(farmBusy)return;farmBusy=true;render();const xs=farm
   farmBusy=false;if(TAB==='gear')render()}
 let editX=null;
 function xEditor(x){const v=x.x||{};return `<div class="xedit"><div class="label">Stats for ${esc(x.it)} <span class="muted">(rares, charms, sockets, jewels: whatever this entry adds)</span></div><div class="xgrid">${XF.map(([k,l])=>`<label class="field"><span class="label">${l}</span><input type="number" data-xk="${k}" value="${v[k]||''}" min="-999" max="9999"></label>`).join('')}</div><div class="row"><button class="btn small primary" data-act="x-save" data-k="${x.k}">Save stats</button><button class="btn small" data-act="x-cancel">Cancel</button>${x.x?`<button class="btn small danger" data-act="x-clear" data-k="${x.k}">Clear</button>`:''}</div></div>`}
+
+/* ---------- equipment: a paper-doll view of the planned gear at any level ---------- */
+let EQL=null,eqTip=null;                               // level shown (null = target level), open tooltip on touch
+const EQ_ICON={                                        // simple slot outlines (original drawings)
+ weapon:'M14 4 L18 4 L18 30 L22 34 L10 34 L14 30 Z M16 34 L16 44',
+ offhand:'M8 6 L32 6 L32 22 Q32 36 20 44 Q8 36 8 22 Z',
+ helm:'M8 28 Q8 8 20 8 Q32 8 32 28 L28 28 L28 22 L12 22 L12 28 Z',
+ armor:'M12 6 L18 10 L22 10 L28 6 L34 12 L30 18 L30 40 L10 40 L10 18 L6 12 Z',
+ gloves:'M12 40 L12 18 L14 10 L17 10 L17 20 L18 8 L21 8 L21 20 L22 9 L25 9 L25 21 L27 13 L30 14 L28 30 L26 40 Z',
+ belt:'M4 16 L36 16 L36 26 L4 26 Z M16 14 L24 14 L24 28 L16 28 Z',
+ boots:'M12 6 L22 6 L22 30 L34 34 L34 40 L12 40 Z',
+ amulet:'M10 6 Q20 24 30 6 M20 22 L26 30 L20 38 L14 30 Z',
+ ring:'M20 12 A10 10 0 1 0 20.01 12 Z M20 16 A6 6 0 1 1 19.99 16 Z',
+ charm:'M14 6 L26 6 L30 12 L30 38 L10 38 L10 12 Z'};
+const EQ_SLOTS=[[0,'weapon','weapon'],[1,'offhand','offhand'],[2,'helm','helm'],[3,'armor','armor'],[4,'gloves','gloves'],[5,'belt','belt'],[6,'boots','boots'],[7,'amulet','amulet'],[8,'ring1','ring'],[9,'ring2','ring']];
+function eqItemAt(i,L){const xs=(B.gear||[]).filter(x=>x.s===i&&x.lv<=L).sort((a,b)=>b.lv-a.lv);return xs[0]||null}
+function eqNext(i,L){const xs=(B.gear||[]).filter(x=>x.s===i&&x.lv>L).sort((a,b)=>a.lv-b.lv);return xs[0]||null}
+/* quality and tooltip lines from the drop calculator's item data */
+function eqLookup(it){const p=gearParts(it)[0];if(!p)return null;const nm=p.name.toLowerCase().replace(/^the /,'');
+  const D=typeof DATA!=='undefined'?DATA:null;const find=(arr)=>arr&&arr.find(x=>x.n.toLowerCase().replace(/^the /,'')===nm);
+  const rw=RW.find(r=>r.n.toLowerCase()===nm);if(rw)return {q:'rw',name:rw.n,p,rw};
+  const u=D&&find(D.uniques);if(u)return {q:'u',name:u.n,p,row:u};
+  const s=D&&find(D.sets);if(s)return {q:'s',name:s.n,p,row:s};
+  if(/\brune$/.test(nm)||/^(el|eld|tir|nef|eth|ith|tal|ral|ort|thul|amn|sol|shael|dol|hel|io|lum|ko|fal|lem|pul|um|mal|ist|gul|vex|ohm|lo|sur|ber|jah|cham|zod)$/.test(nm))return {q:'rune',name:p.name,p};
+  if(/\b(rare|crafted)\b/i.test(it))return {q:'rare',name:p.name,p};
+  if(/\bmagic\b/i.test(it))return {q:'magic',name:p.name,p};
+  return {q:'n',name:p.name,p}}
+const IXL={sk:'+# to All Skills',fcr:'+#% Faster Cast Rate',fhr:'+#% Faster Hit Recovery',ias:'+#% Increased Attack Speed',fbr:'+#% Faster Block Rate',mf:'#% Better Chance of Getting Magic Items',
+  life:'+# to Life',mana:'+# to Mana',res:'All Resistances +#',str:'+# to Strength',dex:'+# to Dexterity',vit:'+# to Vitality',ene:'+# to Energy',ed:'+#% Enhanced Damage',
+  rf:'Fire Resist +#%',rc:'Cold Resist +#%',rl:'Lightning Resist +#%',rp:'Poison Resist +#%',dmin:'+# to Minimum Damage',dmax:'+# to Maximum Damage'};
+function eqTipHTML(g){const x=eqLookup(g.it);if(!x)return '';const L=[];
+  const D=typeof DATA!=='undefined'?DATA:null;const lab=k=>String(D&&D.stats[k]||k).replace(/^\[F\]/,'');
+  if(x.row){const base=D.items[x.row.c];if(base)L.push(`<div class="tb">${esc(base.n)}</div>`);if(x.row.set)L.push(`<div class="tset">${esc(x.row.set)}</div>`);
+    const rq=itemInfo(x.name)||itemInfo(g.it);if(rq)L.push(`<div class="treq">Required level ${rq.l}</div>`);
+    for(const [k,a,b] of x.row.s){const v=a===b?a:`${a}-${b}`;const l=lab(k);L.push(`<div class="tl2">${esc(l.includes('#')?l.replace('#',v):`${l} ${v}`)}</div>`)}}
+  else if(x.rw){L.push(`<div class="trunes">'${esc(x.rw.r.replace(/ /g,''))}'</div><div class="tb">${esc(x.rw.b)}</div><div class="treq">Required level ${x.rw.l}</div>`);
+    const st=IX[ixKey(x.rw.n)]||{};for(const [k,l] of Object.entries(IXL))if(st[k])L.push(`<div class="tl2">${esc(l.replace('#',st[k]))}</div>`);
+    if(st.one)for(const [n,v] of Object.entries(st.one))L.push(`<div class="tl2">+${v} to ${esc(n)}</div>`);
+    L.push(`<div class="tnote">Key stats only</div>`)}
+  else L.push(`<div class="tnote">${x.q==='rune'?'Rune':'No stat list for this entry'}${g.x?' · uses the stats you entered':''}</div>`);
+  if(g.why)L.push(`<div class="twhy">${esc(g.why)}</div>`);
+  return `<div class="ett q-${x.q}" role="tooltip"><div class="tn2">${esc(g.it)}</div>${L.join('')}</div>`}
+function eqSlotHTML(i,area,icon,L,small){const g=eqItemAt(i,L),nx=eqNext(i,L),x=g&&eqLookup(g.it);
+  return `<div class="eslot es-${area}${g?' has':''}${eqTip===i?' tipon':''}" style="grid-area:${area}" tabindex="0" data-act="eq-slot" data-s="${i}" aria-label="${esc(SLOTS[i])}: ${g?esc(g.it):'empty'}">
+    <svg class="eico" viewBox="0 0 40 46" aria-hidden="true"><path d="${EQ_ICON[icon]}"/></svg>
+    <span class="esn">${esc(SLOTS[i])}</span>
+    ${g?`<span class="ein q-${x?x.q:'n'}">${esc(g.it)}</span><span class="elv">from L${g.lv}</span>`:`<span class="eempty">${nx?`L${nx.lv}: ${esc(nx.it)}`:'empty'}</span>`}
+    ${g?eqTipHTML(g):''}</div>`}
+function equipHTML(){
+  const g=B.gear||[];const L=Math.min(B.level,EQL||B.level);
+  const steps=[...new Set(g.map(x=>x.lv).filter(l=>l<=B.level))].sort((a,b)=>a-b);if(!steps.includes(B.level))steps.push(B.level);
+  const doll=EQ_SLOTS.map(([i,area,icon])=>eqSlotHTML(i,area,icon,L)).join('');
+  const charms=[...new Map(g.filter(x=>x.s===10&&x.lv<=L).map(x=>[x.it,x])).values()];
+  const merc=[12,14,13].map(i=>{const m=eqItemAt(i,L),q=m&&eqLookup(m.it);return `<div class="emini${m?' has':''}" tabindex="0" data-act="eq-slot" data-s="${i}"><span class="esn">${esc(SLOTS[i].replace('Merc ',''))}</span>${m?`<span class="ein q-${q?q.q:'n'}">${esc(m.it)}</span>${eqTipHTML(m)}`:'<span class="eempty">empty</span>'}</div>`}).join('');
+  const sw=eqItemAt(11,L),swq=sw&&eqLookup(sw.it);
+  return `<section class="card equip"><header><h2>Equipment</h2><span class="muted">${CLS[B.cls].name} · level ${L}</span></header>
+    ${steps.length>1?`<div class="esteps" role="group" aria-label="Gear at level"><span class="label">Gear at level</span>${steps.map(l=>`<button class="chip" data-act="eq-lvl" data-l="${l}" aria-pressed="${l===L}">${l}</button>`).join('')}</div>`:''}
+    <div class="eqwrap"><div class="doll">${doll}</div>
+      <div class="eside">
+        <div class="eblock"><span class="label">Charms</span><div class="echarms">${charms.length?charms.map(c=>{const q=eqLookup(c.it);return `<div class="emini has" tabindex="0"><span class="ein q-${q?q.q:'n'}">${esc(c.it)}</span>${eqTipHTML(c)}</div>`}).join(''):'<span class="eempty">none planned</span>'}</div></div>
+        <div class="eblock"><span class="label">Weapon swap</span><div class="emini${sw?' has':''}" tabindex="0" data-act="eq-slot" data-s="11">${sw?`<span class="ein q-${swq?swq.q:'n'}">${esc(sw.it)}</span>${eqTipHTML(sw)}`:'<span class="eempty">empty</span>'}</div></div>
+        <div class="eblock"><span class="label">Mercenary</span><div class="emerc">${merc}</div></div>
+      </div></div>
+    <p class="hint" style="margin:0">Hover or tap an item for its stats. Click an empty slot to add an item there.</p></section>`;
+}
 function gearHTML(){
   const g=B.gear||(B.gear=[]);const sim=simulate(B);const probs=new Map(reqProblems(B,sim).map(p=>[p.k,p]));
   const rows=SLOTS.map((sl,i)=>{const xs=g.map((x,k)=>({...x,k})).filter(x=>x.s===i).sort((a,b)=>a.lv-b.lv);if(!xs.length)return '';
@@ -1755,6 +1862,7 @@ function gearHTML(){
         return pr.met?`<span class="gw reqwarn" title="At level ${x.lv} you'll have ${pr.s.str} Str and ${pr.s.dex} Dex">Needs ${need}: wearable from L${pr.met}</span>`:`<span class="gw reqbad" title="At level ${B.level} you'll have ${pr.end.str} Str and ${pr.end.dex} Dex">Needs ${need}: your planned stats never reach it</span>`})()}${x.x?`<span class="gw xs">${esc(Object.entries(x.x).map(([k,v])=>`${v>0?'+':''}${v} ${(XF.find(f=>f[0]===k)||[k,k])[1].replace(' %','%')}`).join(', '))}</span>`:''}${oddsBtn(x.it)}<button class="xbtn" data-act="x-edit" data-k="${x.k}" title="Enter this item's stats">${x.x?'edit stats':'stats'}</button><button data-act="gear-del" data-k="${x.k}" aria-label="Remove ${esc(x.it)}">×</button></span>`}).join('')}</div>${xs.filter(x=>x.k===editX).map(xEditor).join('')}</div>`}).join('');
   const rw=RW.filter(r=>(!rwFilter||(r.n+' '+r.r+' '+r.b).toLowerCase().includes(rwFilter.toLowerCase()))&&(!rwWear||r.l<=B.level));
   return `<div class="guide">
+   ${equipHTML()}
    <section class="card"><header><h2>Gear plan</h2><span class="muted">${CLS[B.cls].name} · ${g.length} item${g.length===1?'':'s'}</span></header>
     <p class="hint" style="margin:0">Add the items to look for in each slot and the level you can wear them. They appear in the leveling guide at that level and travel with the build code. <b>odds</b> opens the item in the drop calculator; <b>stats</b> lets you enter what a rare, charm or socketed jewel gives so it counts toward skills, breakpoints and resists. Coloured notes mean your planned Str or Dex won't meet the item's requirement at that level, and show when it will.</p>
     <div class="gearadd">
@@ -1952,6 +2060,10 @@ view.addEventListener('click',e=>{
   if(act==='cmp-open'){const nb=cmpBuild(a.dataset.v);if(!nb)return;undoB=B;B=nb;PI=0;TAB='plan';cmpA='cur';cmpB=null;save();render();toast(`Opened ${B.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}});return}
   if(act==='card-tog'){const k=a.dataset.ck;if(CLOSED.has(k))CLOSED.delete(k);else CLOSED.add(k);LS.set('hbp.closed2',[...CLOSED]);
     const sec=a.closest('.card');if(sec){sec.classList.toggle('closed',CLOSED.has(k));a.setAttribute('aria-expanded',String(!CLOSED.has(k)))}queueLinks();return}
+  if(act==='eq-lvl'){EQL=+a.dataset.l;eqTip=null;render();return}
+  if(act==='eq-slot'){const s=+a.dataset.s;const has=a.classList.contains('has');
+    if(!has){const sel=document.getElementById('g-slot'),inp=document.getElementById('g-item');if(sel){sel.value=String(s);inp.focus();inp.scrollIntoView({block:'center'})}return}
+    if(matchMedia('(hover:none)').matches){eqTip=eqTip===s?null:s;render()}return}
   if(act==='tree-tab'){TREE=+a.dataset.i;render();return}
   if(act==='zone-tog'){const z=+a.dataset.z;if(!GZ)GZ=new Set([0]);if(GZ.has(z))GZ.delete(z);else GZ.add(z);render();return}
   if(act==='zones-all'){GZ=new Set(a.dataset.v==='open'?ZONES.map((_,i)=>i):[]);render();return}
