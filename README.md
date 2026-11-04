@@ -42,9 +42,9 @@ When reporting wrong odds or numbers, it helps to include the item or build, the
 - **Breakpoints:** cast, hit-recovery and block tables from [d2runewizard](https://d2runewizard.com/breakpoints), with the Warlock tables checked against [AOEAH](https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation).
 - **Experience:** rules checked against [The Amazon Basin wiki](https://theamazonbasin.com/wiki/index.php/Experience). Monster counts per area come from [u/Pavke](https://www.reddit.com/user/Pavke/)'s Experience Calculator, which was also used to check the numbers. Thanks, Pavke!
 - **Builds:** the starter builds are written for Horadric Odds from the game data and common community knowledge. For full guides, see [Maxroll](https://maxroll.gg/d2/category/guides) and [Icy Veins](https://www.icy-veins.com/d2/); each build links to them.
-- **Prices:** the optional price links open [Traderie](https://traderie.com/diablo2resurrected)'s own pages. Horadric Odds doesn't collect or store Traderie data.
+- **Prices:** the optional price links open [diablo2.io](https://diablo2.io/)'s price check for the item, with permission from its admin. Horadric Odds doesn't collect or store any price data.
 
-Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or Traderie. Diablo II: Resurrected and its game data belong to Blizzard Entertainment.
+Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment.
 
 ## How it's built
 
