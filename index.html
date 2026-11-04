@@ -575,7 +575,8 @@ footer a { color: inherit; }
 [data-tip]{cursor:help}.itemtip .sk-n{color:#3fd04f;font-weight:700;font-size:1rem;font-variant:small-caps;letter-spacing:.04em}.itemtip .sk-d{color:#e7a08f;margin:2px 0 4px}.itemtip .sk-r{color:#e7a08f}.itemtip .sk-cur{color:#e8e2d6;margin-top:6px}.itemtip .sk-h{color:#bdb3a2;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;margin-top:6px}.itemtip .sk-l{color:#e7a08f}.itemtip .sk-sh{color:#3fd04f;margin-top:8px}.itemtip .sk-s{color:#e7a08f}.itemtip .sk-s i{color:#8c8272;font-style:normal}#result .k-unique,#result .k-set,#result .k-rune,#result .k-runeword{cursor:help}
 #hp .ettx .tt-n{display:none}#hp .ettx .tt-l{color:#8282ff}#hp .ettx .tt-sb,#hp .ettx .tt-set{color:#3fd04f}#hp .ettx .tt-runes{color:#c7b377}#hp .ettx .tt-h{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;opacity:.75;margin-top:6px}#hp .ettx .tt-note{font-size:.72rem;opacity:.65;margin-top:6px}#hp .ettx .tt-req{opacity:.8}
 button[data-tip],label [data-tip]{cursor:pointer}
-#hp .guidelist summary{cursor:pointer;margin:2px 0 6px}#hp .ledger{min-width:760px}
+#hp .guidelist summary{cursor:pointer;margin:2px 0 6px}#hp .bsec .bgrp{display:flex;flex-direction:column;gap:8px;padding-top:6px}#hp .bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}#hp .bact a.btn{text-decoration:none}#hp .bcard{background:var(--sunk);border:1px solid var(--line);border-radius:4px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}#hp .bch{display:flex;gap:8px;align-items:baseline;justify-content:space-between}#hp .bch b{color:var(--unique)}#hp .btag{font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 7px}#hp .bdesc{margin:0;font-size:.85rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}#hp .bact{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}#hp .bmore summary{cursor:pointer;font-size:.88rem}#hp .glinks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:2px 16px;margin-top:6px}#hp .glinks a{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid var(--line);color:var(--text);text-decoration:none;font-size:.88rem}#hp .glinks a span{color:var(--muted);font-size:.78rem;white-space:nowrap}#hp .glinks a:hover{color:var(--unique)}
+#hp .ledger{min-width:760px}
 #hp .farms{display:flex;flex-direction:column;gap:6px}
 #hp .farm{border:1px solid var(--line);border-radius:3px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;background:var(--panel2)}
 #hp .farm .fh b{color:var(--unique);font-weight:500}
@@ -1066,7 +1067,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 4:36 am</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 4:42 am</span></p>
 
 
 <script>
@@ -2288,7 +2289,7 @@ function shareHTML(){
   const libHTML=lib.length?lib.map((it,i)=>`<div class="it"><div class="meta"><b>${esc(it.name)}</b><span>${esc(it.cls)} · level ${it.level}</span></div><div class="row">${pendingDel===i?`<span class="confirm">Delete?<button class="btn small danger" data-act="lib-del-ok" data-i="${i}">Delete</button><button class="btn small" data-act="lib-del-no">Keep</button></span>`:`<button class="btn small primary" data-act="lib-load" data-i="${i}">Open</button><button class="btn small" data-act="lib-del" data-i="${i}">Delete</button>`}</div></div>`).join('')
     :`<p class="hint" style="margin:0">Saved builds appear here. They live in this browser only, so keep the build code as a backup.</p>`;
   const q=libQ.trim().toLowerCase();
-  const shown=LIB.map((p,i)=>({...p,i})).filter(p=>(libCls==='all'||p.cls===libCls)&&(libSite==='all'||p.site===libSite)&&(!q||(p.name+' '+CLS[p.cls].name).toLowerCase().includes(q)));
+  const shown=LIB.map((p,i)=>({...p,i})).filter(p=>(libCls==='all'||p.cls===libCls)&&(!q||(p.name+' '+CLS[p.cls].name).toLowerCase().includes(q)));
   const presets=CLASS_ORDER.map(c=>{const xs=shown.filter(p=>p.cls===c);if(!xs.length)return '';
     return `<div class="libgrp"><div class="label">${CLS[c].name} · ${xs.length}</div>${xs.map(p=>`<div class="it"><div class="meta"><b>${esc(p.name)}</b><span>${esc(p.site)}${p.upd?' · '+esc(p.upd):''}</span></div><button class="btn small" data-act="preset" data-i="${p.i}">Open</button></div>`).join('')}</div>`}).join('')||'<p class="hint">No builds match.</p>';
   const chips=['all',...CLASS_ORDER].map(c=>`<button class="chip" data-act="lib-cls" data-c="${c}" aria-pressed="${libCls===c}">${c==='all'?'All classes':CLS[c].name}</button>`).join('');
@@ -2304,15 +2305,24 @@ function shareHTML(){
      <div class="row"><button class="btn primary" data-act="import">Load build</button><span id="imp-err" class="over" style="font-size:.88rem"></span></div></section>
    <section class="card"><header><h2>My builds</h2><button class="btn small primary" data-act="lib-save">Save current build</button></header><div class="lib">${libHTML}</div></section>
 
-   <section class="card" style="grid-column:1/-1"><header><h2>Starter builds</h2><span class="muted">${shown.length} of ${LIB.length}</span></header>
-     <div class="phasebar">${chips}</div><div class="phasebar">${sites}<input id="lib-q" type="search" placeholder="Search builds" value="${esc(libQ)}" style="background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:6px 8px;flex:1;min-width:10rem"></div>
-     <div class="lib libcols">${presets}</div>
-     <p class="hint" style="margin:0">Starter builds are written for Horadric Odds from the game data and common community knowledge. Each one links to full guides on Maxroll and Icy Veins, which cover tactics, gear and patch changes in depth.</p></section>
-   <section class="card" style="grid-column:1/-1"><header><h2>Guides</h2><span class="muted">Full build guides on other sites</span></header>
-     <p class="hint" style="margin:0">Links open the guide on its own site. Horadric Odds isn't affiliated with these sites.</p>
-     <details class="guidelist"${libCls!=='all'?' open':''}><summary class="linkbtn">Show ${libCls==='all'?'all '+Object.values(GUIDES).flat().length+' guides':CLS[libCls].name+' guides'}</summary><div class="lib libcols">${CLASS_ORDER.map(c=>{const xs=GUIDES[c]||[];if(!xs.length||(libCls!=='all'&&libCls!==c))return '';return `<div class="libgrp"><div class="label">${CLS[c].name}</div>${xs.map(([s,n,u])=>`<div class="it"><div class="meta"><b>${esc(n)}</b><span>${esc(s)}</span></div><a class="btn small" href="${esc(u)}" target="_blank" rel="noopener">Open ↗</a></div>`).join('')}</div>`}).join('')}</div></details></section>
+   <section class="card bsec" style="grid-column:1/-1"><header><h2>Builds</h2><span class="muted">${shown.length} starter builds · ${Object.values(GUIDES).flat().length} guides</span></header>
+     <div class="phasebar">${chips}<input id="lib-q" type="search" placeholder="Search builds and guides" value="${esc(libQ)}" style="background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:6px 8px;flex:1;min-width:10rem"></div>
+     ${buildsHTML(shown,q)}
+     <p class="hint" style="margin:0">Starter builds are written for Horadric Odds from the game data and common community knowledge: open one to load its skills, stats and gear into the planner. Guide links open the full guide on Maxroll or Icy Veins (not affiliated), which cover tactics, gear and patch changes in depth.</p></section>
   </div>`;
 }
+/* starter builds as cards; each links the guides for the same build, other guides are listed per class */
+const BINFO=new Map();function binfo(p){if(!BINFO.has(p.i)){let x=null;try{x=LIB[p.i].make().info||null}catch(e){}BINFO.set(p.i,x)}return BINFO.get(p.i)}
+const GSTOP=new Set(['amazon','assassin','barbarian','druid','necromancer','paladin','sorceress','sorc','warlock','build','guide','the','and','with','of']);
+const gwords=s=>String(s).toLowerCase().replace(/[^a-z0-9 ]+/g,' ').split(' ').filter(w=>w&&!GSTOP.has(w));
+function buildsHTML(shown,q){
+  return CLASS_ORDER.map(c=>{if(libCls!=='all'&&libCls!==c)return '';const xs=shown.filter(p=>p.cls===c);const gs=(GUIDES[c]||[]).map(g=>({g,w:gwords(g[1])}));const used=new Set();
+    const cards=xs.map(p=>{const w=gwords(p.name);const best={};gs.forEach(x=>{if(/leveling/i.test(x.g[1]))return;const sc=x.w.filter(k=>w.includes(k)).length;if(sc&&(!best[x.g[0]]||sc>best[x.g[0]].sc))best[x.g[0]]={...x,sc}});const mine=Object.values(best);mine.forEach(x=>used.add(x.g[2]));const inf=binfo(p);
+      return `<div class="bcard"><div class="bch"><b>${esc(p.name)}</b>${p.site!=='Starter'?`<span class="btag">${esc(p.site)}</span>`:''}</div>${inf&&inf.good?`<p class="bdesc">${esc(inf.good)}</p>`:''}
+        <div class="bact"><button class="btn small primary" data-act="preset" data-i="${p.i}">Open in planner</button>${mine.map(x=>`<a class="btn small" href="${esc(x.g[2])}" target="_blank" rel="noopener" title="${esc(x.g[1])} on ${esc(x.g[0])}">${esc(x.g[0])} guide ↗</a>`).join('')}</div></div>`}).join('');
+    const rest=gs.filter(x=>!used.has(x.g[2])&&(!q||(x.g[1]+' '+x.g[0]).toLowerCase().includes(q)));
+    if(!cards&&!rest.length)return '';
+    return `<div class="bgrp"><div class="label">${CLS[c].name}</div>${cards?`<div class="bgrid">${cards}</div>`:''}${rest.length?`<details class="bmore"${q?' open':''}><summary class="linkbtn">${xs.length?'More':'All'} ${CLS[c].name} guides (${rest.length})</summary><div class="glinks">${rest.map(x=>`<a href="${esc(x.g[2])}" target="_blank" rel="noopener">${esc(x.g[1])} <span>${esc(x.g[0])} ↗</span></a>`).join('')}</div></details>`:''}</div>`}).join('')||'<p class="hint">No builds match.</p>'}
 async function copy(text,ok){try{await navigator.clipboard.writeText(text);toast(ok)}catch(e){const ta=$('#exp');if(ta){ta.value=text;ta.select()}toast('Copy blocked here. The text is selected; press Ctrl+C.')}}
 
 /* ---------- events ---------- */
