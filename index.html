@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Horadric Odds">
-<meta property="og:title" content="Horadric Odds: free D2R drop calculator &amp; build planner">
+<meta property="og:title" content="Horadric Odds: free D2R drop calculator, build planner &amp; experience calculator">
 <meta property="og:description" content="See where any Diablo II: Resurrected item drops and your odds per kill, plan builds with skill damage and breakpoints, and work out the fastest places to level. Free, no ads, no sign-up.">
 <meta property="og:url" content="https://horadricodds.github.io/">
 <meta property="og:image" content="https://horadricodds.github.io/preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Horadric Odds: drop odds, skill damage and breakpoints for Diablo II: Resurrected">
+<meta property="og:image:alt" content="Horadric Odds: drop odds, build planning and leveling for Diablo II: Resurrected">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#c4513a">
 <link rel="canonical" href="https://horadricodds.github.io/">
@@ -19,7 +19,7 @@
 <title>Horadric Odds</title>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 
-<meta name="description" content="Free Diablo II: Resurrected drop calculator and build planner. See where any item drops and your odds per kill, plan builds with skill damage and breakpoints, and work out the fastest places to level.">
+<meta name="description" content="Free Diablo II: Resurrected drop calculator, build planner and experience calculator. See where any item drops and your odds per kill, plan builds with skill damage and breakpoints, and work out the fastest places to level.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -462,7 +462,7 @@ footer a { color: inherit; }
 #help .hu-go{align-self:flex-start;background:var(--sunk);border:1px solid var(--line2,var(--line));border-radius:3px;padding:6px 12px;font:inherit;font-size:.88rem;color:var(--text);cursor:pointer}
 #help .hu-go:hover,#help .hu-go:focus-visible{border-color:var(--unique);color:var(--unique)}
 @media (max-width:560px){#help dl{grid-template-columns:minmax(0,1fr);gap:2px}#help dd{margin-bottom:8px}#help .hu-sec{padding:14px}}
-.buildtag{max-width:1400px;margin:28px auto 18px;padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));text-align:center;font-size:.76rem;letter-spacing:.04em;color:var(--muted);opacity:.8;font-variant-numeric:tabular-nums}
+.buildtag a{color:var(--magic)}.buildtag{max-width:1400px;margin:28px auto 18px;padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));text-align:center;font-size:.76rem;letter-spacing:.04em;color:var(--muted);opacity:.8;font-variant-numeric:tabular-nums}
 #hp .guidelist summary{cursor:pointer;margin:2px 0 6px}#hp .ledger{min-width:760px}
 #hp .farms{display:flex;flex-direction:column;gap:6px}
 #hp .farm{border:1px solid var(--line);border-radius:3px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;background:var(--panel2)}
@@ -934,12 +934,12 @@ footer a { color: inherit; }
       <dt>Can I link someone straight to a tab?</dt><dd>Yes. Add <span class="hu-mail">#planner</span>, <span class="hu-mail">#experience</span> or <span class="hu-mail">#how-to-use</span> to the address, e.g. <span class="hu-mail">horadricodds.github.io/#how-to-use</span>. A drop odds link already carries the item and settings you picked.</dd>
       <dt>Where is my stuff saved?</dt><dd>Settings, saved builds and leveling ticks stay in your browser on this device. Nothing is sent anywhere. Build codes are the way to move a build to another device.</dd>
       <dt>The page looks out of date.</dt><dd>Your browser may be showing an old copy. Press Ctrl+F5 on PC, or pull down to refresh on a phone.</dd>
-      <dt>Something's wrong, or I have an idea.</dt><dd><a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">Open an issue on GitHub</a>, or email <span class="hu-mail">HoradricOdds@hotmail.com</span>. Include the item or build, your settings, and what you expected.</dd>
+      <dt>Something's wrong, or I have an idea.</dt><dd>Use <i>Something wrong? Report it</i> at the bottom of any page. It opens a GitHub issue with your version, tab and settings already filled in, so you only need to say what happened. You can also <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">open an issue yourself</a> or email <span class="hu-mail">HoradricOdds@hotmail.com</span>. Include the item or build, your settings, and what you expected.</dd>
     </dl>
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag">Horadric Odds · version <span data-stamp>5 Nov 2026, 2:24 am</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 3:17 am</span></p>
 
 
 <script>
@@ -1392,6 +1392,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
 let B, PI=0, TAB='plan', undoB=null, pendingDel=null, addingPhase=false;
+window.__hpCode=()=>{try{return B?encode(B):''}catch(e){return ''}};
 const draft=LS.get('hbp.draft',null);
 const DEF=()=>(LIB.find(x=>x.name==='Blizzard Sorceress')||LIB[0]).make();
 /* Share links: #b=<deflate-compressed build, base64url> (short), or #build=<build code>. */
@@ -4779,6 +4780,28 @@ const DATA = (() => {
   if (!(location.hash && !TAB_HASH.test(location.hash) && applyHash(location.hash))) choose(byId.get("u-harlequin-crest") || index[0]);
 })();
 
+</script>
+<script>
+/* "Report it" link: opens a GitHub issue with the version, tab and settings filled in. Nothing is sent until the person submits it on GitHub. */
+(function(){
+  const a=document.getElementById('reportLink');if(!a)return;
+  const ISS='https://github.com/HoradricOdds/horadricodds.github.io/issues/new';
+  const NAMES={odds:'Drop odds',planner:'Build planner',xp:'Experience',help:'How to use'};
+  const v=id=>{const e=document.getElementById(id);return e?(e.tagName==='SELECT'?(e.selectedOptions[0]||{}).text||'':e.value):''};
+  function build(){
+    const b=document.querySelector('.modes button[aria-pressed="true"]');const mode=b?b.dataset.mode:'odds';
+    const stamp=(document.querySelector('[data-stamp]')||{}).textContent||'';
+    const L=['**What happened?**','','','**What did you expect?**','','','---','Version: '+stamp,'Tab: '+(NAMES[mode]||mode),
+      'Screen: '+innerWidth+'×'+innerHeight];
+    if(mode==='odds'){L.push('Link: https://horadricodds.github.io/'+location.hash);
+      L.push('Settings: '+[v('gameVersion'),(document.querySelector('#diff [aria-pressed="true"]')||{}).textContent,'players '+v('players'),'party '+v('party'),(v('mf')||0)+'% MF'].filter(Boolean).join(' · '))}
+    if(mode==='planner'&&window.__hpCode){const c=window.__hpCode();if(c&&c.length<4000)L.push('Build code: '+c)}
+    if(mode==='xp'){L.push('Settings: level '+v('xLvl')+' ('+(v('xPct')||0)+'%) · goal '+(v('xTarget')||'none')+' · reached '+v('xProg')+' · '+((document.querySelector('#xDiff [aria-pressed="true"]')||{}).textContent||'')+' · '+v('xPlayers')+' players · party '+v('xParty')+' · bonus '+(v('xBonus')||0)+'%'+((document.getElementById('xTz')||{}).checked?' · terror zones':''))}
+    return ISS+'?title='+encodeURIComponent((NAMES[mode]||'')+': ')+'&body='+encodeURIComponent(L.join('\n'));
+  }
+  const upd=()=>{try{a.href=build()}catch(e){}};
+  ['pointerdown','focus','mouseenter'].forEach(ev=>a.addEventListener(ev,upd));a.addEventListener('click',upd);
+})();
 </script>
 
 </body>
