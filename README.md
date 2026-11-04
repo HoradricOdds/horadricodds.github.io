@@ -18,6 +18,7 @@ No ads, no sign-up, works on PC and phone.
 ### Build planner
 - Skill trees for all eight classes, including Warlock. Damage, synergies and mana cost update as you spend points.
 - Breakpoints worked out from your gear: cast speed, hit recovery, block and attack frames.
+- An equipment panel that shows your gear at any level, with each item's stats on hover or tap.
 - Resistances per difficulty, Str/Dex requirement checks, and a gear plan that shows where to farm each item.
 - A level-by-level leveling guide with a checklist to tick off while you play.
 - Side-by-side build comparison.
@@ -28,12 +29,16 @@ No ads, no sign-up, works on PC and phone.
 - Areas are ranked by experience per full clear or per kill for your difficulty, players, party and experience bonuses. Tap one to see what to kill there.
 - Terror zone experience, boss kill experience and a suggested route to your goal level.
 
+### How to use
+- The **How to use** tab walks through each tool step by step and answers common questions.
+- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner) or [#experience](https://horadricodds.github.io/#experience). Drop odds links carry the item and settings you picked.
+
 ## Reporting problems
 
 - **Bugs and ideas:** [open an issue](https://github.com/HoradricOdds/horadricodds.github.io/issues).
 - **Anything else, including takedown requests:** HoradricOdds@hotmail.com
 
-When reporting wrong odds or numbers, it helps to include the item or build, the settings you used (difficulty, players, magic find, level), and what you expected.
+When reporting wrong odds or numbers, it helps to include the item or build, the settings you used (difficulty, players, magic find, level), and what you expected. The version at the bottom of the page tells us which copy you were using.
 
 ## Credits
 

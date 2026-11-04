@@ -274,6 +274,7 @@ footer a { color: inherit; }
 
 .welcome{margin:12px 0 4px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));background:var(--panel);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:.92rem}
 .welcome ol{margin:0;padding-left:1.2rem;display:flex;flex-direction:column;gap:4px}
+.welcome .wbtns{display:flex;flex-wrap:wrap;gap:8px}.welcome .wguide{border-color:var(--line)}
 .welcome .wbtn{align-self:flex-start;font:inherit;font-size:.85rem;padding:4px 12px;border:1px solid var(--accent);color:var(--text);background:var(--panel);border-radius:3px;cursor:pointer}
 .about{margin:8px 0 0;font-size:.88rem;color:var(--muted)}
 .about summary{cursor:pointer;width:max-content;max-width:100%}
@@ -340,7 +341,9 @@ footer a { color: inherit; }
 #xp .xlink{background:none;border:0;padding:0;color:var(--magic);text-decoration:underline;text-underline-offset:2px}
 #xp .xp-credit{color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);padding-top:14px;margin:4px 0 0;max-width:80ch}
 #xp .xp-credit a{color:inherit}
-@media (max-width:560px){.modes button{padding:8px 10px}#xp .xin{grid-template-columns:1fr 1fr}#xp .xin .xf:has(.xchips),#xp .xin .xf:has(#xDiff),#xp .xtz{grid-column:1/-1}#xp .xstat b{font-size:1.35rem}}
+.modes .ml-short{display:none}
+@media (max-width:480px){.modes .ml-long{display:none}.modes .ml-short{display:inline}}
+@media (max-width:560px){.modes button{padding:8px 10px;white-space:nowrap}#xp .xin{grid-template-columns:1fr 1fr}#xp .xin .xf:has(.xchips),#xp .xin .xf:has(#xDiff),#xp .xtz{grid-column:1/-1}#xp .xstat b{font-size:1.35rem}}
 
 
 
@@ -710,14 +713,14 @@ footer a { color: inherit; }
 <div class="wrap">
   <header>
     <div class="mark"><h1>Horadric Odds</h1><small>D2R drop calculator</small></div>
-    <nav class="modes" aria-label="Tools"><button type="button" data-mode="odds" aria-pressed="true">Drop odds</button><button type="button" data-mode="planner" aria-pressed="false">Build planner</button><button type="button" data-mode="xp" aria-pressed="false">Experience</button><button type="button" data-mode="help" aria-pressed="false">How to use</button>
+    <nav class="modes" aria-label="Tools"><button type="button" data-mode="odds" aria-pressed="true"><span class="ml-long">Drop odds</span><span class="ml-short">Odds</span></button><button type="button" data-mode="planner" aria-pressed="false"><span class="ml-long">Build planner</span><span class="ml-short">Planner</span></button><button type="button" data-mode="xp" aria-pressed="false"><span class="ml-long">Experience</span><span class="ml-short">XP</span></button><button type="button" data-mode="help" aria-pressed="false"><span class="ml-long">How to use</span><span class="ml-short">Guide</span></button>
       <div class="pricectl"><label class="pswitch"><input type="checkbox" id="priceOn"><span>diablo2.io price links</span></label><select id="priceMkt" aria-label="Market for price links"></select></div></nav>
     <div class="welcome" id="welcome" hidden><div><b>Welcome to Horadric Odds</b> — a free, fan-made Diablo II: Resurrected toolkit.</div>
       <ol><li><b>Drop odds:</b> search any item (nicknames like "shako" work) to see which monsters drop it and your chance per kill at your difficulty, players and magic find.</li>
       <li><b>Build planner:</b> open <i>Share &amp; Library</i>, pick a starter build or make your own, and spend points on <i>Skills &amp; Stats</i>.</li>
       <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item.</li></ol>
-      <button type="button" class="wbtn" id="welcomeOk">Got it</button></div>
-    <div class="whatsnew" id="whatsnew" data-v="2026-11-05" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">Price links now open diablo2.io's price check, filtered to your market (turn them on with the switch at the top). The Experience tab now uses u/Pavke's monster counts, counts Baal in Baal runs, and plans your route around how far you've got in the game.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
+      <div class="wbtns"><button type="button" class="wbtn" id="welcomeOk">Got it</button><button type="button" class="wbtn wguide" id="welcomeGuide">Full guide →</button></div></div>
+    <div class="whatsnew" id="whatsnew" data-v="2026-11-05b" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">New <i>How to use</i> tab with a short guide to every tool. The planner's Gear tab now has an equipment panel: see your gear at any level and hover or tap an item for its stats. Links can open a tab directly, e.g. horadricodds.github.io/#how-to-use.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <details class="about"><summary>About &amp; credits</summary><div class="aboutbody">
       <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment.</p>
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
@@ -936,7 +939,7 @@ footer a { color: inherit; }
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag">Horadric Odds · version <span data-stamp>5 Nov 2026, 2:19 am</span></p>
+<p class="buildtag" id="buildtag">Horadric Odds · version <span data-stamp>5 Nov 2026, 2:24 am</span></p>
 
 
 <script>
@@ -2258,6 +2261,7 @@ window.addEventListener('resize',queueLinks);
   window.addEventListener('hashchange',()=>{const h=HM[location.hash.slice(1)];if(h){set(h);window.scrollTo(0,0)}});
   const wl=document.getElementById('welcome');let seen=false;try{seen=!!localStorage.getItem('horadric-welcome')}catch(e){}if(wl&&!seen)wl.hidden=false;
   const wok=document.getElementById('welcomeOk');if(wok)wok.addEventListener('click',()=>{wl.hidden=true;try{localStorage.setItem('horadric-welcome','1')}catch(e){}});
+  const wgd=document.getElementById('welcomeGuide');if(wgd)wgd.addEventListener('click',()=>{wl.hidden=true;try{localStorage.setItem('horadric-welcome','1')}catch(e){}const hb=document.querySelector('.modes button[data-mode="help"]');if(hb)hb.click()});
   const wn=document.getElementById('whatsnew');if(wn){let hid='';try{hid=localStorage.getItem('horadric-wn')||''}catch(e){}if(hid!==wn.dataset.v)wn.hidden=false;
     document.getElementById('wnClose').addEventListener('click',()=>{wn.hidden=true;try{localStorage.setItem('horadric-wn',wn.dataset.v)}catch(e){}})}
   const on=document.getElementById('priceOn'),mk=document.getElementById('priceMkt');
