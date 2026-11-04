@@ -427,6 +427,38 @@ footer a { color: inherit; }
 #hp .zbtn h3{margin:0}
 #hp .zbtn .chev{display:inline-block;transition:transform .12s;transform:rotate(90deg);color:var(--muted)}
 #hp tr.zclosed .zbtn .chev{transform:none}
+
+/* ===== How to use (scoped to #help) ===== */
+#help{max-width:980px;margin:0 auto;padding:18px 0 40px;color:var(--text);font-size:15px;line-height:1.55}
+#help .hu{display:flex;flex-direction:column;gap:18px}
+#help h2{font-family:var(--font-display);color:var(--unique);font-size:1.45rem;margin:0 0 10px;text-wrap:balance}
+#help h3{font-family:var(--font-display);color:var(--unique);font-size:1.08rem;margin:0}
+#help p{margin:0}
+#help .hu-intro>p{max-width:65ch;color:var(--muted)}
+#help .hu-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+#help .hu-card{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+#help .hu-card .hu-go{margin-top:auto}
+#help .hu-ex{color:var(--muted);font-style:italic;font-size:.9rem}
+#help .hu-toc{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:.88rem}
+#help .hu-toc a,#help a{color:var(--magic)}
+#help .hu-sec{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:18px;scroll-margin-top:12px;display:flex;flex-direction:column;gap:14px;min-width:0}
+#help .hu-steps{margin:0;padding:0;list-style:none;counter-reset:hu;display:flex;flex-direction:column;gap:10px}
+#help .hu-steps li{counter-increment:hu;position:relative;padding-left:40px;max-width:75ch}
+#help .hu-steps li::before{content:counter(hu);position:absolute;left:0;top:0;width:26px;height:26px;border:1px solid var(--unique);border-radius:50%;display:grid;place-items:center;font-family:var(--font-data);font-size:.85rem;color:var(--unique);background:var(--sunk)}
+#help .hu-steps b{color:var(--text)}
+#help i{font-style:normal;color:var(--unique)}
+#help .hu-ex i{color:inherit}
+#help .hu-more{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+#help dl{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 16px}
+#help dt{font-weight:600;color:var(--text)}
+#help dd{margin:0;color:var(--muted);max-width:70ch}
+#help .hu-faq{grid-template-columns:minmax(0,1fr);gap:4px}
+#help .hu-faq dd{margin-bottom:10px}
+#help .hu-tip{background:var(--sunk);border-left:3px solid var(--accent);padding:8px 12px;max-width:75ch;font-size:.92rem}
+#help .hu-mail{user-select:all;font-family:var(--font-data);color:var(--text)}
+#help .hu-go{align-self:flex-start;background:var(--sunk);border:1px solid var(--line2,var(--line));border-radius:3px;padding:6px 12px;font:inherit;font-size:.88rem;color:var(--text);cursor:pointer}
+#help .hu-go:hover,#help .hu-go:focus-visible{border-color:var(--unique);color:var(--unique)}
+@media (max-width:560px){#help dl{grid-template-columns:minmax(0,1fr);gap:2px}#help dd{margin-bottom:8px}#help .hu-sec{padding:14px}}
 #hp .guidelist summary{cursor:pointer;margin:2px 0 6px}#hp .ledger{min-width:760px}
 #hp .farms{display:flex;flex-direction:column;gap:6px}
 #hp .farm{border:1px solid var(--line);border-radius:3px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;background:var(--panel2)}
@@ -677,7 +709,7 @@ footer a { color: inherit; }
 <div class="wrap">
   <header>
     <div class="mark"><h1>Horadric Odds</h1><small>D2R drop calculator</small></div>
-    <nav class="modes" aria-label="Tools"><button type="button" data-mode="odds" aria-pressed="true">Drop odds</button><button type="button" data-mode="planner" aria-pressed="false">Build planner</button><button type="button" data-mode="xp" aria-pressed="false">Experience</button>
+    <nav class="modes" aria-label="Tools"><button type="button" data-mode="odds" aria-pressed="true">Drop odds</button><button type="button" data-mode="planner" aria-pressed="false">Build planner</button><button type="button" data-mode="xp" aria-pressed="false">Experience</button><button type="button" data-mode="help" aria-pressed="false">How to use</button>
       <div class="pricectl"><label class="pswitch"><input type="checkbox" id="priceOn"><span>diablo2.io price links</span></label><select id="priceMkt" aria-label="Market for price links"></select></div></nav>
     <div class="welcome" id="welcome" hidden><div><b>Welcome to Horadric Odds</b> — a free, fan-made Diablo II: Resurrected toolkit.</div>
       <ol><li><b>Drop odds:</b> search any item (nicknames like "shako" work) to see which monsters drop it and your chance per kill at your difficulty, players and magic find.</li>
@@ -826,6 +858,83 @@ footer a { color: inherit; }
   <p class="xp-credit"><b>How it works.</b> Experience follows the game's rules: monster base experience by level, the player count bonus (+50% per extra player), the party bonus and level-based split, the level difference penalty, the high-level reduction from level 70 and the 8,388,607 per-kill cap. Champions give 3× (berserkers 5×), uniques, minions and super uniques 5×. Monster counts per area (regular monsters, champions, uniques and their minions, with separate counts for terror zones) come from <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a>'s Experience Calculator, which covers Hell; Nightmare uses the same monsters with its own number of elite packs, and Normal Act V keeps its own monster mix scaled to his totals. Treat clears as averages. Baal's five waves are counted, but each wave is treated as its boss plus that boss's minion type, so the Throne numbers are close rather than exact. Not counted: monsters that appear mid-fight (Fallen revived by Shamans, Vile Children from Vile Mothers and the like), because how many you get depends on how you play, and the one-time reward from the Ancients quest, since it can't be farmed. Data from <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT); rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>. Big thanks to <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a> on Reddit, whose Experience Calculator supplies the monster counts and was used to check every number here.</p>
 </div>
 </div>
+<div id="help" hidden>
+<div class="hu">
+  <section class="hu-intro">
+    <h2>How to use Horadric Odds</h2>
+    <p>Three free tools for Diablo II: Resurrected, worked out from the game's own data. There's nothing to install or sign up for, it works on PC and phone, and everything you save stays in your browser.</p>
+    <div class="hu-cards">
+      <div class="hu-card"><h3>Drop odds</h3><p>Where an item drops and your chance per kill.</p><p class="hu-ex">“Where should I farm Shako with 300 MF?”</p><button type="button" class="hu-go" data-go="odds">Open Drop odds →</button></div>
+      <div class="hu-card"><h3>Build planner</h3><p>Skills, stats and gear for a character, with a level-by-level guide.</p><p class="hu-ex">“What does my Blizzard Sorceress need for 105 FCR?”</p><button type="button" class="hu-go" data-go="planner">Open Build planner →</button></div>
+      <div class="hu-card"><h3>Experience</h3><p>How long a level takes and where to level.</p><p class="hu-ex">“How many Baal runs from 92 to 93?”</p><button type="button" class="hu-go" data-go="xp">Open Experience →</button></div>
+    </div>
+    <nav class="hu-toc" aria-label="On this page"><a href="#hu-odds">Drop odds</a><a href="#hu-planner">Build planner</a><a href="#hu-xp">Experience</a><a href="#hu-faq">Questions</a></nav>
+  </section>
+
+  <section class="hu-sec" id="hu-odds">
+    <h2>Drop odds</h2>
+    <ol class="hu-steps">
+      <li><b>Find the item.</b> Type its name in the search box. Nicknames work too: <i>shako</i>, <i>soj</i>, <i>anni</i>, <i>griffs</i>. Uniques, sets, runes and bases are all there. Pick a runeword to see where to farm each of its runes.</li>
+      <li><b>Set up your game.</b> Pick the difficulty, how many players are in the game, how many party members are near you, and your magic find (the 0, 300 and 500 buttons are shortcuts). Tick <i>Area is terrorized</i> for a terror zone, <i>Find Item corpse</i> for a Barbarian's Find Item, or <i>First boss kill</i> for a quest drop.</li>
+      <li><b>Read the results.</b> Every monster and area that can drop the item, best first, with your chance per kill shown as “1 in N” kills.</li>
+    </ol>
+    <div class="hu-more">
+      <h3>Other ways to search</h3>
+      <dl>
+        <dt>By stats</dt><dd>Pick the stats you want and the lowest value you'd accept, e.g. +2 skills and 20% FCR. You'll see which items can roll them and where to find them.</dd>
+        <dt>By monster</dt><dd>Pick a boss, super unique or monster type to see everything it can drop.</dd>
+        <dt>Gambling</dt><dd>Your odds of gambling a specific item, or stats you want, at your character's level.</dd>
+      </dl>
+      <p class="hu-tip"><b>Tip.</b> The page's link keeps the item and settings you picked, so you can copy it to share your exact calculation. Turn on <i>diablo2.io price links</i> at the top to get a price check link for the item in your market.</p>
+    </div>
+    <button type="button" class="hu-go" data-go="odds">Open Drop odds →</button>
+  </section>
+
+  <section class="hu-sec" id="hu-planner">
+    <h2>Build planner</h2>
+    <ol class="hu-steps">
+      <li><b>Start a build.</b> Open <i>Share &amp; Library</i> and pick a guide build for your class, or choose a class at the top and start from scratch. Give it a name and a target level.</li>
+      <li><b>Spend skill points</b> on <i>Skills &amp; Stats</i>. Click a skill to add a point and right-click to remove one. Shift-click adds or removes up to 20. Missing prerequisites are added for you, and the order you click is the order the leveling guide spends points.</li>
+      <li><b>Set your stats</b> with the + and − buttons next to Strength, Dexterity, Vitality and Energy. Hold Shift for steps of 10.</li>
+      <li><b>Plan respecs</b> with <i>+ Respec at a level</i>. Each phase has its own skills and stats, e.g. a leveling build until 75 and an endgame one after that.</li>
+      <li><b>Plan your gear</b> on <i>Gear</i>. Add each item with the level you'll wear it. The equipment panel shows what you're wearing at any level, and you can hover or tap an item for its stats. Breakpoints, resistances, magic find and Str/Dex checks update from your gear, and the farming card shows where to find each item.</li>
+      <li><b>Follow the leveling guide.</b> <i>Leveling Guide</i> lists every level: which skill to put the point in, stats, new gear, life and mana. Tick levels off as you play and add your own notes.</li>
+    </ol>
+    <div class="hu-more">
+      <dl>
+        <dt>Compare</dt><dd>Two builds side by side at their target levels, with their full gear.</dd>
+        <dt>Share &amp; Library</dt><dd>Save builds in this browser, copy a build code to post on Discord, Reddit or a forum, or paste someone's code into Import to load their build. The code carries skills, stats, respecs, gear and notes.</dd>
+      </dl>
+      <p class="hu-tip"><b>Keep your build codes.</b> Saved builds live in this browser only. If you clear your browser data or switch devices, they're gone, so copy the code somewhere safe.</p>
+    </div>
+    <button type="button" class="hu-go" data-go="planner">Open Build planner →</button>
+  </section>
+
+  <section class="hu-sec" id="hu-xp">
+    <h2>Experience</h2>
+    <ol class="hu-steps">
+      <li><b>Enter where you are.</b> Your level, how far through it you are (the % from your experience bar), and a goal level if you have one.</li>
+      <li><b>Pick how far you've got</b> under <i>Furthest you've reached</i>, so it only suggests areas you can actually get to. Then set the difficulty, players, party size and any experience bonus such as a shrine.</li>
+      <li><b>Read the results.</b> Experience left, plus kills and full clears to your next level and your goal. Areas are ranked by experience per clear, and you can tap one to see what's worth killing there.</li>
+      <li><b>Follow the route.</b> With a goal level set, you get a suggested route of areas to level in. It only moves forward through the difficulties and sticks to areas you've unlocked.</li>
+    </ol>
+    <p class="hu-tip"><b>Tip.</b> Tick <i>Terror zones only</i> to rank terrorized areas, which get higher monster levels and +25% experience.</p>
+    <button type="button" class="hu-go" data-go="xp">Open Experience →</button>
+  </section>
+
+  <section class="hu-sec" id="hu-faq">
+    <h2>Questions</h2>
+    <dl class="hu-faq">
+      <dt>Which game version does it use?</dt><dd>D2R Reign of the Warlock by default. Drop odds can also use D2R before the expansion or classic Lord of Destruction 1.14d. Choose with <i>Game version</i>.</dd>
+      <dt>How accurate are the numbers?</dt><dd>Drop chances come straight from the game's drop tables and rules, and they've been checked against other calculators. They're averages, so luck still decides any single run. How each tool works is explained at the bottom of its page.</dd>
+      <dt>Where is my stuff saved?</dt><dd>Settings, saved builds and leveling ticks stay in your browser on this device. Nothing is sent anywhere. Build codes are the way to move a build to another device.</dd>
+      <dt>The page looks out of date.</dt><dd>Your browser may be showing an old copy. Press Ctrl+F5 on PC, or pull down to refresh on a phone.</dd>
+      <dt>Something's wrong, or I have an idea.</dt><dd><a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">Open an issue on GitHub</a>, or email <span class="hu-mail">HoradricOdds@hotmail.com</span>. Include the item or build, your settings, and what you expected.</dd>
+    </dl>
+  </section>
+</div>
+</div>
+
 
 <script>
 (function(){
@@ -2129,12 +2238,14 @@ window.addEventListener('resize',queueLinks);
 (function(){
   const wrap=document.querySelector('.wrap'),hp=document.getElementById('hp'),tag=document.querySelector('.mark small');
   const btns=[...document.querySelectorAll('.modes button')];
-  const xp=document.getElementById('xp');
-  function set(m){if(!['odds','planner','xp'].includes(m))m='odds';wrap.classList.toggle('mode-planner',m!=='odds');hp.hidden=m!=='planner';if(xp){xp.hidden=m!=='xp';if(m==='xp'&&window.__xpShow)window.__xpShow()}
+  const xp=document.getElementById('xp'),help=document.getElementById('help');
+  function set(m){if(!['odds','planner','xp','help'].includes(m))m='odds';wrap.classList.toggle('mode-planner',m!=='odds');hp.hidden=m!=='planner';if(help)help.hidden=m!=='help';if(xp){xp.hidden=m!=='xp';if(m==='xp'&&window.__xpShow)window.__xpShow()}
     btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===m)));
-    if(tag)tag.textContent=m==='planner'?'D2R build planner':m==='xp'?'D2R experience calculator':'D2R drop calculator';
+    if(tag)tag.textContent=m==='planner'?'D2R build planner':m==='xp'?'D2R experience calculator':m==='help'?'How to use':'D2R drop calculator';
     try{localStorage.setItem('horadric-mode',m)}catch(e){}}
   btns.forEach(b=>b.addEventListener('click',()=>{set(b.dataset.mode);window.scrollTo(0,0)}));
+  if(help)help.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){set(g.dataset.go);window.scrollTo(0,0);return}
+    const a=e.target.closest('.hu-toc a');if(a){e.preventDefault();const s=document.querySelector(a.getAttribute('href'));if(s)s.scrollIntoView({behavior:'smooth',block:'start'})}});
   let m='odds';try{m=localStorage.getItem('horadric-mode')||'odds'}catch(e){}
   if(location.hash.length>1)m='odds';
   set(m);
