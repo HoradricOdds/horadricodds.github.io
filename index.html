@@ -354,7 +354,7 @@ footer a { color: inherit; }
 #hp .trees .tree header::before,#hp .trees .tree header::after{content:"";flex:1;height:1px;align-self:center;background:linear-gradient(90deg,transparent,rgba(217,178,90,.55))}
 #hp .trees .tree header::after{background:linear-gradient(90deg,rgba(217,178,90,.55),transparent)}
 #hp .trees .tree header h3{order:0;margin:0;font-family:var(--f-display);font-variant:small-caps;letter-spacing:.08em;font-size:1.05rem;color:var(--st-gold2);text-shadow:0 1px 0 #000,0 0 12px rgba(217,178,90,.25)}
-#hp .trees .tree header .tbadges{position:absolute;right:0;top:0}
+#hp .trees .tree header{flex-wrap:wrap;row-gap:2px}#hp .trees .tree header .tbadges{position:static;order:1;flex-basis:100%;display:flex;justify-content:center;gap:6px;font-size:.78rem;letter-spacing:.04em}
 #hp .trees .tree header .tbadges .muted{color:var(--st-dim)}
 #hp .trees .tl{color:var(--st-dim);text-shadow:0 1px 0 #000}
 #hp .trees .node{background:linear-gradient(180deg,#120f0c,#1b1611 60%,#211a13);border:1px solid var(--st-edge);border-radius:4px;
@@ -459,6 +459,7 @@ footer a { color: inherit; }
 #help .hu-go{align-self:flex-start;background:var(--sunk);border:1px solid var(--line2,var(--line));border-radius:3px;padding:6px 12px;font:inherit;font-size:.88rem;color:var(--text);cursor:pointer}
 #help .hu-go:hover,#help .hu-go:focus-visible{border-color:var(--unique);color:var(--unique)}
 @media (max-width:560px){#help dl{grid-template-columns:minmax(0,1fr);gap:2px}#help dd{margin-bottom:8px}#help .hu-sec{padding:14px}}
+.buildtag{max-width:1400px;margin:28px auto 18px;padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));text-align:center;font-size:.76rem;letter-spacing:.04em;color:var(--muted);opacity:.8;font-variant-numeric:tabular-nums}
 #hp .guidelist summary{cursor:pointer;margin:2px 0 6px}#hp .ledger{min-width:760px}
 #hp .farms{display:flex;flex-direction:column;gap:6px}
 #hp .farm{border:1px solid var(--line);border-radius:3px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;background:var(--panel2)}
@@ -894,7 +895,7 @@ footer a { color: inherit; }
     <h2>Build planner</h2>
     <ol class="hu-steps">
       <li><b>Start a build.</b> Open <i>Share &amp; Library</i> and pick a guide build for your class, or choose a class at the top and start from scratch. Give it a name and a target level.</li>
-      <li><b>Spend skill points</b> on <i>Skills &amp; Stats</i>. Click a skill to add a point and right-click to remove one. Shift-click adds or removes up to 20. Missing prerequisites are added for you, and the order you click is the order the leveling guide spends points.</li>
+      <li><b>Spend skill points</b> on <i>Skills &amp; Stats</i>. Click a skill, or its + button, to add a point. Its − button removes one (or right-click on PC). Shift-click adds or removes up to 20. Missing prerequisites are added for you, and the order you click is the order the leveling guide spends points.</li>
       <li><b>Set your stats</b> with the + and − buttons next to Strength, Dexterity, Vitality and Energy. Hold Shift for steps of 10.</li>
       <li><b>Plan respecs</b> with <i>+ Respec at a level</i>. Each phase has its own skills and stats, e.g. a leveling build until 75 and an endgame one after that.</li>
       <li><b>Plan your gear</b> on <i>Gear</i>. Add each item with the level you'll wear it. The equipment panel shows what you're wearing at any level, and you can hover or tap an item for its stats. Breakpoints, resistances, magic find and Str/Dex checks update from your gear, and the farming card shows where to find each item.</li>
@@ -927,6 +928,7 @@ footer a { color: inherit; }
     <dl class="hu-faq">
       <dt>Which game version does it use?</dt><dd>D2R Reign of the Warlock by default. Drop odds can also use D2R before the expansion or classic Lord of Destruction 1.14d. Choose with <i>Game version</i>.</dd>
       <dt>How accurate are the numbers?</dt><dd>Drop chances come straight from the game's drop tables and rules, and they've been checked against other calculators. They're averages, so luck still decides any single run. How each tool works is explained at the bottom of its page.</dd>
+      <dt>Can I link someone straight to a tab?</dt><dd>Yes. Add <span class="hu-mail">#planner</span>, <span class="hu-mail">#experience</span> or <span class="hu-mail">#how-to-use</span> to the address, e.g. <span class="hu-mail">horadricodds.github.io/#how-to-use</span>. A drop odds link already carries the item and settings you picked.</dd>
       <dt>Where is my stuff saved?</dt><dd>Settings, saved builds and leveling ticks stay in your browser on this device. Nothing is sent anywhere. Build codes are the way to move a build to another device.</dd>
       <dt>The page looks out of date.</dt><dd>Your browser may be showing an old copy. Press Ctrl+F5 on PC, or pull down to refresh on a phone.</dd>
       <dt>Something's wrong, or I have an idea.</dt><dd><a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">Open an issue on GitHub</a>, or email <span class="hu-mail">HoradricOdds@hotmail.com</span>. Include the item or build, your settings, and what you expected.</dd>
@@ -934,6 +936,7 @@ footer a { color: inherit; }
   </section>
 </div>
 </div>
+<p class="buildtag" id="buildtag">Horadric Odds · version <span data-stamp>5 Nov 2026, 2:19 am</span></p>
 
 
 <script>
@@ -1479,7 +1482,7 @@ function planHTML(){
       <span class="muted">${end-1} from levels${B.quests?` + ${qs} from quests`:''}</span>
       <span style="margin-left:auto" class="row"><button class="btn small" data-act="undo-pt" ${used?'':'disabled'}>Undo last point</button><button class="btn small danger" data-act="clear-pts" ${used?'':'disabled'}>Clear skills</button></span></div>
     ${ttabs}<div class="trees">${trees}</div>
-    <p class="hint">Lines join each skill to its prerequisites. Click a skill to add a point, right-click to remove one. Shift-click adds or removes up to 20. Missing prerequisites are added for you. The order you click is the order the leveling guide spends points.</p>
+    <p class="hint">Lines join each skill to its prerequisites. Click a skill or its + to add a point; its − or a right-click removes one. Shift-click adds or removes up to 20. Missing prerequisites are added for you. The order you click is the order the leveling guide spends points.</p>
   </div>
   ${(()=>{const S=railSums(C,ph,end,sim);
     /* the main cards sit beside the trees; the smaller ones fill the space under the trees (on phones they follow the rail) */
@@ -2239,16 +2242,20 @@ window.addEventListener('resize',queueLinks);
   const wrap=document.querySelector('.wrap'),hp=document.getElementById('hp'),tag=document.querySelector('.mark small');
   const btns=[...document.querySelectorAll('.modes button')];
   const xp=document.getElementById('xp'),help=document.getElementById('help');
+  const MH={planner:'planner',xp:'experience',help:'how-to-use'},HM={planner:'planner',experience:'xp','how-to-use':'help','drop-odds':'odds'};
+  function setHash(m){try{if(m!=='odds'){const h='#'+MH[m];if(location.hash!==h)history.replaceState(null,'',h)}
+    else if(HM[location.hash.slice(1)]){history.replaceState(null,'',location.pathname+location.search);if(window.__oddsSync)window.__oddsSync()}}catch(e){}}
   function set(m){if(!['odds','planner','xp','help'].includes(m))m='odds';wrap.classList.toggle('mode-planner',m!=='odds');hp.hidden=m!=='planner';if(help)help.hidden=m!=='help';if(xp){xp.hidden=m!=='xp';if(m==='xp'&&window.__xpShow)window.__xpShow()}
     btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===m)));
     if(tag)tag.textContent=m==='planner'?'D2R build planner':m==='xp'?'D2R experience calculator':m==='help'?'How to use':'D2R drop calculator';
-    try{localStorage.setItem('horadric-mode',m)}catch(e){}}
+    try{localStorage.setItem('horadric-mode',m)}catch(e){}setHash(m)}
   btns.forEach(b=>b.addEventListener('click',()=>{set(b.dataset.mode);window.scrollTo(0,0)}));
   if(help)help.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){set(g.dataset.go);window.scrollTo(0,0);return}
     const a=e.target.closest('.hu-toc a');if(a){e.preventDefault();const s=document.querySelector(a.getAttribute('href'));if(s)s.scrollIntoView({behavior:'smooth',block:'start'})}});
   let m='odds';try{m=localStorage.getItem('horadric-mode')||'odds'}catch(e){}
-  if(location.hash.length>1)m='odds';
+  const hm=HM[location.hash.slice(1)];if(hm)m=hm;else if(location.hash.length>1)m='odds';
   set(m);
+  window.addEventListener('hashchange',()=>{const h=HM[location.hash.slice(1)];if(h){set(h);window.scrollTo(0,0)}});
   const wl=document.getElementById('welcome');let seen=false;try{seen=!!localStorage.getItem('horadric-welcome')}catch(e){}if(wl&&!seen)wl.hidden=false;
   const wok=document.getElementById('welcomeOk');if(wok)wok.addEventListener('click',()=>{wl.hidden=true;try{localStorage.setItem('horadric-welcome','1')}catch(e){}});
   const wn=document.getElementById('whatsnew');if(wn){let hid='';try{hid=localStorage.getItem('horadric-wn')||''}catch(e){}if(hid!==wn.dataset.v)wn.hidden=false;
@@ -3606,6 +3613,7 @@ const DATA = (() => {
   }
   let lastHash = "";
   const writeHash = debounce(() => {
+    if (document.querySelector(".wrap.mode-planner")) return;
     const h = stateHash();
     if (!h || "#" + h === location.hash) return;
     lastHash = "#" + h;
@@ -3635,7 +3643,9 @@ const DATA = (() => {
     if (st.g && mode !== "gamble") setMode("gamble");
     return true;
   }
-  window.addEventListener("hashchange", () => { if (location.hash !== lastHash) applyHash(location.hash); });
+  const TAB_HASH = /^#(planner|experience|how-to-use|drop-odds)$/;
+  window.addEventListener("hashchange", () => { if (location.hash !== lastHash && !TAB_HASH.test(location.hash)) applyHash(location.hash); });
+  window.__oddsSync = () => { lastHash = ""; writeHash(); };
   window.__oddsHas = (id) => byId.has(id);
   window.addEventListener("horadric-prices", () => { if (current) refresh(); });
   window.__oddsBest = (id, o) => {
@@ -4762,7 +4772,7 @@ const DATA = (() => {
 
   // ---- start ---------------------------------------------------------------------------------------
   syncUI();
-  if (!(location.hash && applyHash(location.hash))) choose(byId.get("u-harlequin-crest") || index[0]);
+  if (!(location.hash && !TAB_HASH.test(location.hash) && applyHash(location.hash))) choose(byId.get("u-harlequin-crest") || index[0]);
 })();
 
 </script>
