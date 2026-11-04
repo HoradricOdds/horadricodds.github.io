@@ -319,7 +319,7 @@ footer a { color: inherit; }
 #xp .xstat i{font-style:normal;font-size:.8rem;color:var(--muted)}
 #xp .xbig{font-family:var(--font-display);font-size:1.3rem;margin:0}
 #xp .xnote{flex-basis:100%;margin:6px 0 0;font-size:.85rem;color:var(--muted)}
-#xp .xnote:empty{display:none}
+#xp .xnote:empty{display:none}#xp .xhint{color:var(--text);border-left:3px solid var(--accent);padding-left:8px}
 #xp .xhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
 #xp .xtw{overflow-x:auto;margin-top:10px}
 #xp table{border-collapse:collapse;width:100%}
@@ -737,7 +737,7 @@ footer a { color: inherit; }
     <label class="xf xtz"><input type="checkbox" id="xTz"><span>Terror zones only <small>(levels and +25% bonus)</small></span></label>
   </section>
   <div id="xpOut" aria-live="polite"></div>
-  <p class="xp-credit"><b>How it works.</b> Experience follows the game's rules: monster base experience by level, the player count bonus (+50% per extra player), the party bonus and level-based split, the level difference penalty, the high-level reduction from level 70 and the 8,388,607 per-kill cap. Champions give 3× (berserkers 5×), uniques, minions and super uniques 5×. Clears use the game data's estimated monster counts for each area, with 3 champions per pack and 3–6 minions per unique, so treat them as averages. Not counted: summoned or spawned monsters, quest experience and experience from Baal's last wave before Baal himself. Data from <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT); rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>.</p>
+  <p class="xp-credit"><b>How it works.</b> Experience follows the game's rules: monster base experience by level, the player count bonus (+50% per extra player), the party bonus and level-based split, the level difference penalty, the high-level reduction from level 70 and the 8,388,607 per-kill cap. Champions give 3× (berserkers 5×), uniques, minions and super uniques 5×. Clears use the game data's estimated monster counts for each area, with 3 champions per pack and 3–6 minions per unique, so treat them as averages. Baal's five waves are counted, but each wave is treated as its boss plus that boss's minion type, so the Throne numbers are close rather than exact. Not counted: monsters that appear mid-fight (Fallen revived by Shamans, Vile Children from Vile Mothers and the like), because how many you get depends on how you play, and the one-time reward from the Ancients quest, since it can't be farmed. Data from <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT); rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>.</p>
 </div>
 </div>
 
@@ -2036,7 +2036,7 @@ function toTarget(aid,o,T,useKills){let tot=0;for(let L=S.lvl;L<T&&L<99;L++){con
 
 /* Progress: value = difficulty*6 + (act-1); act 6 means Baal is dead on that difficulty. */
 const prog=()=>{const v=S.prog??17;return [Math.floor(v/6),v%6+1]};
-function unlocked(A,d){const [pd,pa]=prog();return d<pd||(d===pd&&A.a<=Math.min(pa,5))}
+function unlocked(A,d){const [pd,pa]=prog();if(A.n==='Moo Moo Farm')return d<pd||(d===pd&&pa===6);/* the cow portal needs Baal dead */return d<pd||(d===pd&&A.a<=Math.min(pa,5))}
 function tzOK(d){const [pd,pa]=prog();return d<pd||(d===pd&&pa===6)}
 function areaList(o){const c=S.lvl;const rows=[];
   if(S.tz&&!tzOK(o.d))return [];
@@ -2065,19 +2065,22 @@ function render(){
     h+=`<p class="xnote">${pen}${o.tzOn?`Terror zones raise monsters to your level +${X.tz[o.d][2]} (up to ${X.tz[o.d][1]}) and add ${X.tz[o.d][3]}% experience. `:''}${S.party>1?`Party experience is split ${S.party} ways, assuming similar levels. `:''}</p>`}
   h+=`</section>`;
   // best spot per level, from now to the target
-  if(T&&T-c>1){const segs=[];let dmin=0;const rcap=Math.min(S.cap==='any'?99:+S.cap,5);
-    for(let L=c;L<T;L++){let best=null;
-      /* Like a real playthrough: move up to Nightmare and Hell when they pay more, never back down,
-         and stay in areas at most a few levels above you. */
+  if(T&&T-c>1){const segs=[];let dmin=0,hint=null;const rcap=Math.min(S.cap==='any'?99:+S.cap,5);
+    for(let L=c;L<T;L++){let best=null,any=null;
+      /* Like a real playthrough: only areas you've unlocked, move up a difficulty when it pays more,
+         never back down, and stay in areas at most a few levels above you. Also note where a locked area would be faster. */
       for(let d=dmin;d<3;d++){const od={...o,d};
-        for(const aid in X.a){const A=X.a[aid];if(+aid>=133||!A.d[d]||(S.tz&&(!A.tz||!tzOK(d))))continue;
+        for(const aid in X.a){const A=X.a[aid];if(+aid>=133||!A.d[d]||(S.tz&&!A.tz))continue;
           const st=areaStats(aid,od,L);if(st.k<5||!st.xp||st.lv>L+rcap)continue;
-          if(!best||st.xp>best.st.xp)best={aid,d,st}}}
+          const ok=unlocked(A,d)&&(!S.tz||tzOK(d));
+          if(!any||st.xp>any.st.xp)any={aid,d,st,ok};
+          if(ok&&(!best||st.xp>best.st.xp))best={aid,d,st}}}
+      if(any&&!any.ok&&(!best||any.st.xp>best.st.xp*1.25)){const x=best?any.st.xp/best.st.xp:Infinity;if(!hint)hint={L,aid:any.aid,d:any.d,x,mx:x,mL:L};else if(x>hint.mx){hint.mx=x;hint.mL=L}}
       if(!best){segs.push({none:true,from:L,to:T-1});break}
       dmin=best.d;const n=needAt(L,L===c)/best.st.xp;
       const last=segs[segs.length-1];if(last&&!last.none&&last.aid===best.aid&&last.d===best.d){last.to=L;last.n+=n}else segs.push({aid:best.aid,d:best.d,from:L,to:L,n})}
-    h+=`<section class="xcard"><h3>Route to level ${T}</h3><ol class="xroute">${segs.map(s=>`<li><b>${s.from===s.to?`Level ${s.from}`:`Levels ${s.from}–${s.to}`}</b> ${s.none?'<span>nothing suitable here; loosen the filters</span>':`<span class="xdiff">${DIFF[s.d]}</span> <button class="xlink" data-open="${s.aid}" data-d="${s.d}">${esc(X.a[s.aid].n)}</button> <span>about ${cnt(s.n)} clears</span>`}</li>`).join('')}</ol>
-      <p class="xnote">Picks the area with the most experience per full clear at each level, among areas no more than ${rcap} levels above you. It moves on to Nightmare and Hell once they pay more, never back down, and assumes you keep playing through the story as you level.</p></section>`}
+    h+=`<section class="xcard"><h3>Route to level ${T}</h3><ol class="xroute">${segs.map(s=>`<li><b>${s.from===s.to?`Level ${s.from}`:`Levels ${s.from}–${s.to}`}</b> ${s.none?'<span>nothing you’ve unlocked suits this level; loosen the filters or progress further</span>':`<span class="xdiff">${DIFF[s.d]}</span> <button class="xlink" data-open="${s.aid}" data-d="${s.d}">${esc(X.a[s.aid].n)}</button> <span>about ${cnt(s.n)} clears</span>`}</li>`).join('')}</ol>
+      <p class="xnote">Picks the area with the most experience per full clear at each level, among areas you've unlocked and no more than ${rcap} levels above you. It moves up a difficulty once that pays more and never goes back down.</p>${hint?`<p class="xnote xhint">From level ${hint.L}, ${esc(X.a[hint.aid].n)} on ${DIFF[hint.d]} would be ${isFinite(hint.x)?`about ${hint.x.toFixed(1)}× faster`:'possible'}${S.tz&&!tzOK(hint.d)&&prog()[0]>=hint.d?' once Baal is dead there':' once you get there'}${isFinite(hint.mx)&&hint.mx>hint.x*1.5?`, and by level ${hint.mL} about ${hint.mx>=10?Math.round(hint.mx):hint.mx.toFixed(1)}× faster`:''}.</p>`:''}</section>`}
   // areas table
   h+=`<section class="xcard"><div class="xhead"><h3>${o.tzOn?'Best terror zones':'Where to level'} · ${DIFF[o.d]}</h3>
     <div class="xseg" role="group" aria-label="Rank by"><button data-sort="clear" aria-pressed="${S.sort==='clear'}">Per full clear</button><button data-sort="kill" aria-pressed="${S.sort==='kill'}">Per kill</button></div></div>
