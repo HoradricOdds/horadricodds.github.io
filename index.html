@@ -2014,6 +2014,7 @@ const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.par
 
 let B, PI=0, TAB='plan', undoB=null, pendingDel=null, addingPhase=false;
 window.__hpCode=()=>{try{return B?encode(B):''}catch(e){return ''}};
+window.__hpExportBuild=()=>{try{const C=CLS[B.cls],ph=B.phase[PI],level=phaseEnd(B,PI),cnt=counts(ph),main=gearAt(B,level,false),swap=gearAt(B,level,true).filter(g=>g.s===11||g.s===15),merc=[12,13,14].map(s=>(B.gear||[]).filter(g=>g.s===s&&g.lv<=level).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),all=[...main,...swap,...merc];return {cls:B.cls,classCode:C.code,className:C.name,name:B.name,level,quests:!!B.quests,stats:{...ph.st},skills:C.skills.map((s,i)=>({name:s.name,points:cnt[i]||0})).filter(s=>s.points>0),gear:all.map(g=>{const p=gearParts(g.it)[0]||{};return {slot:g.s,item:g.it,base:p.base||null,eth:!!p.eth,custom:g.x||null}}),merc:B.merc||''}}catch(e){return null}};
 /* open a character read from an offline save file (Build planner > Import save) as a build */
 window.__hpImportSave=(ch,itemText)=>{try{
   const cls=KEYMAP[ch.cls],C=CLS[cls];if(!C)return false;
@@ -2124,7 +2125,7 @@ function planHTML(){
     <div class="phasebar"><span class="label">Phases</span>${phases}${addForm}${del}</div>
     <div class="budget"><span>Skill points <b class="${used>budget?'over':''}">${used}</b> / ${budget} by level ${end}</span>${budget-used>0?`<span class="lefttag num">${budget-used} left</span>`:''}
       <span class="muted">${end-1} from levels${B.quests?` + ${qs} from quests`:''}</span>
-      <span style="margin-left:auto" class="row"><button class="btn small" data-act="undo-pt" ${used?'':'disabled'}>Undo last point</button><button class="btn small danger" data-act="clear-pts" ${used?'':'disabled'}>Clear skills</button></span></div>
+      <span style="margin-left:auto" class="row"><button class="btn small" data-act="save-export">Export to character save</button><button class="btn small" data-act="undo-pt" ${used?'':'disabled'}>Undo last point</button><button class="btn small danger" data-act="clear-pts" ${used?'':'disabled'}>Clear skills</button></span></div>
     <div class="game-panels-row">${statsCard(C,ph,end,sim,A)}<div class="skill-tab-panel">${skillPanel}</div></div>
     <p class="hint">Lines join each skill to its prerequisites. Hover over a skill (press and hold on a phone) for its tooltip. Click a skill or its + to add a point; its − or a right-click removes one. Shift-click adds or removes up to 20. Missing prerequisites are added for you. The order you click is the order the leveling guide spends points.</p>
   </div>
@@ -2893,6 +2894,7 @@ view.addEventListener('click',e=>{
   if(act==='phase-del'){const removed=B.phase.splice(PI,1)[0];const at=PI;PI=PI-1;save();render();
     toast(`Removed ${removed.name}.`,{label:'Undo',fn:()=>{B.phase.splice(at,0,removed);PI=at;save();render()}});return}
   if(act==='undo-pt'){ph.sk.pop();save();render();return}
+  if(act==='save-export'){const plan=window.__hpExportBuild&&window.__hpExportBuild();if(!plan){toast('Couldn\'t prepare this build for export.');return}window.__plannedCharacterBuild=plan;const b=document.querySelector('.modes button[data-mode="tools"]');if(b)b.click();if(window.__toolsShow)window.__toolsShow('editor');window.scrollTo(0,0);return}
   if(act==='clear-pts'){const old=[...ph.sk];ph.sk=[];save();render();toast('Cleared skill points for this phase.',{label:'Undo',fn:()=>{ph.sk=old;save();render()}});return}
   if(act==='st-up'||act==='st-dn'){const s=a.dataset.s,C=CLS[B.cls],budget=stAt(B,phaseEnd(B,PI)),other=STATS.filter(x=>x!==s).reduce((n,x)=>n+Math.max(0,ph.st[x]-C.base[x]),0),max=C.base[s]+Math.max(0,budget-other),d=(e.shiftKey?10:1)*(act==='st-up'?1:-1);ph.st[s]=clamp(ph.st[s]+d,C.base[s],max);save();render();return}
   if(act==='prio-up'){const s=a.dataset.s,list=ph.prio.filter(x=>x!==ph.sink);const i=list.indexOf(s);[list[i-1],list[i]]=[list[i],list[i-1]];ph.prio=[...list,ph.sink];save();render();return}
@@ -5757,7 +5759,7 @@ function build(m){
   Object.keys(m.stats).map(Number).sort((a,b)=>a-b).forEach(id=>{let v=Math.max(0,Math.round(m.stats[id]||0));const s=D.isc[id];if((!v&&!(m.statsHad&&m.statsHad.has(id)))||!s||!s[4])return;v=Math.min(v,Math.pow(2,s[4])-1);w.n(id,9);w.n(v,s[4])});
   w.n(0x1ff,9);
   const parts=[pre,w.bytes(),new Uint8Array([0x69,0x66]),Uint8Array.from(m.skills.map(x=>Math.max(0,Math.min(255,x|0)))),writeList(m.items),m.corpse];
-  if(m.hasJf){parts.push(new Uint8Array([0x6a,0x66]));if(m.merc)parts.push(writeList(m.merc))}
+  if(m.hasJf){parts.push(new Uint8Array([0x6a,0x66]));if(m.mercId&&m.merc)parts.push(writeList(m.merc))}
   parts.push(m.tail);
   const out=cat(parts);const dv=new DataView(out.buffer);dv.setUint32(8,out.length,true);dv.setUint32(12,0,true);
   let cs=0;for(let i=0;i<out.length;i++){cs=((((cs<<1)|(cs>>>31))>>>0)+out[i])>>>0}dv.setUint32(12,cs,true);
@@ -6550,16 +6552,90 @@ function cubeHTML(){
    doesn't touch byte for byte; this part is the screen around it. */
 let SENG=null,SED=null;
 function seEng(){if(!SENG&&window.makeSaveEditor){try{SED=JSON.parse(document.getElementById('edit-data').textContent);SENG=window.makeSaveEditor(SED)}catch(e){SENG=null}}return SENG}
-const SE={m:null,file:'',undo:[],msg:'',err:'',view:'char',auto:true,quest:true,
+/* Valid v105 blank-character seed from d2r-horadric-tools (MIT); embedded so creation works offline. */
+const SE_NEW_D2R='VapVqmkAAACeAwAAyPZSAwAAAAAIAAAAABAeAQAAAACkWMpp////////AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAAmAAAANgAAAAAAAAAAAAAA/wEBAQEW/1ECAv////////9ERERE////RET///////8AgACZ95IjAAABAL8ZKk0BAAoArsPGBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAA5bHMg/wIAAAQAAAB1aXQg/wIAAAAAAAB1dWkgRAdmAQAAAABjaTMg/wdQAQAAAABUZW1wbGF0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFdvbyEGAAAAKgEBEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEUARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEQARABEAEUARABEAEQARABEAEQARBXUwEAAABQAAIB//////8AAAAAAAAAAAAAAAAAAAAAAAIB//////8AAAAAAAAAAAAAAAAAAAAAAAIB//////8AAAAAAAAAAAAAAAAAAAAAAAF3NAAMrqXJBgAAACyupckGAAAArq6lyQYAAAD6ceUZAAAAAJJ/wRgAAAAAgHCAGAAAAABnZgAyCJCBgAwGZGAAIAMcAMgACAAyQAKADKAAIAMsAMgADAL/AWlmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASk0AAEpNAABqZkpNAABrZgABAGxmAAA=';
+const SE={m:null,file:'',undo:[],msg:'',err:'',view:'char',auto:true,quest:true,exportTarget:'105',
   add:{kind:'u',q:'',id:null,base:'',pre:0,suf:0,aff:[0,0,0,0,0,0],vals:{},eth:false,sockets:'',kids:[],dest:'auto',qty:1,bq:''}};
 const SE_KINDS=[['u','Unique'],['s','Set item'],['rw','Runeword'],['magic','Magic'],['rare','Rare'],['base','Plain base'],['simple','Rune or gem']];
 const SE_PAGE={1:'Inventory',4:'Horadric Cube',5:'Stash'};
 function seSnap(){const E=seEng();if(!E||!SE.m)return;SE.undo.push(E.build(SE.m));if(SE.undo.length>40)SE.undo.shift()}
 function seUndo(){const E=seEng();const b=SE.undo.pop();if(!E||!b)return;const keep={file:SE.file};SE.m=E.parse(b);Object.assign(SE,keep);SE.msg='Undone.'}
+function seNormItem(s){return String(s||'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ')}
+function sePlanParts(text){return String(text||'').split(/\s*(?:,|\s\+\s|\sor\s|\/)\s*(?![^()]*\))/i).map(s=>s.trim()).filter(Boolean).map(s=>{const n=s.match(/^(\d+)\s*[×x]\s*/i),eth=/\beth(ereal)?\b/i.test(s),baseText=(s.match(/\(([^)]*)\)/)||[])[1]||'',name=s.replace(/\([^)]*\)/g,' ').replace(/^\d+\s*[×x]\s*/,'').replace(/^(eth|ethereal)\s+/i,'').replace(/\s+/g,' ').trim();return {name,baseText,eth,count:n?Math.max(1,Math.min(20,+n[1])):1}})}
+function seCustomStats(custom,m,plan){if(!custom||typeof custom!=='object')return [];const names=Object.fromEntries(m.D.isc.map((s,i)=>s&&s[6]?[s[6],i]:null).filter(Boolean)),out=[],add=(k,v,par)=>{if(!v)return;const id=names[k];if(id==null)throw Error(`Custom gear modifier “${k}” is not supported by this save version.`);out.push(par==null?[id,v]:[id,par,v])};
+  add('item_allskills',+custom.sk||0);add('item_addclassskills',+custom.cls||0,E.CLS_I[plan.classCode||plan.cls]);add('item_fastercastrate',+custom.fcr||0);add('item_fastergethitrate',+custom.fhr||0);add('item_fasterattackrate',+custom.ias||0);add('item_magicbonus',+custom.mf||0);add('maxhp',+custom.life||0);add('item_maxdamage_percent',+custom.ed||0);add('strength',+custom.str||0);add('dexterity',+custom.dex||0);add('vitality',+custom.vit||0);add('energy',+custom.ene||0);
+  const res=+custom.res||0;for(const k of ['fireresist','lightresist','coldresist','poisonresist'])add(k,res);for(const [key,stat] of [['rf','fireresist'],['rl','lightresist'],['rc','coldresist'],['rp','poisonresist']])add(stat,+custom[key]||0);return out}
+function sePlanLoadout(plan,m){const E=seEng(),cat=E.catalog(m),norm=seNormItem,resolve=[];const exact=(list,n)=>list.find(x=>norm(x.name)===norm(n));
+  const eqMap={0:4,1:5,2:1,3:3,4:10,5:8,6:9,7:2,8:6,9:7,11:11,15:12};
+  for(const g of plan.gear||[]){const slot=+g.slot,merc=slot>=12&&slot<=14,parts=sePlanParts(g.item);if(!parts.length)continue;if(slot!==10&&parts.length>1)throw Error(`Gear slot “${['Weapon','Off-hand','Helm','Armor','Gloves','Belt','Boots','Amulet','Ring 1','Ring 2'][slot]||slot}” lists multiple alternatives (${parts.map(p=>p.name).join(', ')}). Choose one exact item before exporting.`);
+    for(const p of parts){if(slot!==10&&p.count>1)throw Error(`${p.name}: a count greater than one only fits the Charms slot.`);let sel=null,label=p.name,base=cat.bases.find(x=>x.code===g.base)||cat.bases.find(x=>norm(x.name)===norm(p.baseText));
+      const rw=exact(cat.rw,p.name),u=exact(cat.u,p.name),set=exact(cat.s,p.name);
+      if(rw){const bs=base||E.rwBases(m,rw.id)[0];if(!bs)throw Error(`${p.name}: no compatible base item was found.`);sel={kind:'rw',id:rw.id,base:bs.code,eth:p.eth}}
+      else if(u)sel={kind:'u',id:u.id,eth:p.eth}
+      else if(set)sel={kind:'s',id:set.id,eth:p.eth}
+      else {if(!base)base=cat.bases.find(x=>norm(x.name)===norm(p.name));if(base)sel={kind:'base',base:base.code,eth:p.eth}}
+      if(!sel)throw Error(`“${p.name}” is a gear goal but could not be matched to a save item. Add its exact item/base (and custom rolls if needed) before exporting.`);
+      const spec=E.buildSpec(m,sel),code=spec.code;if(!code)throw Error(`Could not build ${p.name} as a save item.`);spec.stats=[...(spec.stats||[]),...seCustomStats(g.custom,m,plan)];
+      if(slot===10){if(!E.typesOf(m,code).some(t=>/char/i.test(t)))throw Error(`${p.name} is in the Charms slot but is not a charm item.`);resolve.push({spec,merc:false,inventory:true,label,count:p.count});continue}
+      const eq=merc?({12:4,13:3,14:1})[slot]:eqMap[slot];if(eq==null)throw Error(`${p.name} uses unsupported equipment slot ${slot}.`);
+      if(!E.slotsFor(m,code).includes(eq))throw Error(`${p.name} cannot be equipped in the planned ${merc?'mercenary':'character'} slot.`);
+      resolve.push({spec,merc,eq,inventory:false,label,count:p.count})
+    }
+  }
+  const mercItems=resolve.filter(x=>x.merc);let mercType=null;
+  if(plan.merc||mercItems.length){if(!m.expansion)throw Error('This classic save cannot store the planned mercenary equipment section; use an expansion save to export mercenary gear.');const label=String(plan.merc||'Act 2 Nightmare Might');if(!/^act\s*(2|ii)\b/i.test(label))throw Error(`Mercenary “${label}” is not mapped to a known save type yet. Choose an Act II mercenary to export its hireling and equipment.`);mercType=/holy\s*freeze|defensive/i.test(label)?10:/thorns|combat/i.test(label)?9:11;}
+  return {items:resolve,mercType}}
+function seCreatePlanItem(planItem,m,pos){const E=seEng(),spec={...planItem.spec,ilvl:Math.max(1,Math.min(99,+planItem.spec.ilvl||m.stats[12]||1))};return E.create(m,spec,pos)}
+function seApplyLoadout(plan,m,prepared){const E=seEng(),hasPlan=Array.isArray(plan.gear),load=prepared||sePlanLoadout(plan,m);if(!hasPlan)return {player:0,merc:0};
+  const replacingMerc=load.mercType!=null,draft={...m,items:(m.items||[]).filter(it=>it.loc!==1),merc:replacingMerc?(m.merc||[]).filter(it=>it.loc!==1):(m.merc||[]).slice(),pre:m.pre.slice()};
+  for(const p of load.items){for(let n=0;n<p.count;n++){let pos;if(p.inventory){let page=1,spot=E.findSpot(draft,page,p.spec.code);if(!spot){page=5;spot=E.findSpot(draft,page,p.spec.code)}if(!spot)throw Error(`${p.label}: no room in the character inventory or stash for the charm.`);pos={loc:0,eq:0,x:spot[0],y:spot[1],page}}
+      else pos={loc:1,eq:p.eq,x:0,y:0,page:0};
+      const it=seCreatePlanItem(p,draft,pos);(p.merc?draft.merc:draft.items).push(it)}}
+  if(load.mercType!=null){const sh=draft.sh||0,view=new DataView(draft.pre.buffer,draft.pre.byteOffset,draft.pre.byteLength),control=(Math.random()*0xffffffff>>>0)||1;view.setUint16(0xB1+sh,0,true);view.setUint32(0xB3+sh,control,true);view.setUint16(0xB7+sh,0,true);view.setUint16(0xB9+sh,load.mercType,true);view.setUint32(0xBB+sh,Math.min(0xffffffff,Math.round((draft.stats[12]+1)*draft.stats[12]*draft.stats[12]*120)),true);draft.mercId=control;draft.hasJf=true}
+  m.items=draft.items;m.merc=draft.merc;m.pre=draft.pre;m.mercId=draft.mercId;m.hasJf=draft.hasJf;
+  return {player:load.items.filter(p=>!p.merc).reduce((n,p)=>n+p.count,0),merc:load.items.filter(p=>p.merc).reduce((n,p)=>n+p.count,0)}}
+function seApplyBuild(plan){const E=seEng(),m=SE.m,planClass=plan&&(plan.classCode||plan.cls);if(!E||!m||!plan)return false;
+  if(planClass==='war'&&m.ver<0x69){SE.err='Warlock builds need a Reign of the Warlock save. This save predates that character class.';return false}
+  if(planClass!==m.cls){const actual=E.classInfo(m);SE.err=`This build is for a ${plan.className||plan.cls}. Load a matching save to export it; the selected save is ${actual&&actual[1]||m.cls}.`;return false}
+  const c=E.classInfo(m),base=c&&c[2];if(!base){SE.err='Could not read the base stats for this character.';return false}
+  const tab=m.D.cls.find(x=>x[0]===m.cls),slots=tab&&tab[4]||[],byName=new Map(slots.map((x,i)=>[String(x[1]).toLowerCase(),i])),skills=plan.skills||[],missing=skills.filter(s=>!byName.has(String(s.name||'').toLowerCase()));
+  if(missing.length){SE.err=`Could not map planned skill${missing.length===1?'':'s'} to this save: ${missing.map(s=>s.name).join(', ')}. The save was left unchanged.`;return false}
+  let prepared;try{prepared=sePlanLoadout(plan,m)}catch(e){SE.err=`Build export stopped before changing the save: ${(e&&e.message)||'unsupported planned gear'}`;return false}
+  const level=Math.max(1,Math.min(99,Math.round(+plan.level||1))),stats=plan.stats||{};
+  const before=E.build(m);seSnap();m.stats[0]=Math.max(base.str,Math.round(+stats.str||base.str));m.stats[2]=Math.max(base.dex,Math.round(+stats.dex||base.dex));m.stats[3]=Math.max(base.vit,Math.round(+stats.vit||base.vit));m.stats[1]=Math.max(base.int,Math.round(+stats.ene||base.int));
+  m.stats[12]=level;m.stats[13]=E.expFor(m,level);m.skills=m.skills.map(()=>0);
+  for(const s of skills){const i=byName.get(String(s.name||'').toLowerCase());m.skills[i]=Math.max(0,Math.min(20,Math.round(+s.points||0)))}
+  let equipped;try{equipped=seApplyLoadout(plan,m,prepared)}catch(e){Object.assign(m,E.parse(before));SE.undo.pop();SE.err=`Build export could not add all gear: ${(e&&e.message)||'item placement failed'}`;return false}
+  const spentStats=Math.max(0,m.stats[0]-base.str)+Math.max(0,m.stats[2]-base.dex)+Math.max(0,m.stats[3]-base.vit)+Math.max(0,m.stats[1]-base.int),spentSkills=m.skills.reduce((a,b)=>a+b,0);
+  m.stats[4]=Math.max(0,5*(level-1)+(plan.quests?15:0)-spentStats);m.stats[5]=Math.max(0,(level-1)+(plan.quests?12:0)-spentSkills);E.recalcLife(m);
+  SE.err='';SE.msg=`Applied ${plan.name||'the planned build'} at level ${level}, with ${equipped.player} planned player item${equipped.player===1?'':'s'}${equipped.merc?` and ${equipped.merc} mercenary item${equipped.merc===1?'':'s'}`:''}. Existing unequipped items and the save's game version are preserved.`;SE.view='char';return true}
+function seVerifyBuild(m,plan){const E=seEng(),out=E.build(m),check=E.parse(out),ids=[0,1,2,3,4,5,12,13];
+  if(check.cls!==m.cls||check.name!==m.name||check.skills.length!==m.skills.length||check.skills.some((v,i)=>v!==m.skills[i])||ids.some(i=>(check.stats[i]||0)!==(m.stats[i]||0))||check.items.length!==m.items.length||(check.merc||[]).length!==(m.merc||[]).length)throw Error('The generated save did not pass its round-trip validation. It was not kept.');
+  if(plan&&Array.isArray(plan.gear)){const expected=sePlanLoadout(plan,m),used={items:new Set(),merc:new Set()};for(const p of expected.items){const list=p.merc?(check.merc||[]):check.items,usedList=p.merc?used.merc:used.items;for(let n=0;n<p.count;n++){const i=list.findIndex((x,j)=>!usedList.has(j)&&x.code===p.spec.code&&(p.inventory?x.loc===0&&(x.page===1||x.page===5):x.loc===1&&x.eq===p.eq));if(i<0)throw Error(`Planned item “${p.label}” did not survive save round-trip validation.`);usedList.add(i)}}if(expected.mercType!=null){const v=new DataView(check.pre.buffer,check.pre.byteOffset,check.pre.byteLength);if(!check.mercId||v.getUint16(0xB9+(check.sh||0),true)!==expected.mercType)throw Error('The mercenary header did not survive save round-trip validation.')}}
+  return check}
+async function seCreateNewBuild(){const plan=window.__plannedCharacterBuild,E=seEng();if(!plan||!E){SE.err='Return to the Build planner and choose Export to character save first.';render();return}
+  if(SE.exportTarget!=='105'){SE.err='Fresh character creation is currently available for D2R v105. Import a save in the selected version below to use the planned build as a template.';render();return}
+  const input=document.getElementById('se-new-name'),name=(input&&input.value||'').trim(),hardcore=!!document.getElementById('se-new-hardcore')?.checked;
+  if(!/^[A-Za-z][A-Za-z0-9_-]{1,14}$/.test(name)){SE.err='Choose a character name with 2–15 letters, numbers, hyphens or underscores, starting with a letter.';render();return}
+  try{let bytes=Uint8Array.from(atob(SE_NEW_D2R),c=>c.charCodeAt(0));const ver=new DataView(bytes.buffer).getUint32(4,true);if(ver!==0x69)throw Error('The built-in character template has an unsupported save version.');
+    /* Normalize the upstream seed's nine zero spacer bytes if present. Standard saves put `if`
+       immediately after the terminated stats block; remove only the exact all-zero spacer. */
+    const gfAt=bytes.findIndex((v,i)=>v===0x67&&bytes[i+1]===0x66),ifAt=bytes.findIndex((v,i)=>i>gfAt+2&&v===0x69&&bytes[i+1]===0x66);
+    if(gfAt<0||ifAt<0||ifAt<=gfAt+2)throw Error('The built-in character template has an unexpected stats/skills layout.');
+    if(bytes.slice(ifAt-9,ifAt).length===9&&bytes.slice(ifAt-9,ifAt).every(v=>v===0)){const fixed=new Uint8Array(bytes.length-9);fixed.set(bytes.subarray(0,ifAt-9));fixed.set(bytes.subarray(ifAt),ifAt-9);bytes=fixed}
+    const planClass=plan.classCode||plan.cls,cls=E.CLS_I[planClass];if(cls==null)throw Error('This character class is not supported in the current D2R save format.');const sh=-16,statusAt=0x24+sh,classAt=0x28+sh,nameAt=299;
+    bytes[classAt]=cls;bytes[statusAt]=(bytes[statusAt]&~12)|32|(hardcore?4:0);
+    const m=E.parse(bytes);m.cls=planClass;m.status=bytes[statusAt];m.hardcore=hardcore;m.expansion=true;m.pre[classAt]=cls;m.pre[statusAt]=bytes[statusAt];
+    m.pre.fill(0,nameAt,nameAt+16);for(let i=0;i<name.length;i++)m.pre[nameAt+i]=name.charCodeAt(i);m.name=name;
+    SE.m=m;SE.file=name+'.d2s';SE.undo=[];SE.view='char';SE.msg='';SE.err='';if(!seApplyBuild(plan)){SE.m=null;SE.file='';SE.undo=[];render();return}seVerifyBuild(m,plan);
+    window.__plannedCharacterBuild=null;SE.msg=`Created ${hardcore?'Hardcore ':''}D2R ${plan.className} “${name}” from the selected build, including its supported equipment${plan.merc||(plan.gear||[]).some(g=>g.slot>=12&&g.slot<=14)?' and mercenary loadout':''}.`;render()
+  }catch(e){SE.m=null;SE.file='';SE.undo=[];SE.err=`Couldn't create the character: ${(e&&e.message)||'template error'}`;render()}}
+function seTargetMatches(m,target){if(target==='105')return m.ver===105;if(/^9[7-9]$|^10[0-4]$/.test(target))return m.ver===Number(target);if(target==='lod')return m.ver===96&&!!m.expansion;if(target==='classic')return m.ver===96&&!m.expansion;return false}
 async function seRead(file){const E=seEng();SE.err='';SE.msg='';
   if(!E){SE.err='The save editor didn\'t load. Reload the page and try again.';render();return}
   if(!/\.d2s$/i.test(file.name)){SE.err='Choose a character save (.d2s). Shared stash files can\'t be edited yet.';render();return}
-  try{SE.m=E.parse(new Uint8Array(await file.arrayBuffer()));SE.file=file.name;SE.undo=[];SE.view='char'}catch(e){SE.err=(e&&e.message)||'Couldn\'t read this save.'}
+  try{const parsed=E.parse(new Uint8Array(await file.arrayBuffer())),plan=window.__plannedCharacterBuild;if(plan&&!seTargetMatches(parsed,SE.exportTarget)){SE.err=`That save is v${parsed.ver}${parsed.ver===96?(parsed.expansion?' Lord of Destruction':' Classic'):''}; choose its matching target version before importing.`;render();return}
+    SE.m=parsed;SE.file=file.name;SE.undo=[];SE.view='char';if(plan&&seApplyBuild(plan)){try{seVerifyBuild(SE.m,plan);window.__plannedCharacterBuild=null}catch(e){SE.m=null;SE.file='';SE.undo=[];SE.err=`Build export failed validation: ${(e&&e.message)||'save round-trip error'}`;render();return}}else if(plan){SE.m=null;SE.file='';SE.undo=[]}}catch(e){SE.err=(e&&e.message)||'Couldn\'t read this save.'}
   render()}
 /* ---- character points ---- */
 function seBudget(m){const L=m.stats[12]||1;return {stat:5*(L-1)+(SE.quest?15:0),skill:(L-1)+(SE.quest?12:0)}}
@@ -6733,16 +6809,28 @@ function seSkillsHTML(m){const E=seEng();const c=E.classInfo(m);if(!c)return '';
       <div class="se-btns"><button type="button" class="tl-btn" data-act="se-skpts">Work out unspent skill points</button><button type="button" class="tl-btn ghost" data-act="se-skreset">Reset all skills</button></div></div>
   </section>`}
 function editorHTML(){const E=seEng();const m=SE.m;
+  const plan=window.__plannedCharacterBuild;let suggested=String(plan&&plan.name||'Hero').replace(/[^A-Za-z0-9_-]/g,'').replace(/^[^A-Za-z]+/,'').slice(0,15);if(suggested.length<2)suggested='Hero';
   if(!m)return `<section class="tl-card"><h3>Save editor</h3>
-    <p class="tl-note">Change an offline character's level, stats and skills, move or copy items, and add any unique, set item, runeword, rune or gem, or make your own magic and rare items, then download the edited save. Handy for testing builds before you farm for them.</p>
-    <label class="im-drop" id="se-drop"><input type="file" id="se-file" accept=".d2s" hidden><b>Choose a character save</b><span>or drop it here · .d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d</span></label>
+    <p class="tl-note">Create a new offline character from a planned build or edit an existing .d2s save. Save files are handled on this device and are never uploaded.</p>
+    ${plan?`<div class="tl-card se-top"><h4>Export “${esc(plan.name)}” as a character</h4><p class="tl-note">Level ${plan.level} ${esc(plan.className)} · selected phase stats, allocated skills, ${plan.gear&&plan.gear.length||0} gear entries${plan.merc?' and '+esc(plan.merc):(plan.gear||[]).some(g=>g.slot>=12&&g.slot<=14)?' and the planned mercenary':''} will be copied in.</p>
+      <div class="tl-row"><label>Save version <select id="se-export-version">
+        <option value="105" ${SE.exportTarget==='105'?'selected':''}>D2R v105 · Reign of the Warlock</option>
+        <option value="104" ${SE.exportTarget==='104'?'selected':''}>D2R v104</option><option value="103" ${SE.exportTarget==='103'?'selected':''}>D2R v103</option><option value="102" ${SE.exportTarget==='102'?'selected':''}>D2R v102</option><option value="101" ${SE.exportTarget==='101'?'selected':''}>D2R v101</option><option value="100" ${SE.exportTarget==='100'?'selected':''}>D2R v100</option><option value="99" ${SE.exportTarget==='99'?'selected':''}>D2R v99</option><option value="98" ${SE.exportTarget==='98'?'selected':''}>D2R v98</option><option value="97" ${SE.exportTarget==='97'?'selected':''}>D2R v97</option>
+        <option value="lod" ${SE.exportTarget==='lod'?'selected':''}>Lord of Destruction 1.14d · v96</option><option value="classic" ${SE.exportTarget==='classic'?'selected':''}>Diablo II Classic 1.14d · v96</option>
+      </select></label></div>
+    ${SE.exportTarget==='105'?`<div class="tl-row"><label>Character name <input id="se-new-name" type="text" maxlength="15" value="${esc(suggested)}" autocomplete="off"></label><label class="tl-check"><input id="se-new-hardcore" type="checkbox"> Hardcore</label></div>
+      <div class="tl-row"><button type="button" class="tl-btn primary" data-act="se-new-build">Create fresh D2R character</button></div>
+      <p class="tl-note">Creates a fresh v105 character from the selected build, including supported equipment and any planned mercenary. Equipment that cannot be matched to a real save item stops the export with a clear message.</p>`:`<p class="tl-note">Import a character save in the selected version below. The planned stats, skills, equipment and supported mercenary loadout will be applied while unequipped items and other save data are preserved.</p>`}
+      <div class="tl-row"><button type="button" class="tl-btn ghost" data-act="se-plan-cancel">Cancel build export · return to save import</button></div></div>`:''}
+    <details class="tl-top" ${plan?'':'open'}><summary>${plan?'Use an existing save instead':'Open an existing character save'}</summary>
+    <label class="im-drop" id="se-drop"><input type="file" id="se-file" accept=".d2s" hidden><b>Choose a character save</b><span>or drop it here · .d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d</span></label></details>
     <details class="tl-top"><summary>Where are my save files?</summary><p class="tl-note">D2R: <span class="hu-mail">C:\\Users\\<i>your name</i>\\Saved Games\\Diablo II Resurrected</span>. Diablo II 1.14d (Lord of Destruction or Classic): <span class="hu-mail">C:\\Users\\<i>your name</i>\\Saved Games\\Diablo II</span>, or the <i>Save</i> folder inside the game's folder on older installs. On a Mac (D2R): <span class="hu-mail">~/Library/Application Support/Blizzard/Diablo II Resurrected</span>.</p></details>
     ${SE.err?`<p class="tl-msg">${esc(SE.err)}</p>`:''}
     <p class="tl-note"><b>Back up your save first.</b> The file is edited on this device and never uploaded. Online characters live on Blizzard's servers and can't be edited.</p></section>`;
   const nav=[['char','Character'],['skills','Skills'],['items','Items'],['add','Add item']];
   const body=SE.view==='skills'?seSkillsHTML(m):SE.view==='items'?seItemsHTML(m):SE.view==='add'?seAddHTML(m):seCharHTML(m);
   return `<section class="tl-card se-top"><div class="tl-head"><h3>Editing ${esc(SE.file)}</h3><span class="tl-sub">${esc(m.name)} · level ${m.stats[12]||1} ${esc((E.classInfo(m)||[0,m.cls])[1])} · ${esc(m.game)}</span></div>
-    <div class="tl-row"><button type="button" class="tl-btn primary" data-act="se-dl">Download edited save</button><button type="button" class="tl-btn" data-act="se-undo" ${SE.undo.length?'':'disabled'}>Undo</button><button type="button" class="tl-btn ghost" data-act="se-close">Close</button></div>
+    <div class="tl-row"><button type="button" class="tl-btn primary" data-act="se-dl">Download edited save</button><button type="button" class="tl-btn" data-act="se-undo" ${SE.undo.length?'':'disabled'}>Undo</button><button type="button" class="tl-btn ghost" data-act="se-close">Close · return to save import</button></div>
     <nav class="se-nav" role="tablist">${nav.map(([k,n])=>`<button type="button" role="tab" data-seview="${k}" aria-selected="${SE.view===k}">${n}</button>`).join('')}</nav>
     ${SE.msg?`<p class="tl-msg">${esc(SE.msg)}</p>`:''}${SE.err?`<p class="tl-msg se-err">${esc(SE.err)}</p>`:''}</section>${body}
     <details class="fold im-fold"><summary>Before you load it in the game</summary><p class="tl-note">Close the game (or go back to the character screen) before you replace a save, and keep a copy of the original. Replace the file in your save folder with the downloaded one, using the same name. Items that break the game's own rules, like more sockets than a base can have or rolls outside their range, may behave oddly. Edited characters are for single player only.</p></details>`}
@@ -6764,9 +6852,11 @@ root.addEventListener('click',e=>{if(SUB!=='editor')return;const a=e.target.clos
   if(a.dataset.seview){SE.view=a.dataset.seview;SE.msg='';SE.err='';render();return}
   if(a.dataset.sekind){SE.add={...SE.add,kind:a.dataset.sekind,q:'',id:null,base:'',pre:0,suf:0,aff:[0,0,0,0,0,0],vals:{},eth:false,sockets:'',kids:[]};render();return}
   const act=a.dataset.act;
+  if(act==='se-new-build'){seCreateNewBuild();return}
+  if(act==='se-plan-cancel'){window.__plannedCharacterBuild=null;SE.m=null;SE.file='';SE.undo=[];SE.msg='';SE.err='';SE.exportTarget='105';render();return}
   if(act==='se-dl'){seDownload();return}
   if(act==='se-undo'){seUndo();render();return}
-  if(act==='se-close'){SE.m=null;SE.file='';SE.undo=[];SE.msg='';SE.err='';render();return}
+  if(act==='se-close'){window.__plannedCharacterBuild=null;SE.m=null;SE.file='';SE.undo=[];SE.msg='';SE.err='';SE.exportTarget='105';render();return}
   if(act==='se-add'){seDoAdd();return}
   if(!m)return;
   if(a.dataset.sestep){const [id,d]=a.dataset.sestep.split(':').map(Number);const c=E.classInfo(m);const b=c?c[2]:{};const base={0:b.str,2:b.dex,3:b.vit,1:b.int}[id]||0;
@@ -6790,6 +6880,7 @@ function seSetStat(id,v){const E=seEng(),m=SE.m;if(!m)return;const c=E.classInfo
   E.recalcLife(m);SE.msg='';render()}
 root.addEventListener('change',e=>{if(SUB!=='editor')return;const el=e.target;const E=seEng(),m=SE.m,A=SE.add;
   if(el.id==='se-file'){if(el.files[0])seRead(el.files[0]);el.value='';return}
+  if(el.id==='se-export-version'){SE.exportTarget=el.value;SE.err='';render();return}
   if(el.id==='se-auto'){SE.auto=el.checked;return}
   if(el.id==='se-quest'){SE.quest=el.checked;render();return}
   if(el.dataset.sest!=null&&m){seSetStat(+el.dataset.sest,el.value);return}

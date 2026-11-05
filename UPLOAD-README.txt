@@ -4,6 +4,9 @@ Copy these into the root of the GitHub Pages repository:
 - index.html (replace the current file)
 - d2-font.js (place beside index.html)
 - images/ (merge this folder into the repository)
+- templates/ (include the license and source template attribution)
+
+The Build planner's “Export to character save” offers exact supported save versions. D2R v105 can create a fresh offline character from the selected build phase. D2R v97–104, Lord of Destruction 1.14d and Classic 1.14d apply the build to an imported save of the selected version. Class, level, base stats, hard-point skills, supported named gear, weapon swaps, charms and supported Act II mercenary equipment are included. Ambiguous alternatives or unmapped item names stop the export with an explanation instead of being silently omitted. Generated output is checked by parsing it back before it is offered for download. Unsupported classes, versions, skills or gear show an error and keep the import path available. Save files are handled locally and never uploaded.
 
 The Gear tab uses matching inventory-sized panels, with the mercenary on the left and character inventory on the right. The I/II tabs on either hand switch both weapon and off-hand sets together. Add alternate items in the Weapon swap and Off-hand swap gear slots. Item art is centered in its in-game box, and charms fill the 10x4 inventory grid without overlap.
 
