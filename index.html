@@ -2098,7 +2098,7 @@ function render(){syncHeader();const v=$('#hpView');
   if(TAB==='plan')v.innerHTML=planHTML();else if(TAB==='gear')v.innerHTML=gearHTML();else if(TAB==='guide')v.innerHTML=guideHTML();else if(TAB==='compare')v.innerHTML=compareHTML();else if(TAB==='import'){v.innerHTML='<div id="hp-imp" class="hp-imp"><p class="note">Loading…</p></div>';if(window.__importMount)window.__importMount(document.getElementById('hp-imp'))}else{v.innerHTML=shareHTML();galInit()}
   if(window.__d2FontScan)window.__d2FontScan(v);
   window.__hpTab=TAB;
-  if(TAB==='plan')queueLinks();}
+}
 const hpEl=document.getElementById('hp');let hpDirty=false;window.__hpRender=()=>render();window.addEventListener('horadric-prices',e=>{PRICE.on=e.detail.on;PRICE.m=e.detail.m;render()});
 new MutationObserver(()=>{if(!hpEl.hidden&&hpDirty)render()}).observe(hpEl,{attributes:true,attributeFilter:['hidden']});
 
@@ -2110,7 +2110,7 @@ function planHTML(){
   const C=CLS[B.cls];if(PI>=B.phase.length)PI=B.phase.length-1;
   const ph=B.phase[PI],cnt=counts(ph),end=phaseEnd(B,PI);
   const budget=skAt(B,end),used=ph.sk.length,qs=questSk(end,B.quests);
-  const sim=simulate(B);NODE_GT=gearTotals(B,end);
+  const sim=simulate(B),A=attackInfo(B,end);NODE_GT=gearTotals(B,end);
   const phases=B.phase.map((p,i)=>`<button class="chip" data-act="phase" data-i="${i}" aria-pressed="${i===PI}">${esc(p.name)} <span class="muted">· ${p.start===1?'from 1':'respec at '+p.start}</span></button>`).join('');
   const addForm=addingPhase?`<span class="inline-form"><input id="np-name" type="text" value="Respec ${B.phase.length+1}" maxlength="40" aria-label="Phase name"><input id="np-lvl" type="number" min="${B.phase[B.phase.length-1].start+1}" max="${B.level}" value="${Math.min(B.level,Math.max(B.phase[B.phase.length-1].start+1,30))}" aria-label="Respec level" style="width:5rem"><button class="btn small primary" data-act="phase-add-ok">Add respec</button><button class="btn small" data-act="phase-add-cancel">Cancel</button></span>`
     :`<button class="btn small" data-act="phase-add">+ Respec at a level</button>`;
@@ -2125,11 +2125,11 @@ function planHTML(){
     <div class="budget"><span>Skill points <b class="${used>budget?'over':''}">${used}</b> / ${budget} by level ${end}</span>${budget-used>0?`<span class="lefttag num">${budget-used} left</span>`:''}
       <span class="muted">${end-1} from levels${B.quests?` + ${qs} from quests`:''}</span>
       <span style="margin-left:auto" class="row"><button class="btn small" data-act="undo-pt" ${used?'':'disabled'}>Undo last point</button><button class="btn small danger" data-act="clear-pts" ${used?'':'disabled'}>Clear skills</button></span></div>
-    <div class="game-panels-row">${statsCard(C,ph,end,sim)}<div class="skill-tab-panel">${skillPanel}</div></div>
+    <div class="game-panels-row">${statsCard(C,ph,end,sim,A)}<div class="skill-tab-panel">${skillPanel}</div></div>
     <p class="hint">Lines join each skill to its prerequisites. Hover over a skill (press and hold on a phone) for its tooltip. Click a skill or its + to add a point; its − or a right-click removes one. Shift-click adds or removes up to 20. Missing prerequisites are added for you. The order you click is the order the leveling guide spends points.</p>
   </div>
-  <aside class="rail"><div class="railbar"><button class="linkbtn" data-act="cards-all" data-v="open">Expand all</button><button class="linkbtn" data-act="cards-all" data-v="close">Collapse all</button></div>${rc('skills',S.skills,skillCard(C,ph,end))+rc('weapon','',weaponCard(C,end,sim))}</aside>
-  <div class="below">${rc('gear',S.gear,gearTotalsCard(C,end))+rc('mf',S.mf,mfCard(end))+rc('res',S.res,resistCard(end))+rc('bp',S.bp,bpCard(C,end))+rc('egear',S.egear,gearGoalsCard())+rc('merc',S.merc,mercCard(end))+rc('order',S.order,orderCard(C,ph,sim))}</div></div>`;
+  <aside class="rail"><div class="railbar"><button class="linkbtn" data-act="cards-all" data-v="open">Expand all</button><button class="linkbtn" data-act="cards-all" data-v="close">Collapse all</button></div>${rc('skills',S.skills,skillCard(C,ph,end))+rc('weapon','',weaponCard(C,end,sim,A))}</aside>
+  <div class="below">${rc('gear',S.gear,gearTotalsCard(C,end))+rc('mf',S.mf,mfCard(end))+rc('res',S.res,resistCard(end,sim))+rc('bp',S.bp,bpCard(C,end,sim))+rc('egear',S.egear,gearGoalsCard())+rc('merc',S.merc,mercCard(end))+rc('order',S.order,orderCard(C,ph,sim))}</div></div>`;
 }
 function skillTreePanelHTML(C,ph,end,cnt){
   if(!(TREE<C.trees.length))TREE=0;
@@ -2200,24 +2200,6 @@ function variantBar(){
   let cur=V[1].findIndex(v=>v[0]===B.src.v);if(cur<0)cur=V[0];
   return `<div class="phasebar"><span class="label">Guide setups</span>${V[1].map((v,i)=>`<button class="chip" data-act="variant" data-i="${i}" aria-pressed="${i===cur}">${esc(v[0])}${i===V[0]?' <span class="muted">· main</span>':''}</button>`).join('')}</div>`;
 }
-function drawLinks(){
-  document.querySelectorAll('#hp .tree').forEach(tr=>{
-    let svg=tr.querySelector('svg.links');if(!svg){svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','links');svg.setAttribute('aria-hidden','true');tr.prepend(svg)}
-    const box=tr.getBoundingClientRect();svg.setAttribute('width',box.width);svg.setAttribute('height',box.height);svg.setAttribute('viewBox',`0 0 ${box.width} ${box.height}`);
-    const C=CLS[B.cls],cnt=counts(B.phase[PI]);let out='';
-    tr.querySelectorAll('.node').forEach(n=>{const s=C.skills[+n.dataset.id];const r2=n.getBoundingClientRect();
-      s.pre.forEach(p=>{const pn=tr.querySelector(`.node[data-id="${p}"]`);if(!pn)return;const r1=pn.getBoundingClientRect();
-        const x1=r1.left+r1.width/2-box.left,y1=r1.bottom-box.top,x2=r2.left+r2.width/2-box.left,y2=r2.top-box.top;
-        const on=cnt[p]&&cnt[s.id];const my=(y1+y2)/2;
-        out+=`<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} C${x1.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" class="${on?'on':''}"/>`})});
-    const k=tr.dataset.tree;
-    svg.innerHTML=`<defs><marker id="ah${k}" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8z" fill="#4a3c2a"/></marker>`+
-      `<marker id="ahon${k}" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8z" fill="#d9b25a"/></marker></defs>`+
-      out.replace(/class="(on)?"\/>/g,(m,on)=>`class="${on||''}" marker-end="url(#${on?'ahon':'ah'}${k})"/>`);
-  });
-}
-let linkRaf=0;const queueLinks=()=>{cancelAnimationFrame(linkRaf);linkRaf=requestAnimationFrame(()=>{if(TAB==='plan')drawLinks()})};
-
 
 const effMF=(mf,k)=>Math.floor(mf*k/(mf+k));
 function mfInfo(end){const R=gearTotals(B,end);const C=CLS[B.cls];const fi=C.byName['Find Item'];const fiPts=fi!==undefined?(counts(B.phase[B.phase.length-1])[fi]||0):0;
@@ -2345,9 +2327,9 @@ function defenseInfo(b,end,sim){
   if(sb&&sb.bl&&CLASSBLOCK[C.code]!==undefined){const hs=dimSk(10,40,lv('Holy Shield'));const blocking=sb.bl+CLASSBLOCK[C.code]+(sp.key&&IX[sp.key].blk||0)+hs;const dex=charStatsAt(b,sim,end).dex;
     block={pct:Math.min(75,Math.floor(blocking*(dex-15)/(end*2))),need:Math.ceil(75*end*2/blocking)+15,dex,hs,shield:sp.name}}
   return {nr,mx,cbf,block}}
-function resistCard(end){
+function resistCard(end,sim){
   const R=gearTotals(B,end),T0=R.t;if(!R.counted.length&&!R.custom)return '';
-  const DF=defenseInfo(B,end,simulate(B));const T={...T0,res:T0.res+DF.nr,mrf:T0.mrf+DF.mx.rf,mrc:T0.mrc+DF.mx.rc,mrl:T0.mrl+DF.mx.rl};
+  const DF=defenseInfo(B,end,sim||simulate(B));const T={...T0,res:T0.res+DF.nr,mrf:T0.mrf+DF.mx.rf,mrc:T0.mrc+DF.mx.rc,mrl:T0.mrl+DF.mx.rl};
   const el=[['Fire','rf','mrf','var(--crafted)'],['Cold','rc','mrc','var(--magic)'],['Light','rl','mrl','var(--rare)'],['Pois','rp','mrp','var(--set)']];
   const rows=[['Normal',0,10],['Nightmare',-40,20],['Hell',-100,30]].map(([d,pen,anya])=>`<tr><th>${d}</th>${el.map(([n,k,mk])=>{const max=75+T.mr+T[mk],v=T.res+T[k]+pen+anya,c=Math.min(v,max);return `<td class="${v>=max?'cap':v<0?'neg':''}" title="${v>max?v-max+' over the cap':''}">${c}${v>max&&d==='Hell'?`<i>+${v-max}</i>`:''}</td>`}).join('')}</tr>`).join('');
   const low=el.filter(([n,k,mk])=>T.res+T[k]-70<75+T.mr+T[mk]).map(([n,k,mk])=>`${n} ${75+T.mr+T[mk]-(T.res+T[k]-70)}`);
@@ -2357,8 +2339,8 @@ function resistCard(end){
    <div class="req ${DF.cbf.length?'ok':'bad'}"><span>Cannot be frozen</span><span>${DF.cbf.length?esc(DF.cbf[0]):'no item yet'}</span></div>
    ${DF.block?`<div class="req ${DF.block.pct>=75?'ok':'bad'}"><span>Block with ${esc(DF.block.shield)}${DF.block.hs?' and Holy Shield':''}</span><span class="num">${DF.block.pct}%${DF.block.pct<75?` · ${DF.block.need} Dex for 75%`:' (max)'}</span></div>`:''}</section>`;
 }
-function weaponCard(C,end,sim){
-  const w=gearAt(B,end).find(g=>g.s===0);if(!w)return '';if(attackInfo(B,end).caster)return '';const p=gearParts(w.it)[0];const bs=p&&p.base&&BASES[p.base];if(!bs||!(bs.d||bs.d2||bs.m))return '';
+function weaponCard(C,end,sim,A){
+  const w=gearAt(B,end).find(g=>g.s===0);if(!w)return '';if(A.caster)return '';const p=gearParts(w.it)[0];const bs=p&&p.base&&BASES[p.base];if(!bs||!(bs.d||bs.d2||bs.m))return '';
   const R=gearTotals(B,end),T=R.t,ix=p.key?IX[p.key]:{};const s=charStatsAt(B,sim,end);
   const two=!bs.d||(bs.th&&bs.d2);const base=two?bs.d2:bs.d;const ed=(ix.ed||0)+((w.x&&+w.x.ed)||0),k=p.eth?1.5:1;
   const wd=bd=>bd?[Math.floor(Math.floor(bd[0]*k)*(1+ed/100))+(ix.dmin||0),Math.floor(Math.floor(bd[1]*k)*(1+ed/100))+(ix.dmax||0)]:null;
@@ -2372,7 +2354,7 @@ function weaponCard(C,end,sim){
    ${thr?`<div class="gts"><span class="muted">Throw damage</span><b class="num">${fin(thr)}</b></div>`:''}
    <div class="gts"><span class="muted">Weapon only</span><span class="num">${melee?melee.join('–'):thr.join('–')}${ed?` · +${ed}% ED`:''}</span></div>
    <div class="gts"><span class="muted">Str/Dex bonus</span><span class="num">+${Math.floor(sb)}%${T.ed?` · off-weapon +${T.ed}% ED`:''}</span></div>
-   ${(()=>{const A=attackInfo(B,end);if(A.caster)return '';if(A.own)return `<div class="gts"><span class="muted">Attack speed</span><span class="num">${T.ias}% IAS</span></div><p class="hint" style="margin:0">${esc(A.sk)} speed depends on the skill used at the end of the leap, so it has no single breakpoint table.</p>`;
+   ${(()=>{if(A.caster)return '';if(A.own)return `<div class="gts"><span class="muted">Attack speed</span><span class="num">${T.ias}% IAS</span></div><p class="hint" style="margin:0">${esc(A.sk)} speed depends on the skill used at the end of the leap, so it has no single breakpoint table.</p>`;
       if(A.none)return `<div class="gts"><span class="muted">Attack speed</span><span class="num">${T.ias}% IAS</span></div>`;
       const i=A.table.findIndex(r=>r[0]>A.ias),nx=i>=0?A.table[i]:null;const lab='Frames';
       return `<div><div class="label" style="margin-bottom:4px">${esc(A.sk)}${A.form?` (${A.form==='wolf'?'werewolf':'werebear'})`:''} · ${A.ias}% IAS${A.dual?' off-weapon':''}${A.sias?` · skills ${A.sias>0?'+':''}${A.sias} EIAS`:''}</div><div class="bp"><table><tr><th>IAS</th>${A.table.slice(0,10).map(r=>`<td class="${r[1]===A.now?'hit':''}">${r[0]}</td>`).join('')}</tr><tr><th>${lab}</th>${A.table.slice(0,10).map(r=>`<td class="${r[1]===A.now?'hit':''}">${r[1]}</td>`).join('')}</tr></table></div>
@@ -2421,7 +2403,7 @@ function defenseAt(b,end){
   }
   return found?{min:Math.floor(lowTotal),max:Math.floor(highTotal)}:null;
 }
-function statsCard(C,ph,end,sim){
+function statsCard(C,ph,end,sim,attack){
   const avail=stAt(B,end);
   const spentNonSink=STATS.filter(s=>s!==ph.sink).reduce((a,s)=>a+Math.max(0,ph.st[s]-C.base[s]),0);
   const rest=avail-spentNonSink;
@@ -2430,7 +2412,7 @@ function statsCard(C,ph,end,sim){
   const vit=C.base.vit+(ph.sink==='vit'?Math.max(0,rest):Math.max(0,ph.st.vit-C.base.vit));
   const ene=C.base.ene+(ph.sink==='ene'?Math.max(0,rest):Math.max(0,ph.st.ene-C.base.ene));
   const life=Math.floor(C.life[0]+C.life[1]*(end-1)+C.life[2]*(vit-C.base.vit)),mana=Math.floor(C.mana[0]+C.mana[1]*(end-1)+C.mana[2]*(ene-C.base.ene));
-  const R=gearTotals(B,end),T=R.t,DF=defenseInfo(B,end,sim),A=attackInfo(B,end);
+  const R=gearTotals(B,end),T=R.t,DF=defenseInfo(B,end,sim),A=attack||attackInfo(B,end);
   const hard=counts(ph);
   SKX_R=R;SKX_END=end;SKX_B=B;
   const weapon=wpnInfo(end),weaponBase=weapon&&(weapon.melee||weapon.thr);
@@ -2488,7 +2470,7 @@ function extraBP(C,end){const out=[],cnt=counts(B.phase[B.phase.length-1]),has=n
   if(B.cls==='druid'&&has('Werebear'))out.push(['Werebear form',BPX.druBear]);
   if(B.cls==='necromancer'&&gearAt(B,end).filter(g=>/Trang-Oul/i.test(g.it)).length>=5)out.push(['Vampire form (full Trang-Oul\'s)',BPX.necVamp]);
   return out}
-function bpCard(C,end){
+function bpCard(C,end,sim){
   if(!C.fcr)return `<section class="card"><header><h2>Breakpoints</h2></header><p class="hint" style="margin:0">No verified ${C.name} breakpoint table yet.</p></section>`;
   const tbl=(name,[bps,start],val)=>{let hit=0;bps.forEach((p,i)=>{if(val>=p)hit=i});const next=bps[hit+1];
     return `<div><div class="label" style="margin-bottom:4px">${name}</div><div class="bp"><table><tr><th>%</th>${bps.map((p,i)=>`<td class="${i===hit?'hit':''}">${p}</td>`).join('')}</tr><tr><th>Frames</th>${bps.map((p,i)=>`<td class="${i===hit?'hit':''}">${start-i}</td>`).join('')}</tr></table></div>
@@ -2498,7 +2480,7 @@ function bpCard(C,end){
    <p class="hint" style="margin:0">Planned gear gives <b class="num">${T.fcr}%</b> FCR and <b class="num">${T.fhr}%</b> FHR. Add what rares, charms and jewels bring below.</p>
    <div class="bpin"><label class="field"><span class="label">Extra FCR %</span><input type="number" id="in-fcr" data-bp="fcr" min="0" max="999" value="${B.fcr||0}"></label><label class="field"><span class="label">Extra FHR %</span><input type="number" id="in-fhr" data-bp="fhr" min="0" max="999" value="${B.fhr||0}"></label></div>
    ${tbl(`Faster Cast Rate · ${fcr}%${C.formNote?' · '+C.formNote:''}`,C.fcr,fcr)}${extraBP(C,end,fcr).map(([n,tb])=>tbl(`${n} · ${fcr}%`,tb,fcr)).join('')}${tbl(`Faster Hit Recovery · ${fhr}%${C.formNote?' · '+C.formNote:''}`,C.fhr,fhr)}
-   ${(()=>{const DF=defenseInfo(B,end,simulate(B));if(!DF.block)return '';const fbr=gearTotals(B,end).t.fbr||0;const hs=B.cls==='paladin'&&DF.block.hs;return tbl(`Faster Block Rate · ${fbr}%${hs?' · with Holy Shield':''}`,hs?BPX.fbrHS:BPX.fbr[B.cls],fbr)})()}</section>`;
+   ${(()=>{const DF=defenseInfo(B,end,sim||simulate(B));if(!DF.block)return '';const fbr=gearTotals(B,end).t.fbr||0;const hs=B.cls==='paladin'&&DF.block.hs;return tbl(`Faster Block Rate · ${fbr}%${hs?' · with Holy Shield':''}`,hs?BPX.fbrHS:BPX.fbr[B.cls],fbr)})()}</section>`;
 }
 
 /* ---------- guide ---------- */
@@ -2934,13 +2916,13 @@ view.addEventListener('click',e=>{
   if(act==='cmp-swap'){[cmpA,cmpB]=[cmpB,cmpA];render();return}
   if(act==='cmp-open'){const nb=cmpBuild(a.dataset.v);if(!nb)return;undoB=B;B=nb;PI=0;TAB='plan';cmpA='cur';cmpB=null;save();render();toast(`Opened ${B.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}});return}
   if(act==='card-tog'){const k=a.dataset.ck;if(CLOSED.has(k))CLOSED.delete(k);else CLOSED.add(k);LS.set('hbp.closed2',[...CLOSED]);
-    const sec=a.closest('.card');if(sec){sec.classList.toggle('closed',CLOSED.has(k));a.setAttribute('aria-expanded',String(!CLOSED.has(k)))}queueLinks();return}
+    const sec=a.closest('.card');if(sec){sec.classList.toggle('closed',CLOSED.has(k));a.setAttribute('aria-expanded',String(!CLOSED.has(k)))}return}
   if(act==='eq-set'){EQ_SET=+a.dataset.set;eqTip=null;render();return}
   if(act==='eq-lvl'){EQL=+a.dataset.l;eqTip=null;render();return}
   if(act==='eq-slot'){const s=+a.dataset.s;const has=a.classList.contains('has');
     if(!has){const sel=document.getElementById('g-slot'),inp=document.getElementById('g-item');if(sel){sel.value=String(s);inp.focus();inp.scrollIntoView({block:'center'})}return}
     if(matchMedia('(hover:none)').matches){eqTip=eqTip===s?null:s;render()}return}
-  if(act==='tree-tab'){TREE=+a.dataset.i;SKILL_CALC_PHASE=PI;const C=CLS[B.cls],ph=B.phase[PI],panel=view.querySelector('.skill-tab-panel');if(panel){panel.innerHTML=skillTreePanelHTML(C,ph,phaseEnd(B,PI),counts(ph));if(window.__d2FontScan)window.__d2FontScan(panel)}queueLinks();return}
+  if(act==='tree-tab'){TREE=+a.dataset.i;SKILL_CALC_PHASE=PI;const C=CLS[B.cls],ph=B.phase[PI],panel=view.querySelector('.skill-tab-panel');if(panel){panel.innerHTML=skillTreePanelHTML(C,ph,phaseEnd(B,PI),counts(ph));if(window.__d2FontScan)window.__d2FontScan(panel)}return}
   if(act==='zone-tog'){const z=+a.dataset.z;if(!GZ)GZ=new Set([0]);if(GZ.has(z))GZ.delete(z);else GZ.add(z);render();return}
   if(act==='zones-all'){GZ=new Set(a.dataset.v==='open'?ZONES.map((_,i)=>i):[]);render();return}
   if(act==='cards-all'){CLOSED=new Set(a.dataset.v==='close'?['stats','skills','weapon','gear','mf','res','bp','egear','merc','order']:[...CLOSED].filter(k=>k==='farm'||k==='rwlist'));LS.set('hbp.closed2',[...CLOSED]);render();return}
@@ -2994,8 +2976,6 @@ render();
 const sharedToast=()=>setTimeout(()=>toast(`Opened a shared build: ${B.name}. Save it in Share & Library to keep it.`),400);
 if(fromLink)sharedToast();
 if(linkPacked)unpackLink(linkPacked).then(c=>{B=decode(c);PI=0;TAB='plan';save();render();sharedToast()}).catch(()=>toast('That share link looks damaged or incomplete.'));
-if(typeof ResizeObserver!=='undefined')new ResizeObserver(queueLinks).observe(view);
-window.addEventListener('resize',queueLinks);
 }
 
 })();
