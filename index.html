@@ -6060,6 +6060,7 @@ RW.forEach(w=>FARM_CATALOG.push({id:'w-'+slug(w.n),kind:'w',name:RWSHOW[w.n]||w.
 const FARM_BY_ID=new Map(FARM_CATALOG.map(x=>[x.id,x]));
 const FARM_NICK={shako:'Harlequin Crest',soj:'The Stone of Jordan',anni:'Annihilus',griff:'Griffon\'s Eye',griffs:'Griffon\'s Eye',maras:'Mara\'s Kaleidoscope',arach:'Arachnid Mesh',wartrav:'War Traveler'};
 const FARM_SOURCES=DATA.sources.map((src,i)=>({src,i})).filter(x=>x.src.k==='boss'||x.src.k==='super');
+const FARM_HAS_TZ=Object.keys(DATA.tz||{}).length>0;
 const farmSourceKey=s=>[s.d,s.k,s.m,s.a,s.tc].join('|');
 const farmSources=()=>FARM_SOURCES.filter(x=>x.src.d===FARM.d);
 function farmDefaultSource(){const list=farmSources();return list.find(x=>x.src.m==='Mephisto')||list.find(x=>x.src.k==='boss')||list[0]||null}
@@ -6130,7 +6131,7 @@ function farmHTML(){
     ['Character level',`<input id="fp-level" type="number" min="1" max="99" value="${FARM.level}">`]];
   const fields=opts.map(([label,control])=>`<label class="tl-f"><span>${label}</span>${control}</label>`).join('');
   const goals=FARM.goals.map(g=>`<div class="fp-goal"><div class="fp-gname"><b>${esc(farmGoalName(g))}</b><small>${g.kind==='u'?'Unique':g.kind==='s'?'Set item':g.kind==='r'?'Rune':'Base item'}</small></div><label class="fp-count"><span>Have</span><input type="number" min="0" max="999" value="${g.have}" data-fp-have="${esc(g.id)}" aria-label="${esc(farmGoalName(g))} you have"></label><label class="fp-count"><span>Want</span><input type="number" min="1" max="999" value="${g.want}" data-fp-want="${esc(g.id)}" aria-label="${esc(farmGoalName(g))} wanted"></label><button type="button" class="tl-x" data-fp-remove="${esc(g.id)}" aria-label="Remove ${esc(farmGoalName(g))}">Remove</button></div>`).join('');
-  const tz=HAS_TZ?`<label class="tl-check"><input type="checkbox" id="fp-tz" ${FARM.terror?'checked':''}> Terror zone</label>`:'';
+  const tz=FARM_HAS_TZ?`<label class="tl-check"><input type="checkbox" id="fp-tz" ${FARM.terror?'checked':''}> Terror zone</label>`:'';
   return`<section class="tl-card"><div class="tl-head"><h3>Plan several farm goals</h3><span class="tl-sub">${esc(DATA.version.label||'Current game version')}</span></div>
     <p class="tl-note">Add the items you're working toward, then choose a boss or super unique. Runewords add their rune requirements. If you track Grail finds or runes in Tools, you can copy those counts into this plan.</p>
     <div class="tl-f"><label class="fp-label" for="fp-q">Add an item, rune or runeword</label><div class="fp-add"><input id="fp-q" type="search" value="${esc(FARM.q||'')}" placeholder="Try Harlequin Crest, Ber Rune, Enigma…" autocomplete="off"><button type="button" class="tl-btn primary" data-act="fp-search-add" ${farmSuggestions(FARM.q||'').length?'':'disabled'}>Add top match</button></div></div>
@@ -6145,7 +6146,7 @@ function farmHTML(){
 async function calculateFarmPlan(){
   if(!FARM.goals.length||!farmSource())return;
   const token=++farmToken;farmRunning=true;farmResults=[];farmProgress=0;farmMessage='';render();await new Promise(requestAnimationFrame);
-  const src=farmSource().src,opt={difficulty:FARM.d,players:FARM.players,party:FARM.party,mf:FARM.mf,terror:!!(FARM.terror&&HAS_TZ),charLevel:FARM.level,findItem:false,questKill:false,heraldTier:1};
+  const src=farmSource().src,opt={difficulty:FARM.d,players:FARM.players,party:FARM.party,mf:FARM.mf,terror:!!(FARM.terror&&FARM_HAS_TZ),charLevel:FARM.level,findItem:false,questKill:false,heraldTier:1};
   for(let i=0;i<FARM.goals.length;i++){
     if(token!==farmToken)return;if(SUB!=='farm'){farmRunning=false;farmResults=null;return}
     const g=FARM.goals[i],target=farmTarget(g);let p=0;
