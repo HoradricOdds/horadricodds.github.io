@@ -279,6 +279,8 @@ footer p { margin: 0; max-width: 78ch; }
 #tools .se-sheet details.fold{margin-top:-4px}
 #tools .se-pill.se-over{border-color:var(--accent);color:var(--accent);font-weight:600}
 #tools .se-budget .tl-bar b.over{background:var(--accent)}
+#tools .tl-lad{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:0 7px;margin-left:6px;white-space:nowrap}
+#tools .tl-ladrow{align-items:center;gap:6px 14px}
 #tools .se-sksum{display:flex;align-items:center;gap:10px;font-size:.86rem;color:var(--muted)}
 #tools .se-sheet .se-trees{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:0}
 #tools .se-tree{gap:0}
@@ -1298,7 +1300,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 2:33 pm</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 2:45 pm</span></p>
 
 
 <script>
@@ -5868,7 +5870,10 @@ const RWNICK={cta:'Call to Arms',coh:'Chains of Honor',hoto:'Heart of the Oak',b
   dream:'Dream',dreams:'Dream',mos:'Mosaic',bod:'Breath of the Dying',ccoh:'Chains of Honor',hos:'Hustle',spirit:'Spirit',insight:'Insight',stealth:'Stealth',smoke:'Smoke',lore:'Lore',rhyme:'Rhyme',pride:'Pride',grief:'Grief',beast:'Beast',doom:'Doom',faith:'Faith',fury:'Fury',exile:'Exile',bramble:'Bramble',dragon:'Dragon',plague:'Plague',wrath:'Wrath',silence:'Silence',eternity:'Eternity',mist:'Mist',rift:'Rift',oath:'Oath',harmony:'Harmony',ice:'Ice',chaos:'Chaos',famine:'Famine',death:'Death',destruction:'Destruction',edge:'Edge',duress:'Duress',memory:'Memory',white:'White',hustle:'Hustle',metamorphosis:'Metamorphosis',meta:'Metamorphosis'};
 const NICKOF={};for(const [k,v] of Object.entries(RWNICK))if(k!==v.toLowerCase())(NICKOF[v]=NICKOF[v]||[]).push(k);
 const UP=new Map(RUNEUP.map(([f,c,g])=>[f+1,{from:f,c,g}]));   // to -> recipe
-let INV=load('horadric-runes',{});const rUI=load('horadric-runes-ui',{cube:true,q:''});
+let INV=load('horadric-runes',{});const rUI=load('horadric-runes-ui',{cube:true,q:''});if(rUI.lad!=='nl')rUI.lad='ladder';
+/* Reign of the Warlock: since Ladder Season 15 every older ladder-only runeword works on non-ladder, except these eight (Blizzard's 3.3 patch notes) */
+const LADDER_ONLY=new Set(['Hustle (armor)','Hustle (weapon)','Metamorphosis','Ground','Temper','Hearth','Cure','Bulwark']);
+const RWSHOW={'Hustle (armor)':'Hysteria','Hustle (weapon)':'Mania'};
 const inv=i=>Math.max(0,INV[RUNES[i]]|0);
 const saveInv=()=>store('horadric-runes',INV);
 /* try to make the runes a runeword needs from inv; returns {ok,steps,gems,missing} */
@@ -5889,12 +5894,13 @@ function runesHTML(){
   const total=RUNES.reduce((s,_,i)=>s+inv(i),0);
   const grid=RUNES.map((r,i)=>`<div class="tl-rcell${inv(i)?' has':''}"><span class="tl-rn" data-tip="${r} Rune">${r}</span><span class="tl-rctl"><button type="button" data-rd="${i}" aria-label="One fewer ${r}">−</button><input type="number" min="0" max="999" inputmode="numeric" id="rv-${i}" data-rv="${i}" value="${inv(i)}" aria-label="${r} runes you have"><button type="button" data-ru="${i}" aria-label="One more ${r}">+</button></span></div>`).join('');
   const q=rUI.q.trim().toLowerCase();
-  const hay=w=>(w.n+' '+w.b+' '+w.r.map(i=>RUNES[i]).join(' ')+' '+(NICKOF[w.n]||[]).join(' ')).toLowerCase();
+  const hay=w=>(w.n+' '+(RWSHOW[w.n]||'')+' '+w.b+' '+w.r.map(i=>RUNES[i]).join(' ')+' '+(NICKOF[w.n]||[]).join(' ')).toLowerCase();
   const nick=RWNICK[q];
-  const res=RW.map(w=>({w,p:plan(w.r,rUI.cube)})).filter(x=>!q||(nick?x.w.n===nick:hay(x.w).split(/[\s,]+/).some(t=>t.startsWith(q))||hay(x.w).includes(q)));
+  const nl=rUI.lad==='nl';const hidden=nl?RW.filter(w=>LADDER_ONLY.has(w.n)&&(!q||hay(w).includes(q)||(nick&&w.n===nick))):[];
+  const res=RW.filter(w=>!(nl&&LADDER_ONLY.has(w.n))).map(w=>({w,p:plan(w.r,rUI.cube)})).filter(x=>!q||(nick?x.w.n===nick:hay(x.w).split(/[\s,]+/).some(t=>t.startsWith(q))||hay(x.w).includes(q)));
   const ready=res.filter(x=>x.p.ok&&!x.p.cubed),cubed=res.filter(x=>x.p.ok&&x.p.cubed),near=res.filter(x=>!x.p.ok&&x.p.missing.length===1).sort((a,b)=>a.p.missing[0]-b.p.missing[0]);
   const rwRow=(x,extra)=>{const owned=RUNES.map((_,i)=>inv(i));const tags=x.w.r.map(i=>{const ok=owned[i]>0;if(ok)owned[i]--;return runeChip(i,ok?'ok':'no')}).join('');
-    return `<div class="tl-rw"><div class="tl-rwh"><b data-tip="${esc(x.w.n)}">${esc(x.w.n)}</b><span class="tl-sub">${esc(x.w.b)} · ${x.w.r.length} sockets · L${x.w.l}</span>${oddsBtn('w-'+slug(x.w.n))}</div><div class="tl-runes">${tags}</div>${extra||''}</div>`};
+    return `<div class="tl-rw"><div class="tl-rwh"><b data-tip="${esc(x.w.n)}">${esc(RWSHOW[x.w.n]||x.w.n)}</b>${LADDER_ONLY.has(x.w.n)?'<span class="tl-lad" title="Ladder only in Reign of the Warlock">Ladder only</span>':''}<span class="tl-sub">${esc(x.w.b)} · ${x.w.r.length} sockets · L${x.w.l}</span>${oddsBtn('w-'+slug(x.w.n))}</div><div class="tl-runes">${tags}</div>${extra||''}</div>`};
   const stepTxt=p=>`<p class="tl-steps">Cube: ${p.steps.map(([to,n])=>{const u=UP.get(to);return `${n>1?n+'× ':''}${u.c} ${RUNES[u.from]}${u.g?' + '+u.g:''} → ${RUNES[to]}`}).join('; ')}</p>`;
   const sect=(title,xs,fn,empty)=>`<section class="tl-group"><h4>${title} <span class="tl-count">${xs.length}</span></h4>${xs.length?`<div class="tl-rws">${xs.map(fn).join('')}</div>`:`<p class="tl-empty">${empty}</p>`}</section>`;
   const ups=RUNES.map((_,i)=>UP.get(i+1)&&inv(i)>=UP.get(i+1).c?[i,Math.floor(inv(i)/UP.get(i+1).c)]:null).filter(Boolean);
@@ -5903,11 +5909,14 @@ function runesHTML(){
     <div class="tl-rgrid">${grid}</div>
     <div class="tl-row"><label class="tl-check"><input type="checkbox" data-act="r-cube" ${rUI.cube?'checked':''}> Count cube upgrades (3 Tal → Ral and so on)</label>${total?'<button type="button" class="tl-btn ghost" data-act="r-clear">Set all to 0</button>':''}</div></section>
   <section class="tl-card"><div class="tl-row"><input id="r-q" type="search" placeholder="Search: cta, Enigma, Ber, Body armor…" value="${esc(rUI.q)}" aria-label="Search runewords"></div>
+    <div class="tl-row tl-ladrow" role="group" aria-label="Realm"><span class="tl-sub">Playing on</span><label class="tl-check"><input type="checkbox" data-act="r-lad" value="ladder" ${!nl?'checked':''}> Ladder</label><label class="tl-check"><input type="checkbox" data-act="r-lad" value="nl" ${nl?'checked':''}> Non-ladder</label>
+      ${nl?`<span class="tl-sub">${hidden.length?`${hidden.length} ladder-only runeword${hidden.length>1?'s':''} hidden${q?' from this search':''}: ${hidden.map(w=>esc(RWSHOW[w.n]||w.n)).join(', ')}`:'Ladder-only runewords are hidden.'}</span>`:'<span class="tl-sub">Ladder-only runewords are marked.</span>'}</div>
     ${q?(()=>{const other=res.filter(x=>!x.p.ok&&(x.p.missing.length>1||!total));return other.length?sect(total?'Other matches':'Matches',other,x=>rwRow(x,total?`<p class="tl-steps">Missing: ${x.p.missing.map(i=>runeChip(i,'no')).join(' ')}</p>`:''),''):(res.length?'':'<p class="tl-empty">No runewords match.</p>')})():''}
     ${total?sect('Ready to make',ready,x=>rwRow(x),'None yet with these runes.')+(rUI.cube?sect('With cube upgrades',cubed,x=>rwRow(x,stepTxt(x.p)+(x.p.gems.length?`<p class="tl-steps">Gems: ${x.p.gems.map(([g,n])=>`${n}× ${esc(g)}`).join(', ')}</p>`:'')),'Nothing extra from cubing your runes.'):'')+
       sect('One rune short',near,x=>rwRow(x,`<p class="tl-steps">Missing: ${runeChip(x.p.missing[0],'no')}</p>`),'None.'):'<p class="tl-empty">Add your runes above to see what you can make.</p>'}
     ${ups.length?`<section class="tl-group"><h4>Upgrades you can cube now</h4><p class="tl-steps">${ups.map(([i,n])=>{const u=UP.get(i+1);return `${u.c} ${RUNES[i]}${u.g?' + '+esc(u.g):''} → ${RUNES[i+1]}${n>1?` <i>(×${n})</i>`:''}`}).join(' · ')}</p></section>`:''}
-    <p class="tl-note">Put the runes in order into a plain (white or grey, not magic) item with exactly that many sockets. Bases shown are the item types each runeword can go in.</p></section>`;
+    <p class="tl-note">Put the runes in order into a plain (white or grey, not magic) item with exactly that many sockets. Bases shown are the item types each runeword can go in.</p>
+    <details class="fold"><summary>About ladder-only runewords</summary><p class="tl-note">Since Ladder Season 15 (patch 3.3, August 2026), every runeword that used to be ladder-only can also be made on non-ladder in Reign of the Warlock, except Mania, Hysteria, Metamorphosis, Ground, Temper, Hearth, Cure and Bulwark. Classic and Lord of Destruction don't have the D2R runewords at all.</p></details></section>`;
 }
 
 /* ===================== Run tracker ===================== */
@@ -6427,6 +6436,7 @@ root.addEventListener('change',e=>{const el=e.target;
   if(el.id==='ax-q'){axUI.q=el.value;store('horadric-affix-ui',axUI);render();return}
   if(el.id==='ax-craft'){axUI.craft=el.checked;store('horadric-affix-ui',axUI);render();return}
   if(el.dataset.gid){const id=el.dataset.gid;if(el.checked)G.f[id]=today();else delete G.f[id];saveG();render();return}
+  if(el.dataset.act==='r-lad'){rUI.lad=el.checked?el.value:(el.value==='nl'?'ladder':'nl');store('horadric-runes-ui',rUI);render();return}
   if(el.dataset.act==='r-cube'){rUI.cube=el.checked;store('horadric-runes-ui',rUI);render();return}
   if(el.dataset.rv!==undefined){INV[RUNES[+el.dataset.rv]]=Math.max(0,Math.min(999,parseInt(el.value,10)||0));saveInv();render();return}
   if(el.id==='rn-d'){rnUI.d=+el.value;if(!TARGETS.some(t=>t.d===rnUI.d&&t.m===rnUI.m)&&rnUI.m!=='__other')rnUI.m=(TARGETS.find(t=>t.d===rnUI.d&&t.k==='boss')||{}).m;store('horadric-runs-ui',rnUI);render();return}
