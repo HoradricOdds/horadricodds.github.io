@@ -1239,6 +1239,21 @@ button[data-tip],label [data-tip]{cursor:pointer}
 #hp .character-attribute .pm{font-size:clamp(11px,.9vw,14px)}
 #hp .character-attribute{left:6.5%;width:31%;grid-template-columns:minmax(0,1fr) 14px 23px 14px;gap:1px}
 #hp .character-attribute .attribute-name{font-size:clamp(9px,.7vw,11px);padding-left:clamp(12px,4vw,22px)}
+/* Readable labels for the player character and skill sheets. Keep the art themed, but render small live text as crisp UI type. */
+#hp .sheet-title,#hp .sheet-charname{font-family:var(--font-display);color:#f0d99e;text-shadow:0 1px 3px #000,0 0 4px #000}
+#hp .sheet-level{font-size:clamp(11px,.92vw,14px);letter-spacing:.035em;color:#f0e4ce;text-shadow:0 1px 3px #000}
+#hp .character-attribute .attribute-name{font-family:var(--font-display);font-size:clamp(11px,.9vw,14px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 3px #000}
+#hp .character-attribute input{font-size:clamp(10px,.82vw,13px)!important;color:#fff0ce;text-shadow:0 1px 2px #000}
+#hp .character-attribute .pm{font-size:clamp(12px,1vw,15px)!important;color:#ffe29a;text-shadow:0 1px 2px #000}
+#hp .character-value span,#hp .character-resist span{font-family:var(--font-display);font-size:clamp(11px,.9vw,14px)!important;font-weight:700;color:#fff0d1!important;text-shadow:0 1px 3px #000}
+#hp .character-value b,#hp .character-resist b{font-size:clamp(11px,.9vw,14px)!important;font-weight:600;color:#fff2d5!important;text-shadow:0 1px 3px #000}
+#hp .character-points{font-family:var(--font-display)!important;font-size:clamp(12px,1.12vw,16px)!important;font-weight:700;letter-spacing:.07em!important;color:#ff594c!important;text-shadow:0 1px 3px #000,0 0 4px #000}
+#hp .advanced-value span{font-family:var(--font-display);font-size:clamp(11px,.9vw,14px)!important;font-weight:700;color:#fff0d1!important}
+#hp .advanced-value b{font-size:clamp(11px,.9vw,14px)!important;color:#fff2d5!important}
+#hp .skill-tab-label{font-family:var(--font-display);font-size:clamp(11px,.92vw,14px);font-weight:700;letter-spacing:.025em;color:#fff0d1;text-shadow:0 1px 3px #000;max-width:74%}
+#hp .skill-points-footer{font-family:var(--font-display)!important;font-size:clamp(12px,1.12vw,16px)!important;font-weight:700;letter-spacing:.07em!important;color:#ff594c!important;text-shadow:0 1px 3px #000,0 0 4px #000}
+#hp .skill-count{font-size:clamp(9px,1.1vw,13px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 3px #000}
+#hp .skill-sheet>.node .nb button{font-size:clamp(9px,1vw,12px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 2px #000}
 </style>
 </head>
 <body>

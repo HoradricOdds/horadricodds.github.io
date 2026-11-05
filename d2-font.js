@@ -83,11 +83,7 @@
       images.small = small;
       images.large = large;
       const scan = (root = document) => root.querySelectorAll([
-        '#hp .skill-tab-label', '#hp .skill-points-footer', '#hp .weapon-tabs button',
-        '#hp .merc-sheet-title', '#hp .merc-fact span', '#hp .merc-bottom span',
-        '#hp .sheet-title', '#hp .sheet-charname', '#hp .sheet-level span',
-        '#hp .attribute-name', '#hp .character-value span', '#hp .character-resist span',
-        '#hp .character-points', '#hp .advanced-value span'
+        '#hp .weapon-tabs button', '#hp .merc-sheet-title', '#hp .merc-fact span', '#hp .merc-bottom span'
       ].join(',')).forEach(el => renderHeading(el, metrics));
       window.__d2FontScan = scan;
       scan();

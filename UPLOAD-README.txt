@@ -9,7 +9,7 @@ The Gear tab uses matching inventory-sized panels, with the mercenary on the lef
 
 The planner's skill tree and character stats sheet use the same panel width as the inventory. The skill and character panels sit side by side. Skill plus buttons appear beside skills that can receive points, and remaining skill points appear in the tree footer.
 
-The D2 bitmap lettering is limited to the player skills, player stats, player inventory tabs and mercenary inventory panels. It uses a canvas renderer with the 16px glyph atlas and spacing data; it is not an installable WOFF font. Atlas source: Harrogath D2 Font Generator by LAZ (https://tools.harrogath.com/d2font.html).
+The player character and skill sheets use larger, crisp CSS text for readability. D2 bitmap lettering remains on the inventory weapon tabs and mercenary inventory labels. It uses a canvas renderer with the 16px glyph atlas and spacing data; it is not an installable WOFF font. Atlas source: Harrogath D2 Font Generator by LAZ (https://tools.harrogath.com/d2font.html).
 
 The player stats panel updates skill damage from the selected build phase, including hard-point synergies and +skills. Attack damage uses the selected phase's attack skill when available. Stamina is calculated from class, level, vitality and planned +Vitality. Defense is shown as a calculated range when the planned armor's base or item defense has random rolls; temporary skill buffs are not included.
 
