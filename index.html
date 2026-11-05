@@ -1237,6 +1237,8 @@ button[data-tip],label [data-tip]{cursor:pointer}
 #hp .character-attribute input{font-size:clamp(10px,.72vw,12px);appearance:textfield;-moz-appearance:textfield}
 #hp .character-attribute input::-webkit-outer-spin-button,#hp .character-attribute input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 #hp .character-attribute .pm{font-size:clamp(11px,.9vw,14px)}
+#hp .character-attribute{left:6.5%;width:31%;grid-template-columns:minmax(0,1fr) 14px 23px 14px;gap:1px}
+#hp .character-attribute .attribute-name{font-size:clamp(9px,.7vw,11px);padding-left:clamp(12px,4vw,22px)}
 </style>
 </head>
 <body>
@@ -2371,14 +2373,23 @@ function statsCard(C,ph,end,sim){
   const avail=stAt(B,end);
   const spentNonSink=STATS.filter(s=>s!==ph.sink).reduce((a,s)=>a+Math.max(0,ph.st[s]-C.base[s]),0);
   const rest=avail-spentNonSink;
+  const remaining=Math.max(0,avail-spentNonSink-Math.max(0,rest));
   const current={};for(const s of STATS)current[s]=s===ph.sink?C.base[s]+Math.max(0,rest):ph.st[s];
   const vit=C.base.vit+(ph.sink==='vit'?Math.max(0,rest):Math.max(0,ph.st.vit-C.base.vit));
   const ene=C.base.ene+(ph.sink==='ene'?Math.max(0,rest):Math.max(0,ph.st.ene-C.base.ene));
   const life=Math.floor(C.life[0]+C.life[1]*(end-1)+C.life[2]*(vit-C.base.vit)),mana=Math.floor(C.mana[0]+C.mana[1]*(end-1)+C.mana[2]*(ene-C.base.ene));
   const R=gearTotals(B,end),T=R.t,DF=defenseInfo(B,end,sim),A=attackInfo(B,end);
+  const hard=sim.rows[Math.min(end,sim.rows.length)-1]?.cnt||counts(ph);
+  SKX_R=R;SKX_END=end;SKX_B=B;
+  const weapon=wpnInfo(end),weaponBase=weapon&&(weapon.melee||weapon.thr);
+  let attackDamage=weaponBase?weaponBase.map(n=>Math.floor(n*(1+(weapon.sb+weapon.ted)/100))).join('–'):'—';
+  const attackId=C.byName[A.sk];
+  if(attackId!==undefined&&(hard[attackId]||0)>0){const c=skillCalc(B.cls,attackId,(hard[attackId]||0)+gearBonus(B,R,attackId),hard),d=c&&c.lines.find(x=>/^Attack Damage:/i.test(x));if(d)attackDamage=d.replace(/^Attack Damage:\s*/i,'')}
+  const orbId=C.byName['Frozen Orb'];let orbDamage='—';
+  if(orbId!==undefined&&(hard[orbId]||0)>0){const c=skillCalc(B.cls,orbId,hard[orbId]+gearBonus(B,R,orbId),hard);const ds=(c?.lines||[]).filter(x=>/damage/i.test(x)&&/\d/.test(x));if(ds.length)orbDamage=ds.map(x=>x.replace(/^.*?:\s*/,'')).join(' · ')}
   const attrY={str:25.8,dex:42.8,vit:59.7,ene:70.5};
-  const attrRows=STATS.map(s=>`<div class="character-attribute" style="top:${attrY[s]}%"><span class="attribute-name" title="Base ${C.base[s]}">${SA[s]}</span><button class="pm" data-act="st-dn" data-s="${s}" aria-label="Lower ${SN[s]}">−</button><input type="number" id="st-${s}" data-s="${s}" min="${C.base[s]}" max="${C.base[s]+avail}" value="${current[s]}" aria-label="${SN[s]} target"><button class="pm stat-plus" data-act="st-up" data-s="${s}" aria-label="Raise ${SN[s]}">+</button></div>`).join('');
-  const details=[['Attack',A.sk],['Attack speed',A.now?`${A.now} frames`:'—'],['Attack rating','—'],['Defense',T.def||'—'],['Block',DF.block?`${DF.block.pct}%`:'—'],['Stamina','—'],['Life',life],['Mana',mana]];
+  const attrRows=STATS.map(s=>{const other=STATS.filter(x=>x!==s).reduce((a,x)=>a+Math.max(0,ph.st[x]-C.base[x]),0),max=C.base[s]+Math.max(0,avail-other);return `<div class="character-attribute" style="top:${attrY[s]}%"><span class="attribute-name" title="Base ${C.base[s]}">${SN[s]}</span><button class="pm" data-act="st-dn" data-s="${s}" aria-label="Lower ${SN[s]}">−</button><input type="number" id="st-${s}" data-s="${s}" min="${C.base[s]}" max="${max}" value="${current[s]}" aria-label="${SN[s]} target"><button class="pm stat-plus" data-act="st-up" data-s="${s}" aria-label="Raise ${SN[s]}">+</button></div>`}).join('');
+  const details=[['Attack Damage',attackDamage],['Frozen Orb Damage',orbDamage],['Attack Rating','—'],['',''],['Defense',T.def||'—'],['Stamina','—'],['Life',life],['Mana',mana]];
   const detailRows=details.map(([l,v])=>`<div class="character-value"><span>${esc(l)}</span><b>${esc(v==null?'—':String(v))}</b></div>`).join('');
   const resists=[['Fire',T.res+T.rf+DF.nr+DF.mx.rf],['Lightning',T.res+T.rl+DF.nr+DF.mx.rl],['Cold',T.res+T.rc+DF.nr+DF.mx.rc],['Poison',T.res+T.rp+DF.nr]];
   const resistRows=resists.map(([l,v])=>`<div class="character-resist"><span>${l} Resistance</span><b>${v}%</b></div>`).join('');
@@ -2387,7 +2398,7 @@ function statsCard(C,ph,end,sim){
   const mode=STATS_MODE==='advanced'?'advanced':'attributes';
   const modeToggle=`<button class="stats-mode-toggle ${mode==='advanced'?'advanced':''}" data-act="stats-mode" title="Switch to ${mode==='advanced'?'attributes':'advanced stats'}" aria-label="Switch to ${mode==='advanced'?'attributes':'advanced stats'}"><span>${mode==='advanced'?'Attributes':'Advanced'}</span></button>`;
   const statSheet=mode==='advanced'?`<div class="character-sheet advanced-sheet"><div class="sheet-title">Character · Advanced<span class="sheet-mode-toggle">${modeToggle}</span></div><div class="advanced-values">${advancedRows}</div></div>`:
-    `<div class="character-sheet attributes-sheet"><div class="sheet-title">Character<span class="sheet-mode-toggle">${modeToggle}</span></div><div class="sheet-charname">${esc(B.name||C.name)}</div><div class="sheet-exp"><img src="images/ui/expbarfill.png" alt="" style="width:${Math.max(0,Math.min(100,end/99*100))}%"></div><div class="sheet-level"><span>Level ${end} ${esc(C.name)}</span><span>Experience to next level</span></div><div class="character-attributes">${attrRows}</div><div class="character-details">${detailRows}</div><div class="character-resists">${resistRows}</div><div class="character-points">${Math.max(0,rest)} Stat Points Remaining</div></div>`;
+     `<div class="character-sheet attributes-sheet"><div class="sheet-title">Character<span class="sheet-mode-toggle">${modeToggle}</span></div><div class="sheet-charname">${esc(B.name||C.name)}</div><div class="sheet-exp"><img src="images/ui/expbarfill.png" alt="" style="width:${Math.max(0,Math.min(100,end/99*100))}%"></div><div class="sheet-level"><span>Level ${end} ${esc(C.name)}</span><span>Experience to next level</span></div><div class="character-attributes">${attrRows}</div><div class="character-details">${detailRows}</div><div class="character-resists">${resistRows}</div><div class="character-points">${remaining} Stat Points Remaining</div></div>`;
   const prio=ph.prio.filter(s=>s!==ph.sink).map((s,i)=>`<span class="p">${i+1}. ${SA[s]}${i>0?`<button data-act="prio-up" data-s="${s}" aria-label="Move ${SN[s]} earlier">↑</button>`:''}</span>`).join('')+`<span class="p" style="padding-right:8px">then ${SA[ph.sink]}</span>`;
   const sinkRows=STATS.map(s=>`<label><input type="radio" name="sink" data-act="sink" data-s="${s}" ${s===ph.sink?'checked':''}> ${SA[s]}</label>`).join('');
   return `<section class="card player-stats-card">
@@ -2839,7 +2850,7 @@ view.addEventListener('click',e=>{
     toast(`Removed ${removed.name}.`,{label:'Undo',fn:()=>{B.phase.splice(at,0,removed);PI=at;save();render()}});return}
   if(act==='undo-pt'){ph.sk.pop();save();render();return}
   if(act==='clear-pts'){const old=[...ph.sk];ph.sk=[];save();render();toast('Cleared skill points for this phase.',{label:'Undo',fn:()=>{ph.sk=old;save();render()}});return}
-  if(act==='st-up'||act==='st-dn'){const s=a.dataset.s,C=CLS[B.cls],d=(e.shiftKey?10:1)*(act==='st-up'?1:-1);ph.st[s]=clamp(ph.st[s]+d,C.base[s],C.base[s]+stAt(B,phaseEnd(B,PI)));save();render();return}
+  if(act==='st-up'||act==='st-dn'){const s=a.dataset.s,C=CLS[B.cls],budget=stAt(B,phaseEnd(B,PI)),other=STATS.filter(x=>x!==s).reduce((n,x)=>n+Math.max(0,ph.st[x]-C.base[x]),0),max=C.base[s]+Math.max(0,budget-other),d=(e.shiftKey?10:1)*(act==='st-up'?1:-1);ph.st[s]=clamp(ph.st[s]+d,C.base[s],max);save();render();return}
   if(act==='prio-up'){const s=a.dataset.s,list=ph.prio.filter(x=>x!==ph.sink);const i=list.indexOf(s);[list[i-1],list[i]]=[list[i],list[i-1]];ph.prio=[...list,ph.sink];save();render();return}
   if(act==='info-edit'){editInfo=true;render();const f=$('#info-good');if(f)f.focus();return}
   if(act==='info-done'){editInfo=false;render();return}
@@ -2902,7 +2913,7 @@ view.addEventListener('keydown',e=>{const n=e.target.classList&&e.target.classLi
   if(e.key==='-'||e.key==='Backspace'){e.preventDefault();if(removePoint(B,PI,+n.dataset.id)){save();render();document.querySelector(`.node[data-id="${n.dataset.id}"]`).focus()}}});
 view.addEventListener('change',e=>{
   const t=e.target;
-  if(t.dataset.s&&t.type==='number'){const C=CLS[B.cls],s=t.dataset.s;B.phase[PI].st[s]=clamp(parseInt(t.value)||C.base[s],C.base[s],C.base[s]+stAt(B,phaseEnd(B,PI)));save();render();return}
+  if(t.dataset.s&&t.type==='number'){const C=CLS[B.cls],s=t.dataset.s,ph=B.phase[PI],budget=stAt(B,phaseEnd(B,PI)),other=STATS.filter(x=>x!==s).reduce((n,x)=>n+Math.max(0,ph.st[x]-C.base[x]),0),max=C.base[s]+Math.max(0,budget-other);ph.st[s]=clamp(parseInt(t.value)||C.base[s],C.base[s],max);save();render();return}
   if(t.dataset.act==='sink'){const ph=B.phase[PI];ph.sink=t.dataset.s;ph.prio=[...ph.prio.filter(x=>x!==ph.sink),ph.sink];save();render();return}
   if(t.dataset.act==='rw-wear'){rwWear=t.checked;render();return}
   if(t.dataset.tick){const L=+t.dataset.tick;const s=new Set(LS.get(tickKey(),[]));if(t.checked)s.add(L);else s.delete(L);LS.set(tickKey(),[...s]);render();return}
