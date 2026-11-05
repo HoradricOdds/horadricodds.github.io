@@ -1,6 +1,7 @@
 # Horadric Odds
 
-**A free Diablo II: Resurrected drop calculator and build planner.**
+**The free all-in-one toolkit for Diablo II: Resurrected.**
+Drop odds, a build planner, an experience calculator, Holy Grail and rune helpers, and a save editor for offline characters, all in one page.
 No ads, no sign-up, works on PC and phone.
 
 👉 **Open it: [horadricodds.github.io](https://horadricodds.github.io/)**

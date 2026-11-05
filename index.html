@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Horadric Odds">
-<meta property="og:title" content="Horadric Odds: free D2R drop calculator, build planner &amp; experience calculator">
-<meta property="og:description" content="See where any Diablo II: Resurrected item drops and your odds per kill, plan builds with skill damage and breakpoints, work out the fastest places to level, and track your Holy Grail and runs. Free, no ads, no sign-up.">
+<meta property="og:title" content="Horadric Odds: the free all-in-one D2R toolkit">
+<meta property="og:description" content="The all-in-one Diablo II: Resurrected toolkit: where any item drops and your odds per kill, build planning with skill damage and breakpoints, the fastest places to level, Holy Grail, runes and run tracking, and a save editor for offline characters (D2R, LoD and Classic). Free, no ads, no sign-up.">
 <meta property="og:url" content="https://horadricodds.github.io/">
 <meta property="og:image" content="https://horadricodds.github.io/preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Horadric Odds: drop odds, build planning and leveling for Diablo II: Resurrected">
+<meta property="og:image:alt" content="Horadric Odds: drop odds, build planner, experience, Holy Grail, runes and save editor for Diablo II: Resurrected">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#c4513a">
 <link rel="canonical" href="https://horadricodds.github.io/">
@@ -24,7 +24,7 @@
 <title>Horadric Odds</title>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 
-<meta name="description" content="Free Diablo II: Resurrected drop calculator, build planner and experience calculator. See where any item drops and your odds per kill, plan builds with skill damage and breakpoints, and work out the fastest places to level.">
+<meta name="description" content="Horadric Odds is a free all-in-one toolkit for Diablo II: Resurrected: drop odds for every item, a build planner with skill damage and breakpoints, an experience calculator, Holy Grail and rune helpers, and a save editor for offline characters.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -226,6 +226,70 @@ footer p { margin: 0; max-width: 78ch; }
 #tools .se-sk{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:3px 0;border-bottom:1px dotted var(--line)}
 #tools .se-sk input{width:70px}
 @media (max-width:640px){#tools .se-it{grid-template-columns:1fr}#tools .se-acts{justify-content:flex-start}}
+#tools .se-sheet{gap:18px}
+#tools .se-hero{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px 24px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+#tools .se-who{display:flex;flex-direction:column;gap:4px;min-width:0}
+#tools .se-cls{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+#tools .se-who h3{font-size:1.7rem;line-height:1.1;overflow-wrap:anywhere}
+#tools .se-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+#tools .se-tag.se-hc{color:var(--accent);border-color:var(--accent)}
+#tools .se-lvl{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+#tools .se-lab{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+#tools .se-xp{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+#tools .se-stepper{display:inline-flex;align-items:stretch;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--bg);flex-shrink:0}
+#tools .se-step{width:32px;border:0;background:var(--sunk);font-size:1.05rem;line-height:1;cursor:pointer;color:var(--text);padding:0}
+#tools .se-step:hover:not(:disabled){background:var(--line)}
+#tools .se-step:disabled{opacity:.35;cursor:default}
+#tools .se-num{width:64px;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);background:transparent;text-align:center;padding:6px 4px;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+#tools .se-num::-webkit-outer-spin-button,#tools .se-num::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+#tools .se-big .se-num{width:72px;font-size:1.5rem;font-family:var(--font-display);padding:4px}
+#tools .se-big .se-step{width:40px;font-size:1.3rem}
+#tools input.se-num.se-wide{width:130px;border:1px solid var(--line);border-radius:4px;background:var(--bg);text-align:right;padding:6px 8px}
+#tools .se-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px}
+#tools .se-side{display:flex;flex-direction:column;gap:12px;min-width:0}
+#tools .se-panel{border:1px solid var(--line);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-width:0;background:var(--sunk)}
+#tools .se-ph{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#tools .se-ph h4{margin:0;font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-family:inherit;font-weight:600}
+#tools .se-pill{font-size:.78rem;padding:2px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums}
+#tools .se-pill.on{border-color:var(--rune,var(--accent));color:var(--rune,var(--accent));font-weight:600}
+#tools .se-attr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+#tools .se-an{display:flex;flex-direction:column;gap:1px;min-width:0}
+#tools .se-an b{font-size:1rem}
+#tools .se-an small{font-size:.76rem;color:var(--muted)}
+#tools .se-an em{font-style:normal;color:var(--magic,var(--text))}
+#tools .se-budget{display:flex;flex-direction:column;gap:5px;font-size:.8rem;color:var(--muted)}
+#tools .se-budget .tl-bar{background:var(--bg)}
+#tools .se-budget .tl-bar b{display:block;height:100%;background:var(--unique)}
+#tools .se-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:.92rem}
+#tools .se-row small{color:var(--muted);font-size:.76rem;margin-left:4px}
+#tools .se-btns{display:flex;flex-wrap:wrap;gap:8px}
+#tools .se-row.se-btns{justify-content:flex-end}
+#tools .se-vitals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#tools .se-vit{border:1px solid var(--line);border-radius:4px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;background:var(--panel);border-top-width:3px}
+#tools .se-vit span{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+#tools .se-vit b{font-size:1.45rem;font-family:var(--font-display);font-variant-numeric:tabular-nums}
+#tools .se-life{border-top-color:#b3362b}
+#tools .se-mana{border-top-color:#3a5fc0}
+#tools .se-stam{border-top-color:#b8902e}
+#tools .se-vnote{margin:-4px 0 0;font-size:.76rem;color:var(--muted)}
+#tools .se-mini{margin:0;font-size:.86rem;color:var(--muted)}
+#tools .se-link{background:none;border:0;padding:0;color:var(--accent);cursor:pointer;font-size:inherit;text-decoration:underline;text-underline-offset:2px}
+#tools .se-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 18px;padding-top:14px;border-top:1px solid var(--line)}
+#tools .se-opts{display:flex;flex-direction:column;gap:6px}
+#tools .se-sheet details.fold{margin-top:-4px}
+#tools .se-pill.se-over{border-color:var(--accent);color:var(--accent);font-weight:600}
+#tools .se-budget .tl-bar b.over{background:var(--accent)}
+#tools .se-sksum{display:flex;align-items:center;gap:10px;font-size:.86rem;color:var(--muted)}
+#tools .se-sheet .se-trees{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:0}
+#tools .se-tree{gap:0}
+#tools .se-tree .se-ph{margin-bottom:6px}
+#tools .se-skr{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:5px 0;border-top:1px solid var(--line)}
+#tools .se-skn{min-width:0;color:var(--muted)}
+#tools .se-skr.on .se-skn{color:var(--text);font-weight:600}
+#tools .se-skr .se-num{width:48px;padding:4px}
+#tools .se-skr .se-step{width:28px}
+@media (max-width:760px){#tools .se-cols{grid-template-columns:1fr}#tools .se-lvl{align-items:flex-start}#tools .se-xp{text-align:left}}
+@media (max-width:420px){#tools .se-vit b{font-size:1.15rem}#tools .se-vit{padding:8px}}
 details.fold{color:var(--muted);font-size:.86rem;max-width:80ch}
 details.fold>summary{cursor:pointer;font-weight:600;color:var(--text);opacity:.85;padding:4px 0;width:fit-content;list-style:none;display:flex;align-items:center;gap:8px}
 details.fold>summary::-webkit-details-marker{display:none}
@@ -984,10 +1048,11 @@ button[data-tip],label [data-tip]{cursor:pointer}
     <div class="mark"><h1>Horadric Odds</h1><small>D2R drop calculator</small></div>
     <nav class="modes" aria-label="Tools"><button type="button" data-mode="odds" aria-pressed="true"><span class="ml-long">Drop odds</span><span class="ml-short">Odds</span></button><button type="button" data-mode="planner" aria-pressed="false"><span class="ml-long">Build planner</span><span class="ml-short">Planner</span></button><button type="button" data-mode="xp" aria-pressed="false"><span class="ml-long">Experience</span><span class="ml-short">XP</span></button><button type="button" data-mode="tools" aria-pressed="false"><span class="ml-long">Tools</span><span class="ml-short">Tools</span></button><button type="button" data-mode="help" aria-pressed="false"><span class="ml-long">How to use</span><span class="ml-short">Guide</span></button>
       <div class="pricectl"><label class="pswitch"><input type="checkbox" id="priceOn"><span>diablo2.io price links</span></label><select id="priceMkt" aria-label="Market for price links"></select></div></nav>
-    <div class="welcome" id="welcome" hidden><div><b>Welcome to Horadric Odds</b> — a free, fan-made Diablo II: Resurrected toolkit.</div>
+    <div class="welcome" id="welcome" hidden><div><b>Welcome to Horadric Odds</b> — a free, fan-made, all-in-one toolkit for Diablo II: Resurrected.</div>
       <ol><li><b>Drop odds:</b> search any item (nicknames like "shako" work) to see which monsters drop it and your chance per kill at your difficulty, players and magic find.</li>
       <li><b>Build planner:</b> open <i>Share &amp; Library</i>, pick a starter build or make your own, and spend points on <i>Skills &amp; Stats</i>.</li>
-      <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item.</li></ol>
+      <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item. <i>Experience</i> shows the fastest places to level.</li>
+      <li><b>Tools:</b> track your Holy Grail and runs, see what your runes make, check rolls and cube recipes, and edit offline characters with the <i>Save editor</i>.</li></ol>
       <div class="wbtns"><button type="button" class="wbtn" id="welcomeOk">Got it</button><button type="button" class="wbtn wguide" id="welcomeGuide">Full guide →</button></div></div>
     <div class="whatsnew" id="whatsnew" data-v="2026-11-05h" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">New <i>Save editor</i> in <i>Tools</i>: change an offline character's level, stats, skills and items, and add any unique, set item, runeword or your own magic and rare items, for D2R, Lord of Destruction and Classic. <i>Import save</i> (in the Build planner, next to <i>Share &amp; Library</i>): load an offline character's save to open its build and fill your Grail, now with magic and rare items by their real names. New in <i>Tools</i>: a roll checker that scores your item's rolls, and a sockets &amp; affixes helper for bases and charms. The website now works offline and can be installed like an app. Hover any skill or item for its stats.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <details class="about"><summary>About &amp; credits</summary><div class="aboutbody">
@@ -995,6 +1060,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
       <p><b>Experience:</b> rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>; monster counts per area come from <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a>'s Experience Calculator (thanks, Pavke!), which was also used to check the numbers. <b>Attack frames:</b> animation frame data and timing rules follow <a href="https://github.com/Warren1001/IAS_Calculator" target="_blank" rel="noopener">Warren1001's IAS Calculator</a> (animation tables dumped by RuffnecKk). <b>Cast, hit-recovery and block breakpoints:</b> <a href="https://d2runewizard.com/breakpoints" target="_blank" rel="noopener">d2runewizard</a>, with the Warlock tables confirmed against <a href="https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation" target="_blank" rel="noopener">AOEAH</a>.</p>
       <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Share builds as links or build codes from Share &amp; Library.</p>
+      <p><b>Save files:</b> the save format comes from the community's reverse engineering (d07riv, <a href="https://github.com/dschu012/d2s" target="_blank" rel="noopener">dschu012/d2s</a> (MIT), nokka/d2s, krisives/d2s-format, and the <a href="https://docs.rs/crate/d2s/latest" target="_blank" rel="noopener">d2s Rust crate</a> for Reign of the Warlock). Lord of Destruction and Classic tables come from the 1.14d game files.</p>
       <p><b>Prices:</b> the optional price links open <a href="https://diablo2.io/" target="_blank" rel="noopener">diablo2.io</a>'s price check for the item, with permission from its admin. Horadric Odds doesn't collect or store any price data.</p>
       <p><b>Bugs and ideas:</b> open an issue on <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">GitHub</a> or email the address below.</p>
       <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>.</p></div></details>
@@ -1139,12 +1205,12 @@ button[data-tip],label [data-tip]{cursor:pointer}
 <div class="hu">
   <section class="hu-intro">
     <h2>How to use Horadric Odds</h2>
-    <p>Free tools for Diablo II: Resurrected, worked out from the game's own data. There's nothing to install or sign up for, it works on PC and phone, and everything you save stays in your browser.</p>
+    <p>Horadric Odds is an all-in-one toolkit for Diablo II: Resurrected, worked out from the game's own data. There's nothing to install or sign up for, it works on PC and phone, and everything you save stays in your browser.</p>
     <div class="hu-cards">
       <div class="hu-card"><h3>Drop odds</h3><p>Where an item drops and your chance per kill.</p><p class="hu-ex">“Where should I farm Shako with 300 MF?”</p><button type="button" class="hu-go" data-go="odds">Open Drop odds →</button></div>
       <div class="hu-card"><h3>Build planner</h3><p>Skills, stats and gear for a character, with a level-by-level guide.</p><p class="hu-ex">“What does my Blizzard Sorceress need for 105 FCR?”</p><button type="button" class="hu-go" data-go="planner">Open Build planner →</button></div>
       <div class="hu-card"><h3>Experience</h3><p>How long a level takes and where to level.</p><p class="hu-ex">“How many Baal runs from 92 to 93?”</p><button type="button" class="hu-go" data-go="xp">Open Experience →</button></div>
-      <div class="hu-card"><h3>Tools</h3><p>Holy Grail tracker, rune helper, run tracker and cube recipes.</p><p class="hu-ex">“What can I make with my runes?”</p><button type="button" class="hu-go" data-go="tools">Open Tools →</button></div>
+      <div class="hu-card"><h3>Tools</h3><p>Holy Grail, rune helper, run tracker, roll checker, cube recipes and a save editor for offline characters.</p><p class="hu-ex">“What can I make with my runes?”</p><button type="button" class="hu-go" data-go="tools">Open Tools →</button></div>
     </div>
     <nav class="hu-toc" aria-label="On this page"><a href="#hu-odds">Drop odds</a><a href="#hu-planner">Build planner</a><a href="#hu-xp">Experience</a><a href="#hu-tools">Tools</a><a href="#hu-faq">Questions</a></nav>
   </section>
@@ -1232,7 +1298,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 1:38 pm</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>5 Nov 2026, 2:33 pm</span></p>
 
 
 <script>
@@ -6167,21 +6233,66 @@ function sePlace(m,code,dest,skip){const E=seEng();
   return null}
 /* ---- character & skills ---- */
 function seCharHTML(m){const E=seEng();const c=E.classInfo(m);const b=c?c[2]:{str:0,dex:0,int:0,vit:0};const L=m.stats[12]||1;const bl=E.baseLife(m)||{};
-  const inp=(id,label,val,min,max,attr='')=>`<label class="se-f se-sm"><span>${label}</span><input type="number" data-sest="${id}" min="${min}" max="${max}" value="${val}" ${attr}></label>`;
-  const bd=seBudget(m),sp=seSpent(m);
-  return `<section class="tl-card"><div class="tl-head"><h3>Character</h3><span class="tl-sub">${esc(m.name)} · ${esc(c?c[1]:m.cls)}${m.hardcore?' · hardcore':''}</span></div>
-    <div class="se-grid">${inp(12,'Level',L,1,99)}${inp(0,'Strength',m.stats[0]||b.str,b.str,1023)}${inp(2,'Dexterity',m.stats[2]||b.dex,b.dex,1023)}${inp(3,'Vitality',m.stats[3]||b.vit,b.vit,1023)}${inp(1,'Energy',m.stats[1]||b.int,b.int,1023)}
-      ${inp(4,'Unspent stat points',m.stats[4]||0,0,1023)}${inp(5,'Unspent skill points',m.stats[5]||0,0,255)}${inp(14,'Gold',m.stats[14]||0,0,L*10000)}${inp(15,'Stash gold',m.stats[15]||0,0,2500000)}</div>
-    <div class="tl-row"><label class="se-chk"><input type="checkbox" id="se-auto" ${SE.auto?'checked':''}> Update unspent points when the level changes</label><label class="se-chk"><input type="checkbox" id="se-quest" ${SE.quest?'checked':''}> Count quest rewards (+15 stat, +12 skill points)</label></div>
-    <p class="tl-steps">Points for level ${L}: ${bd.stat} stat · ${bd.skill} skill. Spent: ${sp.stat} stat · ${sp.skill} skill. Life ${Math.round(bl.life||0)} · Mana ${Math.round(bl.mana||0)} · Stamina ${Math.round(bl.stamina||0)} (before gear).</p>
-    <div class="tl-row"><button type="button" class="tl-btn" data-act="se-pts">Work out unspent points</button><button type="button" class="tl-btn ghost" data-act="se-respec">Refund all stat and skill points</button></div>
-    <p class="tl-note">Experience is set to the start of the level. Life, mana and stamina are worked out from your level and stats. Gold is capped at 10,000 per level and stash gold at 2,500,000, like the game.</p></section>`}
+  const bd=seBudget(m),sp=seSpent(m);const fmt=n=>Math.round(n||0).toLocaleString('en-US');
+  const step=(id,d,lbl,dis)=>`<button type="button" class="se-step" data-sestep="${id}:${d}" aria-label="${lbl}" ${dis?'disabled':''}>${d<0?'−':'+'}</button>`;
+  const num=(id,val,min,max,lbl)=>`<input type="number" class="se-num" data-sest="${id}" min="${min}" max="${max}" value="${val}" aria-label="${lbl}">`;
+  const attr=(id,name,base)=>{const v=m.stats[id]||base;const add=v-base;
+    return `<div class="se-attr"><div class="se-an"><b>${name}</b><small>base ${base}${add>0?` · <em>+${add}</em>`:''}</small></div>
+      <div class="se-stepper">${step(id,-1,'Remove a point from '+name,v<=base)}${num(id,v,base,1023,name)}${step(id,1,'Add a point to '+name,v>=1023)}</div></div>`};
+  const pct=Math.min(100,bd.stat?Math.round(sp.stat/bd.stat*100):0);
+  const xpNext=L<99?E.expFor(m,L+1):null;
+  const free=m.stats[4]||0,freeSk=m.stats[5]||0;
+  const gmax=L*10000;
+  return `<section class="tl-card se-sheet">
+    <div class="se-hero">
+      <div class="se-who"><span class="se-cls">${esc(c?c[1]:m.cls)}</span><h3>${esc(m.name)}</h3>
+        <div class="se-tags">${m.hardcore?'<span class="se-tag se-hc">Hardcore</span>':''}<span class="se-tag">${esc(m.game)}</span>${m.expansion===false?'<span class="se-tag">Classic</span>':''}</div></div>
+      <div class="se-lvl"><span class="se-lab">Level</span>
+        <div class="se-stepper se-big">${step(12,-1,'Level down',L<=1)}${num(12,L,1,99,'Level')}${step(12,1,'Level up',L>=99)}</div>
+        <span class="se-xp">${fmt(m.stats[13])} experience${xpNext?` · next level at ${fmt(xpNext)}`:' · max level'}</span></div>
+    </div>
+    <div class="se-cols">
+      <div class="se-panel"><div class="se-ph"><h4>Attributes</h4>${sp.stat>bd.stat?`<span class="se-pill se-over" title="More points than the game gives at this level">${sp.stat-bd.stat} over</span>`:`<span class="se-pill ${free?'on':''}">${free} unspent</span>`}</div>
+        ${attr(0,'Strength',b.str)}${attr(2,'Dexterity',b.dex)}${attr(3,'Vitality',b.vit)}${attr(1,'Energy',b.int)}
+        <div class="se-budget"><div class="tl-bar"><b style="width:${pct}%" class="${sp.stat>bd.stat?'over':''}"></b></div><span>${sp.stat} of ${bd.stat} points spent for level ${L}${SE.quest?' (with quest rewards)':''}</span></div>
+        <label class="se-row"><span>Unspent stat points</span><span class="se-stepper">${step(4,-1,'Fewer unspent stat points',free<=0)}${num(4,free,0,1023,'Unspent stat points')}${step(4,1,'More unspent stat points',free>=1023)}</span></label>
+      </div>
+      <div class="se-side">
+        <div class="se-vitals">
+          <div class="se-vit se-life"><span>Life</span><b>${fmt(bl.life)}</b></div>
+          <div class="se-vit se-mana"><span>Mana</span><b>${fmt(bl.mana)}</b></div>
+          <div class="se-vit se-stam"><span>Stamina</span><b>${fmt(bl.stamina)}</b></div>
+        </div>
+        <p class="se-vnote">From level and stats, before gear and skills.</p>
+        <div class="se-panel"><div class="se-ph"><h4>Skill points</h4>${sp.skill>bd.skill?`<span class="se-pill se-over">${sp.skill-bd.skill} over</span>`:`<span class="se-pill ${freeSk?'on':''}">${freeSk} unspent</span>`}</div>
+          <p class="se-mini">${sp.skill} of ${bd.skill} spent for level ${L}. <button type="button" class="se-link" data-seview="skills">Edit skills →</button></p>
+          <label class="se-row"><span>Unspent skill points</span><span class="se-stepper">${step(5,-1,'Fewer unspent skill points',freeSk<=0)}${num(5,freeSk,0,255,'Unspent skill points')}${step(5,1,'More unspent skill points',freeSk>=255)}</span></label></div>
+        <div class="se-panel"><div class="se-ph"><h4>Gold</h4></div>
+          <label class="se-row"><span>Carried <small>max ${fmt(gmax)}</small></span><input type="number" class="se-num se-wide" data-sest="14" min="0" max="${gmax}" value="${m.stats[14]||0}"></label>
+          <label class="se-row"><span>Stash <small>max 2,500,000</small></span><input type="number" class="se-num se-wide" data-sest="15" min="0" max="2500000" value="${m.stats[15]||0}"></label>
+          <div class="se-row se-btns"><button type="button" class="tl-btn" data-segold="max">Fill both</button><button type="button" class="tl-btn ghost" data-segold="0">Empty both</button></div></div>
+      </div>
+    </div>
+    <div class="se-foot">
+      <div class="se-opts"><label class="se-chk"><input type="checkbox" id="se-auto" ${SE.auto?'checked':''}> Keep unspent points in step with level and stats</label>
+        <label class="se-chk"><input type="checkbox" id="se-quest" ${SE.quest?'checked':''}> Count quest rewards (+15 stat, +12 skill)</label></div>
+      <div class="se-btns"><button type="button" class="tl-btn" data-act="se-pts">Work out unspent points</button><button type="button" class="tl-btn ghost" data-act="se-respec">Refund all stat and skill points</button></div>
+    </div>
+    <details class="fold"><summary>How these numbers work</summary><p class="tl-note">Changing the level sets experience to the start of that level. Life, mana and stamina are worked out from level and stats the way the game does it. With "keep in step" on, adding a stat point takes it from your unspent points, and changing the level adds or removes points to match. Gold is capped at 10,000 per level and stash gold at 2,500,000, like the game. Hold Shift on − or + to change by 10.</p></details>
+  </section>`}
 function seSkillsHTML(m){const E=seEng();const c=E.classInfo(m);if(!c)return '';const off=c[3];const pages=[1,2,3].map(p=>c[4].filter(s=>s[2]===p).sort((a,b)=>a[3]-b[3]||a[4]-b[4]));
-  const tabs=SED.tabs;const ci=E.CLS_I[m.cls];
-  return `<section class="tl-card"><div class="tl-head"><h3>Skills</h3><span class="tl-sub">${m.skills.reduce((a,b)=>a+b,0)} points spent · ${m.stats[5]||0} unspent</span></div>
-    <div class="se-trees">${pages.map((ss,p)=>`<div class="se-tree"><h4>${esc(tabs[ci*3+p]||'Tree '+(p+1))}</h4>${ss.map(s=>{const i=s[0]-off;return `<label class="se-sk"><span data-sktip="${esc(s[1])}">${esc(s[1])}</span><input type="number" min="0" max="99" data-sesk="${i}" value="${m.skills[i]||0}"></label>`}).join('')}</div>`).join('')}</div>
-    <div class="tl-row"><button type="button" class="tl-btn" data-act="se-skpts">Work out unspent skill points</button><button type="button" class="tl-btn ghost" data-act="se-skreset">Reset all skills</button></div>
-    <p class="tl-note">The game normally caps hard points at 20 per skill; the editor allows up to 99 for testing.</p></section>`}
+  const tabs=SED.tabs;const ci=E.CLS_I[m.cls];const bd=seBudget(m);const spent=m.skills.reduce((a,b)=>a+b,0);const free=m.stats[5]||0;
+  const row=s=>{const i=s[0]-off;const v=m.skills[i]||0;
+    return `<div class="se-skr${v?' on':''}"><span class="se-skn" data-sktip="${esc(s[1])}">${esc(s[1])}</span>
+      <span class="se-stepper"><button type="button" class="se-step" data-seskstep="${i}:-1" aria-label="Remove a point from ${esc(s[1])}" ${v<=0?'disabled':''}>−</button><input type="number" class="se-num" min="0" max="99" data-sesk="${i}" value="${v}" aria-label="${esc(s[1])}"><button type="button" class="se-step" data-seskstep="${i}:1" aria-label="Add a point to ${esc(s[1])}" ${v>=99?'disabled':''}>+</button></span></div>`};
+  return `<section class="tl-card se-sheet">
+    <div class="se-hero"><div class="se-who"><span class="se-cls">${esc(c[1])} · level ${m.stats[12]||1}</span><h3>Skills</h3></div>
+      <div class="se-sksum">${spent>bd.skill?`<span class="se-pill se-over" title="More points than the game gives at this level">${spent-bd.skill} over</span>`:`<span class="se-pill ${free?'on':''}">${free} unspent</span>`}<span>${spent} of ${bd.skill} spent</span></div></div>
+    <div class="se-trees">${pages.map((ss,p)=>{const tot=ss.reduce((a,s)=>a+(m.skills[s[0]-off]||0),0);
+      return `<div class="se-panel se-tree"><div class="se-ph"><h4>${esc(tabs[ci*3+p]||'Tree '+(p+1))}</h4><span class="se-pill${tot?' on':''}">${tot}</span></div>${ss.map(row).join('')}</div>`}).join('')}</div>
+    <div class="se-foot"><div class="se-opts"><span class="se-mini">Shift-click − or + to change by 10. The game caps hard points at 20; up to 99 is allowed here for testing.</span></div>
+      <div class="se-btns"><button type="button" class="tl-btn" data-act="se-skpts">Work out unspent skill points</button><button type="button" class="tl-btn ghost" data-act="se-skreset">Reset all skills</button></div></div>
+  </section>`}
 function editorHTML(){const E=seEng();const m=SE.m;
   if(!m)return `<section class="tl-card"><h3>Save editor</h3>
     <p class="tl-note">Change an offline character's level, stats and skills, move or copy items, and add any unique, set item, runeword, rune or gem, or make your own magic and rare items, then download the edited save. Handy for testing builds before you farm for them.</p>
@@ -6191,7 +6302,7 @@ function editorHTML(){const E=seEng();const m=SE.m;
     <p class="tl-note"><b>Back up your save first.</b> The file is edited on this device and never uploaded. Online characters live on Blizzard's servers and can't be edited.</p></section>`;
   const nav=[['char','Character'],['skills','Skills'],['items','Items'],['add','Add item']];
   const body=SE.view==='skills'?seSkillsHTML(m):SE.view==='items'?seItemsHTML(m):SE.view==='add'?seAddHTML(m):seCharHTML(m);
-  return `<section class="tl-card se-top"><div class="tl-head"><h3>${esc(m.name)} <span class="tl-sub">Level ${m.stats[12]||1} ${esc((E.classInfo(m)||[0,m.cls])[1])} · ${esc(m.game)} · ${esc(SE.file)}</span></h3></div>
+  return `<section class="tl-card se-top"><div class="tl-head"><h3>Editing ${esc(SE.file)}</h3><span class="tl-sub">${esc(m.name)} · level ${m.stats[12]||1} ${esc((E.classInfo(m)||[0,m.cls])[1])} · ${esc(m.game)}</span></div>
     <div class="tl-row"><button type="button" class="tl-btn primary" data-act="se-dl">Download edited save</button><button type="button" class="tl-btn" data-act="se-undo" ${SE.undo.length?'':'disabled'}>Undo</button><button type="button" class="tl-btn ghost" data-act="se-close">Close</button></div>
     <nav class="se-nav" role="tablist">${nav.map(([k,n])=>`<button type="button" role="tab" data-seview="${k}" aria-selected="${SE.view===k}">${n}</button>`).join('')}</nav>
     ${SE.msg?`<p class="tl-msg">${esc(SE.msg)}</p>`:''}${SE.err?`<p class="tl-msg se-err">${esc(SE.err)}</p>`:''}</section>${body}
@@ -6219,6 +6330,10 @@ root.addEventListener('click',e=>{if(SUB!=='editor')return;const a=e.target.clos
   if(act==='se-close'){SE.m=null;SE.file='';SE.undo=[];SE.msg='';SE.err='';render();return}
   if(act==='se-add'){seDoAdd();return}
   if(!m)return;
+  if(a.dataset.sestep){const [id,d]=a.dataset.sestep.split(':').map(Number);const c=E.classInfo(m);const b=c?c[2]:{};const base={0:b.str,2:b.dex,3:b.vit,1:b.int}[id]||0;
+    seSetStat(id,(m.stats[id]||base)+d*(e.shiftKey?10:1));return}
+  if(a.dataset.seskstep){const [i,d]=a.dataset.seskstep.split(':').map(Number);const v=Math.max(0,Math.min(99,(m.skills[i]||0)+d*(e.shiftKey?10:1)));if(v===(m.skills[i]||0))return;seSnap();m.skills[i]=v;if(SE.auto)seRecalcPoints(m,'skill');render();return}
+  if(a.dataset.segold){seSnap();const mx=a.dataset.segold==='max';m.stats[14]=mx?(m.stats[12]||1)*10000:0;m.stats[15]=mx?2500000:0;render();return}
   if(act==='se-pts'){seSnap();seRecalcPoints(m);SE.msg='Unspent points updated.';render();return}
   if(act==='se-respec'){seSnap();const c=E.classInfo(m);if(c){m.stats[0]=c[2].str;m.stats[2]=c[2].dex;m.stats[3]=c[2].vit;m.stats[1]=c[2].int}m.skills=m.skills.map(()=>0);seRecalcPoints(m);E.recalcLife(m);SE.msg='All points refunded.';render();return}
   if(act==='se-skpts'){seSnap();seRecalcPoints(m,'skill');render();return}
@@ -6228,14 +6343,18 @@ root.addEventListener('click',e=>{if(SUB!=='editor')return;const a=e.target.clos
   if(a.dataset.sedup){const r=seItemRef(a.dataset.sedup);if(!r.it)return;const pos=sePlace(m,r.it.code,'auto');if(!pos){SE.err='No room for a copy in your stash or inventory.';render();return}
     seSnap();const c=E.clone(r.it);E.patchPos(c,pos.pos.loc,pos.pos.eq,pos.pos.x,pos.pos.y,pos.pos.page);m.items.push(c);SE.msg=`Copied ${E.itemName(m,c)} to ${pos.label}.`;SE.err='';render();return}
 });
+function seSetStat(id,v){const E=seEng(),m=SE.m;if(!m)return;const c=E.classInfo(m);const b=c?c[2]:{str:0,dex:0,int:0,vit:0};
+  const lim={12:[1,99],0:[b.str,1023],2:[b.dex,1023],3:[b.vit,1023],1:[b.int,1023],4:[0,1023],5:[0,255],14:[0,(m.stats[12]||1)*10000],15:[0,2500000]}[id]||[0,99999999];
+  v=Math.max(lim[0],Math.min(lim[1],Math.round(+v||0)));if(v===(m.stats[id]||(id in {0:1,1:1,2:1,3:1}?lim[0]:0))&&id!==12)return;seSnap();
+  if(id===12){m.stats[12]=v;m.stats[13]=E.expFor(m,v);if(SE.auto)seRecalcPoints(m);m.stats[14]=Math.min(m.stats[14]||0,v*10000)}
+  else{m.stats[id]=v;if(SE.auto&&(id===0||id===1||id===2||id===3))seRecalcPoints(m,'stat')}
+  E.recalcLife(m);SE.msg='';render()}
 root.addEventListener('change',e=>{if(SUB!=='editor')return;const el=e.target;const E=seEng(),m=SE.m,A=SE.add;
   if(el.id==='se-file'){if(el.files[0])seRead(el.files[0]);el.value='';return}
   if(el.id==='se-auto'){SE.auto=el.checked;return}
   if(el.id==='se-quest'){SE.quest=el.checked;render();return}
-  if(el.dataset.sest!=null&&m){const id=+el.dataset.sest;let v=Math.round(+el.value||0);v=Math.max(+el.min||0,Math.min(+el.max||99999999,v));seSnap();
-    if(id===12){m.stats[12]=v;m.stats[13]=E.expFor(m,v);if(SE.auto)seRecalcPoints(m);m.stats[14]=Math.min(m.stats[14]||0,v*10000)}else m.stats[id]=v;
-    E.recalcLife(m);SE.msg='';render();return}
-  if(el.dataset.sesk!=null&&m){seSnap();m.skills[+el.dataset.sesk]=Math.max(0,Math.min(99,Math.round(+el.value||0)));render();return}
+  if(el.dataset.sest!=null&&m){seSetStat(+el.dataset.sest,el.value);return}
+  if(el.dataset.sesk!=null&&m){seSnap();m.skills[+el.dataset.sesk]=Math.max(0,Math.min(99,Math.round(+el.value||0)));if(SE.auto)seRecalcPoints(m,'skill');render();return}
   if(el.dataset.semv&&m&&el.value){const r=seItemRef(el.dataset.semv);if(!r.it)return;const d=el.value;seSnap();
     const pos=sePlace(m,r.it.code,d.startsWith('p:')?d:d,r.it);if(!pos){SE.undo.pop();SE.err='There\'s no room there.';render();return}
     const idx=r.list.indexOf(r.it);if(idx>=0)r.list.splice(idx,1);if(pos.merc&&!m.merc){SE.undo.pop();return}
