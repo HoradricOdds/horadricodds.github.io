@@ -1,6 +1,6 @@
 /* Horadric Odds offline support: the page is fetched fresh when you're online (so updates show straight away)
    and served from this cache when you're not. Nothing else is stored. */
-const CACHE = 'horadric-odds-v1';
+const CACHE = 'horadric-odds-v2';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));

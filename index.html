@@ -761,6 +761,28 @@ footer a { color: inherit; }
 #hp-imp .tl-out{color:var(--unique);font-weight:600}
 #tools .tl-f input,#tools .tl-f select,
 #hp-imp .tl-f input,#hp-imp .tl-f select{flex:none}#tools .tl-card>.tl-btn{align-self:flex-start}
+#tools .fp-add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end}
+#tools .fp-label{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+#tools .fp-suggest{display:flex;flex-direction:column;gap:2px;margin-top:8px}
+#tools .fp-pick{display:flex;justify-content:space-between;gap:12px;text-align:left;background:var(--sunk);border:1px solid var(--line);border-radius:3px;padding:7px 9px;color:var(--text);cursor:pointer}
+#tools .fp-pick:hover{border-color:var(--accent)}
+#tools .fp-pick small{color:var(--muted);text-align:right}
+#tools .fp-goals{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+#tools .fp-goal{display:grid;grid-template-columns:minmax(0,1fr) 86px 86px auto;gap:8px;align-items:center;padding:7px 0;border-top:1px solid var(--line)}
+#tools .fp-gname{min-width:0;display:flex;flex-direction:column;gap:2px}
+#tools .fp-gname b{overflow-wrap:anywhere}
+#tools .fp-gname small,#tools .fp-count span{font-size:.74rem;color:var(--muted)}
+#tools .fp-count{display:flex;flex-direction:column;gap:3px}
+#tools .fp-count input{width:100%;min-width:0;text-align:center;padding:5px 4px;font-family:var(--font-data)}
+#tools .fp-settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px 14px;align-items:end}
+#tools .fp-results{margin-top:12px}
+#tools .fp-statrow{display:flex;flex-wrap:wrap;gap:10px 24px;margin:10px 0 12px}
+#tools .fp-stat{display:flex;flex-direction:column;gap:2px}
+#tools .fp-stat span{font-size:.76rem;color:var(--muted)}
+#tools .fp-stat b{font-family:var(--font-data);font-size:1.1rem;color:var(--unique)}
+#tools .fp-progress{height:4px;background:var(--sunk);border-radius:2px;margin-top:7px;overflow:hidden}
+#tools .fp-progress b{display:block;height:100%;background:var(--accent)}
+@media (max-width:520px){#tools .fp-goal{grid-template-columns:minmax(0,1fr) 68px 68px auto;gap:5px}#tools .fp-pick{flex-direction:column;gap:2px}#tools .fp-pick small{text-align:left}}
 #tools .rl-row,
 #hp-imp .rl-row{display:grid;grid-template-columns:minmax(0,1fr) 6.5em minmax(80px,180px) 9.5em;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
 #tools .rl-row input,
@@ -1056,7 +1078,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item. <i>Experience</i> shows the fastest places to level.</li>
       <li><b>Tools:</b> track your Holy Grail and runs, see what your runes make, check rolls and cube recipes, and edit offline characters with the <i>Save editor</i>.</li></ol>
       <div class="wbtns"><button type="button" class="wbtn" id="welcomeOk">Got it</button><button type="button" class="wbtn wguide" id="welcomeGuide">Full guide →</button></div></div>
-    <div class="whatsnew" id="whatsnew" data-v="2026-11-05i" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">New <i>Save editor</i> in <i>Tools</i>: change an offline character's level, stats, skills and items, and add any unique, set item, runeword or your own magic and rare items, for D2R, Lord of Destruction and Classic. <i>Import save</i> (in the Build planner, next to <i>Share &amp; Library</i>): load an offline character's save to open its build and fill your Grail, now with magic and rare items by their real names. New in <i>Tools</i>: a roll checker that scores your item's rolls, and a sockets &amp; affixes helper for bases and charms. The website now works offline and can be installed like an app. Hover any skill or item for its stats. You can now back up and restore all your saved Horadric Odds data from Tools.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
+    <div class="whatsnew" id="whatsnew" data-v="2026-11-05j" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">New <i>Farm planner</i> in <i>Tools</i>: plan several item goals together, turn runewords into rune requirements, and estimate how long a chosen boss or super unique farm may take. New <i>Save editor</i> in <i>Tools</i>: change an offline character's level, stats, skills and items, and add any unique, set item, runeword or your own magic and rare items, for D2R, Lord of Destruction and Classic. <i>Import save</i> (in the Build planner, next to <i>Share &amp; Library</i>): load an offline character's save to open its build and fill your Grail, now with magic and rare items by their real names. New in <i>Tools</i>: a roll checker that scores your item's rolls, and a sockets &amp; affixes helper for bases and charms. The website now works offline and can be installed like an app. Hover any skill or item for its stats. You can now back up and restore all your saved Horadric Odds data from Tools.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <details class="about"><summary>About &amp; credits</summary><div class="aboutbody">
       <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment.</p>
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
@@ -1212,7 +1234,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <div class="hu-card"><h3>Drop odds</h3><p>Where an item drops and your chance per kill.</p><p class="hu-ex">“Where should I farm Shako with 300 MF?”</p><button type="button" class="hu-go" data-go="odds">Open Drop odds →</button></div>
       <div class="hu-card"><h3>Build planner</h3><p>Skills, stats and gear for a character, with a level-by-level guide.</p><p class="hu-ex">“What does my Blizzard Sorceress need for 105 FCR?”</p><button type="button" class="hu-go" data-go="planner">Open Build planner →</button></div>
       <div class="hu-card"><h3>Experience</h3><p>How long a level takes and where to level.</p><p class="hu-ex">“How many Baal runs from 92 to 93?”</p><button type="button" class="hu-go" data-go="xp">Open Experience →</button></div>
-      <div class="hu-card"><h3>Tools</h3><p>Holy Grail, rune helper, run tracker, roll checker, cube recipes and a save editor for offline characters.</p><p class="hu-ex">“What can I make with my runes?”</p><button type="button" class="hu-go" data-go="tools">Open Tools →</button></div>
+      <div class="hu-card"><h3>Tools</h3><p>Holy Grail, rune helper, run tracker, farm planner, roll checker, cube recipes and a save editor for offline characters.</p><p class="hu-ex">“Can one boss run help with several gear goals?”</p><button type="button" class="hu-go" data-go="tools:farm">Open Farm planner →</button></div>
     </div>
     <nav class="hu-toc" aria-label="On this page"><a href="#hu-odds">Drop odds</a><a href="#hu-planner">Build planner</a><a href="#hu-xp">Experience</a><a href="#hu-tools">Tools</a><a href="#hu-faq">Questions</a></nav>
   </section>
@@ -1276,13 +1298,14 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <dt>Holy Grail</dt><dd>Tick every unique, set item and rune as you find it, and watch your progress by type. Filter by armor, weapons or jewelry and by tier, or show only what you're missing. Every item has an <i>odds</i> button that shows where it drops.</dd>
       <dt>Runes</dt><dd>Enter the runes you own. You'll see which runewords you can make right now, which ones you could make after cubing runes up (with the exact cube steps and gems), and which ones you're one rune short of. Search by name, nickname (<i>cta</i>, <i>coh</i>, <i>hoto</i>, <i>infy</i>), rune or item type to see what any runeword needs.</dd>
       <dt>Run tracker</dt><dd>Pick a boss or super unique, press <i>+1 run</i> after each run and log what drops. A timer gives your runs per hour, and your drops are compared with the drop calculator's odds, so you can see whether you're lucky or the farm just isn't worth it.</dd>
+      <dt>Farm planner</dt><dd>Add several item goals, including runewords (which become rune goals), then choose a boss or super unique. Set how many you already have, how many you want, kills per run and your run time to estimate expected drops and the runs needed for a 50% or 90% chance of finishing the full list. Completion estimates are approximate.</dd>
       <dt>Roll checker</dt><dd>Pick a unique, set item or runeword and type in your item's numbers to see how good each roll is, from 0% (lowest) to 100% (perfect), plus an overall score.</dd>
       <dt>Sockets &amp; affixes</dt><dd>Pick a base and its item level to see how many sockets Larzuk or the cube can give it, and which magic or rare affixes can roll on it, e.g. whether a grand charm can roll +1 skills. Affixes that need a higher item level are listed with the level they need. Crafted items work out their item level from your character level.</dd>
       <dt>Save editor</dt><dd>Load an offline character (.d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d) to change its level, stats, skills and gold, move, copy or delete items, and add any unique, set item, runeword, rune or gem, or a magic or rare item with the affixes you pick. Download the edited save and put it in place of the old one. Back up the original first.</dd>
       <dt>Cube recipes</dt><dd>Every Horadric Cube recipe from the game files: rune and gem upgrades, sockets, item upgrades, crafting, rerolls and uber keys. Search by any ingredient.</dd>
     </dl>
-      <p class="hu-tip"><b>Back up your data.</b> Your builds, checklists, Grail, runes, runs and settings are saved in this browser. Open <i>Tools → Backup &amp; restore</i> to download one backup file or move your data to another device.</p>
-    <div class="hu-row"><button type="button" class="hu-go" data-go="tools:grail">Holy Grail →</button><button type="button" class="hu-go" data-go="tools:runes">Runes →</button><button type="button" class="hu-go" data-go="tools:runs">Run tracker →</button><button type="button" class="hu-go" data-go="tools:cube">Cube recipes →</button><button type="button" class="hu-go" data-go="tools:rolls">Roll checker →</button><button type="button" class="hu-go" data-go="tools:affixes">Sockets & affixes →</button><button type="button" class="hu-go" data-go="tools:editor">Save editor →</button></div>
+      <p class="hu-tip"><b>Back up your data.</b> Your builds, checklists, Grail, runes, farm plans, runs and settings are saved in this browser. Open <i>Tools → Backup &amp; restore</i> to download one backup file or move your data to another device.</p>
+    <div class="hu-row"><button type="button" class="hu-go" data-go="tools:grail">Holy Grail →</button><button type="button" class="hu-go" data-go="tools:runes">Runes →</button><button type="button" class="hu-go" data-go="tools:runs">Run tracker →</button><button type="button" class="hu-go" data-go="tools:farm">Farm planner →</button><button type="button" class="hu-go" data-go="tools:cube">Cube recipes →</button><button type="button" class="hu-go" data-go="tools:rolls">Roll checker →</button><button type="button" class="hu-go" data-go="tools:affixes">Sockets & affixes →</button><button type="button" class="hu-go" data-go="tools:editor">Save editor →</button></div>
   </section>
   <section class="hu-sec" id="hu-faq">
     <h2>Questions</h2>
@@ -1293,7 +1316,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <dt>How accurate are the numbers?</dt><dd>Drop chances come straight from the game's drop tables and rules, and they've been checked against other calculators. They're averages, so luck still decides any single run. How each tool works is explained at the bottom of its page.</dd>
       <dt>Can I link someone straight to a tab?</dt><dd>Yes. Add <span class="hu-mail">#planner</span>, <span class="hu-mail">#experience</span>, <span class="hu-mail">#grail</span>, <span class="hu-mail">#runes</span>, <span class="hu-mail">#runs</span>, <span class="hu-mail">#cube</span> or <span class="hu-mail">#how-to-use</span> to the address, e.g. <span class="hu-mail">horadricodds.github.io/#how-to-use</span>. A drop odds link already carries the item and settings you picked.</dd>
       <dt>Can I use it offline or install it like an app?</dt><dd>Yes, on horadricodds.github.io. Once you've opened the site, it works without an internet connection. To install it: on a phone, use your browser's menu and choose <i>Add to Home Screen</i> (or <i>Install app</i>); in Chrome or Edge on PC, use the install icon in the address bar. It updates itself whenever you're online.</dd>
-      <dt>Where is my stuff saved?</dt><dd>Settings, saved builds, leveling ticks, your Grail, runes and run trackers stay in your browser on this device. Nothing is sent anywhere. Use Tools → Backup &amp; restore to download all Horadric Odds data as one file and restore it on another device.</dd>
+      <dt>Where is my stuff saved?</dt><dd>Settings, saved builds, leveling ticks, your Grail, runes, farm plans and run trackers stay in your browser on this device. Nothing is sent anywhere. Use Tools → Backup &amp; restore to download all Horadric Odds data as one file and restore it on another device.</dd>
       <dt>The page looks out of date.</dt><dd>Your browser may be showing an old copy. Press Ctrl+F5 on PC, or pull down to refresh on a phone.</dd>
       <dt>Something's wrong, or I have an idea.</dt><dd>Use <i>Something wrong? Report it</i> at the bottom of any page. It opens a GitHub issue with your version, tab and settings already filled in, so you only need to say what happened. You can also <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">open an issue yourself</a> or email <span class="hu-mail">HoradricOdds@hotmail.com</span>. Include the item or build, your settings, and what you expected.</dd>
     </dl>
@@ -2708,7 +2731,7 @@ window.addEventListener('resize',queueLinks);
   const wrap=document.querySelector('.wrap'),hp=document.getElementById('hp'),tag=document.querySelector('.mark small');
   const btns=[...document.querySelectorAll('.modes button')];
   const xp=document.getElementById('xp'),help=document.getElementById('help'),tools=document.getElementById('tools');
-  const MH={planner:'planner',xp:'experience',help:'how-to-use'},HM={planner:'planner',experience:'xp','how-to-use':'help','drop-odds':'odds',tools:'tools',grail:'tools',runes:'tools',runs:'tools',cube:'tools',rolls:'tools',affixes:'tools',editor:'tools',import:'planner'};
+  const MH={planner:'planner',xp:'experience',help:'how-to-use'},HM={planner:'planner',experience:'xp','how-to-use':'help','drop-odds':'odds',tools:'tools',grail:'tools',runes:'tools',runs:'tools',farm:'tools',cube:'tools',rolls:'tools',affixes:'tools',editor:'tools',backup:'tools',import:'planner'};
   function setHash(m){try{if(m==='tools'&&!window.__toolsSub&&HM[location.hash.slice(1)]==='tools')return;if(m!=='odds'){const h='#'+(m==='tools'?(window.__toolsSub||'grail'):m==='planner'&&window.__hpTab==='import'?'import':MH[m]);if(location.hash!==h)history.replaceState(null,'',h)}
     else if(HM[location.hash.slice(1)]){history.replaceState(null,'',location.pathname+location.search);if(window.__oddsSync)window.__oddsSync()}}catch(e){}}
   function set(m,sub){if(!['odds','planner','xp','help','tools'].includes(m))m='odds';wrap.classList.toggle('mode-planner',m!=='odds');hp.hidden=m!=='planner';if(help)help.hidden=m!=='help';if(tools){tools.hidden=m!=='tools';if(m==='tools'&&window.__toolsShow)window.__toolsShow(sub)}if(m==='planner'&&sub==='import'&&window.__hpShowTab)window.__hpShowTab('import');if(xp){xp.hidden=m!=='xp';if(m==='xp'&&window.__xpShow)window.__xpShow()}
@@ -4110,7 +4133,7 @@ const DATA = (() => {
     if (st.g && mode !== "gamble") setMode("gamble");
     return true;
   }
-  const TAB_HASH = /^#(planner|experience|how-to-use|drop-odds|tools|grail|runes|runs|cube|rolls|affixes|editor|import)$/;
+  const TAB_HASH = /^#(planner|experience|how-to-use|drop-odds|tools|grail|runes|runs|farm|cube|rolls|affixes|editor|backup|import)$/;
   window.addEventListener("hashchange", () => { if (location.hash !== lastHash && !TAB_HASH.test(location.hash)) applyHash(location.hash); });
   window.__oddsSync = () => { lastHash = ""; writeHash(); };
   window.__oddsHas = (id) => byId.has(id);
@@ -5796,7 +5819,7 @@ async function copyText(text,btn){let ok=false;try{await navigator.clipboard.wri
   if(btn){const o=btn.textContent;btn.textContent=ok?'Copied':'Select and copy the code';setTimeout(()=>btn.textContent=o,1600)}return ok}
 
 /* ===================== sub-tabs ===================== */
-const SUBS=[['grail','Holy Grail'],['runes','Runes'],['runs','Run tracker'],['rolls','Roll checker'],['affixes','Sockets & affixes'],['cube','Cube recipes'],['editor','Save editor'],['backup','Backup & restore']];
+const SUBS=[['grail','Holy Grail'],['runes','Runes'],['runs','Run tracker'],['farm','Farm planner'],['rolls','Roll checker'],['affixes','Sockets & affixes'],['cube','Cube recipes'],['editor','Save editor'],['backup','Backup & restore']];
 let SUB=load('horadric-tools-sub','grail');{const h=location.hash.slice(1);if(SUBS.some(s=>s[0]===h))SUB=h}if(!SUBS.some(s=>s[0]===SUB))SUB='grail';
 function setSub(s,keepHash){SUB=s;store('horadric-tools-sub',s);window.__toolsSub=s;
   if(!keepHash){try{if(!root.hidden&&location.hash!=='#'+s)history.replaceState(null,'','#'+s)}catch(e){}}
@@ -5808,7 +5831,7 @@ let rendering=false;
 function render(){if(rendering){setTimeout(render,0);return}rendering=true;try{renderNow()}finally{rendering=false}}
 function renderNow(){
   const nav=`<nav class="tl-subs" role="tablist" aria-label="Tools">${SUBS.map(([k,n])=>`<button type="button" role="tab" data-sub="${k}" aria-selected="${k===SUB}">${n}</button>`).join('')}</nav>`;
-  const body=SUB==='grail'?grailHTML():SUB==='runes'?runesHTML():SUB==='runs'?runsHTML():SUB==='rolls'?rollsHTML():SUB==='affixes'?affixHTML():SUB==='import'?importHTML():SUB==='editor'?editorHTML():SUB==='backup'?backupHTML():cubeHTML();
+  const body=SUB==='grail'?grailHTML():SUB==='runes'?runesHTML():SUB==='runs'?runsHTML():SUB==='farm'?farmHTML():SUB==='rolls'?rollsHTML():SUB==='affixes'?affixHTML():SUB==='import'?importHTML():SUB==='editor'?editorHTML():SUB==='backup'?backupHTML():cubeHTML();
   const focus=document.activeElement&&root.contains(document.activeElement)&&document.activeElement.id;
   const pos=focus&&document.activeElement.selectionStart;
   root.innerHTML=`<div class="tl">${nav}${body}</div>`;
@@ -6020,6 +6043,117 @@ function runsHTML(){
 let tick=null;
 function startTick(){if(tick)return;tick=setInterval(()=>{if(root.hidden||SUB!=='runs'){clearInterval(tick);tick=null;return}const r=curRun();const c=document.getElementById('rn-clock');if(r&&c)c.textContent=hms(elapsed(r))},1000)}
 
+
+/* ===================== Multi-goal farm planner ===================== */
+const farmOdds=load('horadric-odds',{});
+let FARM=load('horadric-farm-plan',{d:farmOdds.difficulty??2,players:farmOdds.players||1,party:farmOdds.party||1,mf:farmOdds.mf||0,level:farmOdds.charLevel||90,terror:!!farmOdds.terror,source:'',kills:1,seconds:90,goals:[]});
+if(!FARM||typeof FARM!=='object')FARM={};
+FARM={d:Math.max(0,Math.min(2,+FARM.d||0)),players:Math.max(1,Math.min(8,+FARM.players||1)),party:Math.max(1,Math.min(8,+FARM.party||1)),mf:Math.max(0,Math.min(1500,+FARM.mf||0)),level:Math.max(1,Math.min(99,+FARM.level||90)),terror:!!FARM.terror,source:String(FARM.source||''),kills:Math.max(1,Math.min(20,+FARM.kills||1)),seconds:Math.max(1,Math.min(3600,+FARM.seconds||90)),goals:Array.isArray(FARM.goals)?FARM.goals.slice(0,12):[]};
+FARM.goals=FARM.goals.filter(g=>g&&typeof g.id==='string'&&typeof g.name==='string').map(g=>({id:g.id,name:g.name,kind:g.kind,have:Math.max(0,Math.min(999,+g.have||0)),want:Math.max(1,Math.min(999,+g.want||1))}));
+let farmResults=null,farmRunning=false,farmProgress=0,farmMessage='',farmToken=0;
+const farmSave=()=>store('horadric-farm-plan',{d:FARM.d,players:FARM.players,party:FARM.party,mf:FARM.mf,level:FARM.level,terror:FARM.terror,source:FARM.source,kills:FARM.kills,seconds:FARM.seconds,goals:FARM.goals});
+const farmInvalidate=()=>{farmToken++;farmResults=null;farmRunning=false;farmProgress=0;farmMessage='';farmSave()};
+const FARM_CATALOG=[];
+GRAIL.forEach(g=>FARM_CATALOG.push({id:g.id,kind:g.id.startsWith('u-')?'u':g.id.startsWith('s-')?'s':'r',name:g.n,sub:g.id.startsWith('u-')?'Unique':g.id.startsWith('s-')?'Set item':'Rune'}));
+{const bases=new Map();for(const [code,it]of Object.entries(DATA.items)){if(!it.n||it.t==='rune'||code==='gld')continue;const row=bases.get(it.n)||{id:'b-'+slug(it.n),kind:'b',name:it.n,sub:'Any quality · base item',codes:[]};row.codes.push(code);bases.set(it.n,row)}FARM_CATALOG.push(...bases.values())}
+RW.forEach(w=>FARM_CATALOG.push({id:'w-'+slug(w.n),kind:'w',name:RWSHOW[w.n]||w.n,sub:'Runeword · add its rune goals',r:w.r}));
+const FARM_BY_ID=new Map(FARM_CATALOG.map(x=>[x.id,x]));
+const FARM_NICK={shako:'Harlequin Crest',soj:'The Stone of Jordan',anni:'Annihilus',griff:'Griffon\'s Eye',griffs:'Griffon\'s Eye',maras:'Mara\'s Kaleidoscope',arach:'Arachnid Mesh',wartrav:'War Traveler'};
+const FARM_SOURCES=DATA.sources.map((src,i)=>({src,i})).filter(x=>x.src.k==='boss'||x.src.k==='super');
+const farmSourceKey=s=>[s.d,s.k,s.m,s.a,s.tc].join('|');
+const farmSources=()=>FARM_SOURCES.filter(x=>x.src.d===FARM.d);
+function farmDefaultSource(){const list=farmSources();return list.find(x=>x.src.m==='Mephisto')||list.find(x=>x.src.k==='boss')||list[0]||null}
+function farmSource(){const list=farmSources();return list.find(x=>farmSourceKey(x.src)===FARM.source)||null}
+function farmSourceLabel(src){const area=DATA.areas[src.a];return `${src.m} · ${area?area.n:'Unknown area'}`}
+function farmTarget(g){
+  if(g.kind==='u')return{kind:'unique',items:DATA.uniques.filter(x=>x.n===g.name)};
+  if(g.kind==='s')return{kind:'set',items:DATA.sets.filter(x=>x.n===g.name)};
+  if(g.kind==='r'){const code=Object.keys(DATA.items).find(c=>DATA.items[c].t==='rune'&&DATA.items[c].n===g.name);return code?{kind:'base',codes:[code],quality:'any'}:null}
+  const item=FARM_BY_ID.get(g.id);return item&&item.kind==='b'?{kind:'base',codes:item.codes,quality:'any'}:null
+}
+function farmSuggestions(q){
+  q=String(q||'').trim().toLowerCase();if(q.length<2)return[];
+  const alias=FARM_NICK[q]||RWNICK[q];const exact=alias&&FARM_CATALOG.find(x=>x.name.toLowerCase()===alias.toLowerCase());
+  const hits=FARM_CATALOG.filter(x=>x.name.toLowerCase().includes(q)||((x.sub||'').toLowerCase().includes(q)));
+  hits.sort((a,b)=>{const sa=a.name.toLowerCase()===q?0:a.name.toLowerCase().startsWith(q)?1:2,sb=b.name.toLowerCase()===q?0:b.name.toLowerCase().startsWith(q)?1:2;return sa-sb||a.name.localeCompare(b.name)});
+  if(exact){const i=hits.indexOf(exact);if(i>=0)hits.splice(i,1);hits.unshift(exact)}return hits.slice(0,10)
+}
+function farmSuggestionHTML(q){return farmSuggestions(q).map(x=>`<button type="button" class="fp-pick" role="option" data-fp-add="${esc(x.id)}"><span>${esc(x.name)}</span><small>${esc(x.sub)}</small></button>`).join('')}
+function farmAddOne(item,n){
+  let g=FARM.goals.find(x=>x.id===item.id);
+  if(!g){let have=0;if(item.kind==='u'||item.kind==='s')have=G.f[item.id]?1:0;else if(item.kind==='r'){const ri=RI[item.name.replace(/ Rune$/,'')];if(ri!==undefined)have=inv(ri)}
+    g={id:item.id,name:item.name,kind:item.kind,have,want:0};FARM.goals.push(g)}
+  g.want=Math.min(999,(g.want|0)+n)
+}
+function farmAdd(id){const item=FARM_BY_ID.get(id);if(!item)return;
+  if(item.kind==='w'){
+    const need=new Map();item.r.forEach(i=>need.set(i,(need.get(i)||0)+1));
+    const newGoals=[...need.keys()].filter(i=>!FARM.goals.some(g=>g.id==='r-'+slug(RUNES[i]+' Rune'))).length;
+    if(FARM.goals.length+newGoals>12){farmInvalidate();farmMessage='A plan can include up to 12 goals.';render();return}
+    need.forEach((count,i)=>{const rune=FARM_CATALOG.find(x=>x.kind==='r'&&x.name===RUNES[i]+' Rune');if(rune)farmAddOne(rune,count)});
+    farmMessage=`Added the rune requirements for ${item.name}.`;
+  }else if(FARM.goals.length>=12&&!FARM.goals.some(g=>g.id===item.id)){farmInvalidate();farmMessage='A plan can include up to 12 goals.';render();return}
+  else{farmAddOne(item,1);farmMessage=`Added ${item.name}.`}
+  FARM.q='';farmInvalidate();farmMessage=item.kind==='w'?`Added the rune requirements for ${item.name}.`:`Added ${item.name}.`;render();const q=$('#fp-q');if(q)q.focus()
+}
+function farmOptions(values,selected){return values.map(([v,n])=>`<option value="${v}" ${String(selected)===String(v)?'selected':''}>${n}</option>`).join('')}
+function farmGoalName(g){return FARM_BY_ID.get(g.id)?.name||g.name}
+function farmTime(seconds){if(!Number.isFinite(seconds))return'—';if(seconds<=0)return'0';if(seconds<60)return`${Math.round(seconds)} sec`;const m=Math.round(seconds/60);if(m<60)return`${m} min`;const h=m/60;return h<48?`${h.toFixed(h<10?1:0)} hr`:`${(h/24).toFixed(1)} days`}
+function farmNumber(n){return n<10?n.toFixed(1):fmt(Math.round(n))}
+function poissonGoalChance(mean,need){if(need<=0)return 1;if(mean<=0)return 0;let logTerm=-mean,logFail=logTerm;for(let k=1;k<need;k++){logTerm+=Math.log(mean)-Math.log(k);logFail=logTerm>logFail?logTerm+Math.log1p(Math.exp(logFail-logTerm)):logFail+Math.log1p(Math.exp(logTerm-logFail))}return Math.max(0,Math.min(1,1-Math.exp(Math.min(0,logFail))))}
+function farmAllChance(runs,rows){let p=1;for(const r of rows){if(r.need<=0)continue;if(r.p<=0)return 0;p*=poissonGoalChance(r.p*FARM.kills*runs,r.need)}return p}
+function farmRunsForChance(want,rows){if(rows.every(r=>r.need<=0))return 0;if(rows.some(r=>r.need>0&&r.p<=0))return null;let lo=0,hi=1;while(hi<1e15&&farmAllChance(hi,rows)<want)hi*=2;if(hi>=1e15&&farmAllChance(hi,rows)<want)return null;while(lo<hi){const mid=Math.floor((lo+hi)/2);if(farmAllChance(mid,rows)>=want)hi=mid;else lo=mid+1}return hi}
+function farmResultsHTML(){
+  if(farmRunning)return`<p class="tl-note" role="status">Calculating ${farmProgress} of ${FARM.goals.length} goals…</p><div class="fp-progress"><b style="width:${FARM.goals.length?Math.round(farmProgress/FARM.goals.length*100):0}%"></b></div>`;
+  if(!farmResults)return farmMessage?`<p class="tl-note" role="status">${esc(farmMessage)}</p>`:'';
+  const rows=farmResults;const done=rows.filter(r=>r.need<=0).length;
+  const r50=farmRunsForChance(.5,rows),r90=farmRunsForChance(.9,rows);
+  const runSummary=n=>n==null?'Not reachable here':`${fmt(n)} runs · ${farmTime(n*FARM.seconds)}`;
+  const table=rows.map(r=>{const perRun=r.p*FARM.kills,expected=r.need>0&&perRun>0?r.need/perRun:null;
+    const chance=r.need<=0?'—':r.p<=0?'Does not drop here':r.p>1?`${r.p.toFixed(2)} expected drops / kill`:oneIn(r.p);
+    return`<tr><td><b>${esc(r.name)}</b> ${oddsBtn(r.id)}<div class="fp-progress"><b style="width:${Math.min(100,r.want?Math.round(r.have/r.want*100):100)}%"></b></div></td><td class="num">${r.need<=0?'Done':r.need}</td><td class="num">${chance}</td><td class="num">${r.need<=0?'—':expected==null?'—':farmNumber(expected)}</td><td class="num">${r.need<=0?'—':expected==null?'—':farmTime(expected*FARM.seconds)}</td></tr>`}).join('');
+  return`<div class="fp-statrow"><div class="fp-stat"><span>50% chance to finish all goals</span><b>${runSummary(r50)}</b></div><div class="fp-stat"><span>90% chance to finish all goals</span><b>${runSummary(r90)}</b></div><div class="fp-stat"><span>Goals already met</span><b>${done} / ${rows.length}</b></div></div>
+    <div class="tl-tw"><table class="tl-t"><thead><tr><th>Goal</th><th>Still need</th><th>Chance per kill</th><th>Expected runs</th><th>Expected time</th></tr></thead><tbody>${table}</tbody></table></div>
+    <p class="tl-note">Odds use the game's drop calculator. Run time is your estimate. Overall completion estimates use a Poisson model and assume the different goals drop independently; travel, other monsters and changes in kill speed are not included.</p>`
+}
+function farmHTML(){
+  let source=farmSource();if(!source){source=farmDefaultSource();FARM.source=source?farmSourceKey(source.src):'';farmSave()}
+  const srcs=farmSources();const diff=farmOptions([[0,'Normal'],[1,'Nightmare'],[2,'Hell']],FARM.d);
+  const opts=[
+    ['Difficulty','<select id="fp-d">'+diff+'</select>'],
+    ['Farm target',`<select id="fp-source" ${srcs.length?'':'disabled'}>${srcs.map(x=>`<option value="${esc(farmSourceKey(x.src))}" ${source&&farmSourceKey(x.src)===farmSourceKey(source.src)?'selected':''}>${esc(farmSourceLabel(x.src))}</option>`).join('')}</select>`],
+    ['Players in game','<select id="fp-p">'+farmOptions(Array.from({length:8},(_,i)=>[i+1,String(i+1)]),FARM.players)+'</select>'],
+    ['Nearby party members','<select id="fp-party">'+farmOptions(Array.from({length:8},(_,i)=>[i+1,String(i+1)]),FARM.party)+'</select>'],
+    ['Magic find (%)',`<input id="fp-mf" type="number" min="0" max="1500" step="5" value="${FARM.mf}">`],
+    ['Target kills per run',`<input id="fp-kills" type="number" min="1" max="20" value="${FARM.kills}">`],
+    ['Minutes per run',`<input id="fp-time" type="number" min="0.1" max="60" step="0.1" value="${(FARM.seconds/60).toFixed(1)}">`],
+    ['Character level',`<input id="fp-level" type="number" min="1" max="99" value="${FARM.level}">`]];
+  const fields=opts.map(([label,control])=>`<label class="tl-f"><span>${label}</span>${control}</label>`).join('');
+  const goals=FARM.goals.map(g=>`<div class="fp-goal"><div class="fp-gname"><b>${esc(farmGoalName(g))}</b><small>${g.kind==='u'?'Unique':g.kind==='s'?'Set item':g.kind==='r'?'Rune':'Base item'}</small></div><label class="fp-count"><span>Have</span><input type="number" min="0" max="999" value="${g.have}" data-fp-have="${esc(g.id)}" aria-label="${esc(farmGoalName(g))} you have"></label><label class="fp-count"><span>Want</span><input type="number" min="1" max="999" value="${g.want}" data-fp-want="${esc(g.id)}" aria-label="${esc(farmGoalName(g))} wanted"></label><button type="button" class="tl-x" data-fp-remove="${esc(g.id)}" aria-label="Remove ${esc(farmGoalName(g))}">Remove</button></div>`).join('');
+  const tz=HAS_TZ?`<label class="tl-check"><input type="checkbox" id="fp-tz" ${FARM.terror?'checked':''}> Terror zone</label>`:'';
+  return`<section class="tl-card"><div class="tl-head"><h3>Plan several farm goals</h3><span class="tl-sub">${esc(DATA.version.label||'Current game version')}</span></div>
+    <p class="tl-note">Add the items you're working toward, then choose a boss or super unique. Runewords add their rune requirements. If you track Grail finds or runes in Tools, you can copy those counts into this plan.</p>
+    <div class="tl-f"><label class="fp-label" for="fp-q">Add an item, rune or runeword</label><div class="fp-add"><input id="fp-q" type="search" value="${esc(FARM.q||'')}" placeholder="Try Harlequin Crest, Ber Rune, Enigma…" autocomplete="off"><button type="button" class="tl-btn primary" data-act="fp-search-add" ${farmSuggestions(FARM.q||'').length?'':'disabled'}>Add top match</button></div></div>
+    <div class="fp-suggest" id="fp-suggest" role="listbox" aria-label="Matching items">${farmSuggestionHTML(FARM.q||'')}</div>
+    <div class="tl-head" style="margin-top:16px"><h3>Goals</h3><button type="button" class="tl-btn ghost" data-act="fp-sync" ${FARM.goals.length?'':'disabled'}>Update counts from trackers</button></div>
+    <div class="fp-goals">${goals||'<p class="tl-empty">Add an item above to start your plan.</p>'}</div></section>
+  <section class="tl-card"><h3>Farm settings</h3><div class="fp-settings">${fields}</div>${tz?`<div class="tl-row" style="margin-top:10px">${tz}</div>`:''}
+    <div class="tl-row" style="margin-top:12px"><button type="button" class="tl-btn primary" data-act="fp-calc" ${FARM.goals.length&&srcs.length?'':'disabled'}>Build farm plan</button></div>
+    <p class="tl-note">Enter how many times you kill this target per run (for example, the Travincal Council). Expected time uses the minutes per run you enter.</p></section>
+  ${farmResults||farmRunning||farmMessage?`<section class="tl-card fp-results"><h3>Farm estimate${source?' · '+esc(farmSourceLabel(source.src)):''}</h3>${farmResultsHTML()}</section>`:''}`
+}
+async function calculateFarmPlan(){
+  if(!FARM.goals.length||!farmSource())return;
+  const token=++farmToken;farmRunning=true;farmResults=[];farmProgress=0;farmMessage='';render();await new Promise(requestAnimationFrame);
+  const src=farmSource().src,opt={difficulty:FARM.d,players:FARM.players,party:FARM.party,mf:FARM.mf,terror:!!(FARM.terror&&HAS_TZ),charLevel:FARM.level,findItem:false,questKill:false,heraldTier:1};
+  for(let i=0;i<FARM.goals.length;i++){
+    if(token!==farmToken)return;if(SUB!=='farm'){farmRunning=false;farmResults=null;return}
+    const g=FARM.goals[i],target=farmTarget(g);let p=0;
+    try{if(target){const rows=E.findSources(target,opt),match=rows.find(x=>farmSourceKey(x.src)===farmSourceKey(src));p=match?match.chance:0}}catch(e){p=0}
+    farmResults.push({id:g.id,name:farmGoalName(g),have:g.have,want:g.want,need:Math.max(0,g.want-g.have),p});farmProgress=i+1;render();await new Promise(requestAnimationFrame)
+  }
+  if(token!==farmToken)return;if(SUB!=='farm'){farmRunning=false;farmResults=null;return}farmRunning=false;farmSave();render()
+}
 
 /* ===================== Roll checker ===================== */
 const rlUI=load('horadric-rolls-ui',{n:'',v:{}});
@@ -6431,12 +6565,17 @@ root.addEventListener('click',async e=>{
   const a=e.target.closest('button,[data-act]');if(!a||!root.contains(a))return;
   if(a.dataset.sub){setSub(a.dataset.sub);return}
   if(a.dataset.odds){goOdds(a.dataset.odds);return}
+  if(a.dataset.fpAdd){farmAdd(a.dataset.fpAdd);return}
+  if(a.dataset.fpRemove){FARM.goals=FARM.goals.filter(g=>g.id!==a.dataset.fpRemove);farmInvalidate();render();return}
   /* grail */
   if(a.dataset.gk){gUI.k=a.dataset.gk;gUI.cat='all';gUI.tier='all';saveGUI();render();return}
   if(a.dataset.gst){gUI.st=a.dataset.gst;saveGUI();render();return}
   if(a.dataset.gcat){gUI.cat=a.dataset.gcat;saveGUI();render();return}
   if(a.dataset.gtier){gUI.tier=a.dataset.gtier;saveGUI();render();return}
   const act=a.dataset.act;
+  if(act==='fp-search-add'){const hit=farmSuggestions(FARM.q||'')[0];if(hit)farmAdd(hit.id);else{farmInvalidate();farmMessage='Type an item name and choose a matching result.';render()}return}
+  if(act==='fp-calc'){await calculateFarmPlan();return}
+  if(act==='fp-sync'){FARM.goals.forEach(g=>{if(g.kind==='u'||g.kind==='s')g.have=G.f[g.id]?1:0;else if(g.kind==='r'){const ri=RI[g.name.replace(/ Rune$/,'')];if(ri!==undefined)g.have=inv(ri)}});farmInvalidate();farmMessage='Counts updated from your Grail and rune tracker.';render();return}
   if(act==='backup-export'){
     try{const backup={format:BACKUP_FORMAT,version:1,app:'Horadric Odds',exportedAt:new Date().toISOString(),data:readBackupData()};
       const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');
@@ -6488,6 +6627,21 @@ root.addEventListener('click',async e=>{
   if(a.dataset.axil){axUI.il=+a.dataset.axil;store('horadric-affix-ui',axUI);render();return}
 });
 root.addEventListener('change',async e=>{const el=e.target;
+  if(SUB==='farm'){
+    if(el.dataset.fpHave!==undefined||el.dataset.fpWant!==undefined){const g=FARM.goals.find(x=>x.id===(el.dataset.fpHave??el.dataset.fpWant));if(g){if(el.dataset.fpHave!==undefined)g.have=Math.max(0,Math.min(999,parseInt(el.value,10)||0));else g.want=Math.max(1,Math.min(999,parseInt(el.value,10)||1));farmInvalidate();render()}return}
+    if(['fp-d','fp-source','fp-p','fp-party','fp-mf','fp-kills','fp-time','fp-level','fp-tz'].includes(el.id)){
+      if(el.id==='fp-d'){FARM.d=Math.max(0,Math.min(2,+el.value||0));const next=farmDefaultSource();FARM.source=next?farmSourceKey(next.src):''}
+      if(el.id==='fp-source')FARM.source=el.value;
+      if(el.id==='fp-p'){FARM.players=Math.max(1,Math.min(8,+el.value||1));FARM.party=Math.min(FARM.party,FARM.players)}
+      if(el.id==='fp-party')FARM.party=Math.max(1,Math.min(FARM.players,+el.value||1));
+      if(el.id==='fp-mf')FARM.mf=Math.max(0,Math.min(1500,parseInt(el.value,10)||0));
+      if(el.id==='fp-kills')FARM.kills=Math.max(1,Math.min(20,parseInt(el.value,10)||1));
+      if(el.id==='fp-time')FARM.seconds=Math.max(6,Math.min(3600,Math.round((+el.value||1)*60)));
+      if(el.id==='fp-level')FARM.level=Math.max(1,Math.min(99,parseInt(el.value,10)||90));
+      if(el.id==='fp-tz')FARM.terror=el.checked;
+      farmInvalidate();render();return
+    }
+  }
   if(el.id==='backup-file'){
     backupRestore=null;backupConfirm=false;restoreMsg='';const f=el.files&&el.files[0];
     if(f){try{if(f.size>25*1024*1024)throw Error('That backup is larger than 25 MB.');const parsed=JSON.parse(await f.text());backupRestore={name:f.name,backup:validateBackup(parsed)}}catch(err){restoreMsg=err.message||'That backup could not be read.'}}
@@ -6507,6 +6661,7 @@ root.addEventListener('change',async e=>{const el=e.target;
   if(el.id==='rn-mf'){rnUI.mf=Math.max(0,Math.min(1500,parseInt(el.value,10)||0));store('horadric-runs-ui',rnUI);return}
 });
 root.addEventListener('input',e=>{const el=e.target;
+  if(SUB==='farm'&&el.id==='fp-q'){FARM.q=el.value;const list=$('#fp-suggest'),btn=root.querySelector('[data-act="fp-search-add"]');if(list)list.innerHTML=farmSuggestionHTML(el.value);if(btn)btn.disabled=!farmSuggestions(el.value).length;return}
   if(el.id==='rl-q'){rlUI.n=el.value;store('horadric-rolls-ui',rlUI);if(!el.value||rollFind(el.value)||(window.__tipInfo&&window.__tipInfo(el.value)))render();return}
   if(el.dataset.rl!==undefined){const n=rollFind(rlUI.n);if(n){(rlUI.v[n]=rlUI.v[n]||{})[el.dataset.rl]=el.value;store('horadric-rolls-ui',rlUI);render()}return}
   if(el.id==='ax-b'){axUI.b=el.value;store('horadric-affix-ui',axUI);if(!el.value||BASEN.has(el.value.trim().toLowerCase()))render();return}
@@ -6519,7 +6674,7 @@ root.addEventListener('dragover',e=>{const d=e.target.closest&&e.target.closest(
 root.addEventListener('dragleave',e=>{const d=e.target.closest&&e.target.closest('#im-drop');if(d)d.classList.remove('on')});
 root.addEventListener('drop',e=>{const d=e.target.closest&&e.target.closest('#im-drop');if(d){e.preventDefault();d.classList.remove('on');readFiles([...e.dataTransfer.files])}});
 root.addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.gkey)OPEN.set(d.dataset.gkey,d.open)},true);
-root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='rn-drop'){e.preventDefault();const b=root.querySelector('[data-act="rn-add"]');if(b)b.click()}});
+root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='rn-drop'){e.preventDefault();const b=root.querySelector('[data-act="rn-add"]');if(b)b.click()}if(e.key==='Enter'&&e.target.id==='fp-q'){e.preventDefault();const b=root.querySelector('[data-act="fp-search-add"]');if(b&&!b.disabled)b.click()}});
 if(!root.hidden){render();startTick();try{if(location.hash!=='#'+SUB)history.replaceState(null,'','#'+SUB)}catch(e){}}
 {const h=document.getElementById('hp-imp');if(h)window.__importMount(h)}
 })();
