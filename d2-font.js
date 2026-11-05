@@ -54,25 +54,22 @@
 
   function renderHeading(el, metrics) {
     if (el.dataset.d2Bitmap === '1') return;
-    const control = el.querySelector('button.cbtn');
-    if (el.children.length && !control) return;
-    const target = control || el;
-    const text = (control ? control.textContent.replace('▸', '') : el.textContent).trim();
+    const textNode = [...el.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+    const text = (textNode ? textNode.textContent : el.textContent).trim();
     if (!text) return;
-    const large = el.matches('.mark h1');
-    const spec = large ? specs.large : specs.small;
-    const atlas = large ? images.large : images.small;
+    const spec = specs.small;
+    const atlas = images.small;
     const advances = metrics[spec.key];
     if (!advances || [...text].some(ch => ch.charCodeAt(0) > 255)) return;
-    const canvas = drawText(text, spec, advances, atlas, target.clientWidth || el.clientWidth || 0);
+    const canvas = drawText(text, spec, advances, atlas, el.clientWidth || 0);
     if (!canvas) return;
     const readable = document.createElement('span');
     readable.textContent = text;
     readable.style.cssText = 'position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important';
-    if (control) {
-      const chev = control.querySelector('.chev');
-      control.replaceChildren(...(chev ? [chev] : []), readable, canvas);
-    } else el.replaceChildren(readable, canvas);
+    const frag = document.createDocumentFragment();
+    frag.append(readable, canvas);
+    if (textNode) textNode.replaceWith(frag);
+    else el.replaceChildren(readable, canvas);
     el.dataset.d2Bitmap = '1';
   }
 
@@ -85,10 +82,15 @@
       const metrics = await metricsResponse.json();
       images.small = small;
       images.large = large;
-      const scan = () => document.querySelectorAll('.mark h1, #hp h2, #hp h3').forEach(el => renderHeading(el, metrics));
+      const scan = (root = document) => root.querySelectorAll([
+        '#hp .skill-tab-label', '#hp .skill-points-footer', '#hp .weapon-tabs button',
+        '#hp .merc-sheet-title', '#hp .merc-fact span', '#hp .merc-bottom span',
+        '#hp .sheet-title', '#hp .sheet-charname', '#hp .sheet-level span',
+        '#hp .attribute-name', '#hp .character-value span', '#hp .character-resist span',
+        '#hp .character-points', '#hp .advanced-value span'
+      ].join(',')).forEach(el => renderHeading(el, metrics));
+      window.__d2FontScan = scan;
       scan();
-      const root = document.getElementById('hp');
-      if (root) new MutationObserver(scan).observe(root, { childList: true, subtree: true });
     } catch (_) {
       /* Keep the site's existing text styles if local font assets are unavailable. */
     }
