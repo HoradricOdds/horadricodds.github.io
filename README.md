@@ -36,6 +36,7 @@ No ads, no sign-up, works on PC and phone.
 - **Holy Grail tracker:** tick off every unique, set item and rune you find, with progress by type and a link to where each missing item drops.
 - **Rune helper:** enter your runes to see which runewords you can make now, which you could make after cubing runes up (with the exact steps and gems), and which you're one rune short of. Search by name, nickname (cta, coh, hoto…) or rune.
 - **Run tracker:** count and time your boss runs, log drops, and compare your luck with the calculator's odds.
+- **Save editor:** load an offline character (.d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d) to change its level, stats, skills and gold, move, copy or delete items, and add any unique, set item, runeword, rune or gem, or a magic or rare item with the affixes you pick, then download the edited save.
 - **Cube recipes:** every Horadric Cube recipe from the game files, searchable by ingredient.
 - **Roll checker:** type in your item's numbers to see how good each roll is, from 0% to perfect.
 - **Sockets & affixes:** how many sockets a base can get at its item level (Larzuk and cube), and which magic or rare affixes can roll on it, including charms.
