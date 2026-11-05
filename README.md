@@ -38,6 +38,7 @@ No ads, no sign-up, works on PC and phone.
 - **Rune helper:** enter your runes to see which runewords you can make now, which you could make after cubing runes up (with the exact steps and gems), and which you're one rune short of. Search by name, nickname (cta, coh, hoto…) or rune.
 - **Run tracker:** count and time your boss runs, log drops, and compare your luck with the calculator's odds.
 - **Save editor:** load an offline character (.d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d) to change its level, stats, skills and gold, move, copy or delete items, and add any unique, set item, runeword, rune or gem, or a magic or rare item with the affixes you pick, then download the edited save.
+- **Backup & restore:** download one JSON backup of your saved builds, leveling checklists, settings, Holy Grail, rune counts, and run sessions. Restore it on this device or another one; restoring replaces this site's saved data in that browser.
 - **Cube recipes:** every Horadric Cube recipe from the game files, searchable by ingredient.
 - **Roll checker:** type in your item's numbers to see how good each roll is, from 0% to perfect.
 - **Sockets & affixes:** how many sockets a base can get at its item level (Larzuk and cube), and which magic or rare affixes can roll on it, including charms.
@@ -69,6 +70,6 @@ Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Bliz
 
 ## How it's built
 
-The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.
+The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser. Use **Tools → Backup & restore** to export them to one JSON file or restore them on another device. Backup files are created and read locally; they are never uploaded.
 
 [![Buy me a coffee](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/horadricodds)
