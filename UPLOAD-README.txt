@@ -1,11 +1,14 @@
-Horadric Odds Gear-tab update
+Horadric Odds gear, planner and D2 bitmap-heading update
 
 Copy these into the root of the GitHub Pages repository:
 - index.html (replace the current file)
-- images/ (merge this folder into the repository; it contains item art, inventory UI textures, and skill-tree art)
+- d2-font.js (place beside index.html)
+- images/ (merge this folder into the repository)
 
-The Gear tab uses the D2R inventory panel and weapon-tab textures. The I/II tabs on either hand switch both weapon and off-hand sets together. Add the alternate weapon in the “Weapon swap” gear slot and the alternate shield or off-hand in “Off-hand swap.” Item footprints position each piece in its correct slot, while the visible art is scaled down and centered to match the in-game screenshot; weapon and off-hand art stays below the tab strip. Charms fill the 10x4 backpack grid without overlap. The planner's skill trees use the supplied in-game panels and icons while retaining the point controls and tooltips.
+The Gear tab uses matching inventory-sized panels, with the mercenary on the left and character inventory on the right. The I/II tabs on either hand switch both weapon and off-hand sets together. Add alternate items in the Weapon swap and Off-hand swap gear slots. Item art is centered in its in-game box, and charms fill the 10x4 inventory grid without overlap.
 
-Item artwork source: https://lootcube.net/en/base-items
-Inventory background source: https://i.dimentio.dev/d2r/ui/panel/inventory/background.png
-Diablo II: Resurrected artwork and game data belong to Blizzard Entertainment. Horadric Odds does not own or claim rights to the artwork and is not affiliated with Blizzard or LootCube.
+The planner's skill tree and character stats sheet use the same panel width as the inventory. The skill and character panels sit side by side. Skill plus buttons appear beside skills that can receive points, and remaining skill points appear in the tree footer.
+
+Display headings use a D2 bitmap renderer based on the 16px and 42px glyph atlases and their character spacing data. The renderer draws canvas text; it is not an installable WOFF font. Atlas source: Harrogath D2 Font Generator by LAZ (https://tools.harrogath.com/d2font.html).
+
+The stats and mercenary sheets use the supplied D2R panel assets. Item artwork source: https://lootcube.net/en/base-items. Inventory background source: https://i.dimentio.dev/d2r/ui/panel/inventory/background.png. Diablo II: Resurrected artwork and game data belong to Blizzard Entertainment. Horadric Odds does not own or claim rights to the artwork and is not affiliated with Blizzard or LootCube.

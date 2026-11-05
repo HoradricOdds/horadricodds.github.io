@@ -46,7 +46,7 @@
   --accent: #9b2f1e;
   --accent-ink: #fff8ef;
   --good: #1d7a2c;
-  --font-display: "Alegreya SC", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-display: "Exocet", "Alegreya SC", "Palatino Linotype", Palatino, Georgia, serif;
   --font-body: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --radius: 6px;
@@ -1127,6 +1127,116 @@ button[data-tip],label [data-tip]{cursor:pointer}
 #hp .skill-sheet>.node .nb button{flex:1;min-width:0;height:100%;padding:0;border:1px solid rgba(164,137,86,.55);border-radius:2px;background:rgba(9,8,7,.85);color:#ead49c;font-size:clamp(7px,.85vw,11px);line-height:1}
 #hp .skill-sheet>.node .nb button:hover{border-color:#f3d58a;color:#fff2cb}
 #hp .skill-sheet>.node .nn,#hp .skill-sheet>.node .nm,#hp .skill-sheet>.node .bar,#hp .skill-sheet>.node .pre{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+/* In-game skill-tab emblems and point-available plus markers */
+#hp .skill-tab-hit{display:flex;align-items:center;justify-content:center;padding:0}
+#hp .skill-tab-label{display:block;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .skill-tab-emblem,#hp .skill-tab-plus{position:absolute;top:50%;transform:translateY(-50%);display:block;aspect-ratio:1;background-repeat:no-repeat;pointer-events:none}
+#hp .skill-tab-emblem{left:4%;width:17%;background-image:url("images/ui/skilltree.png");background-size:600% 100%;background-position:var(--tree-icon-position) center}
+#hp .skill-tab-plus{right:4%;width:16%;background-image:url("images/ui/levelupbutton.png");background-size:400% 100%;background-position:var(--tree-plus-position) center}
+#hp .skill-tab-hit.can-add:hover:not([aria-pressed="true"]) .skill-tab-plus{background-position:33.333% center}
+#hp .skill-tab-hit.no-add .skill-tab-plus{background-position:100% center}
+#hp .tree-tab-chip{display:inline-flex;align-items:center;gap:6px}
+#hp .tree-tab-chip .skill-tab-emblem,#hp .tree-tab-chip .skill-tab-plus{position:static;transform:none;width:22px;flex:0 0 22px}
+#hp .tree-tab-chip .skill-tab-emblem{background-image:url("images/ui/skilltree.png");background-size:600% 100%;background-position:var(--tree-icon-position) center}
+#hp .tree-tab-chip .skill-tab-plus{background-image:url("images/ui/levelupbutton.png");background-size:400% 100%;background-position:var(--tree-plus-position) center}
+#hp .tree-tab-chip.can-add:hover:not([aria-pressed="true"]) .skill-tab-plus{background-position:33.333% center}
+#hp .tree-tab-chip[aria-pressed="true"].can-add .skill-tab-plus{background-position:66.667% center}
+#hp .tree-tab-chip.no-add .skill-tab-plus{background-position:100% center}
+
+/* Character and hireling sheets */
+#hp .player-stats-card{gap:10px}
+#hp .character-sheet{position:relative;width:100%;max-width:460px;aspect-ratio:1162/1507;overflow:hidden;background-size:100% 100%;background-repeat:no-repeat;color:#eadfc8;font-size:clamp(12px,.9vw,14px);line-height:1.15;text-shadow:0 1px 2px #000}
+#hp .attributes-sheet{background-image:url("images/ui/character_background.png")}
+#hp .advanced-sheet{background-image:url("images/ui/advancedcharactersheet_bg.png")}
+#hp .sheet-title{position:absolute;left:8%;right:8%;top:4.2%;text-align:center;color:#e4cc8f;font-family:var(--font-display);font-size:clamp(15px,1.3vw,19px);letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hp .sheet-charname{position:absolute;left:10%;top:10.8%;width:80%;color:#eee2cc;font-family:var(--font-display);font-size:clamp(15px,1.25vw,19px);font-variant:small-caps;letter-spacing:.1em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hp .sheet-level{position:absolute;left:10%;top:17.7%;width:80%;display:flex;justify-content:space-between;gap:8px;color:#d3c5a6;font-size:.82em;letter-spacing:.08em;font-variant:small-caps}
+#hp .sheet-level b{color:#f3dda0;font-family:var(--f-mono);font-weight:600}
+#hp .sheet-exp{position:absolute;left:11.2%;top:14.42%;width:77.6%;height:.72%;overflow:hidden}
+#hp .sheet-exp img{display:block;height:100%;max-width:100%;object-fit:fill;filter:drop-shadow(0 0 2px #d6a744)}
+#hp .character-attributes{position:absolute;inset:0}
+#hp .character-attribute{position:absolute;left:7.6%;width:30%;height:4.3%;display:grid;grid-template-columns:minmax(0,1fr) 15px 25px 15px;gap:1px;align-items:center}
+#hp .attribute-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#e4d6bd;font-size:clamp(7px,.72vw,10px)}
+#hp .character-attribute .pm{width:100%;height:76%;min-height:13px;padding:0;border:1px solid rgba(204,174,102,.45);border-radius:2px;background:rgba(11,9,7,.85);color:#f0d184;font-family:var(--f-mono);font-size:clamp(9px,.9vw,13px);line-height:1;cursor:pointer}
+#hp .character-attribute .pm:disabled{opacity:.35;cursor:default}
+#hp .character-attribute input{width:100%;min-width:0;height:76%;padding:0 1px;border:1px solid rgba(162,143,112,.5);border-radius:2px;background:rgba(8,7,6,.88);color:#f0dfbc;text-align:center;font-family:var(--f-mono);font-size:clamp(7px,.72vw,10px)}
+#hp .character-details{position:absolute;left:45%;top:21.8%;width:46.5%;height:54%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr))}
+#hp .character-value{min-width:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.75fr);align-items:center;gap:2px;padding:0 3%;overflow:hidden}
+#hp .character-value span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#e1d2b7;font-size:.9em}
+#hp .character-value b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#f3e4c6;text-align:right;font-family:var(--f-mono);font-size:.96em;font-weight:500}
+#hp .character-points{position:absolute;left:7.5%;top:79.1%;width:85%;height:8.2%;display:flex;align-items:center}
+#hp .character-points>div{width:50%;min-width:0;display:flex;align-items:center;justify-content:space-between;padding:0 4%;color:#d5c6a9}
+#hp .character-points b{color:#f2d78c;font-family:var(--f-mono);font-size:1.15em}
+#hp .advanced-sheet .advanced-values{position:absolute;left:8%;top:15%;width:84%;height:72%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(8,minmax(0,1fr));gap:3px}
+#hp .advanced-value{min-width:0;display:flex;align-items:center;justify-content:space-between;gap:4px;padding:0 5px;border:1px solid rgba(191,165,112,.24);background:rgba(5,5,5,.48);overflow:hidden}
+#hp .advanced-value span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#c9b996;font-size:.85em}
+#hp .advanced-value b{color:#f2dfb4;font-family:var(--f-mono);font-size:.9em;font-weight:500;white-space:nowrap}
+#hp .stats-mode-toggle{width:22px;height:28px;flex:0 0 22px;padding:0;border:0;background:transparent url("images/ui/advancedstatsbutton.png") no-repeat 0 center;background-size:400% 100%;cursor:pointer}
+#hp .stats-mode-toggle:hover{background-position:33.333% center}
+#hp .stats-mode-toggle.advanced{background-position:100% center}
+#hp .stats-mode-toggle span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+#hp .merc-panel{position:relative;width:100%;max-width:460px;aspect-ratio:1162/1507;overflow:visible;background:url("images/ui/hirelinginventorybg.png") center/100% 100% no-repeat;color:#e6d8b9;font-size:clamp(8px,.78vw,11px);line-height:1.12;text-shadow:0 1px 2px #000}
+#hp .merc-sheet-title{position:absolute;left:11%;top:5.1%;width:78%;text-align:center;color:#e4cc8f;font-family:var(--font-display);font-size:clamp(12px,1.25vw,17px);letter-spacing:.06em}
+#hp .merc-facts{display:contents}
+#hp .merc-fact{position:absolute;left:8%;width:40%;height:5.1%;display:flex;align-items:center;justify-content:space-between;gap:3px;padding:0 2%;overflow:hidden}
+#hp .merc-fact span{flex:0 0 auto;color:#c6b58f;font-size:.8em}
+#hp .merc-fact b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#f1dfb8;text-align:right;font-weight:500}
+#hp .merc-fact.mf-0{top:62.8%}
+#hp .merc-fact.mf-1{top:68.6%}
+#hp .merc-fact.mf-2{top:74.4%}
+#hp .merc-fact.mf-3{top:80.2%}
+#hp .merc-bottom{position:absolute;left:52%;top:68.4%;width:39%;height:17.2%;display:flex;flex-direction:column;justify-content:space-evenly;padding:1% 3%;color:#ddcda9}
+#hp .merc-bottom span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .merc-slot{position:absolute;z-index:4;display:flex;align-items:center;justify-content:center;overflow:visible;cursor:help;outline:none}
+#hp .merc-slot:focus-visible{outline:2px solid #e2c26e;outline-offset:1px}
+#hp .merc-slot .gear-art{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;filter:drop-shadow(0 2px 3px rgba(0,0,0,.9))}
+#hp .merc-slot .gear-art img{display:block;width:100%;height:100%;object-fit:contain}
+#hp .merc-paperdoll{position:absolute;inset:0;background-image:url("images/ui/hireables_paperdoll.png");background-size:500% 100%;background-position:var(--paper-frame) center;background-repeat:no-repeat;pointer-events:none;opacity:.68}
+#hp .merc-slot:hover,#hp .merc-slot:focus-visible,#hp .merc-slot.tipon{z-index:50}
+#hp .merc-slot .ett{z-index:1000}
+@media(max-width:760px){#hp .character-sheet,#hp .merc-panel{font-size:9px}#hp .character-attribute{grid-template-columns:minmax(0,1fr) 14px 22px 14px}#hp .character-attribute .pm{min-height:12px}}
+
+/* Keep the three game panels on a shared inventory-sized canvas. */
+#hp .skill-panel{max-width:560px}
+#hp .character-sheet,#hp .merc-panel{width:100%;max-width:560px}
+#hp .eqwrap{grid-template-columns:repeat(2,minmax(0,560px));align-items:start}
+#hp .eqwrap>.eside{grid-column:1;grid-row:1;min-width:0}
+#hp .eqwrap>.doll{grid-column:2;grid-row:1;min-width:0}
+#hp .planner .rail{width:100%;max-width:560px;min-width:0}
+#hp .planner .pmain{min-width:0}
+@media (min-width:1100px){#hp .planner{grid-template-columns:repeat(2,minmax(0,560px));justify-content:start}}
+@media (max-width:760px){#hp .eqwrap{grid-template-columns:minmax(0,560px);justify-content:center}#hp .eqwrap>.eside{grid-column:1;grid-row:1}#hp .eqwrap>.doll{grid-column:1;grid-row:2}#hp .planner .rail{max-width:560px;margin:0 auto}}
+#hp .planner{display:flex;flex-direction:column;gap:16px}
+#hp .planner .pmain{width:100%;max-width:1160px;margin:0 auto}
+#hp .game-panels-row{display:grid;grid-template-columns:repeat(2,minmax(0,560px));gap:16px;align-items:start;justify-content:center;width:100%}
+#hp .game-panels-row>.rc,#hp .skill-tab-panel{min-width:0;width:100%}
+#hp .game-panels-row>.player-stats-card{min-width:0;width:100%;padding:0;background:transparent;border:0;box-shadow:none}
+#hp .sheet-mode-toggle{position:absolute;right:0;top:50%;transform:translateY(-50%)}
+#hp .game-panels-row .sheet-title{position:absolute}
+#hp .game-panels-row .character-sheet,#hp .game-panels-row .skill-panel{width:100%;max-width:560px}
+#hp .planner .rail{width:100%;max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+#hp .planner .rail .railbar{grid-column:1/-1}
+#hp .planner .below{width:100%;max-width:1160px;margin:0 auto}
+@media(max-width:900px){#hp .game-panels-row{grid-template-columns:minmax(0,560px);justify-content:center}}
+#hp .character-resists{position:absolute;left:7.5%;top:79.2%;width:85%;height:8.3%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));align-items:center}
+#hp .character-resist{min-width:0;display:flex;align-items:center;justify-content:space-between;gap:3px;padding:0 4%;overflow:hidden;color:#e1d2b7;font-size:.9em}
+#hp .character-resist span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .character-resist b{color:#f0dfbd;font-family:var(--f-mono);font-weight:500;white-space:nowrap}
+#hp .character-points{left:8%;top:90.4%;width:84%;height:4.3%;justify-content:center;color:#cf3228;font-family:var(--f-display);font-variant:small-caps;letter-spacing:.12em;font-size:clamp(10px,1.05vw,15px)}
+#hp .nb button.skill-levelup{flex:0 0 22px;min-width:22px;width:22px;height:22px;padding:0;border:0;border-radius:0;background:url("images/ui/levelupbutton.png") no-repeat 33.333% center;background-size:400% 100%;color:transparent;font-size:0;line-height:0}
+#hp .nb button.skill-levelup:hover:not(:disabled){background-position:66.667% center}
+#hp .nb button.skill-levelup:active:not(:disabled){background-position:66.667% center}
+#hp .nb button.skill-levelup:disabled{background-position:100% center;opacity:.88;cursor:default}
+#hp .skill-points-footer{position:absolute;z-index:6;left:14%;bottom:2.2%;width:72%;text-align:center;color:#d43229;font-family:var(--f-display);font-variant:small-caps;letter-spacing:.13em;font-size:clamp(12px,1.2vw,17px);text-shadow:0 1px 2px #000}
+#hp .skill-tab-hit .skill-tab-emblem{left:6%;width:16%}
+#hp .skill-tab-hit .skill-tab-label{max-width:74%}
+#hp .tree-tab-chip .skill-tab-emblem{margin-right:2px}
+#hp .character-details{top:21.6%;left:45%;width:46.5%;height:54%;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(8,minmax(0,1fr))}
+#hp .character-attribute .attribute-name{font-size:clamp(10px,.72vw,12px)}
+#hp .character-attribute input{font-size:clamp(10px,.72vw,12px);appearance:textfield;-moz-appearance:textfield}
+#hp .character-attribute input::-webkit-outer-spin-button,#hp .character-attribute input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+#hp .character-attribute .pm{font-size:clamp(11px,.9vw,14px)}
 </style>
 </head>
 <body>
@@ -1970,7 +2080,7 @@ new MutationObserver(()=>{if(!hpEl.hidden&&hpDirty)render()}).observe(hpEl,{attr
 
 /* ---------- planner ---------- */
 const SKILL_ART_PREFIX={amazon:'am',assassin:'as',barbarian:'ba',druid:'dr',necromancer:'ne',paladin:'pa',sorceress:'so',warlock:'wa'};
-let TREE=0;
+let TREE=0,STATS_MODE='attributes';
 function planHTML(){
   const C=CLS[B.cls];if(PI>=B.phase.length)PI=B.phase.length-1;
   const ph=B.phase[PI],cnt=counts(ph),end=phaseEnd(B,PI);
@@ -1982,11 +2092,13 @@ function planHTML(){
   const del=PI>0?`<button class="btn small danger" data-act="phase-del">Remove this phase</button>`:'';
   if(!(TREE<C.trees.length))TREE=0;
   const tpts=C.trees.map(t=>t.ids.reduce((a,id)=>a+(cnt[id]||0),0));
-  const ttabs=`<div class="treetabs" role="group" aria-label="Skill tree">${C.trees.map((t,i)=>`<button class="chip" data-act="tree-tab" data-i="${i}" aria-pressed="${i===TREE}">${esc(t.name)} <span class="muted num">${tpts[i]}</span></button>`).join('')}</div>`;
+  const treeTabHTML=(t,i,overlay=false)=>{const active=i===TREE,canSpend=budget>used&&t.ids.some(id=>C.skills[id].lvl<=end&&(cnt[id]||0)<20),iconFrame=i+(active?3:0),common=`data-act="tree-tab" data-i="${i}" aria-pressed="${active}" style="--tree-icon-position:${iconFrame*20}%"`;const label=esc(t.name),points=tpts[i];return overlay?`<button class="skill-tab-hit" ${common} aria-label="${label}, ${points} points"><span class="skill-tab-emblem" aria-hidden="true"></span><span class="skill-tab-label">${label}</span></button>`:`<button class="chip tree-tab-chip" ${common} aria-label="${label}, ${points} points"><span class="skill-tab-emblem" aria-hidden="true"></span><span>${label} <span class="muted num">${points}</span></span></button>`};
+  const ttabs=`<div class="treetabs" role="group" aria-label="Skill tree">${C.trees.map((t,i)=>treeTabHTML(t,i)).join('')}</div>`;
   const tree=C.trees[TREE],prefix=SKILL_ART_PREFIX[C.key];
-  const treeTabs=C.trees.map((t,i)=>`<button class="skill-tab-hit" data-act="tree-tab" data-i="${i}" aria-pressed="${i===TREE}" aria-label="${esc(t.name)}, ${tpts[i]} points"><span>${esc(t.name)}</span></button>`).join('');
+  const treeTabs=C.trees.map((t,i)=>treeTabHTML(t,i,true)).join('');
   const treeNodes=tree.ids.map(id=>nodeHTML(C,id,cnt,end)).join('');
-  const trees=`<section class="tree tsel" data-tree="${tree.ids[0]}"><div class="skill-panel"><div class="skill-sheet" style="background-image:url('images/skilltree/${prefix}skilltree.png');background-position:${TREE*50}% 0">${treeTabs}${treeNodes}</div></div></section>`;
+  const trees=`<section class="tree tsel" data-tree="${tree.ids[0]}"><div class="skill-panel"><div class="skill-sheet" style="background-image:url('images/skilltree/${prefix}skilltree.png');background-position:${TREE*50}% 0">${treeTabs}${treeNodes}</div><div class="skill-points-footer">${Math.max(0,budget-used)} Skill Choices Remaining</div></div></section>`;
+  const S=railSums(C,ph,end,sim);
   return `<div class="planner"><div class="pmain" style="display:flex;flex-direction:column;gap:12px;min-width:0">
     ${srcLine()}
     ${variantBar()}
@@ -1995,15 +2107,11 @@ function planHTML(){
     <div class="budget"><span>Skill points <b class="${used>budget?'over':''}">${used}</b> / ${budget} by level ${end}</span>${budget-used>0?`<span class="lefttag num">${budget-used} left</span>`:''}
       <span class="muted">${end-1} from levels${B.quests?` + ${qs} from quests`:''}</span>
       <span style="margin-left:auto" class="row"><button class="btn small" data-act="undo-pt" ${used?'':'disabled'}>Undo last point</button><button class="btn small danger" data-act="clear-pts" ${used?'':'disabled'}>Clear skills</button></span></div>
-    ${ttabs}<div class="trees">${trees}</div>
+    <div class="game-panels-row">${statsCard(C,ph,end,sim)}<div class="skill-tab-panel">${ttabs}<div class="trees">${trees}</div></div></div>
     <p class="hint">Lines join each skill to its prerequisites. Hover over a skill (press and hold on a phone) for its tooltip. Click a skill or its + to add a point; its − or a right-click removes one. Shift-click adds or removes up to 20. Missing prerequisites are added for you. The order you click is the order the leveling guide spends points.</p>
   </div>
-  ${(()=>{const S=railSums(C,ph,end,sim);
-    /* the main cards sit beside the trees; the smaller ones fill the space under the trees (on phones they follow the rail) */
-    return `<aside class="rail"><div class="railbar"><button class="linkbtn" data-act="cards-all" data-v="open">Expand all</button><button class="linkbtn" data-act="cards-all" data-v="close">Collapse all</button></div>`+
-      rc('stats',S.stats,statsCard(C,ph,end,sim))+rc('skills',S.skills,skillCard(C,ph,end))+rc('weapon','',weaponCard(C,end,sim))+`</aside>`+
-      `<div class="below">`+rc('gear',S.gear,gearTotalsCard(C,end))+rc('mf',S.mf,mfCard(end))+rc('res',S.res,resistCard(end))+rc('bp',S.bp,bpCard(C,end))+
-      rc('egear',S.egear,gearGoalsCard())+rc('merc',S.merc,mercCard(end))+rc('order',S.order,orderCard(C,ph,sim))+`</div>`})()}</div>`;
+  <aside class="rail"><div class="railbar"><button class="linkbtn" data-act="cards-all" data-v="open">Expand all</button><button class="linkbtn" data-act="cards-all" data-v="close">Collapse all</button></div>${rc('skills',S.skills,skillCard(C,ph,end))+rc('weapon','',weaponCard(C,end,sim))}</aside>
+  <div class="below">${rc('gear',S.gear,gearTotalsCard(C,end))+rc('mf',S.mf,mfCard(end))+rc('res',S.res,resistCard(end))+rc('bp',S.bp,bpCard(C,end))+rc('egear',S.egear,gearGoalsCard())+rc('merc',S.merc,mercCard(end))+rc('order',S.order,orderCard(C,ph,sim))}</div></div>`;
 }
 function nodeHTML(C,id,cnt,end){
   SKTIP_CX={cnt,end};SKX_END=end;SKX_R=NODE_GT;SKX_B=B;
@@ -2012,9 +2120,10 @@ function nodeHTML(C,id,cnt,end){
   const pre=s.pre.length?`<div class="pre">needs ${s.pre.map(p=>esc(C.skills[p].name)).join(', ')}</div>`:'';
   const x=[12.26,41.36,70.46][s.col-1]||12.26,y=[10.69,26.09,41.06,56.54,71.86,87][s.row-1]||10.69;
   const prefix=SKILL_ART_PREFIX[C.key],frame=(id*2+(c?1:0))*100/59;
+  const canSpend=skAt(B,end)>B.phase[PI].sk.length&&!lock&&c<20;
   return `<div class="node ${c?'on':''} ${c>=20?'max':''} ${lock?'lock':''}" style="--skill-x:${x}%;--skill-y:${y}%;--skill-icons:url('images/skilltree/${prefix}skillicon.png');--skill-frame:${frame}%" data-act="sk" data-id="${id}" role="button" tabindex="0" aria-label="${esc(s.name)}, ${c} of 20 points, requires level ${s.lvl}" data-sktip="${id}">
     <span class="nn">${esc(s.name)}</span><span class="skill-icon" aria-hidden="true"></span><span class="skill-count"><b>${c}</b><i>/20</i></span>
-    <div class="nb"><button data-act="minus" data-id="${id}" aria-label="Remove a point from ${esc(s.name)}">−</button><button data-act="plus" data-id="${id}" aria-label="Add a point to ${esc(s.name)}">+</button></div>${pre}</div>`;
+    <div class="nb"><button data-act="minus" data-id="${id}" aria-label="Remove a point from ${esc(s.name)}">−</button><button class="skill-levelup ${canSpend?'':'disabled'}" data-act="plus" data-id="${id}" aria-label="Add a point to ${esc(s.name)}" ${canSpend?'':'disabled'}>+</button></div>${pre}</div>`;
 }
 
 let NODE_GT={all:0,cls:0,tab:[0,0,0],one:{},t:{},counted:[],missed:[]};
@@ -2262,23 +2371,32 @@ function statsCard(C,ph,end,sim){
   const avail=stAt(B,end);
   const spentNonSink=STATS.filter(s=>s!==ph.sink).reduce((a,s)=>a+Math.max(0,ph.st[s]-C.base[s]),0);
   const rest=avail-spentNonSink;
-  const rows=STATS.map(s=>{
-    const isSink=s===ph.sink;
-    const val=isSink?`<span class="rest" title="Everything left over">${C.base[s]+Math.max(0,rest)}</span>`
-      :`<span class="sv"><button class="pm" data-act="st-dn" data-s="${s}" aria-label="Lower ${SN[s]}">−</button><input type="number" id="st-${s}" data-s="${s}" min="${C.base[s]}" max="${C.base[s]+avail}" value="${ph.st[s]}" aria-label="${SN[s]} target"><button class="pm" data-act="st-up" data-s="${s}" aria-label="Raise ${SN[s]}">+</button></span>`;
-    return `<div class="stat"><span>${SN[s]} <span class="muted num" style="font-size:.75rem">${C.base[s]}</span></span>${val}<label><input type="radio" name="sink" data-act="sink" data-s="${s}" ${isSink?'checked':''}> rest</label></div>`;
-  }).join('');
-  const lastRow=sim.rows[end-1]||sim.rows[sim.rows.length-1];
+  const current={};for(const s of STATS)current[s]=s===ph.sink?C.base[s]+Math.max(0,rest):ph.st[s];
   const vit=C.base.vit+(ph.sink==='vit'?Math.max(0,rest):Math.max(0,ph.st.vit-C.base.vit));
   const ene=C.base.ene+(ph.sink==='ene'?Math.max(0,rest):Math.max(0,ph.st.ene-C.base.ene));
   const life=Math.floor(C.life[0]+C.life[1]*(end-1)+C.life[2]*(vit-C.base.vit)),mana=Math.floor(C.mana[0]+C.mana[1]*(end-1)+C.mana[2]*(ene-C.base.ene));
+  const R=gearTotals(B,end),T=R.t,DF=defenseInfo(B,end,sim),A=attackInfo(B,end);
+  const attrY={str:25.8,dex:42.8,vit:59.7,ene:70.5};
+  const attrRows=STATS.map(s=>`<div class="character-attribute" style="top:${attrY[s]}%"><span class="attribute-name" title="Base ${C.base[s]}">${SA[s]}</span><button class="pm" data-act="st-dn" data-s="${s}" aria-label="Lower ${SN[s]}">−</button><input type="number" id="st-${s}" data-s="${s}" min="${C.base[s]}" max="${C.base[s]+avail}" value="${current[s]}" aria-label="${SN[s]} target"><button class="pm stat-plus" data-act="st-up" data-s="${s}" aria-label="Raise ${SN[s]}">+</button></div>`).join('');
+  const details=[['Attack',A.sk],['Attack speed',A.now?`${A.now} frames`:'—'],['Attack rating','—'],['Defense',T.def||'—'],['Block',DF.block?`${DF.block.pct}%`:'—'],['Stamina','—'],['Life',life],['Mana',mana]];
+  const detailRows=details.map(([l,v])=>`<div class="character-value"><span>${esc(l)}</span><b>${esc(v==null?'—':String(v))}</b></div>`).join('');
+  const resists=[['Fire',T.res+T.rf+DF.nr+DF.mx.rf],['Lightning',T.res+T.rl+DF.nr+DF.mx.rl],['Cold',T.res+T.rc+DF.nr+DF.mx.rc],['Poison',T.res+T.rp+DF.nr]];
+  const resistRows=resists.map(([l,v])=>`<div class="character-resist"><span>${l} Resistance</span><b>${v}%</b></div>`).join('');
+  const advanced=[['Strength',current.str],['Dexterity',current.dex],['Vitality',current.vit],['Energy',current.ene],['Life',life],['Mana',mana],['Faster cast rate',`${T.fcr}%`],['Faster hit recovery',`${T.fhr}%`],['Attack speed',`${T.ias}%`],['Magic find',`${T.mf}%`],['Fire resistance',`${T.res+T.rf+DF.nr+DF.mx.rf}%`],['Cold resistance',`${T.res+T.rc+DF.nr+DF.mx.rc}%`],['Lightning resistance',`${T.res+T.rl+DF.nr+DF.mx.rl}%`],['Poison resistance',`${T.res+T.rp+DF.nr}%`],['Block chance',DF.block?`${DF.block.pct}%`:'—'],['Attack speed frames',A.now?`${A.now}`:'—']];
+  const advancedRows=advanced.map(([l,v])=>`<div class="advanced-value"><span>${esc(l)}</span><b>${esc(String(v))}</b></div>`).join('');
+  const mode=STATS_MODE==='advanced'?'advanced':'attributes';
+  const modeToggle=`<button class="stats-mode-toggle ${mode==='advanced'?'advanced':''}" data-act="stats-mode" title="Switch to ${mode==='advanced'?'attributes':'advanced stats'}" aria-label="Switch to ${mode==='advanced'?'attributes':'advanced stats'}"><span>${mode==='advanced'?'Attributes':'Advanced'}</span></button>`;
+  const statSheet=mode==='advanced'?`<div class="character-sheet advanced-sheet"><div class="sheet-title">Character · Advanced<span class="sheet-mode-toggle">${modeToggle}</span></div><div class="advanced-values">${advancedRows}</div></div>`:
+    `<div class="character-sheet attributes-sheet"><div class="sheet-title">Character<span class="sheet-mode-toggle">${modeToggle}</span></div><div class="sheet-charname">${esc(B.name||C.name)}</div><div class="sheet-exp"><img src="images/ui/expbarfill.png" alt="" style="width:${Math.max(0,Math.min(100,end/99*100))}%"></div><div class="sheet-level"><span>Level ${end} ${esc(C.name)}</span><span>Experience to next level</span></div><div class="character-attributes">${attrRows}</div><div class="character-details">${detailRows}</div><div class="character-resists">${resistRows}</div><div class="character-points">${Math.max(0,rest)} Stat Points Remaining</div></div>`;
   const prio=ph.prio.filter(s=>s!==ph.sink).map((s,i)=>`<span class="p">${i+1}. ${SA[s]}${i>0?`<button data-act="prio-up" data-s="${s}" aria-label="Move ${SN[s]} earlier">↑</button>`:''}</span>`).join('')+`<span class="p" style="padding-right:8px">then ${SA[ph.sink]}</span>`;
-  return `<section class="card"><header><h2>Stats</h2><span class="num ${rest<0?'over':'muted'}">${avail} pts by ${end}</span></header>
-    ${rows}
+  const sinkRows=STATS.map(s=>`<label><input type="radio" name="sink" data-act="sink" data-s="${s}" ${s===ph.sink?'checked':''}> ${SA[s]}</label>`).join('');
+  return `<section class="card player-stats-card">
+    ${statSheet}
+    <div class="stats-sink"><span class="label">Rest points to</span>${sinkRows}</div>
     ${rest<0?`<p class="over" style="margin:0">Targets are ${-rest} points over budget.</p>`:''}
     <div><div class="label" style="margin-bottom:4px">Leveling priority</div><div class="prio">${prio}</div></div>
     <div class="derived"><div class="orb life"><span class="label">Life at ${end}</span><b>${life}</b></div><div class="orb mana"><span class="label">Mana at ${end}</span><b>${mana}</b></div></div>
-    ${(()=>{const R=gearTotals(B,end),T=R.t;if(!R.counted.length)return '<p class="hint" style="margin:0">Before gear, Battle Orders and skill bonuses.</p>';
+    ${(()=>{if(!R.counted.length)return '<p class="hint" style="margin:0">Before gear, Battle Orders and skill bonuses.</p>';
       const gl=Math.floor(life+T.life+C.life[2]*T.vit),gm=Math.floor(mana+C.mana[2]*T.ene);
       const bo=boLevel(B,end);
       return `<div class="withgear"><span class="label">With planned gear</span><span><b class="l">${gl}</b> life · <b class="m">${gm}</b> mana</span></div>${bo?`<div class="withgear"><span class="label">With Battle Orders ${bo.lvl}</span><span><b class="l">${Math.floor(gl*(1+bo.pct/100))}</b> life · <b class="m">${Math.floor(gm*(1+bo.pct/100))}</b> mana</span></div>`:''}<p class="hint" style="margin:0">Gear adds ${T.life} life, ${T.vit} vitality and ${T.ene} energy${bo?`; Battle Orders ${bo.lvl} adds about ${bo.pct}%${bo.swap?' (cast from your weapon swap)':''}`:''}. Rares count only if you enter their stats on the Gear tab.</p>`})()}
@@ -2486,6 +2604,17 @@ function eqSlotHTML(i,area,icon,L,small){const s=EQ_SET===2&&area==='weapon'?11:
   const factor={weapon:.64,offhand:.78,helm:.76,armor:.80,gloves:.82,belt:.78,boots:.78,amulet:.70,ring1:.70,ring2:.70}[area]||.78;
   const art=a?'<span class="gear-art" style="width:'+(Math.min(100,100*a.w/pos[4])*factor)+'%;height:'+(Math.min(100,100*a.h/pos[5])*factor)+'%"><img src="'+a.src+'" alt="" loading="lazy" decoding="async" onerror="this.parentElement.remove()"></span>':'';
   return '<div class="eslot es-'+area+(g?' has':'')+(eqTip===s?' tipon':'')+'" style="left:'+pos[0]+'%;top:'+pos[1]+'%;width:'+pos[2]+'%;height:'+pos[3]+'%" tabindex="0" data-act="eq-slot" data-s="'+s+'" aria-label="'+esc(SLOTS[s])+': '+(g?esc(g.it):'empty')+'">'+art+(g?eqTipHTML(g):'')+'</div>'}
+const MERC_POS={weapon:[7.8,21.1,19.9,28.5,2,4],helm:[40,11.6,20,15.3,2,2],armor:[40,27.6,20,21.9,2,3]};
+function mercSlotHTML(i,area,L,paperIndex){const g=eqItemAt(i,L),pos=MERC_POS[area],a=g&&gearArtInfo(g.it),factor={weapon:.64,helm:.76,armor:.8}[area];
+  const art=a?'<span class="gear-art" style="width:'+(Math.min(100,100*a.w/pos[4])*factor)+'%;height:'+(Math.min(100,100*a.h/pos[5])*factor)+'%"><img src="'+a.src+'" alt="" loading="lazy" decoding="async" onerror="this.parentElement.remove()"></span>':'';
+  const ghost=area==='weapon'?'<span class="merc-paperdoll" style="--paper-frame:'+paperIndex*25+'%" aria-hidden="true"></span>':'';
+  return '<div class="merc-slot '+area+(g?' has':'')+(eqTip===i?' tipon':'')+'" style="left:'+pos[0]+'%;top:'+pos[1]+'%;width:'+pos[2]+'%;height:'+pos[3]+'%" tabindex="0" data-act="eq-slot" data-s="'+i+'" aria-label="'+esc(SLOTS[i])+': '+(g?esc(g.it):'empty')+'">'+ghost+art+(g?eqTipHTML(g):'')+'</div>'}
+function mercPanelHTML(L){const m=String(B.merc||''),paperIndex=/Act\s*1\b/i.test(m)?0:/Act\s*2\b/i.test(m)?1:/Act\s*3\b/i.test(m)?2:/Act\s*5\b/i.test(m)?4:1,atk=mercAttack(B,L),xs=[12,13,14].map(s=>(B.gear||[]).filter(x=>x.s===s&&x.lv<=L).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),T={res:0,ias:0,fhr:0};
+  xs.forEach(g=>gearParts(g.it).forEach(p=>{if(!p.key)return;for(const k in T)T[k]+=IX[p.key][k]||0}));
+  const facts=[['Hireling',m||'Not selected'],['Aura',m?mercAura(m):'Choose a hireling'],['Attack',atk?`${atk.now} frames`:'—'],['IAS / FHR',`${T.ias}% / ${T.fhr}%`]];
+  const factRows=facts.map(([l,v],i)=>`<div class="merc-fact mf-${i}"><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join('');
+  const slots=[[12,'weapon'],[14,'helm'],[13,'armor']].map(([i,area])=>mercSlotHTML(i,area,L,paperIndex)).join('');
+  return `<div class="merc-panel"><div class="merc-sheet-title">Mercenary</div><div class="merc-facts">${factRows}</div>${slots}<div class="merc-bottom"><span>Level ${L}</span><span>${xs.length} equipped items</span></div></div>`}
 function packInventoryItems(items){
   const used=Array.from({length:4},()=>Array(10).fill(false)),placed=[],overflow=[];
   for(const item of items){const a=gearArtInfo(item.it),w=Math.max(1,Math.min(10,a?+a.w||1:1)),h=Math.max(1,Math.min(4,a?+a.h||1:1));let spot=null;
@@ -2501,14 +2630,13 @@ function equipHTML(){
   const charms=[...new Map(g.filter(x=>x.s===10&&x.lv<=L).map(x=>[x.it,x])).values()],packed=packInventoryItems(charms);
   const invItems=packed.placed.map(p=>'<div class="inv-item" tabindex="0" style="grid-column:'+(p.x+1)+'/span '+p.w+';grid-row:'+(p.y+1)+'/span '+p.h+'" aria-label="'+esc(p.item.it)+'">'+(p.art?'<img src="'+p.art.src+'" alt="" loading="lazy" decoding="async" onerror="this.parentElement.remove()">':'<span class="inv-fallback">'+esc(p.item.it.charAt(0))+'</span>')+eqTipHTML(p.item)+'</div>').join('');
   const overflow=packed.overflow.length?'<p class="hint inv-overflow">These charms do not fit in the 10×4 inventory: '+packed.overflow.map(c=>esc(c.it)).join(', ')+'</p>':'';
-  const merc=[12,14,13].map(i=>{const m=eqItemAt(i,L),q=m&&eqLookup(m.it),art=m&&gearArtHTML(m.it,20);return '<div class="emini'+(m?' has':'')+'" tabindex="0" data-act="eq-slot" data-s="'+i+'"><span class="esn">'+esc(SLOTS[i].replace('Merc ',''))+'</span>'+(art||'')+(m?'<span class="ein q-'+(q?q.q:'n')+'">'+esc(m.it)+'</span>'+eqTipHTML(m):'<span class="eempty">empty</span>')+'</div>'}).join('');
+  const merc=mercPanelHTML(L);
   const stepButtons=steps.length>1?'<div class="esteps" role="group" aria-label="Gear at level"><span class="label">Gear at level</span>'+steps.map(l=>'<button class="chip" data-act="eq-lvl" data-l="'+l+'" aria-pressed="'+(l===L)+'">'+l+'</button>').join('')+'</div>':'';
   const tabSource=EQ_SET===2?'weaponswap':'tab';
   const tabs=side=>'<div class="weapon-tabs weapon-tabs-'+side+'" style="background-image:url(images/ui/'+tabSource+'.png)" role="group" aria-label="'+(side==='left'?'Weapon':'Off-hand')+' set">'+(side==='right'?[2,1]:[1,2]).map(set=>'<button type="button" data-act="eq-set" data-set="'+set+'" aria-pressed="'+(set===EQ_SET)+'">'+(set===1?'I':'II')+'</button>').join('')+'</div>';
   const attribution='<p class="hint art-credit" style="margin:0">Item artwork: <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>. Inventory panel texture: <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio D2R UI assets</a>. Diablo II: Resurrected artwork and game data belong to Blizzard Entertainment. Horadric Odds does not own or claim rights to this artwork and is not affiliated with Blizzard or LootCube.</p>';
   return '<section class="card equip"><header><h2>Equipment</h2><span class="muted">'+CLS[B.cls].name+' · level '+L+'</span></header>'+stepButtons+
-    '<div class="eqwrap"><div class="doll"><img class="inventory-bg" src="images/ui/inventory-background.png" alt="" loading="lazy" decoding="async">'+tabs('left')+tabs('right')+doll+'<div class="inv-grid">'+invItems+'</div></div>'+
-    '<div class="eside"><div class="eblock"><span class="label">Mercenary</span><div class="emerc">'+merc+'</div></div>'+overflow+'</div></div>'+
+    '<div class="eqwrap"><div class="eside">'+merc+'</div><div class="doll"><img class="inventory-bg" src="images/ui/inventory-background.png" alt="" loading="lazy" decoding="async">'+tabs('left')+tabs('right')+doll+'<div class="inv-grid">'+invItems+'</div></div></div>'+overflow+
     '<p class="hint" style="margin:0">Use I/II on either tab strip to switch both weapon and off-hand sets. Click an empty slot to add that set’s item. Charms fill the 10×4 inventory grid by their in-game footprint; hover or tap any item for its stats.</p>'+attribution+'</section>'}
 function gearHTML(){
   const g=B.gear||(B.gear=[]);const sim=simulate(B);const probs=new Map(reqProblems(B,sim).map(p=>[p.k,p]));
@@ -2698,6 +2826,7 @@ view.addEventListener('click',e=>{
     if(changed){save();render()}return;
   }
   if(act==='phase'){PI=+a.dataset.i;render();return}
+  if(act==='stats-mode'){STATS_MODE=STATS_MODE==='advanced'?'attributes':'advanced';render();return}
   if(act==='phase-add'){addingPhase=true;render();return}
   if(act==='phase-add-cancel'){addingPhase=false;render();return}
   if(act==='phase-add-ok'){
@@ -6756,5 +6885,7 @@ if(!root.hidden){render();startTick();try{if(location.hash!=='#'+SUB)history.rep
 </script>
 
 <script>/* offline support and install as an app (website only) */if('serviceWorker' in navigator&&location.protocol==='https:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
+<script src="d2-font.js" defer></script>
 </body>
 </html>
+
