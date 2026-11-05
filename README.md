@@ -25,6 +25,7 @@ No ads, no sign-up, works on PC and phone.
 - Side-by-side build comparison.
 - Starter builds to open in the planner, with links to the matching Maxroll and Icy Veins guides.
 - Share builds as links or build codes.
+- **Import save:** load a single-player character (.d2s) to open its build with its skills, stats and gear (magic and rare items by name), fill your Grail and count your runes; add your shared stash (.d2i) too. Files are read on your device and never uploaded.
 
 ### Experience
 - Enter your level and see how much experience, how many kills and how many full clears it takes to reach your next level or a goal level.
@@ -36,10 +37,15 @@ No ads, no sign-up, works on PC and phone.
 - **Rune helper:** enter your runes to see which runewords you can make now, which you could make after cubing runes up (with the exact steps and gems), and which you're one rune short of. Search by name, nickname (cta, coh, hoto…) or rune.
 - **Run tracker:** count and time your boss runs, log drops, and compare your luck with the calculator's odds.
 - **Cube recipes:** every Horadric Cube recipe from the game files, searchable by ingredient.
+- **Roll checker:** type in your item's numbers to see how good each roll is, from 0% to perfect.
+- **Sockets & affixes:** how many sockets a base can get at its item level (Larzuk and cube), and which magic or rare affixes can roll on it, including charms.
+
+### Offline and as an app
+- Once opened, the site works without an internet connection, and you can install it to your phone's home screen or as a desktop app from your browser.
 
 ### How to use
 - The **How to use** tab walks through each tool step by step and answers common questions.
-- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner), [#experience](https://horadricodds.github.io/#experience), [#grail](https://horadricodds.github.io/#grail), [#runes](https://horadricodds.github.io/#runes), [#runs](https://horadricodds.github.io/#runs) or [#cube](https://horadricodds.github.io/#cube). Drop odds links carry the item and settings you picked.
+- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner), [#experience](https://horadricodds.github.io/#experience), [#grail](https://horadricodds.github.io/#grail), [#runes](https://horadricodds.github.io/#runes), [#runs](https://horadricodds.github.io/#runs), [#cube](https://horadricodds.github.io/#cube), [#rolls](https://horadricodds.github.io/#rolls), [#affixes](https://horadricodds.github.io/#affixes) or [#import](https://horadricodds.github.io/#import). Drop odds links carry the item and settings you picked.
 
 ## Reporting problems
 
@@ -61,4 +67,4 @@ Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Bliz
 
 ## How it's built
 
-The whole site is a single `index.html` file with no server. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.
+The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.
