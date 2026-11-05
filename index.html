@@ -2014,7 +2014,7 @@ const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.par
 
 let B, PI=0, TAB='plan', undoB=null, pendingDel=null, addingPhase=false;
 window.__hpCode=()=>{try{return B?encode(B):''}catch(e){return ''}};
-window.__hpExportBuild=()=>{try{const C=CLS[B.cls],ph=B.phase[PI],level=phaseEnd(B,PI),cnt=counts(ph),main=gearAt(B,level,false),swap=gearAt(B,level,true).filter(g=>g.s===11||g.s===15),merc=[12,13,14].map(s=>(B.gear||[]).filter(g=>g.s===s&&g.lv<=level).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),all=[...main,...swap,...merc];return {cls:B.cls,classCode:C.code,className:C.name,name:B.name,level,quests:!!B.quests,stats:{...ph.st},skills:C.skills.map((s,i)=>({name:s.name,points:cnt[i]||0})).filter(s=>s.points>0),gear:all.map(g=>{const p=gearParts(g.it)[0]||{};return {slot:g.s,item:g.it,base:p.base||null,eth:!!p.eth,custom:g.x||null}}),merc:B.merc||''}}catch(e){return null}};
+window.__hpExportBuild=()=>{try{const C=CLS[B.cls],ph=B.phase[PI],sink=STATS.includes(ph.sink)?ph.sink:'vit',level=phaseEnd(B,PI),cnt=counts(ph),budget=stAt(B,level),spentNonSink=STATS.filter(s=>s!==sink).reduce((a,s)=>a+Math.max(0,ph.st[s]-C.base[s]),0),rest=budget-spentNonSink,stats={...ph.st};stats[sink]=C.base[sink]+Math.max(0,rest);const spent=STATS.reduce((a,s)=>a+Math.max(0,stats[s]-C.base[s]),0),main=gearAt(B,level,false),swap=gearAt(B,level,true).filter(g=>g.s===11||g.s===15),merc=[12,13,14].map(s=>(B.gear||[]).filter(g=>g.s===s&&g.lv<=level).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),all=[...main,...swap,...merc];return {cls:B.cls,classCode:C.code,className:C.name,name:B.name,level,quests:!!B.quests,stats,statPointsRemaining:Math.max(0,budget-spent),statOver:Math.max(0,-rest),skills:C.skills.map((s,i)=>({name:s.name,points:cnt[i]||0})).filter(s=>s.points>0),gear:all.map(g=>{const p=gearParts(g.it)[0]||{};return {slot:g.s,item:g.it,base:p.base||null,eth:!!p.eth,custom:g.x||null}}),merc:B.merc||''}}catch(e){return null}};
 /* open a character read from an offline save file (Build planner > Import save) as a build */
 window.__hpImportSave=(ch,itemText)=>{try{
   const cls=KEYMAP[ch.cls],C=CLS[cls];if(!C)return false;
@@ -2405,13 +2405,13 @@ function defenseAt(b,end){
   return found?{min:Math.floor(lowTotal),max:Math.floor(highTotal)}:null;
 }
 function statsCard(C,ph,end,sim,attack){
-  const avail=stAt(B,end);
-  const spentNonSink=STATS.filter(s=>s!==ph.sink).reduce((a,s)=>a+Math.max(0,ph.st[s]-C.base[s]),0);
+  const sink=STATS.includes(ph.sink)?ph.sink:'vit',avail=stAt(B,end);
+  const spentNonSink=STATS.filter(s=>s!==sink).reduce((a,s)=>a+Math.max(0,ph.st[s]-C.base[s]),0);
   const rest=avail-spentNonSink;
   const remaining=Math.max(0,avail-spentNonSink-Math.max(0,rest));
-  const current={};for(const s of STATS)current[s]=s===ph.sink?C.base[s]+Math.max(0,rest):ph.st[s];
-  const vit=C.base.vit+(ph.sink==='vit'?Math.max(0,rest):Math.max(0,ph.st.vit-C.base.vit));
-  const ene=C.base.ene+(ph.sink==='ene'?Math.max(0,rest):Math.max(0,ph.st.ene-C.base.ene));
+  const current={};for(const s of STATS)current[s]=s===sink?C.base[s]+Math.max(0,rest):ph.st[s];
+  const vit=C.base.vit+(sink==='vit'?Math.max(0,rest):Math.max(0,ph.st.vit-C.base.vit));
+  const ene=C.base.ene+(sink==='ene'?Math.max(0,rest):Math.max(0,ph.st.ene-C.base.ene));
   const life=Math.floor(C.life[0]+C.life[1]*(end-1)+C.life[2]*(vit-C.base.vit)),mana=Math.floor(C.mana[0]+C.mana[1]*(end-1)+C.mana[2]*(ene-C.base.ene));
   const R=gearTotals(B,end),T=R.t,DF=defenseInfo(B,end,sim),A=attack||attackInfo(B,end);
   const hard=counts(ph);
@@ -2444,8 +2444,8 @@ function statsCard(C,ph,end,sim,attack){
   const modeToggle=`<button class="stats-mode-toggle ${mode==='advanced'?'advanced':''}" data-act="stats-mode" title="Switch to ${mode==='advanced'?'attributes':'advanced stats'}" aria-label="Switch to ${mode==='advanced'?'attributes':'advanced stats'}"><span>${mode==='advanced'?'Attributes':'Advanced'}</span></button>`;
   const statSheet=mode==='advanced'?`<div class="character-sheet advanced-sheet"><div class="sheet-title">Character · Advanced<span class="sheet-mode-toggle">${modeToggle}</span></div><div class="advanced-values">${advancedRows}</div></div>`:
      `<div class="character-sheet attributes-sheet"><div class="sheet-title">Character<span class="sheet-mode-toggle">${modeToggle}</span></div><div class="sheet-charname">${esc(B.name||C.name)}</div><div class="sheet-exp"><img src="images/ui/expbarfill.png" alt="" style="width:${Math.max(0,Math.min(100,end/99*100))}%"></div><div class="sheet-level"><span>Level ${end} ${esc(C.name)}</span><span>Experience to next level</span></div><div class="character-attributes">${attrRows}</div><div class="character-details">${detailRows}</div><div class="character-resists">${resistRows}</div><div class="character-points">${remaining} Stat Points Remaining</div></div>`;
-  const prio=ph.prio.filter(s=>s!==ph.sink).map((s,i)=>`<span class="p">${i+1}. ${SA[s]}${i>0?`<button data-act="prio-up" data-s="${s}" aria-label="Move ${SN[s]} earlier">↑</button>`:''}</span>`).join('')+`<span class="p" style="padding-right:8px">then ${SA[ph.sink]}</span>`;
-  const sinkRows=STATS.map(s=>`<label><input type="radio" name="sink" data-act="sink" data-s="${s}" ${s===ph.sink?'checked':''}> ${SA[s]}</label>`).join('');
+   const prio=ph.prio.filter(s=>s!==sink).map((s,i)=>`<span class="p">${i+1}. ${SA[s]}${i>0?`<button data-act="prio-up" data-s="${s}" aria-label="Move ${SN[s]} earlier">↑</button>`:''}</span>`).join('')+`<span class="p" style="padding-right:8px">then ${SA[sink]}</span>`;
+   const sinkRows=STATS.map(s=>`<label><input type="radio" name="sink" data-act="sink" data-s="${s}" ${s===sink?'checked':''}> ${SA[s]}</label>`).join('');
   return `<section class="card player-stats-card">
     ${statSheet}
     <div class="stats-sink"><span class="label">Rest points to</span>${sinkRows}</div>
@@ -6595,6 +6595,7 @@ function seApplyLoadout(plan,m,prepared){const E=seEng(),hasPlan=Array.isArray(p
   m.items=draft.items;m.merc=draft.merc;m.pre=draft.pre;m.mercId=draft.mercId;m.hasJf=draft.hasJf;
   return {player:load.items.filter(p=>!p.merc).reduce((n,p)=>n+p.count,0),merc:load.items.filter(p=>p.merc).reduce((n,p)=>n+p.count,0)}}
 function seApplyBuild(plan){const E=seEng(),m=SE.m,planClass=plan&&(plan.classCode||plan.cls);if(!E||!m||!plan)return false;
+  if(+plan.statOver>0){SE.err=`This phase allocates ${plan.statOver} more stat points than are available by level ${plan.level}. Adjust the targets before exporting.`;return false}
   if(planClass==='war'&&m.ver<0x69){SE.err='Warlock builds need a Reign of the Warlock save. This save predates that character class.';return false}
   if(planClass!==m.cls){const actual=E.classInfo(m);SE.err=`This build is for a ${plan.className||plan.cls}. Load a matching save to export it; the selected save is ${actual&&actual[1]||m.cls}.`;return false}
   const c=E.classInfo(m),base=c&&c[2];if(!base){SE.err='Could not read the base stats for this character.';return false}
@@ -6812,7 +6813,7 @@ function editorHTML(){const E=seEng();const m=SE.m;
   const plan=window.__plannedCharacterBuild;let suggested=String(plan&&plan.name||'Hero').replace(/[^A-Za-z0-9_-]/g,'').replace(/^[^A-Za-z]+/,'').slice(0,15);if(suggested.length<2)suggested='Hero';
   if(!m)return `<section class="tl-card"><h3>Save editor</h3>
     <p class="tl-note">Create a new offline character from a planned build or edit an existing .d2s save. Save files are handled on this device and are never uploaded.</p>
-    ${plan?`<div class="tl-card se-top"><h4>Export “${esc(plan.name)}” as a character</h4><p class="tl-note">Level ${plan.level} ${esc(plan.className)} · selected phase stats, allocated skills, ${plan.gear&&plan.gear.length||0} gear entries${plan.merc?' and '+esc(plan.merc):(plan.gear||[]).some(g=>g.slot>=12&&g.slot<=14)?' and the planned mercenary':''} will be copied in.</p>
+    ${plan?`<div class="tl-card se-top"><h4>Export “${esc(plan.name)}” as a character</h4><p class="tl-note">Level ${plan.level} ${esc(plan.className)} · final phase attributes (${plan.statPointsRemaining||0} stat points left), allocated skills, ${plan.gear&&plan.gear.length||0} gear entries${plan.merc?' and '+esc(plan.merc):(plan.gear||[]).some(g=>g.slot>=12&&g.slot<=14)?' and the planned mercenary':''} will be copied in.</p>
       <div class="tl-row"><label>Save version <select id="se-export-version">
         <option value="105" ${SE.exportTarget==='105'?'selected':''}>D2R v105 · Reign of the Warlock</option>
         <option value="104" ${SE.exportTarget==='104'?'selected':''}>D2R v104</option><option value="103" ${SE.exportTarget==='103'?'selected':''}>D2R v103</option><option value="102" ${SE.exportTarget==='102'?'selected':''}>D2R v102</option><option value="101" ${SE.exportTarget==='101'?'selected':''}>D2R v101</option><option value="100" ${SE.exportTarget==='100'?'selected':''}>D2R v100</option><option value="99" ${SE.exportTarget==='99'?'selected':''}>D2R v99</option><option value="98" ${SE.exportTarget==='98'?'selected':''}>D2R v98</option><option value="97" ${SE.exportTarget==='97'?'selected':''}>D2R v97</option>
