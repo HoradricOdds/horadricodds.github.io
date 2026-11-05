@@ -1066,6 +1066,31 @@ button[data-tip],label [data-tip]{cursor:pointer}
 #hp .inline-form input{background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:4px 6px}
 @media (prefers-reduced-motion:no-preference){#hp .node,#hp .btn,#hp .chip{transition:border-color .12s,background .12s}}
 </style>
+<style id="gear-inventory-preview">
+#hp .eqwrap{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:16px;align-items:start}
+#hp .doll{position:relative;display:block;width:100%;max-width:560px;aspect-ratio:1162/1507;margin:0 auto;padding:0;border:0;border-radius:0;background:none;box-shadow:none;overflow:visible}
+#hp .doll .inventory-bg{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill;user-select:none;pointer-events:none}
+#hp .doll .eslot{position:absolute;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;min-height:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:#ddd5c5;cursor:default;outline:none}
+#hp .doll .eslot.has{cursor:help}
+#hp .doll .eslot.es-weapon,#hp .doll .eslot.es-offhand{justify-content:flex-start}
+#hp .doll .eslot:not(.has){cursor:pointer}
+#hp .doll .eslot:hover,#hp .doll .eslot:focus-visible,#hp .doll .eslot.tipon{z-index:40;outline:2px solid rgba(217,178,90,.52);outline-offset:2px;box-shadow:none}
+#hp .inv-grid{z-index:4}
+#hp .inv-item:hover,#hp .inv-item:focus-visible{z-index:40}
+#hp .doll .ett{z-index:100}
+#hp .eside .emini:hover,#hp .eside .emini:focus-visible{position:relative;z-index:40}
+#hp .gear-art{position:relative;display:flex;flex:0 0 auto;align-items:center;justify-content:center;max-width:100%;max-height:100%;pointer-events:none}
+#hp .gear-art img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(0,0,0,.82))}
+#hp .inv-grid{position:absolute;z-index:2;left:7.83%;top:59.65%;width:84.25%;height:25.81%;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:0}
+#hp .inv-item{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;padding:0;border:0;background:transparent;overflow:visible;outline:none;cursor:help}
+#hp .inv-item img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(0,0,0,.82))}
+#hp .inv-fallback{font-size:.75rem;color:#d9b25a;text-shadow:0 1px 3px #000}
+#hp .inv-item:hover,#hp .inv-item:focus-visible{outline:1px solid rgba(217,178,90,.65);outline-offset:-1px}
+#hp .inv-item:hover .ett,#hp .inv-item:focus-visible .ett{display:block}
+#hp .eside{display:flex;flex-direction:column;gap:10px;min-width:0}
+#hp .inv-overflow{margin:0;color:#e9b353}
+@media(max-width:760px){#hp .eqwrap{grid-template-columns:minmax(0,1fr)}#hp .doll{max-width:520px}}
+</style>
 </head>
 <body>
 
@@ -2391,6 +2416,7 @@ const EQ_ICON={                                        // simple slot outlines (
  charm:'M14 6 L26 6 L30 12 L30 38 L10 38 L10 12 Z'};
 function gearArtInfo(it){const p=gearParts(it)[0];if(!p)return null;const code=p.base||(p.key&&IX[p.key]&&IX[p.key].b);return code?GEAR_ART[code]||null:null}
 function gearArtHTML(it,cell){const a=gearArtInfo(it);if(!a)return '';cell=cell||28;return `<span class="gear-art" style="width:${a.w*cell}px;height:${a.h*cell}px" aria-hidden="true"><img loading="lazy" decoding="async" src="${a.src}" alt="" onerror="this.parentElement.remove()"></span>`}const EQ_SLOTS=[[0,'weapon','weapon'],[1,'offhand','offhand'],[2,'helm','helm'],[3,'armor','armor'],[4,'gloves','gloves'],[5,'belt','belt'],[6,'boots','boots'],[7,'amulet','amulet'],[8,'ring1','ring'],[9,'ring2','ring']];
+const EQ_POS={weapon:[8.26,14.80,18.85,27.21,2,4],offhand:[72.98,14.80,18.85,27.21,2,4],helm:[40.45,11.61,18.85,14.40,2,2],armor:[40.45,27.67,18.85,21.17,2,3],amulet:[60.93,22.56,10.41,8.10,1,1],gloves:[8.17,43.73,19.02,14.60,2,2],ring1:[28.66,50.23,10.41,8.10,1,1],belt:[40.45,50.23,18.93,8.10,2,1],ring2:[60.93,50.23,10.41,8.10,1,1],boots:[72.98,43.73,19.02,14.60,2,2]};
 function eqItemAt(i,L){const xs=(B.gear||[]).filter(x=>x.s===i&&x.lv<=L).sort((a,b)=>b.lv-a.lv);return xs[0]||null}
 function eqNext(i,L){const xs=(B.gear||[]).filter(x=>x.s===i&&x.lv>L).sort((a,b)=>a.lv-b.lv);return xs[0]||null}
 /* quality and tooltip lines from the drop calculator's item data */
@@ -2420,32 +2446,33 @@ function eqTipHTML(g){const x=eqLookup(g.it);if(!x)return '';const L=[];
   else L.push(`<div class="tnote">${x.q==='rune'?'Rune':'No stat list for this entry'}${g.x?' · uses the stats you entered':''}</div>`);
   if(g.why)L.push(`<div class="twhy">${esc(g.why)}</div>`);
   return `<div class="ett q-${x.q}" role="tooltip"><div class="tn2">${esc(g.it)}</div>${L.join('')}</div>`}
-function eqSlotHTML(i,area,icon,L,small){const g=eqItemAt(i,L),nx=eqNext(i,L),x=g&&eqLookup(g.it),art=g&&gearArtHTML(g.it);
-  return `<div class="eslot es-${area}${g?' has':''}${art?' has-art':''}${eqTip===i?' tipon':''}" style="grid-area:${area}" tabindex="0" data-act="eq-slot" data-s="${i}" aria-label="${esc(SLOTS[i])}: ${g?esc(g.it):'empty'}">
-    <svg class="eico" viewBox="0 0 40 46" aria-hidden="true"><path d="${EQ_ICON[icon]}"/></svg>
-    ${art||''}<span class="esn">${esc(SLOTS[i])}</span>
-    ${g?`<span class="ein q-${x?x.q:'n'}">${esc(g.it)}</span><span class="elv">from L${g.lv}</span>`:`<span class="eempty">${nx?`L${nx.lv}: ${esc(nx.it)}`:'empty'}</span>`}
-    ${g?eqTipHTML(g):''}</div>`}
+function eqSlotHTML(i,area,icon,L,small){const g=eqItemAt(i,L),nx=eqNext(i,L),x=g&&eqLookup(g.it),pos=EQ_POS[area],a=g&&gearArtInfo(g.it);
+  const art=a?'<span class="gear-art" style="width:'+Math.min(100,100*a.w/pos[4])+'%;height:'+Math.min(100,100*a.h/pos[5])+'%"><img src="'+a.src+'" alt="" loading="lazy" decoding="async" onerror="this.parentElement.remove()"></span>':'';
+  return '<div class="eslot es-'+area+(g?' has':'')+(eqTip===i?' tipon':'')+'" style="left:'+pos[0]+'%;top:'+pos[1]+'%;width:'+pos[2]+'%;height:'+pos[3]+'%" tabindex="0" data-act="eq-slot" data-s="'+i+'" aria-label="'+esc(SLOTS[i])+': '+(g?esc(g.it):'empty')+'">'+art+(g?eqTipHTML(g):'')+'</div>'}
+function packInventoryItems(items){
+  const used=Array.from({length:4},()=>Array(10).fill(false)),placed=[],overflow=[];
+  for(const item of items){const a=gearArtInfo(item.it),w=Math.max(1,Math.min(10,a?+a.w||1:1)),h=Math.max(1,Math.min(4,a?+a.h||1:1));let spot=null;
+    for(let y=0;y<=4-h&&!spot;y++)for(let x=0;x<=10-w;x++){let free=true;for(let yy=y;yy<y+h&&free;yy++)for(let xx=x;xx<x+w;xx++)if(used[yy][xx]){free=false;break}if(free){spot={x,y};break}}
+    if(!spot){overflow.push(item);continue}
+    for(let yy=spot.y;yy<spot.y+h;yy++)for(let xx=spot.x;xx<spot.x+w;xx++)used[yy][xx]=true;
+    placed.push({item,x:spot.x,y:spot.y,w,h,art:a})}
+  return {placed,overflow}}
 function equipHTML(){
   const g=B.gear||[];const L=Math.min(B.level,EQL||B.level);
   const steps=[...new Set(g.map(x=>x.lv).filter(l=>l<=B.level))].sort((a,b)=>a-b);if(!steps.includes(B.level))steps.push(B.level);
   const doll=EQ_SLOTS.map(([i,area,icon])=>eqSlotHTML(i,area,icon,L)).join('');
-  const charms=[...new Map(g.filter(x=>x.s===10&&x.lv<=L).map(x=>[x.it,x])).values()];
-  const charmCards=charms.map(c=>{const q=eqLookup(c.it),art=gearArtHTML(c.it,20);return '<div class="emini has" tabindex="0">'+(art||'')+'<span class="ein q-'+(q?q.q:'n')+'">'+esc(c.it)+'</span>'+eqTipHTML(c)+'</div>'});
+  const charms=[...new Map(g.filter(x=>x.s===10&&x.lv<=L).map(x=>[x.it,x])).values()],packed=packInventoryItems(charms);
+  const invItems=packed.placed.map(p=>'<div class="inv-item" tabindex="0" style="grid-column:'+(p.x+1)+'/span '+p.w+';grid-row:'+(p.y+1)+'/span '+p.h+'" aria-label="'+esc(p.item.it)+'">'+(p.art?'<img src="'+p.art.src+'" alt="" loading="lazy" decoding="async" onerror="this.parentElement.remove()">':'<span class="inv-fallback">'+esc(p.item.it.charAt(0))+'</span>')+eqTipHTML(p.item)+'</div>').join('');
+  const overflow=packed.overflow.length?'<p class="hint inv-overflow">These charms do not fit in the 10×4 inventory: '+packed.overflow.map(c=>esc(c.it)).join(', ')+'</p>':'';
   const merc=[12,14,13].map(i=>{const m=eqItemAt(i,L),q=m&&eqLookup(m.it),art=m&&gearArtHTML(m.it,20);return '<div class="emini'+(m?' has':'')+'" tabindex="0" data-act="eq-slot" data-s="'+i+'"><span class="esn">'+esc(SLOTS[i].replace('Merc ',''))+'</span>'+(art||'')+(m?'<span class="ein q-'+(q?q.q:'n')+'">'+esc(m.it)+'</span>'+eqTipHTML(m):'<span class="eempty">empty</span>')+'</div>'}).join('');
   const sw=eqItemAt(11,L),swq=sw&&eqLookup(sw.it),swArt=sw&&gearArtHTML(sw.it,20);
-  return `<section class="card equip"><header><h2>Equipment</h2><span class="muted">${CLS[B.cls].name} · level ${L}</span></header>
-    ${steps.length>1?`<div class="esteps" role="group" aria-label="Gear at level"><span class="label">Gear at level</span>${steps.map(l=>`<button class="chip" data-act="eq-lvl" data-l="${l}" aria-pressed="${l===L}">${l}</button>`).join('')}</div>`:''}
-    <div class="eqwrap"><div class="doll">${doll}</div>
-      <div class="eside">
-        <div class="eblock"><span class="label">Charms</span><div class="echarms">${charms.length?charmCards.join(''):'<span class="eempty">none planned</span>'}</div></div>
-        <div class="eblock"><span class="label">Weapon swap</span><div class="emini${sw?' has':''}" tabindex="0" data-act="eq-slot" data-s="11">${sw?`${swArt||''}<span class="ein q-${swq?swq.q:'n'}">${esc(sw.it)}</span>${eqTipHTML(sw)}`:'<span class="eempty">empty</span>'}</div></div>
-        <div class="eblock"><span class="label">Mercenary</span><div class="emerc">${merc}</div></div>
-      </div></div>
-    <p class="hint" style="margin:0">Hover or tap an item for its stats. Click an empty slot to add an item there.</p>
-<p class="hint art-credit" style="margin:0">Item artwork: <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>. Diablo II: Resurrected artwork and game data belong to Blizzard Entertainment. Horadric Odds does not own or claim rights to this artwork and is not affiliated with Blizzard or LootCube.</p>
-</section>`;
-}
+  const stepButtons=steps.length>1?'<div class="esteps" role="group" aria-label="Gear at level"><span class="label">Gear at level</span>'+steps.map(l=>'<button class="chip" data-act="eq-lvl" data-l="'+l+'" aria-pressed="'+(l===L)+'">'+l+'</button>').join('')+'</div>':'';
+  const swap='<div class="eblock"><span class="label">Weapon swap</span><div class="emini'+(sw?' has':'')+'" tabindex="0" data-act="eq-slot" data-s="11">'+(swArt||'')+(sw?'<span class="ein q-'+(swq?swq.q:'n')+'">'+esc(sw.it)+'</span>'+eqTipHTML(sw):'<span class="eempty">empty</span>')+'</div></div>';
+  const attribution='<p class="hint art-credit" style="margin:0">Item artwork: <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>. Inventory panel texture: <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio D2R UI assets</a>. Diablo II: Resurrected artwork and game data belong to Blizzard Entertainment. Horadric Odds does not own or claim rights to this artwork and is not affiliated with Blizzard or LootCube.</p>';
+  return '<section class="card equip"><header><h2>Equipment</h2><span class="muted">'+CLS[B.cls].name+' · level '+L+'</span></header>'+stepButtons+
+    '<div class="eqwrap"><div class="doll"><img class="inventory-bg" src="images/ui/inventory-background.png" alt="" loading="lazy" decoding="async">'+doll+'<div class="inv-grid">'+invItems+'</div></div>'+
+    '<div class="eside">'+swap+'<div class="eblock"><span class="label">Mercenary</span><div class="emerc">'+merc+'</div></div>'+overflow+'</div></div>'+
+    '<p class="hint" style="margin:0">Equipped gear sits in its matching slot. Charms fill the 10×4 inventory grid by their in-game footprint. Hover or tap an item for its stats; click an empty slot to add gear.</p>'+attribution+'</section>'}
 function gearHTML(){
   const g=B.gear||(B.gear=[]);const sim=simulate(B);const probs=new Map(reqProblems(B,sim).map(p=>[p.k,p]));
   const rows=SLOTS.map((sl,i)=>{const xs=g.map((x,k)=>({...x,k})).filter(x=>x.s===i).sort((a,b)=>a.lv-b.lv);if(!xs.length)return '';
