@@ -70,3 +70,5 @@ Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Bliz
 ## How it's built
 
 The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.
+
+[![Buy me a coffee](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/horadricodds)
