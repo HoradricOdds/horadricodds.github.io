@@ -4,7 +4,6 @@
   const base = 'images/d2font/';
   const specs = {
     small: { file: 'font16.webp', key: 'font16', w: 14, h: 16, scale: 1.18 },
-    large: { file: 'font42.webp', key: 'font42', w: 39, h: 41, scale: 1 },
   };
   const images = {};
   const GOLD = 4;
@@ -75,13 +74,12 @@
 
   async function start() {
     try {
-      const [metricsResponse, small, large] = await Promise.all([
-        fetch(base + 'metrics.json'), loadImage(specs.small.file), loadImage(specs.large.file),
+      const [metricsResponse, small] = await Promise.all([
+        fetch(base + 'metrics.json'), loadImage(specs.small.file),
       ]);
       if (!metricsResponse.ok) return;
       const metrics = await metricsResponse.json();
       images.small = small;
-      images.large = large;
       const scan = (root = document) => root.querySelectorAll([
         '#hp .weapon-tabs button', '#hp .merc-sheet-title', '#hp .merc-fact span', '#hp .merc-bottom span'
       ].join(',')).forEach(el => renderHeading(el, metrics));
