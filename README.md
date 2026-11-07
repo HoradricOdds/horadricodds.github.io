@@ -15,18 +15,21 @@ No ads, no sign-up, works on PC and phone.
 - Hover over (or tap) any item name on the site to see its full stats, worded as the game shows them.
 - See every monster and area that drops it, and your chance per kill for your difficulty, player count and magic find.
 - Search by the stats you want, look up any monster's loot, or work out gambling odds.
+- **Merchants:** your odds of a chosen merchant selling an item with the stats you want, e.g. a 4-socket body armor with +100 life.
 - Includes terror zones, Find Item and first-kill quest drops.
 
 ### Build planner
 - Skill trees for all eight classes, including Warlock. Hover over a skill (or press and hold on a phone) for its in-game tooltip: damage at your level and the next, synergies, masteries and, for attack skills, your damage with the weapon you've planned.
 - Breakpoints worked out from your gear: cast speed, hit recovery, block and attack frames.
-- An equipment panel that shows your gear at any level, with each item's stats on hover or tap.
-- Resistances per difficulty, Str/Dex requirement checks, and a gear plan that shows where to farm each item.
+- An equipment panel and inventory that work like the game: click a slot to pick from the items that fit (with runeword bases, sockets and ethereal, and your own charm and rare stats), pick items up and move them, and right-click to change or remove them. Hover or tap any item for its stats and requirements.
+- Gear only counts toward your totals once its required level, Strength and Dexterity are met, and the leveling guide shows each item at the level you can really wear it.
+- Resistances per difficulty, charms in the inventory counted toward your totals, and a gear plan that shows where to farm each item.
 - A level-by-level leveling guide with a checklist to tick off while you play.
 - Side-by-side build comparison.
-- Starter builds to open in the planner, with links to the matching Maxroll and Icy Veins guides.
+- Starter builds to open in the planner, with stats and gear levels that match what each character can wear, and links to the matching Maxroll and Icy Veins guides.
 - Share builds as links or build codes.
 - **Import save:** load a single-player character (.d2s) to open its build with its skills, stats and gear (magic and rare items by name), fill your Grail and count your runes; add your shared stash (.d2i) too. Files are read on your device and never uploaded.
+- **Export Build:** turn a build into an offline character in the save editor, with its skills, stats, gear and mercenary, and tick the quests, acts and difficulties it should have completed.
 
 ### Experience
 - Enter your level and see how much experience, how many kills and how many full clears it takes to reach your next level or a goal level.
@@ -37,7 +40,7 @@ No ads, no sign-up, works on PC and phone.
 - **Holy Grail tracker:** tick off every unique, set item and rune you find, with progress by type and a link to where each missing item drops.
 - **Rune helper:** enter your runes to see which runewords you can make now, which you could make after cubing runes up (with the exact steps and gems), and which you're one rune short of. Search by name, nickname (cta, coh, hoto…) or rune.
 - **Run tracker:** count and time your boss runs, log drops, and compare your luck with the calculator's odds.
-- **Save editor:** load an offline character (.d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d) to change its level, stats, skills and gold, move, copy or delete items, and add any unique, set item, runeword, rune or gem, or a magic or rare item with the affixes you pick, then download the edited save.
+- **Save editor:** load an offline character (.d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d) to change its level, stats, skills and gold, move, copy or delete items, and add any unique, set item, runeword, rune or gem, or a magic or rare item with the affixes you pick, tick completed quests, acts and difficulties, then download the edited save.
 - **Cube recipes:** every Horadric Cube recipe from the game files, searchable by ingredient.
 - **Roll checker:** type in your item's numbers to see how good each roll is, from 0% to perfect.
 - **Sockets & affixes:** how many sockets a base can get at its item level (Larzuk and cube), and which magic or rare affixes can roll on it, including charms.
@@ -47,7 +50,7 @@ No ads, no sign-up, works on PC and phone.
 
 ### How to use
 - The **How to use** tab walks through each tool step by step and answers common questions.
-- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner), [#experience](https://horadricodds.github.io/#experience), [#grail](https://horadricodds.github.io/#grail), [#runes](https://horadricodds.github.io/#runes), [#runs](https://horadricodds.github.io/#runs), [#cube](https://horadricodds.github.io/#cube), [#rolls](https://horadricodds.github.io/#rolls), [#affixes](https://horadricodds.github.io/#affixes) or [#import](https://horadricodds.github.io/#import). Drop odds links carry the item and settings you picked.
+- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner), [#experience](https://horadricodds.github.io/#experience), [#grail](https://horadricodds.github.io/#grail), [#runes](https://horadricodds.github.io/#runes), [#runs](https://horadricodds.github.io/#runs), [#cube](https://horadricodds.github.io/#cube), [#rolls](https://horadricodds.github.io/#rolls), [#affixes](https://horadricodds.github.io/#affixes), [#editor](https://horadricodds.github.io/#editor) or [#import](https://horadricodds.github.io/#import). Drop odds links carry the item and settings you picked.
 
 ## Reporting problems
 
@@ -63,6 +66,8 @@ When reporting wrong odds or numbers, it helps to include the item or build, the
 - **Breakpoints:** cast, hit-recovery and block tables from [d2runewizard](https://d2runewizard.com/breakpoints), with the Warlock tables checked against [AOEAH](https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation).
 - **Experience:** rules checked against [The Amazon Basin wiki](https://theamazonbasin.com/wiki/index.php/Experience). Monster counts per area come from [u/Pavke](https://www.reddit.com/user/Pavke/)'s Experience Calculator, which was also used to check the numbers. Thanks, Pavke!
 - **Builds:** the starter builds are written for Horadric Odds from the game data and common community knowledge. For full guides, see [Maxroll](https://maxroll.gg/d2/category/guides) and [Icy Veins](https://www.icy-veins.com/d2/); each build links to them.
+- **Save files:** the save format comes from the community's reverse engineering (d07riv, dschu012/d2s (MIT), nokka/d2s, krisives/d2s-format, and the d2s Rust crate for Reign of the Warlock).
+- **Artwork:** item pictures from LootCube; the inventory panel texture from Dimentio's D2R UI assets. Diablo II: Resurrected artwork belongs to Blizzard Entertainment.
 - **Prices:** the optional price links open [diablo2.io](https://diablo2.io/)'s price check for the item, with permission from its admin. Horadric Odds doesn't collect or store any price data.
 
 Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment.

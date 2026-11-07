@@ -1,7 +1,107 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Horadric Odds">
+<meta property="og:title" content="Horadric Odds: the free all-in-one D2R toolkit">
+<meta property="og:description" content="The all-in-one Diablo II: Resurrected toolkit: where any item drops and your odds per kill, build planning with skill damage and breakpoints, the fastest places to level, Holy Grail, runes and run tracking, and a save editor for offline characters (D2R, LoD and Classic). Free, no ads, no sign-up.">
+<meta property="og:url" content="https://horadricodds.github.io/">
+<meta property="og:image" content="https://horadricodds.github.io/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Horadric Odds: drop odds, build planner, experience, Holy Grail, runes and save editor for Diablo II: Resurrected">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#c4513a">
+<link rel="canonical" href="https://horadricodds.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23110e0b'/%3E%3Cpath d='M18 14h28v6l-8 6v14l8 6v4H18v-4l8-6V26l-8-6z' fill='%23cdb57c'/%3E%3Ccircle cx='32' cy='33' r='4' fill='%23c4513a'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Horadric Odds">
 <title>Horadric Odds</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Diablo II: Resurrected drop calculator. Search any item to see where it drops and the chance per kill.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}#hp .skill-tab-emblem{display:none!important}
+#hp .doll .eslot.has,#hp .merc-slot,#hp .inv-item,#hp .inv-grid{cursor:pointer}
+#hp .inv-grid:focus-visible{outline:2px solid rgba(217,178,90,.52);outline-offset:2px}
+#hp .gp-pop{position:fixed;z-index:3000;width:min(380px,calc(100vw - 16px));max-height:min(520px,calc(100vh - 16px));display:flex;flex-direction:column;gap:8px;padding:10px;
+  background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2);font-size:14px}
+#hp .gp-pop.sheet{left:0;right:0;bottom:0;top:auto;width:auto;max-height:78vh;border-radius:12px 12px 0 0;padding:12px max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+#hp .gp-h{display:flex;align-items:baseline;gap:8px}#hp .gp-h b{font-size:15px}#hp .gp-h .muted{font-size:12px;flex:1}
+#hp .gp-x{border:0;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 4px}#hp .gp-x:hover{color:var(--text)}
+#hp .gp-cur{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--sunk);border-radius:4px;font-size:13px}#hp .gp-cur .gp-n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-q{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:7px 9px;font:inherit}
+#hp .gp-q:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#hp .gp-f{display:flex;gap:4px;flex-wrap:wrap}#hp .gp-f button{font:inherit;font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
+#hp .gp-f button[aria-pressed="true"]{background:var(--text);color:var(--panel);border-color:var(--text)}
+#hp .gp-list{list-style:none;margin:0;padding:0;overflow-y:auto;min-height:60px;flex:1;overscroll-behavior:contain;border-top:1px solid var(--line)}
+#hp .gp-row{display:flex;align-items:center;gap:9px;padding:5px 6px;border-radius:4px;cursor:pointer}
+#hp .gp-row:hover,#hp .gp-row.sel{background:var(--sunk)}#hp .gp-row.late{opacity:.62}#hp .gp-row.late:hover,#hp .gp-row.late.sel{opacity:1}
+#hp .gp-art{flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#16120e;border-radius:3px}
+#hp .gp-art img{max-width:28px;max-height:28px;object-fit:contain}#hp .gp-noart{color:#cdb57c;font-size:15px}
+#hp .gp-txt{flex:1;min-width:0;display:flex;flex-direction:column}#hp .gp-n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-b{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-l{flex:none;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+#hp .gp-n.q-u{color:var(--unique)}#hp .gp-n.q-s{color:var(--set)}#hp .gp-n.q-rw{color:var(--rune)}#hp .gp-n.q-magic{color:var(--magic)}#hp .gp-n.q-rare{color:var(--rare)}
+#hp .gp-empty{padding:14px 6px;color:var(--muted);font-size:13px}#hp .gp-foot{font-size:11.5px}
+#hp.gp-open .doll .ett,#hp.gp-open .merc-slot .ett,#hp.gp-open .inv-item .ett{display:none!important}
+body .itemtip{z-index:3500}
+#hp .gp-cfg{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+#hp .gp-back{align-self:flex-start;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;padding:0;cursor:pointer}#hp .gp-back:hover{color:var(--text)}
+#hp .gp-rwh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}#hp .gp-rwh .gp-n{font-size:16px}#hp .gp-runes{font-size:12px;color:var(--rune)}
+#hp .gp-best{display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:var(--sunk);border-left:3px solid var(--rune);border-radius:4px;font-size:13px}#hp .gp-best span{color:var(--muted);font-size:12.5px}
+#hp .gp-fld{display:flex;flex-direction:column;gap:4px}#hp .gp-base{font:inherit;padding:6px 8px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px}
+#hp .gp-opts{display:flex;align-items:center;gap:18px;flex-wrap:wrap}#hp .gp-eth{display:flex;align-items:center;gap:6px;cursor:pointer}
+#hp .gp-sock{display:flex;align-items:baseline;gap:6px}#hp .gp-sock b{font-size:15px}#hp .gp-sock .muted{font-size:12px}
+#hp .gp-note{margin:0;font-size:12px;min-height:1.3em}#hp .gp-add{align-self:stretch}
+#hp .gp-more{font-size:15px;color:var(--rune);margin-left:2px}
+#hp .gp-row.cur{box-shadow:inset 3px 0 0 var(--rune)}#hp .gp-eq{flex:none;font-size:11px;padding:1px 6px;border-radius:999px;background:var(--rune);color:var(--panel);margin-right:4px}
+#hp .gear-art.eth img,#hp .inv-item.eth img{opacity:.5}
+#hp .gp-xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px}#hp .gp-xf{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px}#hp .gp-xf span{color:var(--muted);min-width:0}
+#hp .gp-xf input{width:64px;flex:none;font:inherit;padding:4px 6px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;text-align:right}
+#hp .gp-more-st summary{cursor:pointer;font-size:12.5px;color:var(--muted);margin-bottom:6px}#hp .gp-prev{font-size:12px;overflow-wrap:anywhere}
+#hp .gp-cfg>*{flex-shrink:0}
+#hp .inv-item.held{opacity:.25}
+#hp .inv-ghost{position:absolute;z-index:6;pointer-events:none;display:flex;align-items:center;justify-content:center;background:rgba(80,160,90,.28);outline:1px solid rgba(120,220,130,.7)}
+#hp .inv-ghost.swap{background:rgba(200,170,60,.28);outline-color:rgba(230,200,90,.8)}#hp .inv-ghost.bad{background:rgba(190,50,40,.32);outline-color:rgba(230,80,60,.8)}
+#hp .inv-ghost img{max-width:92%;max-height:92%;object-fit:contain}#hp .inv-ghost.eth img{opacity:.5}
+#hp .gp-holdbar{position:absolute;left:4%;right:4%;bottom:1.2%;z-index:7;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;background:rgba(12,10,8,.92);border:1px solid #6e5630;border-radius:4px;color:#ddd5c5;font-size:12.5px}
+#hp .gp-holdbar span{flex:1;min-width:160px}
+#hp .inv-grid:has(.held) .ett{display:none!important}
+#hp .xp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:6px 0}
+#hp .xp-list{list-style:none;margin:4px 0 0;padding:0;font-size:.92rem}#hp .xp-list li{display:flex;gap:8px;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
+#hp .xp-list li b{font-variant-numeric:tabular-nums}
+#hp .gp-add{position:sticky;bottom:0}
+#hp .character-attributes{pointer-events:none}#hp .character-attributes *{pointer-events:auto}#hp .sheet-mode-toggle{z-index:8}
+#hp .eslot.held .gear-art,#hp .merc-slot.held .gear-art{opacity:.3}#hp .eslot.held .ett,#hp .merc-slot.held .ett{display:none!important}
+#hp .doll .eslot.drop-ok,#hp .merc-slot.drop-ok{outline:2px solid rgba(120,220,130,.85)!important;outline-offset:1px;background:rgba(80,160,90,.18)!important}
+#hp .doll .eslot.drop-bad,#hp .merc-slot.drop-bad{outline:2px solid rgba(230,80,60,.85)!important;outline-offset:1px;background:rgba(190,50,40,.18)!important}
+#hp .inv-grid.no-drop{outline:2px solid rgba(230,80,60,.75);outline-offset:1px;background:rgba(190,50,40,.14);cursor:not-allowed}
+/* phones: gear rows wrap, notes and warnings drop below the item instead of squeezing it */
+@media (max-width:640px){#hp .gi{flex-wrap:wrap;row-gap:2px;min-width:0}#hp .gi .gn{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}#hp .gi .gw{flex:1 1 100%;order:10}#hp .chain{min-width:0;max-width:100%}}
+.site-about{max-width:1400px;margin:32px auto 0;padding:14px 0 0;border-top:1px solid var(--line)}.site-about .about{margin:0}
+#tools .sq{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+#tools .sq-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+#tools .sq-presets{gap:6px;flex-wrap:wrap;align-items:center}
+#tools .sq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+#tools .sq-act{border:1px solid var(--line);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
+#tools .sq-act.locked{opacity:.55}
+#tools .sq-acth{font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:2px}
+#tools .sq-q{display:flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
+#tools .sq-ok{font-size:.75rem;font-weight:400;color:var(--good,#5fd36b);margin-left:auto}
+.shopctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}.shopctl select,.shopctl input{min-width:0}
+@media (max-width:560px){.tabs[aria-label="Search mode"]{display:flex;flex-wrap:wrap}.tabs[aria-label="Search mode"] button{flex:1 1 auto}}.shopwrap{overflow-x:auto;max-width:100%}.itemtip .tt-mg{color:#8b93ff}.itemtip .tt-un{color:#cdb57c}.itemtip .tt-st{color:#4fd65b}#result .k-base{cursor:help}.shopt{width:100%;min-width:620px;border-collapse:collapse;font-size:.9rem}.shopt th,.shopt td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}.shopt .num{text-align:right;white-space:nowrap}.shopt .sub{font-size:.8rem;color:var(--muted)}
+#hp .skill-tab-pts{color:#d9b25a;font-weight:700;margin-left:2px}
+#hp .ett .treq.tt-bad,#hp .ett .tt-bad{color:#ff5a4a!important}
+#tools .se-plan-ready{display:flex!important;flex-direction:row!important;flex-wrap:wrap;justify-content:flex-start;gap:6px 10px;align-items:center;text-align:left}#tools .se-plan-ready .tl-sub{flex:1 1 260px}
+#hp .inv-add-row{display:flex;justify-content:flex-end;margin:6px 0 2px}#hp .inv-add{font-size:.85rem}
+#hp .merc-sheet-title{font-family:var(--font-display)!important;color:#f0d99e!important;text-shadow:0 1px 3px #000,0 0 4px #000;font-size:clamp(14px,1.2vw,18px)!important}#hp .merc-fact span,#hp .merc-fact b,#hp .merc-bottom span{font-family:var(--font-display)!important;font-weight:700;color:#fff0d1!important;text-shadow:0 1px 3px #000;font-size:clamp(10px,.82vw,13px)!important;letter-spacing:.01em}#hp .merc-fact span{font-variant:small-caps}#hp .merc-bottom span{text-align:center}
+#hp .tag.gear .never{color:var(--crafted);font-weight:600}
+#hp .eslot.cantwear .gear-art,#hp .merc-slot.cantwear .gear-art{filter:drop-shadow(0 2px 3px rgba(0,0,0,.9)) sepia(1) saturate(4) hue-rotate(-50deg) brightness(.8)}#hp .doll .eslot.cantwear,#hp .merc-slot.cantwear{background:rgba(160,30,20,.22)!important}
+</style>
+
+<meta name="description" content="Horadric Odds is a free all-in-one toolkit for Diablo II: Resurrected: drop odds for every item, a build planner with skill damage and breakpoints, an experience calculator, Holy Grail and rune helpers, and a save editor for offline characters.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -1081,77 +1181,6 @@ button[data-tip],label [data-tip]{cursor:pointer}
 #hp .inline-form{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 #hp .inline-form input{background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:4px 6px}
 @media (prefers-reduced-motion:no-preference){#hp .node,#hp .btn,#hp .chip{transition:border-color .12s,background .12s}}
-#hp .skill-tab-emblem{display:none!important}
-#hp .doll .eslot.has,#hp .merc-slot,#hp .inv-item,#hp .inv-grid{cursor:pointer}
-#hp .inv-grid:focus-visible{outline:2px solid rgba(217,178,90,.52);outline-offset:2px}
-#hp .gp-pop{position:fixed;z-index:3000;width:min(380px,calc(100vw - 16px));max-height:min(520px,calc(100vh - 16px));display:flex;flex-direction:column;gap:8px;padding:10px;
-  background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2);font-size:14px}
-#hp .gp-pop.sheet{left:0;right:0;bottom:0;top:auto;width:auto;max-height:78vh;border-radius:12px 12px 0 0;padding:12px max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
-#hp .gp-h{display:flex;align-items:baseline;gap:8px}#hp .gp-h b{font-size:15px}#hp .gp-h .muted{font-size:12px;flex:1}
-#hp .gp-x{border:0;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 4px}#hp .gp-x:hover{color:var(--text)}
-#hp .gp-cur{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--sunk);border-radius:4px;font-size:13px}#hp .gp-cur .gp-n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-q{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:7px 9px;font:inherit}
-#hp .gp-q:focus{outline:2px solid var(--accent);outline-offset:-1px}
-#hp .gp-f{display:flex;gap:4px;flex-wrap:wrap}#hp .gp-f button{font:inherit;font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
-#hp .gp-f button[aria-pressed="true"]{background:var(--text);color:var(--panel);border-color:var(--text)}
-#hp .gp-list{list-style:none;margin:0;padding:0;overflow-y:auto;min-height:60px;flex:1;overscroll-behavior:contain;border-top:1px solid var(--line)}
-#hp .gp-row{display:flex;align-items:center;gap:9px;padding:5px 6px;border-radius:4px;cursor:pointer}
-#hp .gp-row:hover,#hp .gp-row.sel{background:var(--sunk)}#hp .gp-row.late{opacity:.62}#hp .gp-row.late:hover,#hp .gp-row.late.sel{opacity:1}
-#hp .gp-art{flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#16120e;border-radius:3px}
-#hp .gp-art img{max-width:28px;max-height:28px;object-fit:contain}#hp .gp-noart{color:#cdb57c;font-size:15px}
-#hp .gp-txt{flex:1;min-width:0;display:flex;flex-direction:column}#hp .gp-n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-b{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-l{flex:none;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-#hp .gp-n.q-u{color:var(--unique)}#hp .gp-n.q-s{color:var(--set)}#hp .gp-n.q-rw{color:var(--rune)}#hp .gp-n.q-magic{color:var(--magic)}#hp .gp-n.q-rare{color:var(--rare)}
-#hp .gp-empty{padding:14px 6px;color:var(--muted);font-size:13px}#hp .gp-foot{font-size:11.5px}
-#hp.gp-open .doll .ett,#hp.gp-open .merc-slot .ett,#hp.gp-open .inv-item .ett{display:none!important}
-body .itemtip{z-index:3500}
-#hp .gp-cfg{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
-#hp .gp-back{align-self:flex-start;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;padding:0;cursor:pointer}#hp .gp-back:hover{color:var(--text)}
-#hp .gp-rwh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}#hp .gp-rwh .gp-n{font-size:16px}#hp .gp-runes{font-size:12px;color:var(--rune)}
-#hp .gp-best{display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:var(--sunk);border-left:3px solid var(--rune);border-radius:4px;font-size:13px}#hp .gp-best span{color:var(--muted);font-size:12.5px}
-#hp .gp-fld{display:flex;flex-direction:column;gap:4px}#hp .gp-base{font:inherit;padding:6px 8px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px}
-#hp .gp-opts{display:flex;align-items:center;gap:18px;flex-wrap:wrap}#hp .gp-eth{display:flex;align-items:center;gap:6px;cursor:pointer}
-#hp .gp-sock{display:flex;align-items:baseline;gap:6px}#hp .gp-sock b{font-size:15px}#hp .gp-sock .muted{font-size:12px}
-#hp .gp-note{margin:0;font-size:12px;min-height:1.3em}#hp .gp-add{align-self:stretch}
-#hp .gp-more{font-size:15px;color:var(--rune);margin-left:2px}
-#hp .gp-row.cur{box-shadow:inset 3px 0 0 var(--rune)}#hp .gp-eq{flex:none;font-size:11px;padding:1px 6px;border-radius:999px;background:var(--rune);color:var(--panel);margin-right:4px}
-#hp .gear-art.eth img,#hp .inv-item.eth img{opacity:.5}
-#hp .gp-xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px}#hp .gp-xf{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px}#hp .gp-xf span{color:var(--muted);min-width:0}
-#hp .gp-xf input{width:64px;flex:none;font:inherit;padding:4px 6px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;text-align:right}
-#hp .gp-more-st summary{cursor:pointer;font-size:12.5px;color:var(--muted);margin-bottom:6px}#hp .gp-prev{font-size:12px;overflow-wrap:anywhere}
-#hp .gp-cfg>*{flex-shrink:0}
-#hp .inv-item.held{opacity:.25}
-#hp .inv-ghost{position:absolute;z-index:6;pointer-events:none;display:flex;align-items:center;justify-content:center;background:rgba(80,160,90,.28);outline:1px solid rgba(120,220,130,.7)}
-#hp .inv-ghost.swap{background:rgba(200,170,60,.28);outline-color:rgba(230,200,90,.8)}#hp .inv-ghost.bad{background:rgba(190,50,40,.32);outline-color:rgba(230,80,60,.8)}
-#hp .inv-ghost img{max-width:92%;max-height:92%;object-fit:contain}#hp .inv-ghost.eth img{opacity:.5}
-#hp .gp-holdbar{position:absolute;left:4%;right:4%;bottom:1.2%;z-index:7;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;background:rgba(12,10,8,.92);border:1px solid #6e5630;border-radius:4px;color:#ddd5c5;font-size:12.5px}
-#hp .gp-holdbar span{flex:1;min-width:160px}
-#hp .inv-grid:has(.held) .ett{display:none!important}
-#hp .xp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:6px 0}
-#hp .xp-list{list-style:none;margin:4px 0 0;padding:0;font-size:.92rem}#hp .xp-list li{display:flex;gap:8px;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
-#hp .xp-list li b{font-variant-numeric:tabular-nums}
-#hp .gp-add{position:sticky;bottom:0}
-#hp .character-attributes{pointer-events:none}#hp .character-attributes *{pointer-events:auto}#hp .sheet-mode-toggle{z-index:8}
-#hp .eslot.held .gear-art,#hp .merc-slot.held .gear-art{opacity:.3}#hp .eslot.held .ett,#hp .merc-slot.held .ett{display:none!important}
-#hp .doll .eslot.drop-ok,#hp .merc-slot.drop-ok{outline:2px solid rgba(120,220,130,.85)!important;outline-offset:1px;background:rgba(80,160,90,.18)!important}
-#hp .doll .eslot.drop-bad,#hp .merc-slot.drop-bad{outline:2px solid rgba(230,80,60,.85)!important;outline-offset:1px;background:rgba(190,50,40,.18)!important}
-#hp .inv-grid.no-drop{outline:2px solid rgba(230,80,60,.75);outline-offset:1px;background:rgba(190,50,40,.14);cursor:not-allowed}
-.site-about{max-width:1400px;margin:32px auto 0;padding:14px 0 0;border-top:1px solid var(--line)}.site-about .about{margin:0}
-#tools .sq{display:flex;flex-direction:column;gap:10px;margin:8px 0}
-#tools .sq-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-#tools .sq-presets{gap:6px;flex-wrap:wrap;align-items:center}
-#tools .sq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
-#tools .sq-act{border:1px solid var(--line);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
-#tools .sq-act.locked{opacity:.55}
-#tools .sq-acth{font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:2px}
-#tools .sq-q{display:flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
-#tools .sq-ok{font-size:.75rem;font-weight:400;color:var(--good,#5fd36b);margin-left:auto}
-.shopctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}.shopctl select,.shopctl input{min-width:0}
-@media (max-width:560px){.tabs[aria-label="Search mode"]{display:flex;flex-wrap:wrap}.tabs[aria-label="Search mode"] button{flex:1 1 auto}}.shopwrap{overflow-x:auto;max-width:100%}.itemtip .tt-mg{color:#8b93ff}.itemtip .tt-un{color:#cdb57c}.itemtip .tt-st{color:#4fd65b}#result .k-base{cursor:help}.shopt{width:100%;min-width:620px;border-collapse:collapse;font-size:.9rem}.shopt th,.shopt td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}.shopt .num{text-align:right;white-space:nowrap}.shopt .sub{font-size:.8rem;color:var(--muted)}
-#hp .skill-tab-pts{color:#d9b25a;font-weight:700;margin-left:2px}
-#hp .ett .treq.tt-bad,#hp .ett .tt-bad{color:#ff5a4a!important}
-#hp .eslot.cantwear .gear-art,#hp .merc-slot.cantwear .gear-art{filter:drop-shadow(0 2px 3px rgba(0,0,0,.9)) sepia(1) saturate(4) hue-rotate(-50deg) brightness(.8)}#hp .doll .eslot.cantwear,#hp .merc-slot.cantwear{background:rgba(160,30,20,.22)!important}
 </style>
 <style id="gear-inventory-preview">
 #hp .eqwrap{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:16px;align-items:start}
@@ -1344,6 +1373,9 @@ body .itemtip{z-index:3500}
 #hp .skill-count{font-size:clamp(9px,1.1vw,13px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 3px #000}
 #hp .skill-sheet>.node .nb button{font-size:clamp(9px,1vw,12px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 2px #000}
 </style>
+</head>
+<body>
+
 
 <div class="wrap">
   <header>
@@ -1356,7 +1388,7 @@ body .itemtip{z-index:3500}
       <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item. <i>Experience</i> shows the fastest places to level.</li>
       <li><b>Tools:</b> track your Holy Grail and runs, see what your runes make, check rolls and cube recipes, and edit offline characters with the <i>Save editor</i>.</li></ol>
       <div class="wbtns"><button type="button" class="wbtn" id="welcomeOk">Got it</button><button type="button" class="wbtn wguide" id="welcomeGuide">Full guide →</button></div></div>
-    <div class="whatsnew" id="whatsnew" data-v="2026-11-05j" hidden><span><b>What's new</b> · 5 Nov 2026: <span id="wnText">New <i>Farm planner</i> in <i>Tools</i>: plan several item goals together, turn runewords into rune requirements, and estimate how long a chosen boss or super unique farm may take. New <i>Save editor</i> in <i>Tools</i>: change an offline character's level, stats, skills and items, and add any unique, set item, runeword or your own magic and rare items, for D2R, Lord of Destruction and Classic. <i>Import save</i> (in the Build planner, next to <i>Share &amp; Library</i>): load an offline character's save to open its build and fill your Grail, now with magic and rare items by their real names. New in <i>Tools</i>: a roll checker that scores your item's rolls, and a sockets &amp; affixes helper for bases and charms. The website now works offline and can be installed like an app. Hover any skill or item for its stats. You can now back up and restore all your saved Horadric Odds data from Tools.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
+    <div class="whatsnew" id="whatsnew" data-v="2026-11-08a" hidden><span><b>What's new</b> · 8 Nov 2026: <span id="wnText">New gear menu in the <i>Build planner</i>: click a slot to pick from the items that fit, choose a runeword's base, sockets and ethereal, enter a charm's stats, and move items around the equipment and inventory like in the game. Gear now only counts once your level, Strength and Dexterity let you wear it, and the starter builds have been fixed to match. New <i>Merchants</i> odds next to <i>Gambling</i>. <i>Export Build</i> has its own tab, with tick boxes for quests, acts and difficulties (also in the <i>Save editor</i>). Faster first load, and exporting imported characters with rares and charms now works.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <p class="lede">Search any unique, set item, rune, runeword or base (player nicknames like "shako" work too), or search by the stats you want. See which monsters and areas drop it, and your chance per kill at your difficulty, player count and magic find.</p>
   </header>
 
@@ -1535,6 +1567,7 @@ body .itemtip{z-index:3500}
         <dt>By stats</dt><dd>Pick the stats you want and the lowest value you'd accept, e.g. +2 skills and 20% FCR. You'll see which items can roll them and where to find them.</dd>
         <dt>By monster</dt><dd>Pick a boss, super unique or monster type to see everything it can drop.</dd>
         <dt>Gambling</dt><dd>Your odds of gambling a specific item, or stats you want, at your character's level.</dd>
+        <dt>Merchants</dt><dd>Your odds of a merchant selling an item with the stats you want, e.g. a 4-socket body armor with +100 life. Pick the merchant, difficulty and your level; each base shows its own chance, and hovering a base shows its best magic rolls.</dd>
       </dl>
       <p class="hu-tip"><b>Tip.</b> The page's link keeps the item and settings you picked, so you can copy it to share your exact calculation. Turn on <i>diablo2.io price links</i> at the top to get a price check link for the item in your market.</p>
     </div>
@@ -1548,7 +1581,8 @@ body .itemtip{z-index:3500}
       <li><b>Spend skill points</b> on <i>Skills &amp; Stats</i>. Click a skill, or its + button, to add a point. Its − button removes one (or right-click on PC). Shift-click adds or removes up to 20. Missing prerequisites are added for you, and the order you click is the order the leveling guide spends points. Hover over a skill (press and hold on a phone) to see its in-game tooltip: damage at your level and the next, synergies, masteries and, for attack skills, your damage with the weapon you've planned.</li>
       <li><b>Set your stats</b> with the + and − buttons next to Strength, Dexterity, Vitality and Energy. Hold Ctrl for steps of 5, or Shift for steps of 10.</li>
       <li><b>Plan respecs</b> with <i>+ Respec at a level</i>. Each phase has its own skills and stats, e.g. a leveling build until 75 and an endgame one after that.</li>
-      <li><b>Plan your gear</b> on <i>Gear</i>. Add each item with the level you'll wear it. The equipment panel shows what you're wearing at any level, and you can hover or tap an item for its stats. Breakpoints, resistances, magic find and Str/Dex checks update from your gear, and the farming card shows where to find each item.</li>
+      <li><b>Plan your gear</b> on <i>Gear</i>. Click an empty slot to pick from the items that fit there (search by name or nickname). For a runeword you choose the base, sockets and ethereal; for a charm or rare you can enter its stats. Click any item to pick it up and click where it should go, like in the game; right-click an item to change or remove it. To add to the inventory, right-click an empty space or use <i>+ Add to inventory</i>. Charms in the inventory count toward your totals, and other gear can be stored there. Hover or tap an item for its stats and requirements.</li>
+      <li><b>Gear counts once you can wear it.</b> An item only adds to your life, resistances, breakpoints and other totals from the level you meet its required level, Strength and Dexterity (your other gear's bonuses count, its own don't). Requirements you haven't met show in red, and the leveling guide lists each item at the level you can really put it on, or says when a build can never wear it.</li>
       <li><b>Follow the leveling guide.</b> <i>Leveling Guide</i> lists every level: which skill to put the point in, stats, new gear, life and mana. Tick levels off as you play and add your own notes.</li>
     </ol>
     <div class="hu-more">
@@ -1556,10 +1590,11 @@ body .itemtip{z-index:3500}
         <dt>Compare</dt><dd>Two builds side by side at their target levels, with their full gear.</dd>
         <dt>Share &amp; Library</dt><dd>Save builds in this browser, copy a build code to post on Discord, Reddit or a forum, or paste someone's code into Import to load their build. The code carries skills, stats, respecs, gear and notes.</dd>
       <dt>Import save</dt><dd>Load an offline character's save file (.d2s) to open its build in the planner with its skills, stats and gear, tick everything it owns in your Grail, and count its runes. Add your shared stash (.d2i) too. The file is read on your device and never uploaded. Online characters can't be imported.</dd>
+      <dt>Export Build</dt><dd>Turn the build into an offline character: choose the save version and name, tick the quests, acts and difficulties it should have done (the default follows its level), and create it in the save editor. Its skills, stats, gear and mercenary are put on the character; gear it can't use yet goes on anyway and the game shows it red. For offline characters only.</dd>
       </dl>
       <p class="hu-tip"><b>Keep your build codes.</b> Saved builds live in this browser only. If you clear your browser data or switch devices, they're gone, so copy the code somewhere safe.</p>
     </div>
-    <div class="hu-row"><button type="button" class="hu-go" data-go="planner">Open Build planner →</button><button type="button" class="hu-go" data-go="planner:import">Import save →</button></div>
+    <div class="hu-row"><button type="button" class="hu-go" data-go="planner">Open Build planner →</button><button type="button" class="hu-go" data-go="planner:import">Import save →</button><button type="button" class="hu-go" data-go="planner:export">Export Build →</button></div>
   </section>
 
   <section class="hu-sec" id="hu-xp">
@@ -1584,7 +1619,7 @@ body .itemtip{z-index:3500}
       <dt>Farm planner</dt><dd>Add several item goals, including runewords (which become rune goals), then choose a boss or super unique. Set how many you already have, how many you want, kills per run and your run time to estimate expected drops and the runs needed for a 50% or 90% chance of finishing the full list. Completion estimates are approximate.</dd>
       <dt>Roll checker</dt><dd>Pick a unique, set item or runeword and type in your item's numbers to see how good each roll is, from 0% (lowest) to 100% (perfect), plus an overall score.</dd>
       <dt>Sockets &amp; affixes</dt><dd>Pick a base and its item level to see how many sockets Larzuk or the cube can give it, and which magic or rare affixes can roll on it, e.g. whether a grand charm can roll +1 skills. Affixes that need a higher item level are listed with the level they need. Crafted items work out their item level from your character level.</dd>
-      <dt>Save editor</dt><dd>Load an offline character (.d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d) to change its level, stats, skills and gold, move, copy or delete items, and add any unique, set item, runeword, rune or gem, or a magic or rare item with the affixes you pick. Download the edited save and put it in place of the old one. Back up the original first.</dd>
+      <dt>Save editor</dt><dd>Load an offline character (.d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d) to change its level, stats, skills and gold, move, copy or delete items, and add any unique, set item, runeword, rune or gem, or a magic or rare item with the affixes you pick. Tick the quests, acts and difficulties it has completed on <i>Quests</i>. You can also create a fresh character from a planned build (<i>Build planner → Export Build</i>). Download the edited save and put it in place of the old one. Back up the original first.</dd>
       <dt>Cube recipes</dt><dd>Every Horadric Cube recipe from the game files: rune and gem upgrades, sockets, item upgrades, crafting, rerolls and uber keys. Search by any ingredient.</dd>
     </dl>
       <p class="hu-tip"><b>Back up your data.</b> Your builds, checklists, Grail, runes, farm plans, runs and settings are saved in this browser. Open <i>Tools → Backup &amp; restore</i> to download one backup file or move your data to another device.</p>
@@ -1597,7 +1632,7 @@ body .itemtip{z-index:3500}
       <dt>How do I see an item's stats?</dt><dd>Hover over an item's name anywhere on the site, or tap it on a phone. Uniques, set items (with their set bonuses), runewords (including each rune's own bonus) and runes all show their stats as the game words them.</dd>
       <dt>Which game version does it use?</dt><dd>D2R Reign of the Warlock by default. Drop odds can also use D2R before the expansion or classic Lord of Destruction 1.14d. Choose with <i>Game version</i>.</dd>
       <dt>How accurate are the numbers?</dt><dd>Drop chances come straight from the game's drop tables and rules, and they've been checked against other calculators. They're averages, so luck still decides any single run. How each tool works is explained at the bottom of its page.</dd>
-      <dt>Can I link someone straight to a tab?</dt><dd>Yes. Add <span class="hu-mail">#planner</span>, <span class="hu-mail">#experience</span>, <span class="hu-mail">#grail</span>, <span class="hu-mail">#runes</span>, <span class="hu-mail">#runs</span>, <span class="hu-mail">#cube</span> or <span class="hu-mail">#how-to-use</span> to the address, e.g. <span class="hu-mail">horadricodds.github.io/#how-to-use</span>. A drop odds link already carries the item and settings you picked.</dd>
+      <dt>Can I link someone straight to a tab?</dt><dd>Yes. Add <span class="hu-mail">#planner</span>, <span class="hu-mail">#experience</span>, <span class="hu-mail">#grail</span>, <span class="hu-mail">#runes</span>, <span class="hu-mail">#runs</span>, <span class="hu-mail">#cube</span>, <span class="hu-mail">#editor</span>, <span class="hu-mail">#import</span> or <span class="hu-mail">#how-to-use</span> to the address, e.g. <span class="hu-mail">horadricodds.github.io/#how-to-use</span>. A drop odds link already carries the item and settings you picked.</dd>
       <dt>Can I use it offline or install it like an app?</dt><dd>Yes, on horadricodds.github.io. Once you've opened the site, it works without an internet connection. To install it: on a phone, use your browser's menu and choose <i>Add to Home Screen</i> (or <i>Install app</i>); in Chrome or Edge on PC, use the install icon in the address bar. It updates itself whenever you're online.</dd>
       <dt>Where is my stuff saved?</dt><dd>Settings, saved builds, leveling ticks, your Grail, runes, farm plans and run trackers stay in your browser on this device. Nothing is sent anywhere. Use Tools → Backup &amp; restore to download all Horadric Odds data as one file and restore it on another device.</dd>
       <dt>The page looks out of date.</dt><dd>Your browser may be showing an old copy. Press Ctrl+F5 on PC, or pull down to refresh on a phone.</dd>
@@ -1610,13 +1645,13 @@ body .itemtip{z-index:3500}
       <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment. The site is open source under the MIT License.</p>
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
       <p><b>Experience:</b> rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>; monster counts per area come from <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a>'s Experience Calculator (thanks, Pavke!), which was also used to check the numbers. <b>Attack frames:</b> animation frame data and timing rules follow <a href="https://github.com/Warren1001/IAS_Calculator" target="_blank" rel="noopener">Warren1001's IAS Calculator</a> (animation tables dumped by RuffnecKk). <b>Cast, hit-recovery and block breakpoints:</b> <a href="https://d2runewizard.com/breakpoints" target="_blank" rel="noopener">d2runewizard</a>, with the Warlock tables confirmed against <a href="https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation" target="_blank" rel="noopener">AOEAH</a>.</p>
-      <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Community builds belong to the players who share them.</p>
+      <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Share builds as links or build codes from Share &amp; Library.</p>
       <p><b>Save files:</b> the save format comes from the community's reverse engineering (d07riv, <a href="https://github.com/dschu012/d2s" target="_blank" rel="noopener">dschu012/d2s</a> (MIT), nokka/d2s, krisives/d2s-format, and the <a href="https://docs.rs/crate/d2s/latest" target="_blank" rel="noopener">d2s Rust crate</a> for Reign of the Warlock). Lord of Destruction and Classic tables come from the 1.14d game files.</p>
       <p><b>Prices:</b> the optional price links open <a href="https://diablo2.io/" target="_blank" rel="noopener">diablo2.io</a>'s price check for the item, with permission from its admin. Horadric Odds doesn't collect or store any price data.</p>
       <p><b>Artwork:</b> item pictures from <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>; the inventory panel texture from <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio’s D2R UI assets</a>. Diablo II: Resurrected artwork belongs to Blizzard Entertainment; Horadric Odds does not own or claim rights to it and is not affiliated with Blizzard or LootCube.</p>
       <p><b>Bugs and ideas:</b> open an issue on <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">GitHub</a> or email the address below.</p>
-      <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>, or use <i>Report</i> on any shared build.</p></div></details></div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>8 Nov 2026, 1:26 am</span></p>
+      <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>.</p></div></details></div>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>8 Nov 2026, 3:30 am</span></p>
 
 
 <script>
@@ -1744,7 +1779,7 @@ const CLASS_GEAR={
 /* Bases for runewords the guides name without one (the usual choice), so damage, speed and requirements can be worked out. */
 const DEFBASE={'Grief|0':'Phase Blade','Grief|1':'Phase Blade','Spirit|0':'Crystal Sword','Spirit|1':'Monarch','Call to Arms|11':'Crystal Sword','Heart of the Oak|0':'Flail','Leaf|0':'Short Staff',
  'Steel|0':'Scimitar','Malice|0':'Hand Axe','Malice|1':'Hand Axe','Honor|0':'Flamberge','Beast|0':'Berserker Axe','Stealth|3':'Studded Leather','Lore|2':'Cap','Enigma|3':'Mage Plate','Chains of Honor|3':'Mage Plate',
- 'Fortitude|3':'Archon Plate','Fortitude|13':'Archon Plate','Insight|12':'Thresher','Infinity|12':'Giant Thresher','Pride|12':'Giant Thresher','White|0':'Wand',"Ancient's Pledge|1":'Kite Shield','Wisdom|2':'Bone Visage'};
+ 'Fortitude|3':'Archon Plate','Fortitude|13':'Archon Plate','Insight|12':'Bill','Infinity|12':'Giant Thresher','Pride|12':'Giant Thresher','White|0':'Wand',"Ancient's Pledge|1":'Kite Shield','Wisdom|2':'Bone Visage'};
 function withBase(g){if(/\(/.test(g.it))return g;const b=DEFBASE[g.it+'|'+g.s];return b?{...g,it:`${g.it} (${(g.s>=12&&/Infinity|Pride|Fortitude/.test(g.it)?'Eth ':'')+b})`}:g}
 function classGear(cls){return CLASS_GEAR[cls].map(g=>withBase({...g}))}
 
@@ -1945,14 +1980,15 @@ function mxSlug(b){const m=b&&b.src&&b.src.site==='Maxroll'&&String(b.src.url||'
 const ISTL={};for(const k in IX)ISTL[k.toLowerCase().replace(/^the /,'')]=k;
 const XF=[['sk','+all skills'],['cls','+class skills'],['fcr','FCR %'],['fhr','FHR %'],['ias','IAS %'],['mf','Magic find %'],['life','Life'],['res','All res %'],['rf','Fire res %'],['rc','Cold res %'],['rl','Light res %'],['rp','Poison res %'],['str','Str'],['dex','Dex'],['vit','Vit'],['ene','Energy'],['ed','Enhanced dmg %']];
 function ixKey(n){return ISTL[String(n).toLowerCase().replace(/^the /,'').trim()]||null}
-function baseCode(n){n=String(n||'').toLowerCase().replace(/^(eth|ethereal)\s+/,'').replace(/^(rare|magic|crafted|superior|normal|white|socketed|\d-socket)\s+/,'').replace(/^(eth|ethereal)\s+/,'').trim();return BN[n]||null}
+function baseCode(n){n=String(n||'').toLowerCase().replace(/^(eth|ethereal)\s+/,'').replace(/^(rare|magic|crafted|superior|normal|white|socketed|\d-socket)\s+/,'').replace(/^(eth|ethereal)\s+/,'').trim();if(BN[n])return BN[n];if(!BN_LONG)BN_LONG=Object.keys(BN).filter(k=>k.length>3).sort((a,b)=>b.length-a.length);for(const k of BN_LONG){const i=n.indexOf(k);if(i>=0&&(i===0||n[i-1]===' ')&&(i+k.length===n.length||n[i+k.length]===' '))return BN[k]}return null}let BN_LONG=null;
 function gearParts(it){
   return String(it).split(/\s*(?:,|\s\+\s|\sor\s|\/)\s*(?![^(]*\))/).map(x=>x.trim()).filter(x=>x&&/[a-z]/i.test(x)).map(x=>{
     const m=x.match(/^(\d+)\s*[×x]\s*/),eth=/\beth(ereal)?\b/i.test(x),pm=x.match(/\(([^)]*)\)?/);
     const name=x.replace(/\([^)]*\)?/g,' ').replace(/^\d+\s*[×x]\s*/,'').replace(/^(eth|ethereal)\s+/i,'').replace(/\s+/g,' ').trim();
     const key=ixKey(name);let base=pm?baseCode(pm[1]):null;if(!base&&key&&IX[key].b)base=IX[key].b;if(!base&&!key)base=baseCode(name);
     return {n:m?+m[1]:1,name,key,base,eth}})}
-function gpBaseReq(code){const nm=(typeof BASES!=='undefined'&&BASES[code]&&BASES[code].n)||(typeof DATA!=='undefined'&&DATA.items[code]&&DATA.items[code].n);const ti=nm&&window.__tipInfo&&window.__tipInfo(nm);return ti&&ti.k==='b'?+ti.r||0:0}
+const GP_BASE_R={"Shillelagh":62,"Great Bow":51,"Elder Staff":55,"Blade Bow":45,"Colossus Crossbow":56,"Crusader Bow":57,"Shadow Bow":47,"Stalagmite":49,"Hydra Bow":63,"Pellet Bow":42,"Gorgon Crossbow":50,"Demon Crossbow":63,"Diamond Bow":54,"Spider Bow":41,"Walking Stick":43,"Ward Bow":60,"Archon Staff":66,"Ettin Axe":52,"Legend Sword":44,"Suwayyah":44,"Small Crescent":45,"Champion Sword":57,"Winged Axe":60,"Silver-edged Axe":48,"Winged Knife":57,"Legend Spike":66,"Mancatcher":55,"Conquest Sword":58,"Decapitator":54,"Lich Wand":56,"Truncheon":39,"Highland Blade":49,"Phase Blade":54,"Battle Cestus":54,"Bone Knife":43,"Mithril Point":52,"Colossus Sword":60,"Hydra Edge":51,"Scourge":57,"Champion Axe":61,"Colossus Blade":63,"Glorious Axe":66,"Ghost Glaive":59,"Thunder Maul":65,"Balrog Blade":53,"Unearthed Wand":64,"Great Poleaxe":63,"Tomahawk":40,"Hyperion Javelin":40,"Fanged Knife":62,"Feral Axe":42,"Cryptic Sword":61,"Feral Claws":58,"Ogre Maul":51,"Reinforced Mace":47,"War Spike":59,"Devil Star":52,"Ogre Axe":45,"War Pike":66,"Cryptic Axe":59,"Stygian Pilum":46,"Scissors Suwayyah":64,"Seraph Rod":57,"Balrog Spear":53,"Thresher":53,"Elegant Blade":47,"Mighty Scepter":46,"Ataghan":45,"Tyrant Club":42,"Hyperion Spear":43,"Falcata":42,"Ghost Spear":62,"Flying Axe":42,"Flying Knife":48,"Stygian Pike":49,"Winged Harpoon":65,"Runic Talons":60,"Colossus Voulge":48,"Berserker Axe":64,"Wrist Sword":46,"Giant Thresher":66,"Mythical Sword":66,"Legendary Mallet":61,"Polished Wand":41,"Caduceus":66,"War Fist":51,"Ghost Wand":48,"Gothic Staff":25,"Double Bow":25,"Cedar Staff":25,"Razor Bow":21,"Ballista":25,"Large Siege Bow":25,"Cedar Bow":23,"Quarterstaff":23,"Gothic Bow":25,"Arbalest":22,"Siege Crossbow":25,"Chu-Ko-Nu":25,"Short Siege Bow":25,"Edge Bow":18,"Jo Staff":18,"Rune Bow":25,"Rune Staff":25,"Twin Axe":25,"Espandon":25,"Quhab":21,"Cleaver":22,"Lochaber Axe":21,"Hurlbat":25,"Gothic Sword":25,"Bearded Axe":25,"War Dart":25,"Stiletto":25,"War Fork":25,"Battle Sword":25,"Tabar":25,"Tomb Wand":25,"Cudgel":18,"Dacian Falx":25,"Dimensional Blade":25,"Hand Scythe":30,"Poignard":19,"Rondel":24,"Zweihander":25,"Tulwar":25,"Knout":25,"Gothic Axe":25,"Executioner Sword":25,"Ancient Axe":25,"Spiculum":25,"Martel de Fer":25,"Tusk Sword":25,"Grave Wand":25,"Bec-de-Corbin":25,"Hatchet":19,"War Javelin":18,"Cinquedeas":25,"Military Axe":22,"Rune Sword":25,"Greater Claws":33,"War Club":25,"Flanged Mace":23,"Crowbill":25,"Jagged Star":25,"Lance":25,"Partizan":23,"Great Pilum":25,"Scissors Quhab":40,"Holy Water Sprinkler":25,"Battle Scythe":25,"Simbilan":25,"Shamshir":23,"Rune Scepter":19,"Cutlass":25,"Barbed Club":20,"War Spear":21,"Gladius":18,"Yari":25,"Francisca":22,"Battle Dart":19,"Fuscina":24,"Harpoon":25,"Greater Talons":37,"Bill":25,"Naga":25,"Wrist Spike":24,"Grim Scythe":25,"Ancient Sword":25,"Battle Hammer":25,"Burnt Wand":19,"Divine Scepter":25,"Fascia":27,"Petrified Wand":25,"Stag Bow":14,"Reflex Bow":20,"Maiden Spear":14,"Maiden Pike":20,"Maiden Javelin":17,"Ashwood Bow":29,"Ceremonial Bow":35,"Ceremonial Spear":32,"Ceremonial Pike":38,"Ceremonial Javelin":26,"Matriarchal Bow":39,"Grand Matron Bow":58,"Matriarchal Spear":45,"Matriarchal Pike":60,"Matriarchal Javelin":48,"Strangling Gas Potion":6,"Choking Gas Potion":16,"Rancid Gas Potion":24,"Smoked Sphere":8,"Clasped Orb":13,"Jared's Stone":18,"Glowing Orb":24,"Crystalline Globe":27,"Cloudy Sphere":30,"Sparkling Ball":34,"Swirling Crystal":37,"Heavenly Stone":44,"Eldritch Orb":50,"Demon Heart":56,"Vortex Orb":63,"Dimensional Shard":66,"Exploding Potion":12,"Oil Potion":20,"Jawbone Cap":3,"Fanged Helm":6,"Horned Helm":12,"Assault Helmet":15,"Avenger Guard":18,"Jawbone Visor":25,"Lion Helm":29,"Rage Mask":29,"Savage Helmet":32,"Slayer Guard":40,"Carnage Helm":45,"Fury Visor":49,"Destroyer Helm":54,"Conqueror Crown":60,"Guardian Crown":65,"Circlet":16,"Coronet":39,"Tiara":52,"Diadem":64,"Wolf Head":3,"Hawk Helm":6,"Antlers":12,"Falcon Mask":15,"Spirit Mask":18,"Alpha Helm":26,"Griffon Headdress":30,"Hunter's Guise":29,"Sacred Feathers":32,"Totemic Mask":41,"Blood Spirit":46,"Sun Spirit":51,"Earth Spirit":57,"Sky Spirit":62,"Dream Spirit":66,"Preserved Head":3,"Zombie Head":6,"Unraveller Head":12,"Gargoyle Head":15,"Demon Head":18,"Mummified Trophy":24,"Fetish Trophy":29,"Sexton Trophy":33,"Cantor Trophy":36,"Hierophant Trophy":40,"Minion Skull":44,"Overseer Skull":49,"Succubus Skull":60,"Bloodlord Skull":65,"Hellspawn Skull":50,"Targe":3,"Rondache":6,"Heraldic Shield":12,"Aerin Shield":15,"Crown Shield":18,"Akaran Targe":26,"Akaran Rondache":30,"Protector Shield":34,"Gilded Shield":38,"Royal Shield":41,"Sacred Targe":47,"Sacred Rondache":52,"Kurast Shield":55,"Zakarum Shield":61,"Vortex Shield":66,"Shako":43,"Sacred Armor":66,"Loricated Mail":55,"Wyrmhide":50,"Bone Visage":63,"Myrmidon Greaves":65,"Colossus Girdle":67,"Ogre Gauntlets":64,"Giant Conch":40,"Spired Helm":59,"Boneweave":47,"Monarch":54,"Hydraskull":47,"Scarab Husk":51,"Wyrmhide Boots":45,"Spiderweb Sash":46,"Kraken Shell":61,"Bramble Mitts":42,"Armet":51,"Hellforge Plate":59,"Boneweave Boots":54,"Mithril Coil":56,"Vambraces":51,"Luna":45,"Diamond Mail":54,"Aegis":59,"Blade Barrier":51,"Balrog Skin":57,"Hyperion":48,"Corona":66,"Great Hauberk":56,"Troll Nest":57,"Demonhead":55,"Mirrored Boots":60,"Troll Belt":62,"Crusader Gauntlets":57,"Lacquered Plate":62,"Archon Plate":63,"Ward":63,"Wire Fleece":53,"Heater":43,"Dusk Shroud":49,"Shadow Plate":64,"Scarabshell Boots":49,"Vampirefang Belt":51,"Vampirebone Gloves":47,"Old Book":3,"Tome":6,"Codex":12,"Compendium":15,"Grimoire":18,"Burnt Text":24,"Dark Tome":29,"Dark Codex":33,"Possessed Compendium":36,"Possessed Grimoire":40,"Forgotten Volume":44,"Occult Tome":49,"Occult Codex":50,"Blasphemous Compendium":60,"Blasphemous Grimoire":65,"War Hat":22,"Ornate Plate":25,"Tigulated Mail":25,"Serpentskin Armor":24,"Grim Helm":25,"War Boots":25,"War Gauntlets":25,"Basinet":25,"Winged Helm":25,"Mesh Armor":25,"Dragon Shield":25,"Sallet":25,"Demonhide Armor":25,"Demonhide Boots":24,"Sharktooth Armor":25,"Demonhide Gloves":21,"Casque":25,"Templar Coat":25,"Mesh Boots":25,"Heavy Bracers":25,"Round Shield":25,"Linked Mail":25,"Pavise":25,"Barbed Shield":25,"Russet Armor":25,"Scutum":25,"Grand Crown":25,"Cuirass":25,"Grim Shield":25,"Death Mask":25,"Battle Boots":25,"Battle Gauntlets":25,"Embossed Plate":25,"Mage Plate":25,"Ancient Shield":25,"Trellised Armor":25,"Defender":22,"Ghost Armor":22,"Chaos Armor":25,"Sharkskin Boots":25,"Sharkskin Gloves":25,"War Belt":25,"Demonhide Sash":24,"Mesh Belt":25,"Battle Belt":25,"Sharkskin Belt":25};
+function gpBaseReq(code){const nm=(typeof BASES!=='undefined'&&BASES[code]&&BASES[code].n)||(typeof DATA!=='undefined'&&DATA.items[code]&&DATA.items[code].n);if(nm&&GP_BASE_R[nm]!=null)return GP_BASE_R[nm];const ti=nm&&window.__tipInfo&&window.__tipInfo(nm);return ti&&ti.k==='b'?+ti.r||0:0}
 function gpReqLevel(it){let lv=0;for(const p of gearParts(it)){if(p.key&&IX[p.key]&&IX[p.key].lv)lv=Math.max(lv,IX[p.key].lv);if(p.base)lv=Math.max(lv,gpBaseReq(p.base))}return lv}
 function gpOwnSD(g){let s=0,d=0;for(const p of gearParts(g.it)){const v=p.key&&IX[p.key];if(v){s+=(v.str||0)*p.n;d+=(v.dex||0)*p.n}}if(g.x){s+=+g.x.str||0;d+=+g.x.dex||0}return {s,d}}
 /* the level an item really starts counting: not before its required level (item and base), and for your own gear not before
@@ -1968,6 +2004,7 @@ function gpEff(b,g){if(!g)return Infinity;const base=Math.max(g.lv,gpReqLevel(g.
   try{if(!c.sim)c.sim=simulate(b);for(let L=base;L<=b.level;L++){const x=charStatsAt(b,c.sim,L,c.memo);if(x.str-own.s>=q.rs&&x.dex-own.d>=q.rd){out=L;break}}}catch(e){out=base}finally{GP_LVONLY=false}
   c.map.set(g,out);return out}
 function gpGuideLv(b,g){const e=gpEff(b,g);return isFinite(e)?e:g.lv}
+function gpNever(b,g){return !(g.s>=12&&g.s<=14)&&g.s!==10&&g.s!==16&&g.lv<=b.level&&!isFinite(gpEff(b,g))}
 function gearAt(b,L,swap){const out=[],slots=swap?[2,3,4,5,6,7,8,9,10,11,15]:[0,1,2,3,4,5,6,7,8,9,10];for(const i of slots){const xs=(b.gear||[]).filter(x=>x.s===i&&gpEff(b,x)<=L).sort((a,c)=>c.lv-a.lv);if(!xs.length)continue;if(i===10){const seen=new Set();xs.forEach(x=>{if(!seen.has(x.it)){seen.add(x.it);out.push(x)}})}else out.push(xs[0])}return out}
 function gearTotals(b,L,swap){
   const C=CLS[b.cls],T={fbr:0,fcr:0,fhr:0,ias:0,mf:0,life:0,mana:0,res:0,rf:0,rc:0,rl:0,rp:0,mrf:0,mrc:0,mrl:0,mrp:0,mr:0,str:0,dex:0,vit:0,ene:0,ed:0},R={t:T,all:0,cls:0,tab:[0,0,0],one:{},oneN:{},counted:[],missed:[],custom:0};const used=new Set();
@@ -2049,22 +2086,43 @@ const INFO2={
  'Bone Spear Necromancer':['Bone Spear deals magic damage almost nothing resists, piercing through lines of monsters.','Cast Bone Spear through packs, Bone Spirit for bosses, Bone Prison to trap dangerous monsters.','Mana hungry early, and damage only goes in a line.'],
  'Abyss Warlock':['A Chaos caster built around Abyss, with Miasma Bolt and Miasma Chain feeding its damage through synergies.','Hit packs with Abyss and keep Miasma Chain on whatever survives. Blade Warp moves you around.','Warlock is the newest class, so check a full guide for current gear and tactics.'],
  'Fire Warlock':['Fire caster built around Apocalypse, with Ring of Fire and Flame Wave boosting each other through synergies.','Open with Ring of Fire or Flame Wave on packs, Apocalypse for big damage.','Fire immunes need help from your merc, and the class is new, so check a full guide for gear.']};
-function fitStats(b){const C=CLS[b.cls],ph=b.phase[b.phase.length-1],T=gearTotals(b,b.level,false).t;let rs=0,rd=0;
-  gearAt(b,b.level,false).concat(gearAt(b,b.level,true).filter(g=>g.s===11||g.s===15)).forEach(g=>{const q=gearReq(g);rs=Math.max(rs,q.rs);rd=Math.max(rd,q.rd)});
-  const free=()=>stAt(b,b.level)-['str','dex','ene'].reduce((s,k)=>s+Math.max(0,ph.st[k]-C.base[k]),0);
-  if(rs-T.str>ph.st.str)ph.st.str=Math.min(rs-T.str,ph.st.str+Math.max(0,free()));if(rd-T.dex>ph.st.dex)ph.st.dex=Math.min(rd-T.dex,ph.st.dex+Math.max(0,free()));return b}
+/* Fit a starter's plan to what it can really wear: no item before its required level, Strength and Dexterity just high enough
+   for the planned gear (after the other gear's bonuses, never counting an item's own), and each item moved to the level
+   the character can actually put it on. Casters keep only the Strength their gear needs; the rest goes into Vitality. */
+const FIT_CASTER=/Sorceress|Blessed Hammer|Lightning Sentry|Wind Druid|Necromancer|Warlock/;
+function fitStats(b){if(typeof gpEff!=='function')return b;const C=CLS[b.cls],P=b.phase,wear=g=>!(g.s>=12&&g.s<=14)&&g.s!==10&&g.s!==16;
+  b.gear=b.gear.filter((g,i,a)=>g.s===10||g.s===16||a.findIndex(x=>x.s===g.s&&x.it===g.it&&x.lv===g.lv)===i);   // the same item listed twice
+  for(const g of b.gear){const r=gpReqLevel(g.it);if(r>g.lv)g.lv=r}
+  const own=new Map(b.gear.map(g=>[g,gpOwnSD(g)])),sorted=b.gear.filter(wear).sort((a,c)=>a.lv-c.lv);
+  const until=g=>{const nx=sorted.find(x=>x!==g&&x.s===g.s&&x.lv>g.lv);return nx?nx.lv-1:b.level};   // last level the item is still worn
+  GP_LVONLY=true;const TT={};try{
+    P.forEach((ph,pi)=>{const st=Math.max(1,ph.start||1),end=pi<P.length-1?P[pi+1].start-1:b.level,last=pi===P.length-1;let ns=0,nd=0;
+      for(const g of sorted){if(g.lv>end||until(g)<st)continue;const q=gearReq(g);if(!q.rs&&!q.rd)continue;
+        const L=Math.max(g.lv,st),sw=g.s===11||g.s===15,o=own.get(g);let os=1e9,od=1e9;   // the other gear's lowest bonus while it is worn
+        for(let l=L;l<=Math.min(until(g),end);l++){const k=l+(sw?'s':'');const T=TT[k]||(TT[k]=gearTotals(b,l,sw).t);os=Math.min(os,(T.str||0)-o.s);od=Math.min(od,(T.dex||0)-o.d)}
+        const room=C.base.str+C.base.dex+stAt(b,L);                                  // what can be in Str and Dex by then
+        const s=Math.max(0,q.rs-Math.max(0,os)),d=Math.max(0,q.rd-Math.max(0,od));
+        if(last||s+d<=room){ns=Math.max(ns,s);nd=Math.max(nd,d)}}
+      ph.st=ph.st||{};
+      if(last&&FIT_CASTER.test(b.name))ph.st.str=Math.max(C.base.str,ns);else ph.st.str=Math.max(ph.st.str||C.base.str,ns);
+      ph.st.dex=Math.max(ph.st.dex||C.base.dex,nd)})
+  }finally{GP_LVONLY=false}
+  for(let k=0;k<3;k++){GP_EFF.delete(b);let moved=false;
+    for(const g of b.gear){if(!wear(g))continue;const e=gpEff(b,g);if(isFinite(e)&&e>g.lv){g.lv=e;moved=true}}
+    if(!moved)break}
+  GP_EFF.delete(b);return b}
 const STARTERS=[
  ()=>mk('sorceress','Blizzard Sorceress',90,[
    {name:'Leveling',start:1,st:{str:40},steps:[['Charged Bolt',4],['Frost Nova',1],['Static Field',1],['Ice Bolt',3],['Telekinesis',1],['Ice Blast',4],['Frozen Armor',1],['Teleport',1],['Glacial Spike',3],['Blizzard',14]]},
    {name:'Endgame: Blizzard',start:30,st:{str:120},steps:[['Static Field',1],['Telekinesis',1],['Teleport',1],['Frozen Armor',1],['Warmth',1],['Blizzard',20],['Cold Mastery',8],['Ice Blast',20],['Glacial Spike',20],['Ice Bolt',20],['Cold Mastery',8]]}],
    {24:'Blizzard unlocks. One point already outdamages most early skills.',30:'Respec at Akara into the full Blizzard plan.',60:'Hell: a merc with Might, or Infinity later, handles cold immunes.'},
-   [...LEV,G(4,23,'Magefist','Budget FCR gloves.'),G(1,25,'Spirit (Monarch)','35% FCR; needs 156 Str.'),G(8,29,'The Stone of Jordan'),G(4,45,"Trang-Oul's Claws"),...SWAP(),G(2,62,'Harlequin Crest (Shako)'),G(3,65,'Enigma (Mage Plate)'),G(7,67,"Mara's Kaleidoscope"),G(10,70,'Annihilus','Plus cold skillers and a Hellfire Torch.'),G(0,73,"Death's Fathom (Dimensional Shard)"),G(5,80,'Arachnid Mesh'),...MERC('Insight',27)],
+   [...LEV,G(0,25,'Spirit (Crystal Sword)','Leveling weapon: FCR and mana.'),G(4,23,'Magefist','Budget FCR gloves.'),G(1,25,'Spirit (Monarch)','35% FCR; needs 156 Str.'),G(8,29,'The Stone of Jordan'),G(4,45,"Trang-Oul's Claws"),...SWAP(),G(2,62,'Harlequin Crest (Shako)'),G(3,65,'Enigma (Mage Plate)'),G(7,67,"Mara's Kaleidoscope"),G(10,70,'Annihilus','Plus cold skillers and a Hellfire Torch.'),G(0,73,"Death's Fathom (Dimensional Shard)"),G(5,80,'Arachnid Mesh'),...MERC('Insight',27)],
    ST([MXG('blizzard-sorceress'),IVG('blizzard-sorceress-build')])),
  ()=>mk('sorceress','Frozen Orb Sorceress',90,[
    {name:'Leveling',start:1,st:{str:40},steps:[['Charged Bolt',4],['Frost Nova',1],['Static Field',1],['Ice Bolt',3],['Telekinesis',1],['Ice Blast',4],['Frozen Armor',1],['Teleport',1],['Glacial Spike',1],['Blizzard',16]]},
    {name:'Endgame: Frozen Orb',start:30,st:{str:120},steps:[['Static Field',1],['Telekinesis',1],['Teleport',1],['Frozen Armor',1],['Warmth',1],['Frozen Orb',20],['Ice Bolt',20],['Cold Mastery',17],['Blizzard',1],['Energy Shield',1],['Ice Blast',9],['Glacial Spike',1],['Blizzard',19],['Ice Blast',11]]}],
    {30:'Frozen Orb unlocks. Respec into the Orb plan.',40:'Ice Bolt points are pure damage for Frozen Orb (synergy).'},
-   [...LEV,G(4,23,'Magefist'),G(1,25,'Spirit (Monarch)','Needs 156 Str.'),G(8,29,'The Stone of Jordan'),G(6,42,'War Traveler','Magic find boots.'),G(5,27,'Goldwrap','Budget MF belt.'),G(4,45,"Trang-Oul's Claws"),...SWAP(),G(2,62,'Harlequin Crest (Shako)'),G(3,65,'Enigma (Mage Plate)'),G(7,67,"Mara's Kaleidoscope"),G(10,70,'Annihilus','Plus cold skillers and a Hellfire Torch.'),G(5,80,'Arachnid Mesh'),...MERC('Insight',27)],
+   [...LEV,G(0,25,'Spirit (Crystal Sword)','Leveling weapon: FCR and mana.'),G(4,23,'Magefist'),G(1,25,'Spirit (Monarch)','Needs 156 Str.'),G(8,29,'The Stone of Jordan'),G(6,42,'War Traveler','Magic find boots.'),G(5,27,'Goldwrap','Budget MF belt.'),G(4,45,"Trang-Oul's Claws"),...SWAP(),G(2,62,'Harlequin Crest (Shako)'),G(3,65,'Enigma (Mage Plate)'),G(7,67,"Mara's Kaleidoscope"),G(10,70,'Annihilus','Plus cold skillers and a Hellfire Torch.'),G(5,80,'Arachnid Mesh'),...MERC('Insight',27)],
    ST([MXG('frozen-orb-sorceress')])),
  ()=>mk('sorceress','Lightning Sorceress',90,[
    {name:'Main build',start:1,st:{str:120},steps:[['Charged Bolt',5],['Static Field',1],['Telekinesis',1],['Nova',4],['Teleport',1],['Lightning',6],['Chain Lightning',20],['Energy Shield',1],['Lightning Mastery',20],['Lightning',14],['Charged Bolt',15],['Frozen Armor',1],['Warmth',1],['Static Field',19],['Nova',16]]}],
@@ -2142,7 +2200,7 @@ const STARTERS=[
 ];
 
 
-const STARTERS_FIT=STARTERS.map(f=>()=>fitStats(f()));
+const STARTERS_FIT=STARTERS.map(f=>{const g=()=>fitStats(f());g.raw=f;return g});
 Object.assign(INFO,Object.fromEntries(Object.entries(INFO2).map(([k,v])=>[k,{good:v[0],play:v[1],weak:v[2]}])));
 const PRESETS=[...STARTERS_FIT,
  ()=>fitStats((()=>mk('barbarian','Find Item Barbarian',90,[
@@ -2153,7 +2211,7 @@ const PRESETS=[...STARTERS_FIT,
 ];
 
 const LIB=[...MX_E.map(e=>({name:e[2],cls:KEYMAP[e[3]],site:'Maxroll',upd:e[4],make:()=>mkMX(e)})),
-  ...PRESETS.map(f=>{const b=f();return {name:b.name,cls:b.cls,site:/^Icy/.test(b.src.site)?'Icy Veins':b.src.site,upd:b.src.patch,make:f}})];
+  ...PRESETS.map(f=>{const b=(f.raw||f)();return {name:b.name,cls:b.cls,site:/^Icy/.test(b.src.site)?'Icy Veins':b.src.site,upd:b.src.patch,make:f}})];
 /* ===================== UI ===================== */
 if(typeof document!=='undefined'){
 const $=s=>document.querySelector(s);
@@ -2162,7 +2220,7 @@ const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.par
 
 let B, PI=0, TAB='plan', undoB=null, pendingDel=null, addingPhase=false;
 window.__hpCode=()=>{try{return B?encode(B):''}catch(e){return ''}};
-window.__hpExportBuild=()=>{try{const C=CLS[B.cls],ph=B.phase[PI],sink=ph.sink==='none'?null:STATS.includes(ph.sink)?ph.sink:'vit',level=phaseEnd(B,PI),cnt=counts(ph),budget=stAt(B,level),spentNonSink=STATS.filter(s=>s!==sink).reduce((a,s)=>a+Math.max(0,ph.st[s]-C.base[s]),0),rest=budget-spentNonSink,stats={...ph.st};if(sink)stats[sink]=C.base[sink]+Math.max(0,rest);const spent=STATS.reduce((a,s)=>a+Math.max(0,stats[s]-C.base[s]),0),main=gearAt(B,level,false),swap=gearAt(B,level,true).filter(g=>g.s===11||g.s===15),merc=[12,13,14].map(s=>(B.gear||[]).filter(g=>g.s===s&&gpEff(B,g)<=level).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),all=[...main,...swap,...merc];return {cls:B.cls,classCode:C.code,className:C.name,name:B.name,level,quests:!!B.quests,stats,statPointsRemaining:Math.max(0,budget-spent),statBudget:budget,skillBudget:skAt(B,level),statOver:Math.max(0,-rest),skills:C.skills.map((s,i)=>({name:s.name,points:cnt[i]||0})).filter(s=>s.points>0),gear:all.map(g=>{const p=gearParts(g.it)[0]||{};return {slot:g.s,item:g.it,base:p.base||null,eth:!!p.eth,custom:g.x||null}}),merc:B.merc||''}}catch(e){return null}};
+window.__hpExportBuild=()=>{const lv0=GP_LVONLY;GP_LVONLY=true;try{return __hpExportBuild0()}finally{GP_LVONLY=lv0}};const __hpExportBuild0=()=>{try{const C=CLS[B.cls],ph=B.phase[PI],sink=ph.sink==='none'?null:STATS.includes(ph.sink)?ph.sink:'vit',level=phaseEnd(B,PI),cnt=counts(ph),budget=stAt(B,level),spentNonSink=STATS.filter(s=>s!==sink).reduce((a,s)=>a+Math.max(0,ph.st[s]-C.base[s]),0),rest=budget-spentNonSink,stats={...ph.st};if(sink)stats[sink]=C.base[sink]+Math.max(0,rest);const spent=STATS.reduce((a,s)=>a+Math.max(0,stats[s]-C.base[s]),0),main=gearAt(B,level,false),swap=gearAt(B,level,true).filter(g=>g.s===11||g.s===15),merc=[12,13,14].map(s=>(B.gear||[]).filter(g=>g.s===s&&gpEff(B,g)<=level).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),all=[...main,...swap,...merc];return {cls:B.cls,classCode:C.code,className:C.name,name:B.name,level,quests:!!B.quests,stats,statPointsRemaining:Math.max(0,budget-spent),statBudget:budget,skillBudget:skAt(B,level),statOver:Math.max(0,-rest),skills:C.skills.map((s,i)=>({name:s.name,points:cnt[i]||0})).filter(s=>s.points>0),gear:all.map(g=>{const p=gearParts(g.it)[0]||{};return {slot:g.s,item:g.it,base:p.base||null,eth:!!p.eth,custom:g.x||null}}),merc:B.merc||''}}catch(e){return null}};
 /* open a character read from an offline save file (Build planner > Import save) as a build */
 window.__hpImportSave=(ch,itemText)=>{try{
   const cls=KEYMAP[ch.cls],C=CLS[cls];if(!C)return false;
@@ -2183,7 +2241,16 @@ window.__hpImportSave=(ch,itemText)=>{try{
   undoB=B;B=b;PI=0;TAB='plan';save();render();toast(`Opened ${b.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}});return true}catch(e){console.error(e);return false}};
 const draft=LS.get('hbp.draft',null);
 const DEF=()=>(LIB.find(x=>x.name==='Blizzard Sorceress')||LIB[0]).make();
-try{B=draft?decode(draft):DEF()}catch(e){B=DEF()}
+/* Share links: #b=<deflate-compressed build, base64url> (short), or #build=<build code>. */
+const u8ToB64u=u=>{let s='';for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const b64uToU8=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0))};
+async function packLink(code){const json=b64d(code.slice(5));if(typeof CompressionStream==='undefined')return '#build='+code;
+  const buf=await new Response(new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer();return '#b='+u8ToB64u(new Uint8Array(buf))}
+async function unpackLink(p){const buf=await new Response(new Blob([b64uToU8(p)]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();return 'D2R2.'+b64e(new TextDecoder().decode(buf))}
+let fromLink=null,linkPacked=null;try{const m=location.hash.match(/^#build=(D2R2\.[A-Za-z0-9_-]+)$/),m2=location.hash.match(/^#b=([A-Za-z0-9_-]+)$/);
+  if(m)fromLink=decode(m[1]);if(m2)linkPacked=m2[1];
+  if(m||m2){try{localStorage.setItem('horadric-mode','planner')}catch(e){}history.replaceState(null,'',location.pathname+location.search)}}catch(e){fromLink=null}
+try{B=fromLink||(draft?decode(draft):DEF())}catch(e){B=DEF()}
 
 
 
@@ -2228,7 +2295,7 @@ $('#bclass').addEventListener('change',e=>{
 });
 const tabHash=()=>{try{if(hpEl.hidden)return;const h=TAB==='import'?'#import':'#planner';if(location.hash!==h)history.replaceState(null,'',h)}catch(e){}};
 document.querySelectorAll('#hp .tab').forEach(t=>t.addEventListener('click',()=>{TAB=t.dataset.tab;render();tabHash()}));
-window.__hpShowTab=x=>{if(x==='import'){TAB='import';render()}};
+window.__hpShowTab=x=>{if(['plan','gear','guide','compare','share','import','export'].includes(x)){TAB=x;render()}};
 (()=>{const nav=document.querySelector('#hp nav.tabs');if(!nav)return;const upd=()=>{const max=nav.scrollWidth-nav.clientWidth;nav.classList.toggle('more-l',nav.scrollLeft>4);nav.classList.toggle('more-r',max>4&&nav.scrollLeft<max-4)};
   nav.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);new ResizeObserver(upd).observe(nav);
   nav.addEventListener('click',e=>{const b=e.target.closest('.tab');if(b&&b.scrollIntoView)b.scrollIntoView({block:'nearest',inline:'nearest'})});upd()})();
@@ -2638,7 +2705,7 @@ function rowItems(C,r){const it=[];
   g.forEach(x=>it.push(['sk',C.skills[x.id].name+(x.n>1?' ×'+x.n:'')]));
   const st=STATS.filter(s=>r.st[s]).map(s=>`+${r.st[s]} ${SA[s]}`).join(' · ');if(st)it.push(['st',st]);
   r.q.forEach(q=>it.push(['q',`${q[1]} (${q[2]}): +${q[4]} ${q[3]==='sk'?'skill':'stat'}`]));
-  (B.gear||[]).filter(x=>gpGuideLv(B,x)===r.L).forEach(x=>it.push(['gear',`${SLOTS[x.s]}: ${x.it}`,x.it]));
+  (B.gear||[]).filter(x=>gpGuideLv(B,x)===r.L).forEach(x=>it.push(['gear',`${SLOTS[x.s]}: ${x.it}${gpNever(B,x)?' (can\u2019t be worn in this build)':''}`,x.it]));
   if(B.notes[r.L])it.push(['note',B.notes[r.L]]);
   return it}
 function checkHTML(C,sim){
@@ -2669,7 +2736,7 @@ function guideHTML(){
     if(r.respec)tags.push(`<span class="tag rs">Respec: ${esc(r.respec)}</span>`);
     r.newSk.forEach(id=>tags.push(`<span class="tag new">New: ${esc(C.skills[id].name)}</span>`));
     r.q.forEach(q=>tags.push(`<span class="tag q">${esc(q[1])} (${q[2]}): +${q[4]} ${q[3]==='sk'?'skill':'stat'}</span>`));
-    (B.gear||[]).filter(g=>gpGuideLv(B,g)===r.L).forEach(g=>tags.push(`<span class="tag gear">${esc(SLOTS[g.s])}: <span data-tip="${esc(g.it)}">${esc(g.it)}</span></span>`));
+    (B.gear||[]).filter(g=>gpGuideLv(B,g)===r.L).forEach(g=>tags.push(`<span class="tag gear">${esc(SLOTS[g.s])}: <span data-tip="${esc(g.it)}">${esc(g.it)}</span>${gpNever(B,g)?' <b class="never">can\u2019t be worn in this build</b>':''}</span>`));
     if(r.heldSk&&r.L>1)tags.push(`<span class="tag warn">Save ${r.heldSk} skill pt${r.heldSk>1?'s':''}${r.blocked?' · '+esc(r.blocked):''}</span>`);
     const st=STATS.filter(s=>r.st[s]).map(s=>`+${r.st[s]} ${SA[s]}`).join(' · ');
     out.push(`<tr class="${r.respec?'respec':''}${zoneOpen(zi)?'':' zhide'}"><td class="lv">${r.L}</td><td>${sk||(r.L===1?'<span class="muted">Start</span>':'<span class="muted">—</span>')}<div>${tags.join('')}</div></td><td class="stt">${st}</td><td class="lm"><span class="l">${r.life}</span> / <span class="m">${r.mana}</span></td><td><input class="note" id="note-${r.L}" data-note="${r.L}" value="${esc(B.notes[r.L]||'')}" placeholder="" aria-label="Note for level ${r.L}" maxlength="200"></td></tr>`);
@@ -2715,7 +2782,7 @@ function guideText(){
     if(g.length)parts.push(g.map(x=>C.skills[x.id].name+(x.n>1?' x'+x.n:'')).join(', '));
     const st=STATS.filter(s=>r.st[s]).map(s=>`+${r.st[s]} ${SA[s]}`).join(' ');if(st)parts.push(st);
     if(r.q.length)parts.push(r.q.map(q=>`${q[1]} (${q[2]})`).join(', '));
-    (B.gear||[]).filter(g=>gpGuideLv(B,g)===r.L).forEach(g=>parts.push(`Gear: ${g.it} (${SLOTS[g.s]})`));
+    (B.gear||[]).filter(g=>gpGuideLv(B,g)===r.L).forEach(g=>parts.push(`Gear: ${g.it} (${SLOTS[g.s]})${gpNever(B,g)?' (can\u2019t be worn in this build)':''}`));
     if(B.notes[r.L])parts.push('Note: '+B.notes[r.L]);
     if(parts.length)L.push(`  ${String(r.L).padStart(2)}: ${parts.join(' | ')}`);}
   return L.join('\n');
@@ -2813,9 +2880,9 @@ function mercSlotHTML(i,area,L,paperIndex){const g=eqItemAt(i,L),pos=MERC_POS[ar
 function mercPanelHTML(L){const m=String(B.merc||''),paperIndex=/Act\s*1\b/i.test(m)?0:/Act\s*2\b/i.test(m)?1:/Act\s*3\b/i.test(m)?2:/Act\s*5\b/i.test(m)?4:1,atk=mercAttack(B,L),xs=[12,13,14].map(s=>(B.gear||[]).filter(x=>x.s===s&&gpEff(B,x)<=L).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),T={res:0,ias:0,fhr:0};
   xs.forEach(g=>gearParts(g.it).forEach(p=>{if(!p.key)return;for(const k in T)T[k]+=IX[p.key][k]||0}));
   const facts=[['Hireling',m||'Not selected'],['Aura',m?mercAura(m):'Choose a hireling'],['Attack',atk?`${atk.now} frames`:'—'],['IAS / FHR',`${T.ias}% / ${T.fhr}%`]];
-  const factRows=facts.map(([l,v],i)=>`<div class="merc-fact mf-${i}"><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join('');
+  const factRows=facts.map(([l,v],i)=>`<div class="merc-fact mf-${i}"><span data-d2-bitmap="1">${esc(l)}</span><b>${esc(v)}</b></div>`).join('');
   const slots=[[12,'weapon'],[14,'helm'],[13,'armor']].map(([i,area])=>mercSlotHTML(i,area,L,paperIndex)).join('');
-  return `<div class="merc-panel"><div class="merc-sheet-title">Mercenary</div><div class="merc-facts">${factRows}</div>${slots}<div class="merc-bottom"><span>Level ${L}</span><span>${xs.length} equipped items</span></div></div>`}
+  return `<div class="merc-panel"><div class="merc-sheet-title" data-d2-bitmap="1">Mercenary</div><div class="merc-facts">${factRows}</div>${slots}<div class="merc-bottom"><span data-d2-bitmap="1">Level ${L}</span><span data-d2-bitmap="1">${xs.length} equipped item${xs.length===1?'':'s'}</span></div></div>`}
 function packInventoryItems(items){
   const used=Array.from({length:4},()=>Array(10).fill(false)),placed=[],overflow=[];
   for(const item of items){const a=gearArtInfo(item.it),w=Math.max(1,Math.min(10,a?+a.w||1:1)),h=Math.max(1,Math.min(4,a?+a.h||1:1));let spot=null;
@@ -2997,10 +3064,11 @@ function gpTakePiece(src,pi,ci){const raw=gpRawParts(src.it),r=raw[pi];if(r==nul
   if(n>2)raw[pi]=(n-1)+'× '+nm;else if(n===2)raw[pi]=nm;else raw.splice(pi,1);
   if(raw.length)src.it=raw.join(', ');else{const i=B.gear.indexOf(src);if(i>=0)B.gear.splice(i,1)}}
 /* right-click an equipped item or a charm to remove it (mouse only; Undo puts it back) */
-function gpContext(e){const a=e.target.closest&&e.target.closest('[data-act="eq-slot"],[data-act="inv-item"]');if(!a||(!e.forced&&matchMedia('(hover:none)').matches))return;
+function gpContext(e){const a=e.target.closest&&e.target.closest('[data-act="eq-slot"],[data-act="inv-item"]');if(!e.forced&&matchMedia('(hover:none)').matches)return;
+  if(!a){const iv=e.target.closest&&e.target.closest('[data-act="inv-slot"]');if(iv&&!HOLD){e.preventDefault();gpFromEvent(e,iv,10,null)}return}
   const L=Math.min(B.level,EQL||B.level);let g,piece=null;
   const copy=+(a.dataset.c||0);if(a.dataset.act==='inv-item'){g=B.gear[+a.dataset.k];if(a.dataset.p!==''&&g&&gpPieceCount(g)>1)piece=+a.dataset.p}else g=eqItemAt(+a.dataset.s,L);
-  if(!g)return;e.preventDefault();gpClose();const rs=gpSnapInv();const k=B.gear.indexOf(g);if(k<0)return;
+  if(!g){if(a.dataset.act==='eq-slot'&&!HOLD){e.preventDefault();gpFromEvent(e,a,+a.dataset.s,null)}return}e.preventDefault();gpClose();const rs=gpSnapInv();const k=B.gear.indexOf(g);if(k<0)return;
   if(a.dataset.act==='eq-slot'&&!e.forced){gpFromEvent(e,a,+a.dataset.s,null);return}
   if(a.dataset.act==='inv-item'&&!e.forced){if(HOLD)gpDrop();const el=a.dataset.ik&&document.querySelector(`#hp .inv-item[data-ik="${CSS.escape(a.dataset.ik)}"]`)||a;{const en=B.gear[+el.dataset.k];gpFromEvent(e,el,en&&en.s===16?16:10,+el.dataset.k)}return}
   if(piece!=null){const old=g.it,nm=gpRawParts(g.it)[piece].replace(/^\d+\s*[×x]\s*/,'').trim();gpTakePiece(g,piece,copy);save();render();
@@ -3181,8 +3249,8 @@ function equipHTML(){
   const tabs=side=>'<div class="weapon-tabs weapon-tabs-'+side+'" style="background-image:url(images/ui/'+tabSource+'.webp)" role="group" aria-label="'+(side==='left'?'Weapon':'Off-hand')+' set">'+(side==='right'?[2,1]:[1,2]).map(set=>'<button type="button" data-act="eq-set" data-set="'+set+'" aria-pressed="'+(set===EQ_SET)+'">'+(set===1?'I':'II')+'</button>').join('')+'</div>';
   const attribution='';
   return '<section class="card equip"><header><h2>Equipment</h2><span class="muted">'+CLS[B.cls].name+' · level '+L+'</span></header>'+stepButtons+
-    '<div class="eqwrap"><div class="eside">'+merc+'</div><div class="doll"><img class="inventory-bg" src="images/ui/inventory-background.webp" alt="" loading="lazy" decoding="async">'+tabs('left')+tabs('right')+doll+'<div class="inv-grid" data-act="inv-slot" tabindex="0" role="button" aria-label="Inventory: add a charm">'+invItems+'</div></div></div>'+overflow+
-    '<p class="hint" style="margin:0">Use I/II on either tab strip to switch both weapon and off-hand sets. Click an empty slot, or an empty part of the inventory, to choose an item. Click any item (yours, the merc’s or a charm) to pick it up, then click where it should go: it swaps with whatever is there, as long as it fits. Gear can be kept in the inventory too; it only counts once it’s equipped. Right-click any item to change or remove it. Hover or tap an item for its stats.</p>'+attribution+'</section>'}
+    '<div class="eqwrap"><div class="eside">'+merc+'</div><div class="doll"><img class="inventory-bg" src="images/ui/inventory-background.webp" alt="" loading="lazy" decoding="async">'+tabs('left')+tabs('right')+doll+'<div class="inv-grid" data-act="inv-slot" tabindex="0" role="button" aria-label="Inventory: add a charm">'+invItems+'</div></div></div><div class="inv-add-row"><button type="button" class="btn inv-add" data-act="inv-add">+ Add to inventory</button></div>'+overflow+
+    '<p class="hint" style="margin:0">Use I/II on either tab strip to switch both weapon and off-hand sets. Click an empty slot to choose an item. To put something in the inventory, right-click an empty space or use <b>+ Add to inventory</b>. Click any item (yours, the merc’s or a charm) to pick it up, then click where it should go: it swaps with whatever is there, as long as it fits. Gear can be kept in the inventory too; it only counts once it’s equipped. Right-click any item to change or remove it. Hover or tap an item for its stats.</p>'+attribution+'</section>'}
 function gearHTML(){
   const g=B.gear||(B.gear=[]);const sim=simulate(B);const probs=new Map(reqProblems(B,sim).map(p=>[p.k,p]));
   const rows=GEAR_SLOT_ORDER.map(i=>{const sl=SLOTS[i],xs=g.map((x,k)=>({...x,k})).filter(x=>x.s===i).sort((a,b)=>a.lv-b.lv);if(!xs.length)return '';
@@ -3193,7 +3261,7 @@ function gearHTML(){
   return `<div class="guide">
    ${equipHTML()}
    <section class="card"><header><h2>Gear plan</h2><span class="muted">${CLS[B.cls].name} · ${g.length} item${g.length===1?'':'s'}</span></header>
-    <p class="hint" style="margin:0">Add the items to look for in each slot and the level you can wear them. They appear in the leveling guide at that level and travel with the build code. <b>odds</b> opens the item in the drop calculator; <b>stats</b> lets you enter what a rare, charm or socketed jewel gives so it counts toward skills, breakpoints and resists. Coloured notes mean your planned Str or Dex won't meet the item's requirement at that level, and show when it will.</p>
+    <p class="hint" style="margin:0">Add the items to look for in each slot and the level you plan to wear them; an item you pick from the menu is added at the level you can wear it. Gear only counts toward your totals once its level, Strength and Dexterity requirements are met, and it appears in the leveling guide at that level. Gear travels with the build code. <b>odds</b> opens the item in the drop calculator; <b>stats</b> lets you enter what a rare, charm or socketed jewel gives so it counts toward skills, breakpoints and resists. Coloured notes mean the item's level, Str or Dex requirement isn't met at that level, and show when it will be.</p>
     <div class="gearadd">
       <label class="field"><span class="label">Slot</span><select id="g-slot">${GEAR_SLOT_ORDER.map(i=>`<option value="${i}">${SLOTS[i]}</option>`).join('')}</select></label>
       <label class="field" style="grid-column:span 2"><span class="label">Item</span><input id="g-item" list="itemlist" type="text" maxlength="60" placeholder="Spirit, Harlequin Crest, a rare with +2 skills…"></label>
@@ -3266,6 +3334,7 @@ function compareHTML(){
 function galClean(list){return (Array.isArray(list)?list:[]).slice(0,12).filter(x=>x&&typeof x.code==='string'&&/^D2R2\.[A-Za-z0-9_-]{10,20000}$/.test(x.code)&&CLASS_ORDER.includes(x.cls)).map(x=>({code:x.code,name:String(x.name||'Untitled').slice(0,60),cls:x.cls,lvl:clamp(+x.lvl||90,2,99),at:+x.at||0,site:String(x.site||'').slice(0,30)}))}
 function galPaint(){const el=document.getElementById('galList');if(el)el.innerHTML=galListHTML();const pb=document.getElementById('galPub');if(pb)pb.disabled=GAL.state!=='on'||!GAL.me||GAL.busy}
 async function galInit(){
+  GAL.state='off';return;
   if(GAL.state!=='idle')return;GAL.state='loading';
   const fail=()=>{if(GAL.state==='loading'){GAL.state='off';galPaint()}};const timer=setTimeout(fail,10000);
   try{
@@ -3319,18 +3388,15 @@ function shareHTML(){
   const sites=['all','Starter','Planner'].map(c=>`<button class="chip" data-act="lib-site" data-c="${c}" aria-pressed="${libSite===c}">${c==='all'?'All sources':c}</button>`).join('');
   return `<div class="share">
    <section class="card"><header><h2>Export</h2></header>
-     <p class="hint" style="margin:0">Share this code on forums, Discord or Reddit. Anyone can paste it into Import to get the same skills, stats, respecs and notes.</p>
+     <p class="hint" style="margin:0">The share link opens this exact build on Horadric Odds in one click. The build code does the same when pasted into Import. Both carry skills, stats, respecs, gear and notes.</p>
      <textarea id="exp" rows="5" readonly>${esc(encode(B))}</textarea>
-     <div class="row"><button class="btn primary" data-act="copy-code">Copy build code</button><button class="btn" data-act="copy-text">Copy guide as text</button></div></section>
+     <div class="row"><button class="btn primary" data-act="copy-link">Copy share link</button><button class="btn" data-act="copy-code">Copy build code</button><button class="btn" data-act="copy-text">Copy guide as text</button></div></section>
    <section class="card"><header><h2>Import</h2></header>
      <p class="hint" style="margin:0">Paste a build code, or a whole message that contains one.</p>
      <textarea id="imp" rows="5" placeholder="D2R2.…"></textarea>
      <div class="row"><button class="btn primary" data-act="import">Load build</button><span id="imp-err" class="over" style="font-size:.88rem"></span></div></section>
    <section class="card"><header><h2>My builds</h2><button class="btn small primary" data-act="lib-save">Save current build</button></header><div class="lib">${libHTML}</div></section>
-   <section class="card" style="grid-column:1/-1"><header><h2>Community builds</h2><button class="btn small primary" id="galPub" data-act="gal-pub" ${GAL.state==='on'&&GAL.me&&!GAL.busy?'':'disabled'}>Share current build</button></header>
-     <p class="hint" style="margin:0">Builds other players shared. <b>Share builds you made yourself</b>, and link to guides rather than copying them. Sharing posts the current build code under your claude.ai name; you can remove it any time. Use <b>Report</b> if a shared build shouldn't be here, or email HoradricOdds@hotmail.com. The class filter and search below apply here too.</p>
-     <div class="row" style="flex-wrap:wrap;gap:8px"><label class="row">Sort <select id="gal-sort">${[['new','Newest'],['old','Oldest'],['name','Name'],['class','Class']].map(([v,l])=>`<option value="${v}" ${galSort===v?'selected':''}>${l}</option>`).join('')}</select></label><label class="row"><input type="checkbox" id="gal-mine" ${galMine?'checked':''}> Only mine</label></div>
-     <div class="lib" id="galList">${galListHTML()}</div></section>
+
    <section class="card bsec" style="grid-column:1/-1"><header><h2>Builds</h2><span class="muted">${shown.length} starter builds · ${Object.values(GUIDES).flat().length} guides</span></header>
      <div class="phasebar">${chips}<input id="lib-q" type="search" placeholder="Search builds and guides" value="${esc(libQ)}" style="background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:6px 8px;flex:1;min-width:10rem"></div>
      ${buildsHTML(shown,q)}
@@ -3385,7 +3451,7 @@ view.addEventListener('click',e=>{
   if(act==='phase-del'){const removed=B.phase.splice(PI,1)[0];const at=PI;PI=PI-1;save();render();
     toast(`Removed ${removed.name}.`,{label:'Undo',fn:()=>{B.phase.splice(at,0,removed);PI=at;save();render()}});return}
   if(act==='undo-pt'){ph.sk.pop();save();render();return}
-  if(act==='save-export'){const plan=window.__hpExportBuild&&window.__hpExportBuild();if(!plan){toast('Couldn\'t prepare this build for export.');return}window.__plannedCharacterBuild=plan;const b=document.querySelector('.modes button[data-mode="tools"]');if(b)b.click();if(window.__toolsShow)window.__toolsShow('editor');window.scrollTo(0,0);return}
+  if(act==='save-export'){const plan=window.__hpExportBuild&&window.__hpExportBuild();if(!plan){toast('Couldn\'t prepare this build for export.');return}window.__plannedCharacterBuild=plan;const b=document.querySelector('.modes button[data-mode="tools"]');if(b)b.click();if(window.__toolsShow)window.__toolsShow('editor');try{history.replaceState(null,'','#editor')}catch(e){}window.scrollTo(0,0);return}
   if(act==='clear-pts'){const old=[...ph.sk];ph.sk=[];save();render();toast('Cleared skill points for this phase.',{label:'Undo',fn:()=>{ph.sk=old;save();render()}});return}
   if(act==='st-up'||act==='st-dn'){unsink(ph,a.dataset.s);const s=a.dataset.s,C=CLS[B.cls],budget=stAt(B,phaseEnd(B,PI)),other=STATS.filter(x=>x!==s).reduce((n,x)=>n+Math.max(0,ph.st[x]-C.base[x]),0),max=C.base[s]+Math.max(0,budget-other),d=(e.shiftKey?10:(e.ctrlKey||e.metaKey)?5:1)*(act==='st-up'?1:-1);ph.st[s]=clamp(ph.st[s]+d,C.base[s],max);save();render();return}
   if(act==='prio-up'){const s=a.dataset.s,list=ph.prio.filter(x=>x!==ph.sink);const i=list.indexOf(s);[list[i-1],list[i]]=[list[i],list[i-1]];ph.prio=[...list,ph.sink];save();render();return}
@@ -3415,7 +3481,8 @@ view.addEventListener('click',e=>{
   if(act==='eq-slot'){if(gpEqClick(e,a))return;gpFromEvent(e,a,+a.dataset.s,null);return}
   if((act==='inv-item'||act==='inv-slot')&&gpInvClick(e,a))return;
   if(act==='inv-item'){gpFromEvent(e,a,10,+a.dataset.k);return}
-  if(act==='inv-slot'){gpFromEvent(e,a,10,null);return}
+  if(act==='inv-slot'){if(e.detail===0)gpFromEvent(e,a,10,null);return}
+  if(act==='inv-add'){gpFromEvent(e,a,10,null);return}
   if(act==='eq-slot-old'){const s=+a.dataset.s;const has=a.classList.contains('has');
     if(!has){const sel=document.getElementById('g-slot'),inp=document.getElementById('g-item');if(sel){sel.value=String(s);inp.focus();inp.scrollIntoView({block:'center'})}return}
     if(matchMedia('(hover:none)').matches){eqTip=eqTip===s?null:s;render()}return}
@@ -3436,6 +3503,7 @@ view.addEventListener('click',e=>{
   if(act==='gal-report'){galReport(a.dataset.u,a.dataset.n);return}
   if(act==='lib-cls'){libCls=a.dataset.c;render();return}
   if(act==='lib-site'){libSite=a.dataset.c;render();return}
+  if(act==='copy-link'){packLink(encode(B)).then(h=>copy(location.origin+location.pathname+h,'Share link copied. Anyone who opens it gets this build.')).catch(()=>copy(location.origin+location.pathname+'#build='+encode(B),'Share link copied.'));return}
   if(act==='copy-code'){copy(encode(B),'Build code copied.');return}
   if(act==='copy-text'){copy(guideText(),'Guide copied as text.');return}
   if(act==='import'){try{const nb=decode($('#imp').value);undoB=B;B=nb;PI=0;TAB='plan';save();render();toast(`Loaded ${B.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}})}catch(err){$('#imp-err').textContent=err.message}return}
@@ -3471,6 +3539,9 @@ view.addEventListener('change',e=>{
   if(t.dataset.note){const L=+t.dataset.note;const v=t.value.trim();if(v)B.notes[L]=v.slice(0,200);else delete B.notes[L];save();return}
 });
 render();
+const sharedToast=()=>setTimeout(()=>toast(`Opened a shared build: ${B.name}. Save it in Share & Library to keep it.`),400);
+if(fromLink)sharedToast();
+if(linkPacked)unpackLink(linkPacked).then(c=>{B=decode(c);PI=0;TAB='plan';save();render();sharedToast()}).catch(()=>toast('That share link looks damaged or incomplete.'));
 }
 
 })();
@@ -3484,7 +3555,7 @@ render();
   const MH={planner:'planner',xp:'experience',help:'how-to-use'},HM={planner:'planner',experience:'xp','how-to-use':'help','drop-odds':'odds',tools:'tools',grail:'tools',runes:'tools',runs:'tools',farm:'tools',cube:'tools',rolls:'tools',affixes:'tools',editor:'tools',backup:'tools',import:'planner'};
   function setHash(m){try{if(m==='tools'&&!window.__toolsSub&&HM[location.hash.slice(1)]==='tools')return;if(m!=='odds'){const h='#'+(m==='tools'?(window.__toolsSub||'grail'):m==='planner'&&window.__hpTab==='import'?'import':MH[m]);if(location.hash!==h)history.replaceState(null,'',h)}
     else if(HM[location.hash.slice(1)]){history.replaceState(null,'',location.pathname+location.search);if(window.__oddsSync)window.__oddsSync()}}catch(e){}}
-  function set(m,sub){if(!['odds','planner','xp','help','tools'].includes(m))m='odds';wrap.classList.toggle('mode-planner',m!=='odds');hp.hidden=m!=='planner';if(help)help.hidden=m!=='help';if(tools){tools.hidden=m!=='tools';if(m==='tools'&&window.__toolsShow)window.__toolsShow(sub)}if(m==='planner'&&sub==='import'&&window.__hpShowTab)window.__hpShowTab('import');if(xp){xp.hidden=m!=='xp';if(m==='xp'&&window.__xpShow)window.__xpShow()}
+  function set(m,sub){if(!['odds','planner','xp','help','tools'].includes(m))m='odds';wrap.classList.toggle('mode-planner',m!=='odds');hp.hidden=m!=='planner';if(help)help.hidden=m!=='help';if(tools){tools.hidden=m!=='tools';if(m==='tools'&&window.__toolsShow)window.__toolsShow(sub)}if(m==='planner'&&sub&&window.__hpShowTab)window.__hpShowTab(sub);if(xp){xp.hidden=m!=='xp';if(m==='xp'&&window.__xpShow)window.__xpShow()}
     btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===m)));
     if(tag)tag.textContent=m==='planner'?'D2R build planner':m==='xp'?'D2R experience calculator':m==='help'?'How to use':m==='tools'?'D2R tools':'D2R drop calculator';
     try{localStorage.setItem('horadric-mode',m)}catch(e){}setHash(m)}
@@ -7278,19 +7349,22 @@ function seUndo(){const E=seEng();const b=SE.undo.pop();if(!E||!b)return;const k
 function seNormItem(s){return String(s||'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ')}
 function sePlanParts(text){return String(text||'').split(/\s*(?:,|\s\+\s|\sor\s|\/)\s*(?![^()]*\))/i).map(s=>s.trim()).filter(Boolean).map(s=>{const n=s.match(/^(\d+)\s*[×x]\s*/i),eth=/\beth(ereal)?\b/i.test(s),baseText=(s.match(/\(([^)]*)\)/)||[])[1]||'',name=s.replace(/\([^)]*\)/g,' ').replace(/^\d+\s*[×x]\s*/,'').replace(/^(eth|ethereal)\s+/i,'').replace(/\s+/g,' ').trim();return {name,baseText,eth,count:n?Math.max(1,Math.min(20,+n[1])):1}})}
 function seCustomStats(custom,m,plan){if(!custom||typeof custom!=='object')return [];const names=Object.fromEntries(m.D.isc.map((s,i)=>s&&s[6]?[s[6],i]:null).filter(Boolean)),out=[],add=(k,v,par)=>{if(!v)return;const id=names[k];if(id==null)throw Error(`Custom gear modifier “${k}” is not supported by this save version.`);out.push(par==null?[id,v]:[id,par,v])};
-  add('item_allskills',+custom.sk||0);add('item_addclassskills',+custom.cls||0,E.CLS_I[plan.classCode||plan.cls]);add('item_fastercastrate',+custom.fcr||0);add('item_fastergethitrate',+custom.fhr||0);add('item_fasterattackrate',+custom.ias||0);add('item_magicbonus',+custom.mf||0);add('maxhp',+custom.life||0);add('item_maxdamage_percent',+custom.ed||0);add('strength',+custom.str||0);add('dexterity',+custom.dex||0);add('vitality',+custom.vit||0);add('energy',+custom.ene||0);
+  add('item_allskills',+custom.sk||0);add('item_addclassskills',+custom.cls||0,(seEng().CLS_I||{})[plan.classCode||plan.cls]);add('item_fastercastrate',+custom.fcr||0);add('item_fastergethitrate',+custom.fhr||0);add('item_fasterattackrate',+custom.ias||0);add('item_magicbonus',+custom.mf||0);add('maxhp',+custom.life||0);add('item_maxdamage_percent',+custom.ed||0);add('strength',+custom.str||0);add('dexterity',+custom.dex||0);add('vitality',+custom.vit||0);add('energy',+custom.ene||0);
   const res=+custom.res||0;for(const k of ['fireresist','lightresist','coldresist','poisonresist'])add(k,res);for(const [key,stat] of [['rf','fireresist'],['rl','lightresist'],['rc','coldresist'],['rp','poisonresist']])add(stat,+custom[key]||0);return out}
+function seRareName(m,name){const R=m.D.rn||[],ns=m.D.nsuf||0,w=String(name||'').trim().split(/\s+/);if(w.length!==2)return undefined;const pi=R.indexOf(w[0],ns+1),si=R.indexOf(w[1]);return pi>ns&&si>0&&si<=ns?[pi,si]:undefined}
+function seBaseFind(cat,text){const n=seNormItem(text).replace(/^(rare|magic|crafted|superior|normal|white|socketed|\d socket|eth|ethereal)\s+/,'');if(!n)return null;const all=[...cat.bases,...(cat.magicBases||[])];const ex=all.find(x=>seNormItem(x.name)===n);if(ex)return ex;let best=null;for(const x of all){const k=seNormItem(x.name);if(k.length<4)continue;const i=(' '+n+' ').indexOf(' '+k+' ');if(i>=0&&(!best||k.length>seNormItem(best.name).length))best=x}return best}
 function sePlanLoadout(plan,m){const E=seEng(),cat=E.catalog(m),norm=seNormItem,resolve=[];const exact=(list,n)=>list.find(x=>norm(x.name)===norm(n));
   const eqMap={0:4,1:5,2:1,3:3,4:10,5:8,6:9,7:2,8:6,9:7,11:11,15:12};
   for(const g of plan.gear||[]){const slot=+g.slot,merc=slot>=12&&slot<=14,parts=sePlanParts(g.item);if(!parts.length)continue;if(slot!==10&&parts.length>1)throw Error(`Gear slot “${['Weapon','Off-hand','Helm','Armor','Gloves','Belt','Boots','Amulet','Ring 1','Ring 2'][slot]||slot}” lists multiple alternatives (${parts.map(p=>p.name).join(', ')}). Choose one exact item before exporting.`);
-    for(const p of parts){if(slot!==10&&p.count>1)throw Error(`${p.name}: a count greater than one only fits the Charms slot.`);let sel=null,label=p.name,base=cat.bases.find(x=>x.code===g.base)||cat.bases.find(x=>norm(x.name)===norm(p.baseText));
+    for(const p of parts){if(slot!==10&&p.count>1)throw Error(`${p.name}: a count greater than one only fits the Charms slot.`);let sel=null,label=p.name,base=cat.bases.find(x=>x.code===g.base)||seBaseFind(cat,p.baseText);
       const rw=exact(cat.rw,p.name),u=exact(cat.u,p.name),set=exact(cat.s,p.name);
       if(rw){const bs=base||E.rwBases(m,rw.id)[0];if(!bs)throw Error(`${p.name}: no compatible base item was found.`);sel={kind:'rw',id:rw.id,base:bs.code,eth:p.eth}}
       else if(u)sel={kind:'u',id:u.id,eth:p.eth}
       else if(set)sel={kind:'s',id:set.id,eth:p.eth}
-      else {if(!base)base=cat.bases.find(x=>norm(x.name)===norm(p.name));if(base)sel={kind:'base',base:base.code,eth:p.eth}}
+      else {if(!base)base=seBaseFind(cat,p.name);if(base)sel=(cat.magicBases||[]).includes(base)?(/\brare\b/i.test(p.baseText+' '+p.name)?{kind:'rare',base:base.code,aff:[],rn:seRareName(m,p.name)}:{kind:'magic',base:base.code,pre:0,suf:0}):{kind:'base',base:base.code,eth:p.eth}}
       if(!sel)throw Error(`“${p.name}” is a gear goal but could not be matched to a save item. Add its exact item/base (and custom rolls if needed) before exporting.`);
       const spec=E.buildSpec(m,sel),code=spec.code;if(!code)throw Error(`Could not build ${p.name} as a save item.`);spec.stats=[...(spec.stats||[]),...seCustomStats(g.custom,m,plan)];
+      if(slot===16){resolve.push({spec,merc:false,inventory:true,label,count:p.count});continue}
       if(slot===10){if(!E.typesOf(m,code).some(t=>/char/i.test(t)))throw Error(`${p.name} is in the Charms slot but is not a charm item.`);resolve.push({spec,merc:false,inventory:true,label,count:p.count});continue}
       const eq=merc?({12:4,13:3,14:1})[slot]:eqMap[slot];if(eq==null)throw Error(`${p.name} uses unsupported equipment slot ${slot}.`);
       if(!E.slotsFor(m,code).includes(eq))throw Error(`${p.name} cannot be equipped in the planned ${merc?'mercenary':'character'} slot.`);
@@ -7602,9 +7676,12 @@ function sqBind(){if(sqBound)return;sqBound=true;
 function seQuestHTML(m){sqBind();if(!SE.qsave||SE.qsave.m!==m)SE.qsave={m,M:sqRead(m)};
   return `<section class="tl-card">${sqPanelHTML(SE.qsave.M,'save',!!m.expansion)}</section>`}
 function sqAll(){const M=sqEmpty();for(let d=0;d<3;d++)SQ.forEach(([,q])=>M.done[d].add(q));M.d=2;return M}
-function sqPlanHTML(){sqBind();return sqPanelHTML(SE.qplan||(SE.qplan=sqAll()),'plan',true)}
+/* a planned build starts with the difficulties a character of its level has usually finished; tick boxes change it */
+function sqForLevel(L){const M=sqEmpty(),upto=L>=70?2:L>=45?1:L>=20?0:-1;for(let d=0;d<=upto;d++)SQ.forEach(([,q])=>M.done[d].add(q));M.d=Math.min(2,upto+1);return M}
+function sqPlanHTML(){sqBind();const pl=window.__plannedCharacterBuild||null;if(!SE.qplan||SE.qplanFor!==pl){SE.qplan=pl&&pl.level?sqForLevel(+pl.level):sqAll();SE.qplanFor=pl}return sqPanelHTML(SE.qplan,'plan',true)}
 
-function editorHTML(){const E=seEng();const m=SE.m;
+function editorHTML(){const h=editorHTML0(),pl=window.__plannedCharacterBuild;if(!SE.m||!pl)return h;return `<div class="tl-card se-plan-ready"><b>Export “${esc(pl.name)}” is ready.</b> <span class="tl-sub">You have ${esc(SE.file||'a save')} open. Download it first if you changed it, then:</span> <button type="button" class="tl-btn primary" data-act="se-plan-show">Close this save and export the build</button> <button type="button" class="tl-btn ghost" data-act="se-plan-cancel-keep">Not now</button></div>`+h}
+function editorHTML0(){const E=seEng();const m=SE.m;
   const plan=window.__plannedCharacterBuild;let suggested=String(plan&&plan.name||'Hero').replace(/[^A-Za-z0-9_-]/g,'').replace(/^[^A-Za-z]+/,'').slice(0,15);if(suggested.length<2)suggested='Hero';
   if(!m)return `<section class="tl-card"><h3>Save editor</h3>
     <p class="tl-note">Create a new offline character from a planned build or edit an existing .d2s save. Save files are handled on this device and are never uploaded.</p>
@@ -7650,6 +7727,8 @@ root.addEventListener('click',e=>{if(SUB!=='editor')return;const a=e.target.clos
   if(a.dataset.sekind){SE.add={...SE.add,kind:a.dataset.sekind,q:'',id:null,base:'',pre:0,suf:0,aff:[0,0,0,0,0,0],vals:{},eth:false,sockets:'',kids:[]};render();return}
   const act=a.dataset.act;
   if(act==='se-new-build'){seCreateNewBuild();return}
+  if(act==='se-plan-show'){SE.m=null;SE.file='';SE.undo=[];SE.msg='';SE.err='';render();return}
+  if(act==='se-plan-cancel-keep'){window.__plannedCharacterBuild=null;render();return}
   if(act==='se-plan-cancel'){window.__plannedCharacterBuild=null;SE.m=null;SE.file='';SE.undo=[];SE.msg='';SE.err='';SE.exportTarget='105';render();return}
   if(act==='se-dl'){seDownload();return}
   if(act==='se-undo'){seUndo();render();return}
@@ -7825,6 +7904,8 @@ if(!root.hidden){render();startTick();try{if(location.hash!=='#'+SUB)history.rep
 
 </script>
 
+<script>/* offline support and install as an app (website only) */if('serviceWorker' in navigator&&location.protocol==='https:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
 <script src="d2-font.js" defer></script>
+</body>
+</html>
 
-</body></html>
