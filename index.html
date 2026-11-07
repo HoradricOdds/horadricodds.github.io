@@ -1126,6 +1126,21 @@ body .itemtip{z-index:3500}
 #hp .doll .eslot.drop-ok,#hp .merc-slot.drop-ok{outline:2px solid rgba(120,220,130,.85)!important;outline-offset:1px;background:rgba(80,160,90,.18)!important}
 #hp .doll .eslot.drop-bad,#hp .merc-slot.drop-bad{outline:2px solid rgba(230,80,60,.85)!important;outline-offset:1px;background:rgba(190,50,40,.18)!important}
 #hp .inv-grid.no-drop{outline:2px solid rgba(230,80,60,.75);outline-offset:1px;background:rgba(190,50,40,.14);cursor:not-allowed}
+.about{margin:8px 0 0;font-size:.88rem;color:var(--muted)}
+.about summary{cursor:pointer;width:max-content;max-width:100%}
+.about .aboutbody{border:1px solid var(--line);background:var(--panel);border-radius:4px;padding:10px 14px;margin-top:6px;color:var(--text)}
+.about .aboutbody p{margin:0 0 8px;max-width:75ch}
+.about a{color:var(--magic)}
+.site-about{max-width:1400px;margin:32px auto 0;padding:14px 0 0;border-top:1px solid var(--line)}.site-about .about{margin:0}
+#tools .sq{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+#tools .sq-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+#tools .sq-presets{gap:6px;flex-wrap:wrap;align-items:center}
+#tools .sq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+#tools .sq-act{border:1px solid var(--line);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
+#tools .sq-act.locked{opacity:.55}
+#tools .sq-acth{font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:2px}
+#tools .sq-q{display:flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
+#tools .sq-ok{font-size:.75rem;font-weight:400;color:var(--good,#5fd36b);margin-left:auto}
 </style>
 
 <style id="gear-inventory-preview">
@@ -1416,7 +1431,6 @@ body .itemtip{z-index:3500}
     <p><strong>Sharing.</strong> The page's link keeps the item, stats and settings you picked, so copying it shares your exact calculation.</p>
     <p><strong>Not modelled.</strong> The once-per-game unique rule, scripted drops (Cow King hide, organs from Uber events, Hellfire Torch, Annihilus) and super uniques without a fixed location. Heralds are assumed to get the same +3 level bonus as unique monsters.</p>
     </details>
-    <p>Data: game tables via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT). Open source under the MIT License. Diablo is a trademark of Blizzard Entertainment; this is a fan tool, not affiliated with Blizzard.</p>
   </footer>
 </div>
 
@@ -1440,7 +1454,6 @@ body .itemtip{z-index:3500}
   <main id="hpView"></main>
 </div>
 <div id="hpToast" class="toast" hidden></div>
-<details class="fold hp-fold"><summary>Sources and credits</summary><p class="hp-credit">Skill trees, prerequisites and the Maxroll builds come from the planner data in <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll's D2R guides</a> (Season 14). Other builds are based on <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> guides. Each build links to its own guide.</p></details>
 </div>
 <div id="xp" hidden>
 <div class="xp-app">
@@ -1560,7 +1573,17 @@ body .itemtip{z-index:3500}
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>7 Nov 2026, 10:23 pm</span></p>
+<div class="site-about"><details class="about"><summary>About &amp; credits</summary><div class="aboutbody">
+      <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment. The site is open source under the MIT License.</p>
+      <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
+      <p><b>Experience:</b> rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>; monster counts per area come from <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a>'s Experience Calculator (thanks, Pavke!), which was also used to check the numbers. <b>Attack frames:</b> animation frame data and timing rules follow <a href="https://github.com/Warren1001/IAS_Calculator" target="_blank" rel="noopener">Warren1001's IAS Calculator</a> (animation tables dumped by RuffnecKk). <b>Cast, hit-recovery and block breakpoints:</b> <a href="https://d2runewizard.com/breakpoints" target="_blank" rel="noopener">d2runewizard</a>, with the Warlock tables confirmed against <a href="https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation" target="_blank" rel="noopener">AOEAH</a>.</p>
+      <p><b>Builds:</b> Skill trees, prerequisites and the Maxroll builds come from the planner data in <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll's D2R guides</a> (Season 14). Other builds are based on <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> guides. Each build links to its own guide.</p>
+      <p><b>Save files:</b> the save format comes from the community's reverse engineering (d07riv, <a href="https://github.com/dschu012/d2s" target="_blank" rel="noopener">dschu012/d2s</a> (MIT), nokka/d2s, krisives/d2s-format, and the <a href="https://docs.rs/crate/d2s/latest" target="_blank" rel="noopener">d2s Rust crate</a> for Reign of the Warlock). Lord of Destruction and Classic tables come from the 1.14d game files.</p>
+      <p><b>Prices:</b> the optional price links open <a href="https://diablo2.io/" target="_blank" rel="noopener">diablo2.io</a>'s price check for the item, with permission from its admin. Horadric Odds doesn't collect or store any price data.</p>
+      <p><b>Artwork:</b> item pictures from <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>; the inventory panel texture from <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio’s D2R UI assets</a>. Diablo II: Resurrected artwork belongs to Blizzard Entertainment; Horadric Odds does not own or claim rights to it and is not affiliated with Blizzard or LootCube.</p>
+      <p><b>Bugs and ideas:</b> open an issue on <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">GitHub</a> or email the address below.</p>
+      <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>, or use <i>Report</i> on any shared build.</p></div></details></div>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>7 Nov 2026, 10:39 pm</span></p>
 
 
 <script>
@@ -3014,7 +3037,7 @@ function equipHTML(){
   const stepButtons=steps.length>1?'<div class="esteps" role="group" aria-label="Gear at level"><span class="label">Gear at level</span>'+steps.map(l=>'<button class="chip" data-act="eq-lvl" data-l="'+l+'" aria-pressed="'+(l===L)+'">'+l+'</button>').join('')+'</div>':'';
   const tabSource=EQ_SET===2?'weaponswap':'tab';
   const tabs=side=>'<div class="weapon-tabs weapon-tabs-'+side+'" style="background-image:url(images/ui/'+tabSource+'.webp)" role="group" aria-label="'+(side==='left'?'Weapon':'Off-hand')+' set">'+(side==='right'?[2,1]:[1,2]).map(set=>'<button type="button" data-act="eq-set" data-set="'+set+'" aria-pressed="'+(set===EQ_SET)+'">'+(set===1?'I':'II')+'</button>').join('')+'</div>';
-  const attribution='<p class="hint art-credit" style="margin:0">Item artwork: <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>. Inventory panel texture: <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio D2R UI assets</a>. Diablo II: Resurrected artwork and game data belong to Blizzard Entertainment. Horadric Odds does not own or claim rights to this artwork and is not affiliated with Blizzard or LootCube.</p>';
+  const attribution='';
   return '<section class="card equip"><header><h2>Equipment</h2><span class="muted">'+CLS[B.cls].name+' · level '+L+'</span></header>'+stepButtons+
     '<div class="eqwrap"><div class="eside">'+merc+'</div><div class="doll"><img class="inventory-bg" src="images/ui/inventory-background.webp" alt="" loading="lazy" decoding="async">'+tabs('left')+tabs('right')+doll+'<div class="inv-grid" data-act="inv-slot" tabindex="0" role="button" aria-label="Inventory: add a charm">'+invItems+'</div></div></div>'+overflow+
     '<p class="hint" style="margin:0">Use I/II on either tab strip to switch both weapon and off-hand sets. Click an empty slot, or an empty part of the inventory, to choose an item. Click any item (yours, the merc’s or a charm) to pick it up, then click where it should go: it swaps with whatever is there, as long as it fits. Gear can be kept in the inventory too; it only counts once it’s equipped. Right-click any item to change or remove it. Hover or tap an item for its stats.</p>'+attribution+'</section>'}
@@ -6938,7 +6961,7 @@ async function seCreateNewBuild(){const plan=window.__plannedCharacterBuild,E=se
     const m=E.parse(bytes);m.cls=planClass;m.status=bytes[statusAt];m.hardcore=hardcore;m.expansion=true;m.pre[classAt]=cls;m.pre[statusAt]=bytes[statusAt];
     m.pre.fill(0,nameAt,nameAt+16);for(let i=0;i<name.length;i++)m.pre[nameAt+i]=name.charCodeAt(i);m.name=name;
     SE.m=m;SE.file=name+'.d2s';SE.undo=[];SE.view='char';SE.msg='';SE.err='';if(!seApplyBuild(plan)){SE.m=null;SE.file='';SE.undo=[];render();return}seVerifyBuild(m,plan);
-    window.__plannedCharacterBuild=null;SE.msg=`Created ${hardcore?'Hardcore ':''}D2R ${plan.className} “${name}” from the selected build, including its supported equipment${plan.merc||(plan.gear||[]).some(g=>g.slot>=12&&g.slot<=14)?' and mercenary loadout':''}.`;render()
+    if(SE.qplan){const qe=sqWrite(m,SE.qplan,true);if(qe)SE.err=qe}window.__plannedCharacterBuild=null;SE.msg=`Created ${hardcore?'Hardcore ':''}D2R ${plan.className} “${name}” from the selected build, including its supported equipment${plan.merc||(plan.gear||[]).some(g=>g.slot>=12&&g.slot<=14)?' and mercenary loadout':''}.`;render()
   }catch(e){SE.m=null;SE.file='';SE.undo=[];SE.err=`Couldn't create the character: ${(e&&e.message)||'template error'}`;render()}}
 function seTargetMatches(m,target){if(target==='105')return m.ver===105;if(/^9[7-9]$|^10[0-4]$/.test(target))return m.ver===Number(target);if(target==='lod')return m.ver===96&&!!m.expansion;if(target==='classic')return m.ver===96&&!m.expansion;return false}
 async function seRead(file){const E=seEng();SE.err='';SE.msg='';
@@ -7134,6 +7157,70 @@ function seSkillsHTML(m){const E=seEng();const c=E.classInfo(m);if(!c)return '';
     <div class="se-foot"><div class="se-opts"><span class="se-mini">Shift-click − or + to change by 10. The game caps hard points at 20; up to 99 is allowed here for testing.</span></div>
       <div class="se-btns"><button type="button" class="tl-btn" data-act="se-skpts">Work out unspent skill points</button><button type="button" class="tl-btn ghost" data-act="se-skreset">Reset all skills</button></div></div>
   </section>`}
+/* ---------- quests and progress: tick the quests, acts and difficulties a character has completed ----------
+   Quest data starts at "Woo!" (10-byte header, then 96 bytes per difficulty of 16-bit quest words; a completed quest is 0x3001).
+   Waypoints follow at Woo!+298 ("WS", 8-byte header, 24 bytes per difficulty: version 0x0102 then 39 waypoint bits). */
+const SQ=[[0,1,'Den of Evil'],[0,2,"Sisters' Burial Grounds"],[0,4,'The Search for Cain'],[0,5,'The Forgotten Tower'],[0,3,'Tools of the Trade'],[0,6,'Sisters to the Slaughter'],
+  [1,9,"Radament's Lair"],[1,10,'The Horadric Staff'],[1,11,'The Tainted Sun'],[1,12,'The Arcane Sanctuary'],[1,13,'The Summoner'],[1,14,'The Seven Tombs'],
+  [2,20,'The Golden Bird'],[2,19,'Blade of the Old Religion'],[2,18,"Khalim's Will"],[2,17,"Lam Esen's Tome"],[2,21,'The Blackened Temple'],[2,22,'The Guardian'],
+  [3,25,'The Fallen Angel'],[3,27,"Hell's Forge"],[3,26,"Terror's End"],
+  [4,35,'Siege on Harrogath'],[4,36,'Rescue on Mount Arreat'],[4,37,'Prison of Ice'],[4,38,'Betrayal of Harrogath'],[4,39,'Rite of Passage'],[4,40,'Eve of Destruction']];
+const SQ_BOSS=[6,14,22,26,40],SQ_INTRO=[0,8,16,24],SQ_DONE=[7,15,23,28],SQ_ACT=['Act I','Act II','Act III','Act IV','Act V'],SQ_DIFF=['Normal','Nightmare','Hell'];
+const SQ_WP=[[0,9],[9,9],[18,9],[27,3],[30,9]];
+function sqWoo(m){const b=m.pre;for(let i=0x100;i<Math.min(b.length-4,1200);i++)if(b[i]===0x57&&b[i+1]===0x6f&&b[i+2]===0x6f&&b[i+3]===0x21)return i;return -1}
+function sqEmpty(){return {done:[new Set(),new Set(),new Set()],wp:true,d:0}}
+function sqRead(m){const M=sqEmpty(),w=sqWoo(m);if(w<0)return M;
+  for(let d=0;d<3;d++){const base=w+10+96*d;for(const [,q] of SQ){const v=m.pre[base+2*q]|(m.pre[base+2*q+1]<<8);if(v&(1|1<<13|1<<15))M.done[d].add(q)}}
+  for(let d=2;d>=0;d--)if(M.done[d].size){M.d=d;break}return M}
+function sqActs(M,exp){const n=exp?5:4,out=[];let open=true;   // per difficulty: acts reached and acts completed, in order
+  for(let d=0;d<3;d++){const reached=[],done=[];for(let a=0;a<n;a++){reached[a]=open&&(a===0||done[a-1]);done[a]=reached[a]&&M.done[d].has(SQ_BOSS[a])}
+    out.push({reached,done,complete:done[n-1]});open=out[d].complete}return out}
+function sqProg(A,exp){const n=exp?5:4;let p=0;for(let d=0;d<3;d++){if(A[d].complete){p=(d+1)*n;continue}p=d*n+A[d].done.filter(Boolean).length;break}return Math.min(p,exp?15:12)}
+function sqWhere(A,exp){const n=exp?5:4;let cd=0,ca=0;for(let d=0;d<3;d++)for(let a=0;a<n;a++)if(A[d].reached[a]){cd=d;ca=a}return [cd,ca]}
+/* writes the quest words; acts, title, starting act and waypoints are only rewritten where the ticks change them (or always, with force) */
+function sqWrite(m,M,force){const w=sqWoo(m);if(w<0)return 'This save has no quest data to change.';const b=m.pre,exp=!!m.expansion,n=exp?5:4,sh=m.sh||0;
+  const A0=sqActs(sqRead(m),exp),A=sqActs(M,exp);
+  const put=(o,v)=>{b[o]=v&255;b[o+1]=(v>>8)&255};
+  for(let d=0;d<3;d++){const base=w+10+96*d;
+    for(const [a,q] of SQ){if(a===4&&!exp)continue;const o=base+2*q,v=b[o]|(b[o+1]<<8),was=!!(v&(1|1<<13|1<<15));
+      if(M.done[d].has(q)){if(!was)put(o,0x3001)}else if(was)put(o,0)}
+    for(let a=0;a<4;a++){if(force||A[d].reached[a]!==A0[d].reached[a])put(base+2*SQ_INTRO[a],A[d].reached[a]?1:0);
+      if(force||A[d].done[a]!==A0[d].done[a])put(base+2*SQ_DONE[a],A[d].done[a]?1:0)}}
+  const p=sqProg(A,exp);if(force||p!==sqProg(A0,exp))b[0x25+sh]=p;
+  const [cd,ca]=sqWhere(A,exp),[cd0,ca0]=sqWhere(A0,exp);if(force||cd!==cd0||ca!==ca0)for(let d=0;d<3;d++)b[0xa8+sh+d]=d===cd?(0x80|ca):0;
+  if(M.wp&&b[w+298]===0x57&&b[w+299]===0x53){for(let d=0;d<3;d++){if(!force&&A[d].reached.every((r,i)=>r===A0[d].reached[i]))continue;const o=w+298+8+24*d;put(o,0x0102);for(let i=2;i<8;i++)b[o+i]=0;
+    for(let a=0;a<n;a++){if(!A[d].reached[a])continue;const [s,c]=SQ_WP[a];for(let i=s;i<s+c;i++)b[o+2+(i>>3)]|=1<<(i&7)}b[o+2]|=1}}
+  return ''}
+function sqPanelHTML(M,mode,exp){const A=sqActs(M,exp),d=M.d,n=exp?5:4,qs=SQ.filter(([a])=>a<n);
+  const cnt=dd=>qs.filter(([,q])=>M.done[dd].has(q)).length;
+  const acts=Array.from({length:n},(_,a)=>{const list=qs.filter(([x])=>x===a),all=list.every(([,q])=>M.done[d].has(q)),some=list.some(([,q])=>M.done[d].has(q));
+    return `<div class="sq-act${A[d].reached[a]?'':' locked'}"><label class="sq-acth"><input type="checkbox" data-sqa="${a}" ${all?'checked':''}> ${SQ_ACT[a]}${A[d].done[a]?' <span class="sq-ok">done</span>':''}</label>
+      ${list.map(([,q,name])=>`<label class="sq-q"><input type="checkbox" data-sqw="${q}" ${M.done[d].has(q)?'checked':''}> ${esc(name)}</label>`).join('')}</div>`}).join('');
+  const status=SQ_DIFF.map((nm,i)=>A[i].complete?`${nm} completed`:A[i].reached[0]?`${nm} open`:null).filter(Boolean).join(' · ');
+  return `<div class="sq" data-sqmode="${mode}">
+   <div class="sq-top"><b>Quests and progress</b><span class="tl-sub">${esc(status||'Nothing completed')}</span></div>
+   <div class="tl-row sq-presets"><span class="tl-sub">Quick set:</span>${[['none','Nothing'],['n','Normal done'],['nm','Normal + Nightmare'],['all','Everything']].map(([k,l])=>`<button type="button" class="tl-btn ghost" data-sqp="${k}">${l}</button>`).join('')}</div>
+   <nav class="se-nav sq-tabs" role="tablist">${SQ_DIFF.map((nm,i)=>`<button type="button" role="tab" data-sqd="${i}" aria-selected="${i===d}">${nm} <span class="tl-sub">${cnt(i)}/${qs.length}</span></button>`).join('')}</nav>
+   <div class="sq-grid">${acts}</div>
+   <label class="tl-check"><input type="checkbox" data-sqwp ${M.wp?'checked':''}> Unlock every waypoint in the acts reached</label>
+   <p class="tl-note">An act opens once the act before it is done (its last quest), and the next difficulty opens once ${exp?'Eve of Destruction':"Terror's End"} is done, so greyed-out acts can't be reached yet. Quest rewards that change the character (skill and stat points, Anya's resistances, the Golden Bird's life) aren't added here; set points on the <i>Character</i> tab.</p></div>`}
+let sqBound=false;
+function sqBind(){if(sqBound)return;sqBound=true;
+  const model=box=>box.dataset.sqmode==='plan'?(SE.qplan||(SE.qplan=sqAll())):(SE.qsave&&SE.qsave.m===SE.m?SE.qsave.M:null);
+  const commit=box=>{if(box.dataset.sqmode==='plan'){render();return}const M=model(box);if(!M||!SE.m)return;seSnap();const err=sqWrite(SE.m,M);SE.err=err;SE.msg=err?'':'Quests updated. Download the edited save to keep them.';render()};
+  document.addEventListener('click',e=>{const box=e.target.closest&&e.target.closest('#tools .sq');if(!box)return;const M=model(box);if(!M)return;const b=e.target.closest('[data-sqd],[data-sqp]');if(!b)return;
+    if(b.dataset.sqd){M.d=+b.dataset.sqd;render();return}
+    const k=b.dataset.sqp,upto={none:-1,n:0,nm:1,all:2}[k],exp=box.querySelectorAll('.sq-act').length===5;
+    for(let d=0;d<3;d++){M.done[d].clear();if(d<=upto)SQ.forEach(([a,q])=>{if(a<(exp?5:4))M.done[d].add(q)})}M.d=Math.max(0,Math.min(2,upto+(upto<2?1:0)));commit(box)});
+  document.addEventListener('change',e=>{const box=e.target.closest&&e.target.closest('#tools .sq');if(!box)return;const M=model(box);if(!M)return;const el=e.target;
+    if(el.dataset.sqw){const q=+el.dataset.sqw;if(el.checked)M.done[M.d].add(q);else M.done[M.d].delete(q);commit(box);return}
+    if(el.dataset.sqa){const a=+el.dataset.sqa;SQ.filter(([x])=>x===a).forEach(([,q])=>{if(el.checked)M.done[M.d].add(q);else M.done[M.d].delete(q)});commit(box);return}
+    if(el.dataset.sqwp!==undefined){M.wp=el.checked;if(box.dataset.sqmode!=='plan')commit(box)}})}
+function seQuestHTML(m){sqBind();if(!SE.qsave||SE.qsave.m!==m)SE.qsave={m,M:sqRead(m)};
+  return `<section class="tl-card">${sqPanelHTML(SE.qsave.M,'save',!!m.expansion)}</section>`}
+function sqAll(){const M=sqEmpty();for(let d=0;d<3;d++)SQ.forEach(([,q])=>M.done[d].add(q));M.d=2;return M}
+function sqPlanHTML(){sqBind();return sqPanelHTML(SE.qplan||(SE.qplan=sqAll()),'plan',true)}
+
 function editorHTML(){const E=seEng();const m=SE.m;
   const plan=window.__plannedCharacterBuild;let suggested=String(plan&&plan.name||'Hero').replace(/[^A-Za-z0-9_-]/g,'').replace(/^[^A-Za-z]+/,'').slice(0,15);if(suggested.length<2)suggested='Hero';
   if(!m)return `<section class="tl-card"><h3>Save editor</h3>
@@ -7145,6 +7232,7 @@ function editorHTML(){const E=seEng();const m=SE.m;
         <option value="lod" ${SE.exportTarget==='lod'?'selected':''}>Lord of Destruction 1.14d · v96</option><option value="classic" ${SE.exportTarget==='classic'?'selected':''}>Diablo II Classic 1.14d · v96</option>
       </select></label></div>
     ${SE.exportTarget==='105'?`<div class="tl-row"><label>Character name <input id="se-new-name" type="text" maxlength="15" value="${esc(suggested)}" autocomplete="off"></label><label class="tl-check"><input id="se-new-hardcore" type="checkbox"> Hardcore</label></div>
+      ${sqPlanHTML()}
       <div class="tl-row"><button type="button" class="tl-btn primary" data-act="se-new-build">Create fresh D2R character</button></div>
       <p class="tl-note">Creates a fresh v105 character from the selected build, including supported equipment and any planned mercenary. Equipment that cannot be matched to a real save item stops the export with a clear message.</p>`:`<p class="tl-note">Import a character save in the selected version below. The planned stats, skills, equipment and supported mercenary loadout will be applied while unequipped items and other save data are preserved.</p>`}
       <div class="tl-row"><button type="button" class="tl-btn ghost" data-act="se-plan-cancel">Cancel build export · return to save import</button></div></div>`:''}
@@ -7153,8 +7241,8 @@ function editorHTML(){const E=seEng();const m=SE.m;
     <details class="tl-top"><summary>Where are my save files?</summary><p class="tl-note">D2R: <span class="hu-mail">C:\\Users\\<i>your name</i>\\Saved Games\\Diablo II Resurrected</span>. Diablo II 1.14d (Lord of Destruction or Classic): <span class="hu-mail">C:\\Users\\<i>your name</i>\\Saved Games\\Diablo II</span>, or the <i>Save</i> folder inside the game's folder on older installs. On a Mac (D2R): <span class="hu-mail">~/Library/Application Support/Blizzard/Diablo II Resurrected</span>.</p></details>
     ${SE.err?`<p class="tl-msg">${esc(SE.err)}</p>`:''}
     <p class="tl-note"><b>Back up your save first.</b> The file is edited on this device and never uploaded. Online characters live on Blizzard's servers and can't be edited.</p></section>`;
-  const nav=[['char','Character'],['skills','Skills'],['items','Items'],['add','Add item']];
-  const body=SE.view==='skills'?seSkillsHTML(m):SE.view==='items'?seItemsHTML(m):SE.view==='add'?seAddHTML(m):seCharHTML(m);
+  const nav=[['char','Character'],['skills','Skills'],['items','Items'],['add','Add item'],['quests','Quests']];
+  const body=SE.view==='quests'?seQuestHTML(m):SE.view==='skills'?seSkillsHTML(m):SE.view==='items'?seItemsHTML(m):SE.view==='add'?seAddHTML(m):seCharHTML(m);
   return `<section class="tl-card se-top"><div class="tl-head"><h3>Editing ${esc(SE.file)}</h3><span class="tl-sub">${esc(m.name)} · level ${m.stats[12]||1} ${esc((E.classInfo(m)||[0,m.cls])[1])} · ${esc(m.game)}</span></div>
     <div class="tl-row"><button type="button" class="tl-btn primary" data-act="se-dl">Download edited save</button><button type="button" class="tl-btn" data-act="se-undo" ${SE.undo.length?'':'disabled'}>Undo</button><button type="button" class="tl-btn ghost" data-act="se-close">Close · return to save import</button></div>
     <nav class="se-nav" role="tablist">${nav.map(([k,n])=>`<button type="button" role="tab" data-seview="${k}" aria-selected="${SE.view===k}">${n}</button>`).join('')}</nav>
