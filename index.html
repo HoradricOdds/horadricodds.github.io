@@ -1566,7 +1566,7 @@ body .itemtip{z-index:3500}
   </section>
 </div>
 </div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>7 Nov 2026, 9:29 pm</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>7 Nov 2026, 9:42 pm</span></p>
 
 
 <script>
@@ -2701,7 +2701,7 @@ const EQ_ICON={                                        // simple slot outlines (
  amulet:'M10 6 Q20 24 30 6 M20 22 L26 30 L20 38 L14 30 Z',
  ring:'M20 12 A10 10 0 1 0 20.01 12 Z M20 16 A6 6 0 1 1 19.99 16 Z',
  charm:'M14 6 L26 6 L30 12 L30 38 L10 38 L10 12 Z'};
-function gearArtInfo(it){const p=gearParts(it)[0];if(!p)return null;if(/^hellfire torch$/i.test(p.name))return {w:1,h:2,src:'images/items/misc/torch/torch.webp'};const code=p.base||(p.key&&IX[p.key]&&IX[p.key].b);return code?GEAR_ART[code]||null:null}
+function gearArtInfo(it){const p=gearParts(it)[0];if(!p)return null;if(/^hellfire torch$/i.test(p.name))return {w:1,h:2,src:'images/items/misc/torch/torch.webp'};if(/^annihilus$/i.test(p.name))return {w:1,h:1,src:'images/items/misc/charm/annihilus.webp'};const code=p.base||(p.key&&IX[p.key]&&IX[p.key].b);return code?GEAR_ART[code]||null:null}
 function gearArtHTML(it,cell){const a=gearArtInfo(it);if(!a)return '';cell=cell||28;return `<span class="gear-art" style="width:${a.w*cell}px;height:${a.h*cell}px" aria-hidden="true"><img loading="lazy" decoding="async" src="${a.src}" alt="" onerror="this.parentElement.remove()"></span>`}const EQ_SLOTS=[[0,'weapon','weapon'],[1,'offhand','offhand'],[2,'helm','helm'],[3,'armor','armor'],[4,'gloves','gloves'],[5,'belt','belt'],[6,'boots','boots'],[7,'amulet','amulet'],[8,'ring1','ring'],[9,'ring2','ring']];
 const EQ_POS={weapon:[8.26,14.80,18.85,27.21,2,4],offhand:[72.98,14.80,18.85,27.21,2,4],helm:[40.45,11.61,18.85,14.40,2,2],armor:[40.45,27.67,18.85,21.17,2,3],amulet:[60.93,22.56,10.41,8.10,1,1],gloves:[8.17,43.73,19.02,14.60,2,2],ring1:[28.66,50.23,10.41,8.10,1,1],belt:[40.45,50.23,18.93,8.10,2,1],ring2:[60.93,50.23,10.41,8.10,1,1],boots:[72.98,43.73,19.02,14.60,2,2]};
 function eqItemAt(i,L){const xs=(B.gear||[]).filter(x=>x.s===i&&x.lv<=L).sort((a,b)=>b.lv-a.lv);return xs[0]||null}
@@ -2781,7 +2781,7 @@ function gpOptions(s){
   for(const [n,v] of Object.entries(IX)){if(!v.b)continue;
     const low=n.toLowerCase();if(seen.has(low)||!ok[v.b])continue;let lv=v.lv;
     if(!lv){const ti=window.__tipInfo&&window.__tipInfo(n);lv=ti&&ti.r;if(!lv)continue}
-    seen.add(low);out.push({n,q:sets.has(low.replace(/^the /,''))?'s':'u',lv,base:(D.items[v.b]||{}).n||'',extra:'',art:GEAR_ART[v.b],rw:null})}
+    seen.add(low);out.push({n,q:sets.has(low.replace(/^the /,''))?'s':'u',lv,base:(D.items[v.b]||{}).n||'',extra:'',art:gearArtInfo(n)||GEAR_ART[v.b],rw:null})}
   const rwNames=[...new Set([...(D.runewords||[]).map(r=>r.n),...RW.map(r=>r.n)])],rwSeen=new Set();
   for(const n0 of rwNames){const own=RW.find(x=>x.n.toLowerCase().replace(/[^a-z]/g,'')===n0.toLowerCase().replace(/[^a-z]/g,'')),n=own?own.n:n0,low=n.toLowerCase().replace(/[^a-z]/g,'');
     if(rwSeen.has(low))continue;rwSeen.add(low);const r=gpRwTypes(n);
