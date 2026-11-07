@@ -3,8 +3,8 @@
 (() => {
   const base = 'images/d2font/';
   const specs = {
-    small: { file: 'font16.png', key: 'font16', w: 14, h: 16, scale: 1.18 },
-    large: { file: 'font42.png', key: 'font42', w: 39, h: 41, scale: 1 },
+    small: { file: 'font16.webp', key: 'font16', w: 14, h: 16, scale: 1.18 },
+    large: { file: 'font42.webp', key: 'font42', w: 39, h: 41, scale: 1 },
   };
   const images = {};
   const GOLD = 4;

@@ -1,7 +1,7 @@
 # Horadric Odds
 
 **The free all-in-one toolkit for Diablo II: Resurrected.**
-Drop odds, a build planner, an experience calculator, Holy Grail and rune helpers, a multi-goal farm planner, and a save editor for offline characters, all in one page.
+Drop odds, a build planner, an experience calculator, Holy Grail and rune helpers, and a save editor for offline characters, all in one page.
 No ads, no sign-up, works on PC and phone.
 
 👉 **Open it: [horadricodds.github.io](https://horadricodds.github.io/)**
@@ -37,9 +37,7 @@ No ads, no sign-up, works on PC and phone.
 - **Holy Grail tracker:** tick off every unique, set item and rune you find, with progress by type and a link to where each missing item drops.
 - **Rune helper:** enter your runes to see which runewords you can make now, which you could make after cubing runes up (with the exact steps and gems), and which you're one rune short of. Search by name, nickname (cta, coh, hoto…) or rune.
 - **Run tracker:** count and time your boss runs, log drops, and compare your luck with the calculator's odds.
-- **Farm planner:** add several item goals at once, convert runewords into rune requirements, and estimate the runs and time to finish the list at a chosen boss or super unique.
 - **Save editor:** load an offline character (.d2s from D2R, Lord of Destruction 1.14d or Classic 1.14d) to change its level, stats, skills and gold, move, copy or delete items, and add any unique, set item, runeword, rune or gem, or a magic or rare item with the affixes you pick, then download the edited save.
-- **Backup & restore:** download one JSON backup of your saved builds, leveling checklists, settings, Holy Grail, rune counts, farm plans, and run sessions. Restore it on this device or another one; restoring replaces this site's saved data in that browser.
 - **Cube recipes:** every Horadric Cube recipe from the game files, searchable by ingredient.
 - **Roll checker:** type in your item's numbers to see how good each roll is, from 0% to perfect.
 - **Sockets & affixes:** how many sockets a base can get at its item level (Larzuk and cube), and which magic or rare affixes can roll on it, including charms.
@@ -49,7 +47,7 @@ No ads, no sign-up, works on PC and phone.
 
 ### How to use
 - The **How to use** tab walks through each tool step by step and answers common questions.
-- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner), [#experience](https://horadricodds.github.io/#experience), [#grail](https://horadricodds.github.io/#grail), [#runes](https://horadricodds.github.io/#runes), [#runs](https://horadricodds.github.io/#runs), [#farm](https://horadricodds.github.io/#farm), [#cube](https://horadricodds.github.io/#cube), [#rolls](https://horadricodds.github.io/#rolls), [#affixes](https://horadricodds.github.io/#affixes), [#backup](https://horadricodds.github.io/#backup) or [#import](https://horadricodds.github.io/#import). Drop odds links carry the item and settings you picked.
+- Link straight to a tab by adding it to the address: [#how-to-use](https://horadricodds.github.io/#how-to-use), [#planner](https://horadricodds.github.io/#planner), [#experience](https://horadricodds.github.io/#experience), [#grail](https://horadricodds.github.io/#grail), [#runes](https://horadricodds.github.io/#runes), [#runs](https://horadricodds.github.io/#runs), [#cube](https://horadricodds.github.io/#cube), [#rolls](https://horadricodds.github.io/#rolls), [#affixes](https://horadricodds.github.io/#affixes) or [#import](https://horadricodds.github.io/#import). Drop odds links carry the item and settings you picked.
 
 ## Reporting problems
 
@@ -71,6 +69,4 @@ Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Bliz
 
 ## How it's built
 
-The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes, farm plans and run trackers stay in your browser. Use **Tools → Backup & restore** to export them to one JSON file or restore them on another device. Backup files are created and read locally; they are never uploaded.
-
-[![Buy me a coffee](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/horadricodds)
+The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.
