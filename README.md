@@ -22,6 +22,7 @@ No ads, no sign-up, works on PC and phone.
 - Skill trees for all eight classes, including Warlock. Hover over a skill (or press and hold on a phone) for its in-game tooltip: damage at your level and the next, synergies, masteries and, for attack skills, your damage with the weapon you've planned.
 - Breakpoints worked out from your gear: cast speed, hit recovery, block and attack frames.
 - An equipment panel and inventory that work like the game: click a slot to pick from the items that fit (with runeword bases, sockets and ethereal, and your own charm and rare stats), pick items up and move them, and right-click to change or remove them. Hover or tap any item for its stats and requirements.
+- Choose your build's mercenary (any act and aura); it sets the merc's aura, is read from imported saves and goes into exported characters.
 - Gear only counts toward your totals once its required level, Strength and Dexterity are met, and the leveling guide shows each item at the level you can really wear it.
 - Resistances per difficulty, charms in the inventory counted toward your totals, and a gear plan that shows where to farm each item.
 - A level-by-level leveling guide with a checklist to tick off while you play.
@@ -75,3 +76,7 @@ Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Bliz
 ## How it's built
 
 The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.
+
+## License
+
+Horadric Odds' code is released under the [MIT License](LICENSE). Diablo II and Diablo II: Resurrected artwork, names and game data belong to Blizzard Entertainment and aren't covered by it. Horadric Odds is a free fan project, not affiliated with or endorsed by Blizzard.

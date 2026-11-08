@@ -1,107 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Horadric Odds">
-<meta property="og:title" content="Horadric Odds: the free all-in-one D2R toolkit">
-<meta property="og:description" content="The all-in-one Diablo II: Resurrected toolkit: where any item drops and your odds per kill, build planning with skill damage and breakpoints, the fastest places to level, Holy Grail, runes and run tracking, and a save editor for offline characters (D2R, LoD and Classic). Free, no ads, no sign-up.">
-<meta property="og:url" content="https://horadricodds.github.io/">
-<meta property="og:image" content="https://horadricodds.github.io/preview.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Horadric Odds: drop odds, build planner, experience, Holy Grail, runes and save editor for Diablo II: Resurrected">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#c4513a">
-<link rel="canonical" href="https://horadricodds.github.io/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23110e0b'/%3E%3Cpath d='M18 14h28v6l-8 6v14l8 6v4H18v-4l8-6V26l-8-6z' fill='%23cdb57c'/%3E%3Ccircle cx='32' cy='33' r='4' fill='%23c4513a'/%3E%3C/svg%3E">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Horadric Odds">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Horadric Odds</title>
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}#hp .skill-tab-emblem{display:none!important}
-#hp .doll .eslot.has,#hp .merc-slot,#hp .inv-item,#hp .inv-grid{cursor:pointer}
-#hp .inv-grid:focus-visible{outline:2px solid rgba(217,178,90,.52);outline-offset:2px}
-#hp .gp-pop{position:fixed;z-index:3000;width:min(380px,calc(100vw - 16px));max-height:min(520px,calc(100vh - 16px));display:flex;flex-direction:column;gap:8px;padding:10px;
-  background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2);font-size:14px}
-#hp .gp-pop.sheet{left:0;right:0;bottom:0;top:auto;width:auto;max-height:78vh;border-radius:12px 12px 0 0;padding:12px max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
-#hp .gp-h{display:flex;align-items:baseline;gap:8px}#hp .gp-h b{font-size:15px}#hp .gp-h .muted{font-size:12px;flex:1}
-#hp .gp-x{border:0;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 4px}#hp .gp-x:hover{color:var(--text)}
-#hp .gp-cur{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--sunk);border-radius:4px;font-size:13px}#hp .gp-cur .gp-n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-q{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:7px 9px;font:inherit}
-#hp .gp-q:focus{outline:2px solid var(--accent);outline-offset:-1px}
-#hp .gp-f{display:flex;gap:4px;flex-wrap:wrap}#hp .gp-f button{font:inherit;font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
-#hp .gp-f button[aria-pressed="true"]{background:var(--text);color:var(--panel);border-color:var(--text)}
-#hp .gp-list{list-style:none;margin:0;padding:0;overflow-y:auto;min-height:60px;flex:1;overscroll-behavior:contain;border-top:1px solid var(--line)}
-#hp .gp-row{display:flex;align-items:center;gap:9px;padding:5px 6px;border-radius:4px;cursor:pointer}
-#hp .gp-row:hover,#hp .gp-row.sel{background:var(--sunk)}#hp .gp-row.late{opacity:.62}#hp .gp-row.late:hover,#hp .gp-row.late.sel{opacity:1}
-#hp .gp-art{flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#16120e;border-radius:3px}
-#hp .gp-art img{max-width:28px;max-height:28px;object-fit:contain}#hp .gp-noart{color:#cdb57c;font-size:15px}
-#hp .gp-txt{flex:1;min-width:0;display:flex;flex-direction:column}#hp .gp-n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-b{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-l{flex:none;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-#hp .gp-n.q-u{color:var(--unique)}#hp .gp-n.q-s{color:var(--set)}#hp .gp-n.q-rw{color:var(--rune)}#hp .gp-n.q-magic{color:var(--magic)}#hp .gp-n.q-rare{color:var(--rare)}
-#hp .gp-empty{padding:14px 6px;color:var(--muted);font-size:13px}#hp .gp-foot{font-size:11.5px}
-#hp.gp-open .doll .ett,#hp.gp-open .merc-slot .ett,#hp.gp-open .inv-item .ett{display:none!important}
-body .itemtip{z-index:3500}
-#hp .gp-cfg{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
-#hp .gp-back{align-self:flex-start;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;padding:0;cursor:pointer}#hp .gp-back:hover{color:var(--text)}
-#hp .gp-rwh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}#hp .gp-rwh .gp-n{font-size:16px}#hp .gp-runes{font-size:12px;color:var(--rune)}
-#hp .gp-best{display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:var(--sunk);border-left:3px solid var(--rune);border-radius:4px;font-size:13px}#hp .gp-best span{color:var(--muted);font-size:12.5px}
-#hp .gp-fld{display:flex;flex-direction:column;gap:4px}#hp .gp-base{font:inherit;padding:6px 8px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px}
-#hp .gp-opts{display:flex;align-items:center;gap:18px;flex-wrap:wrap}#hp .gp-eth{display:flex;align-items:center;gap:6px;cursor:pointer}
-#hp .gp-sock{display:flex;align-items:baseline;gap:6px}#hp .gp-sock b{font-size:15px}#hp .gp-sock .muted{font-size:12px}
-#hp .gp-note{margin:0;font-size:12px;min-height:1.3em}#hp .gp-add{align-self:stretch}
-#hp .gp-more{font-size:15px;color:var(--rune);margin-left:2px}
-#hp .gp-row.cur{box-shadow:inset 3px 0 0 var(--rune)}#hp .gp-eq{flex:none;font-size:11px;padding:1px 6px;border-radius:999px;background:var(--rune);color:var(--panel);margin-right:4px}
-#hp .gear-art.eth img,#hp .inv-item.eth img{opacity:.5}
-#hp .gp-xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px}#hp .gp-xf{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px}#hp .gp-xf span{color:var(--muted);min-width:0}
-#hp .gp-xf input{width:64px;flex:none;font:inherit;padding:4px 6px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;text-align:right}
-#hp .gp-more-st summary{cursor:pointer;font-size:12.5px;color:var(--muted);margin-bottom:6px}#hp .gp-prev{font-size:12px;overflow-wrap:anywhere}
-#hp .gp-cfg>*{flex-shrink:0}
-#hp .inv-item.held{opacity:.25}
-#hp .inv-ghost{position:absolute;z-index:6;pointer-events:none;display:flex;align-items:center;justify-content:center;background:rgba(80,160,90,.28);outline:1px solid rgba(120,220,130,.7)}
-#hp .inv-ghost.swap{background:rgba(200,170,60,.28);outline-color:rgba(230,200,90,.8)}#hp .inv-ghost.bad{background:rgba(190,50,40,.32);outline-color:rgba(230,80,60,.8)}
-#hp .inv-ghost img{max-width:92%;max-height:92%;object-fit:contain}#hp .inv-ghost.eth img{opacity:.5}
-#hp .gp-holdbar{position:absolute;left:4%;right:4%;bottom:1.2%;z-index:7;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;background:rgba(12,10,8,.92);border:1px solid #6e5630;border-radius:4px;color:#ddd5c5;font-size:12.5px}
-#hp .gp-holdbar span{flex:1;min-width:160px}
-#hp .inv-grid:has(.held) .ett{display:none!important}
-#hp .xp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:6px 0}
-#hp .xp-list{list-style:none;margin:4px 0 0;padding:0;font-size:.92rem}#hp .xp-list li{display:flex;gap:8px;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
-#hp .xp-list li b{font-variant-numeric:tabular-nums}
-#hp .gp-add{position:sticky;bottom:0}
-#hp .character-attributes{pointer-events:none}#hp .character-attributes *{pointer-events:auto}#hp .sheet-mode-toggle{z-index:8}
-#hp .eslot.held .gear-art,#hp .merc-slot.held .gear-art{opacity:.3}#hp .eslot.held .ett,#hp .merc-slot.held .ett{display:none!important}
-#hp .doll .eslot.drop-ok,#hp .merc-slot.drop-ok{outline:2px solid rgba(120,220,130,.85)!important;outline-offset:1px;background:rgba(80,160,90,.18)!important}
-#hp .doll .eslot.drop-bad,#hp .merc-slot.drop-bad{outline:2px solid rgba(230,80,60,.85)!important;outline-offset:1px;background:rgba(190,50,40,.18)!important}
-#hp .inv-grid.no-drop{outline:2px solid rgba(230,80,60,.75);outline-offset:1px;background:rgba(190,50,40,.14);cursor:not-allowed}
-/* phones: gear rows wrap, notes and warnings drop below the item instead of squeezing it */
-@media (max-width:640px){#hp .gi{flex-wrap:wrap;row-gap:2px;min-width:0}#hp .gi .gn{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}#hp .gi .gw{flex:1 1 100%;order:10}#hp .chain{min-width:0;max-width:100%}}
-.site-about{max-width:1400px;margin:32px auto 0;padding:14px 0 0;border-top:1px solid var(--line)}.site-about .about{margin:0}
-#tools .sq{display:flex;flex-direction:column;gap:10px;margin:8px 0}
-#tools .sq-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-#tools .sq-presets{gap:6px;flex-wrap:wrap;align-items:center}
-#tools .sq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
-#tools .sq-act{border:1px solid var(--line);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
-#tools .sq-act.locked{opacity:.55}
-#tools .sq-acth{font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:2px}
-#tools .sq-q{display:flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
-#tools .sq-ok{font-size:.75rem;font-weight:400;color:var(--good,#5fd36b);margin-left:auto}
-.shopctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}.shopctl select,.shopctl input{min-width:0}
-@media (max-width:560px){.tabs[aria-label="Search mode"]{display:flex;flex-wrap:wrap}.tabs[aria-label="Search mode"] button{flex:1 1 auto}}.shopwrap{overflow-x:auto;max-width:100%}.itemtip .tt-mg{color:#8b93ff}.itemtip .tt-un{color:#cdb57c}.itemtip .tt-st{color:#4fd65b}#result .k-base{cursor:help}.shopt{width:100%;min-width:620px;border-collapse:collapse;font-size:.9rem}.shopt th,.shopt td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}.shopt .num{text-align:right;white-space:nowrap}.shopt .sub{font-size:.8rem;color:var(--muted)}
-#hp .skill-tab-pts{color:#d9b25a;font-weight:700;margin-left:2px}
-#hp .ett .treq.tt-bad,#hp .ett .tt-bad{color:#ff5a4a!important}
-#tools .se-plan-ready{display:flex!important;flex-direction:row!important;flex-wrap:wrap;justify-content:flex-start;gap:6px 10px;align-items:center;text-align:left}#tools .se-plan-ready .tl-sub{flex:1 1 260px}
-#hp .inv-add-row{display:flex;justify-content:flex-end;margin:6px 0 2px}#hp .inv-add{font-size:.85rem}
-#hp .merc-sheet-title{font-family:var(--font-display)!important;color:#f0d99e!important;text-shadow:0 1px 3px #000,0 0 4px #000;font-size:clamp(14px,1.2vw,18px)!important}#hp .merc-fact span,#hp .merc-fact b,#hp .merc-bottom span{font-family:var(--font-display)!important;font-weight:700;color:#fff0d1!important;text-shadow:0 1px 3px #000;font-size:clamp(10px,.82vw,13px)!important;letter-spacing:.01em}#hp .merc-fact span{font-variant:small-caps}#hp .merc-bottom span{text-align:center}
-#hp .tag.gear .never{color:var(--crafted);font-weight:600}
-#hp .eslot.cantwear .gear-art,#hp .merc-slot.cantwear .gear-art{filter:drop-shadow(0 2px 3px rgba(0,0,0,.9)) sepia(1) saturate(4) hue-rotate(-50deg) brightness(.8)}#hp .doll .eslot.cantwear,#hp .merc-slot.cantwear{background:rgba(160,30,20,.22)!important}
-</style>
-
-<meta name="description" content="Horadric Odds is a free all-in-one toolkit for Diablo II: Resurrected: drop odds for every item, a build planner with skill damage and breakpoints, an experience calculator, Holy Grail and rune helpers, and a save editor for offline characters.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Diablo II: Resurrected drop calculator. Search any item to see where it drops and the chance per kill.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -1181,6 +1081,84 @@ button[data-tip],label [data-tip]{cursor:pointer}
 #hp .inline-form{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 #hp .inline-form input{background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:4px 6px}
 @media (prefers-reduced-motion:no-preference){#hp .node,#hp .btn,#hp .chip{transition:border-color .12s,background .12s}}
+#hp .skill-tab-emblem{display:none!important}
+#hp .doll .eslot.has,#hp .merc-slot,#hp .inv-item,#hp .inv-grid{cursor:pointer}
+#hp .inv-grid:focus-visible{outline:2px solid rgba(217,178,90,.52);outline-offset:2px}
+#hp .gp-pop{position:fixed;z-index:3000;width:min(380px,calc(100vw - 16px));max-height:min(520px,calc(100vh - 16px));display:flex;flex-direction:column;gap:8px;padding:10px;
+  background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2);font-size:14px}
+#hp .gp-pop.sheet{left:0;right:0;bottom:0;top:auto;width:auto;max-height:78vh;border-radius:12px 12px 0 0;padding:12px max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+#hp .gp-h{display:flex;align-items:baseline;gap:8px}#hp .gp-h b{font-size:15px}#hp .gp-h .muted{font-size:12px;flex:1}
+#hp .gp-x{border:0;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 4px}#hp .gp-x:hover{color:var(--text)}
+#hp .gp-cur{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--sunk);border-radius:4px;font-size:13px}#hp .gp-cur .gp-n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-q{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:7px 9px;font:inherit}
+#hp .gp-q:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#hp .gp-f{display:flex;gap:4px;flex-wrap:wrap}#hp .gp-f button{font:inherit;font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
+#hp .gp-f button[aria-pressed="true"]{background:var(--text);color:var(--panel);border-color:var(--text)}
+#hp .gp-list{list-style:none;margin:0;padding:0;overflow-y:auto;min-height:60px;flex:1;overscroll-behavior:contain;border-top:1px solid var(--line)}
+#hp .gp-row{display:flex;align-items:center;gap:9px;padding:5px 6px;border-radius:4px;cursor:pointer}
+#hp .gp-row:hover,#hp .gp-row.sel{background:var(--sunk)}#hp .gp-row.late{opacity:.62}#hp .gp-row.late:hover,#hp .gp-row.late.sel{opacity:1}
+#hp .gp-art{flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#16120e;border-radius:3px}
+#hp .gp-art img{max-width:28px;max-height:28px;object-fit:contain}#hp .gp-noart{color:#cdb57c;font-size:15px}
+#hp .gp-txt{flex:1;min-width:0;display:flex;flex-direction:column}#hp .gp-n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-b{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-l{flex:none;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+#hp .gp-n.q-u{color:var(--unique)}#hp .gp-n.q-s{color:var(--set)}#hp .gp-n.q-rw{color:var(--rune)}#hp .gp-n.q-magic{color:var(--magic)}#hp .gp-n.q-rare{color:var(--rare)}
+#hp .gp-empty{padding:14px 6px;color:var(--muted);font-size:13px}#hp .gp-foot{font-size:11.5px}
+#hp.gp-open .doll .ett,#hp.gp-open .merc-slot .ett,#hp.gp-open .inv-item .ett{display:none!important}
+body .itemtip{z-index:3500}
+#hp .gp-cfg{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+#hp .gp-back{align-self:flex-start;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;padding:0;cursor:pointer}#hp .gp-back:hover{color:var(--text)}
+#hp .gp-rwh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}#hp .gp-rwh .gp-n{font-size:16px}#hp .gp-runes{font-size:12px;color:var(--rune)}
+#hp .gp-best{display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:var(--sunk);border-left:3px solid var(--rune);border-radius:4px;font-size:13px}#hp .gp-best span{color:var(--muted);font-size:12.5px}
+#hp .gp-fld{display:flex;flex-direction:column;gap:4px}#hp .gp-base{font:inherit;padding:6px 8px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px}
+#hp .gp-opts{display:flex;align-items:center;gap:18px;flex-wrap:wrap}#hp .gp-eth{display:flex;align-items:center;gap:6px;cursor:pointer}
+#hp .gp-sock{display:flex;align-items:baseline;gap:6px}#hp .gp-sock b{font-size:15px}#hp .gp-sock .muted{font-size:12px}
+#hp .gp-note{margin:0;font-size:12px;min-height:1.3em}#hp .gp-add{align-self:stretch}
+#hp .gp-more{font-size:15px;color:var(--rune);margin-left:2px}
+#hp .gp-row.cur{box-shadow:inset 3px 0 0 var(--rune)}#hp .gp-eq{flex:none;font-size:11px;padding:1px 6px;border-radius:999px;background:var(--rune);color:var(--panel);margin-right:4px}
+#hp .gear-art.eth img,#hp .inv-item.eth img{opacity:.5}
+#hp .gp-xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px}#hp .gp-xf{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px}#hp .gp-xf span{color:var(--muted);min-width:0}
+#hp .gp-xf input{width:64px;flex:none;font:inherit;padding:4px 6px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;text-align:right}
+#hp .gp-more-st summary{cursor:pointer;font-size:12.5px;color:var(--muted);margin-bottom:6px}#hp .gp-prev{font-size:12px;overflow-wrap:anywhere}
+#hp .gp-cfg>*{flex-shrink:0}
+#hp .inv-item.held{opacity:.25}
+#hp .inv-ghost{position:absolute;z-index:6;pointer-events:none;display:flex;align-items:center;justify-content:center;background:rgba(80,160,90,.28);outline:1px solid rgba(120,220,130,.7)}
+#hp .inv-ghost.swap{background:rgba(200,170,60,.28);outline-color:rgba(230,200,90,.8)}#hp .inv-ghost.bad{background:rgba(190,50,40,.32);outline-color:rgba(230,80,60,.8)}
+#hp .inv-ghost img{max-width:92%;max-height:92%;object-fit:contain}#hp .inv-ghost.eth img{opacity:.5}
+#hp .gp-holdbar{position:absolute;left:4%;right:4%;bottom:1.2%;z-index:7;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;background:rgba(12,10,8,.92);border:1px solid #6e5630;border-radius:4px;color:#ddd5c5;font-size:12.5px}
+#hp .gp-holdbar span{flex:1;min-width:160px}
+#hp .inv-grid:has(.held) .ett{display:none!important}
+#hp .xp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:6px 0}
+#hp .xp-list{list-style:none;margin:4px 0 0;padding:0;font-size:.92rem}#hp .xp-list li{display:flex;gap:8px;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
+#hp .xp-list li b{font-variant-numeric:tabular-nums}
+#hp .gp-add{position:sticky;bottom:0}
+#hp .character-attributes{pointer-events:none}#hp .character-attributes *{pointer-events:auto}#hp .sheet-mode-toggle{z-index:8}
+#hp .eslot.held .gear-art,#hp .merc-slot.held .gear-art{opacity:.3}#hp .eslot.held .ett,#hp .merc-slot.held .ett{display:none!important}
+#hp .doll .eslot.drop-ok,#hp .merc-slot.drop-ok{outline:2px solid rgba(120,220,130,.85)!important;outline-offset:1px;background:rgba(80,160,90,.18)!important}
+#hp .doll .eslot.drop-bad,#hp .merc-slot.drop-bad{outline:2px solid rgba(230,80,60,.85)!important;outline-offset:1px;background:rgba(190,50,40,.18)!important}
+#hp .inv-grid.no-drop{outline:2px solid rgba(230,80,60,.75);outline-offset:1px;background:rgba(190,50,40,.14);cursor:not-allowed}
+/* phones: gear rows wrap, notes and warnings drop below the item instead of squeezing it */
+@media (max-width:640px){#hp .gi{flex-wrap:wrap;row-gap:2px;min-width:0}#hp .gi .gn{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}#hp .gi .gw{flex:1 1 100%;order:10}#hp .chain{min-width:0;max-width:100%}}
+.site-about{max-width:1400px;margin:32px auto 0;padding:14px 0 0;border-top:1px solid var(--line)}.site-about .about{margin:0}
+#tools .sq{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+#tools .sq-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+#tools .sq-presets{gap:6px;flex-wrap:wrap;align-items:center}
+#tools .sq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+#tools .sq-act{border:1px solid var(--line);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
+#tools .sq-act.locked{opacity:.55}
+#tools .sq-acth{font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:2px}
+#tools .sq-q{display:flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
+#tools .sq-ok{font-size:.75rem;font-weight:400;color:var(--good,#5fd36b);margin-left:auto}
+.shopctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}.shopctl select,.shopctl input{min-width:0}
+@media (max-width:560px){.tabs[aria-label="Search mode"]{display:flex;flex-wrap:wrap}.tabs[aria-label="Search mode"] button{flex:1 1 auto}}.shopwrap{overflow-x:auto;max-width:100%}.itemtip .tt-mg{color:#8b93ff}.itemtip .tt-un{color:#cdb57c}.itemtip .tt-st{color:#4fd65b}#result .k-base{cursor:help}.shopt{width:100%;min-width:620px;border-collapse:collapse;font-size:.9rem}.shopt th,.shopt td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}.shopt .num{text-align:right;white-space:nowrap}.shopt .sub{font-size:.8rem;color:var(--muted)}
+#hp .skill-tab-pts{color:#d9b25a;font-weight:700;margin-left:2px}
+#hp .ett .treq.tt-bad,#hp .ett .tt-bad{color:#ff5a4a!important}
+#tools .se-plan-ready{display:flex!important;flex-direction:row!important;flex-wrap:wrap;justify-content:flex-start;gap:6px 10px;align-items:center;text-align:left}#tools .se-plan-ready .tl-sub{flex:1 1 260px}
+#hp .inv-add-row{display:flex;justify-content:flex-end;margin:6px 0 2px}#hp .inv-add{font-size:.85rem}
+#hp .merc-sheet-title{font-family:var(--font-display)!important;color:#f0d99e!important;text-shadow:0 1px 3px #000,0 0 4px #000;font-size:clamp(14px,1.2vw,18px)!important}#hp .merc-fact span,#hp .merc-fact b,#hp .merc-bottom span{font-family:var(--font-display)!important;font-weight:700;color:#fff0d1!important;text-shadow:0 1px 3px #000;font-size:clamp(10px,.82vw,13px)!important;letter-spacing:.01em}#hp .merc-fact span{font-variant:small-caps}#hp .merc-bottom span{text-align:center}
+#hp .equip>header{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}#hp .equip>header h2{margin-right:auto}#hp .merc-pick{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)}#hp .merc-pick select{max-width:100%;min-width:0;font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--line2);border-radius:3px;padding:3px 6px}@media(max-width:520px){#hp .merc-pick{order:3;flex:1 1 100%}#hp .merc-pick select{flex:1}}
+#hp .tag.gear .never{color:var(--crafted);font-weight:600}
+#hp .eslot.cantwear .gear-art,#hp .merc-slot.cantwear .gear-art{filter:drop-shadow(0 2px 3px rgba(0,0,0,.9)) sepia(1) saturate(4) hue-rotate(-50deg) brightness(.8)}#hp .doll .eslot.cantwear,#hp .merc-slot.cantwear{background:rgba(160,30,20,.22)!important}
 </style>
 <style id="gear-inventory-preview">
 #hp .eqwrap{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:16px;align-items:start}
@@ -1373,9 +1351,6 @@ button[data-tip],label [data-tip]{cursor:pointer}
 #hp .skill-count{font-size:clamp(9px,1.1vw,13px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 3px #000}
 #hp .skill-sheet>.node .nb button{font-size:clamp(9px,1vw,12px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 2px #000}
 </style>
-</head>
-<body>
-
 
 <div class="wrap">
   <header>
@@ -1388,7 +1363,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item. <i>Experience</i> shows the fastest places to level.</li>
       <li><b>Tools:</b> track your Holy Grail and runs, see what your runes make, check rolls and cube recipes, and edit offline characters with the <i>Save editor</i>.</li></ol>
       <div class="wbtns"><button type="button" class="wbtn" id="welcomeOk">Got it</button><button type="button" class="wbtn wguide" id="welcomeGuide">Full guide →</button></div></div>
-    <div class="whatsnew" id="whatsnew" data-v="2026-11-08a" hidden><span><b>What's new</b> · 8 Nov 2026: <span id="wnText">New gear menu in the <i>Build planner</i>: click a slot to pick from the items that fit, choose a runeword's base, sockets and ethereal, enter a charm's stats, and move items around the equipment and inventory like in the game. Gear now only counts once your level, Strength and Dexterity let you wear it, and the starter builds have been fixed to match. New <i>Merchants</i> odds next to <i>Gambling</i>. <i>Export Build</i> has its own tab, with tick boxes for quests, acts and difficulties (also in the <i>Save editor</i>). Faster first load, and exporting imported characters with rares and charms now works.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
+    <div class="whatsnew" id="whatsnew" data-v="2026-11-08a" hidden><span><b>What's new</b> · 8 Nov 2026: <span id="wnText">New gear menu in the <i>Build planner</i>: click a slot to pick from the items that fit, choose a runeword's base, sockets and ethereal, enter a charm's stats, and move items around the equipment and inventory like in the game. Gear now only counts once your level, Strength and Dexterity let you wear it, and the starter builds have been fixed to match. Choose your mercenary at the top of the Equipment panel. New <i>Merchants</i> odds next to <i>Gambling</i>. <i>Export Build</i> has its own tab, with tick boxes for quests, acts and difficulties (also in the <i>Save editor</i>). Faster first load, and exporting imported characters with rares and charms now works.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <p class="lede">Search any unique, set item, rune, runeword or base (player nicknames like "shako" work too), or search by the stats you want. See which monsters and areas drop it, and your chance per kill at your difficulty, player count and magic find.</p>
   </header>
 
@@ -1581,7 +1556,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <li><b>Spend skill points</b> on <i>Skills &amp; Stats</i>. Click a skill, or its + button, to add a point. Its − button removes one (or right-click on PC). Shift-click adds or removes up to 20. Missing prerequisites are added for you, and the order you click is the order the leveling guide spends points. Hover over a skill (press and hold on a phone) to see its in-game tooltip: damage at your level and the next, synergies, masteries and, for attack skills, your damage with the weapon you've planned.</li>
       <li><b>Set your stats</b> with the + and − buttons next to Strength, Dexterity, Vitality and Energy. Hold Ctrl for steps of 5, or Shift for steps of 10.</li>
       <li><b>Plan respecs</b> with <i>+ Respec at a level</i>. Each phase has its own skills and stats, e.g. a leveling build until 75 and an endgame one after that.</li>
-      <li><b>Plan your gear</b> on <i>Gear</i>. Click an empty slot to pick from the items that fit there (search by name or nickname). For a runeword you choose the base, sockets and ethereal; for a charm or rare you can enter its stats. Click any item to pick it up and click where it should go, like in the game; right-click an item to change or remove it. To add to the inventory, right-click an empty space or use <i>+ Add to inventory</i>. Charms in the inventory count toward your totals, and other gear can be stored there. Hover or tap an item for its stats and requirements.</li>
+      <li><b>Plan your gear</b> on <i>Gear</i>. Click an empty slot to pick from the items that fit there (search by name or nickname). For a runeword you choose the base, sockets and ethereal; for a charm or rare you can enter its stats. Click any item to pick it up and click where it should go, like in the game; right-click an item to change or remove it. To add to the inventory, right-click an empty space or use <i>+ Add to inventory</i>. Charms in the inventory count toward your totals, and other gear can be stored there. Pick your mercenary from the <i>Mercenary</i> menu at the top of the Equipment panel; it sets the merc's aura and is used when you export the build. Hover or tap an item for its stats and requirements.</li>
       <li><b>Gear counts once you can wear it.</b> An item only adds to your life, resistances, breakpoints and other totals from the level you meet its required level, Strength and Dexterity (your other gear's bonuses count, its own don't). Requirements you haven't met show in red, and the leveling guide lists each item at the level you can really put it on, or says when a build can never wear it.</li>
       <li><b>Follow the leveling guide.</b> <i>Leveling Guide</i> lists every level: which skill to put the point in, stats, new gear, life and mana. Tick levels off as you play and add your own notes.</li>
     </ol>
@@ -1645,13 +1620,13 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment. The site is open source under the MIT License.</p>
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
       <p><b>Experience:</b> rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>; monster counts per area come from <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a>'s Experience Calculator (thanks, Pavke!), which was also used to check the numbers. <b>Attack frames:</b> animation frame data and timing rules follow <a href="https://github.com/Warren1001/IAS_Calculator" target="_blank" rel="noopener">Warren1001's IAS Calculator</a> (animation tables dumped by RuffnecKk). <b>Cast, hit-recovery and block breakpoints:</b> <a href="https://d2runewizard.com/breakpoints" target="_blank" rel="noopener">d2runewizard</a>, with the Warlock tables confirmed against <a href="https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation" target="_blank" rel="noopener">AOEAH</a>.</p>
-      <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Share builds as links or build codes from Share &amp; Library.</p>
+      <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Community builds belong to the players who share them.</p>
       <p><b>Save files:</b> the save format comes from the community's reverse engineering (d07riv, <a href="https://github.com/dschu012/d2s" target="_blank" rel="noopener">dschu012/d2s</a> (MIT), nokka/d2s, krisives/d2s-format, and the <a href="https://docs.rs/crate/d2s/latest" target="_blank" rel="noopener">d2s Rust crate</a> for Reign of the Warlock). Lord of Destruction and Classic tables come from the 1.14d game files.</p>
       <p><b>Prices:</b> the optional price links open <a href="https://diablo2.io/" target="_blank" rel="noopener">diablo2.io</a>'s price check for the item, with permission from its admin. Horadric Odds doesn't collect or store any price data.</p>
       <p><b>Artwork:</b> item pictures from <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>; the inventory panel texture from <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio’s D2R UI assets</a>. Diablo II: Resurrected artwork belongs to Blizzard Entertainment; Horadric Odds does not own or claim rights to it and is not affiliated with Blizzard or LootCube.</p>
       <p><b>Bugs and ideas:</b> open an issue on <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">GitHub</a> or email the address below.</p>
-      <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>.</p></div></details></div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>8 Nov 2026, 3:30 am</span></p>
+      <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>, or use <i>Report</i> on any shared build.</p></div></details></div>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>8 Nov 2026, 2:48 pm</span></p>
 
 
 <script>
@@ -2091,6 +2066,7 @@ const INFO2={
    the character can actually put it on. Casters keep only the Strength their gear needs; the rest goes into Vitality. */
 const FIT_CASTER=/Sorceress|Blessed Hammer|Lightning Sentry|Wind Druid|Necromancer|Warlock/;
 function fitStats(b){if(typeof gpEff!=='function')return b;const C=CLS[b.cls],P=b.phase,wear=g=>!(g.s>=12&&g.s<=14)&&g.s!==10&&g.s!==16;
+  if(!b.merc&&b.gear.some(g=>g.s>=12&&g.s<=14))b.merc='Act 2 Might';                       // the hireling the starter's merc gear is planned for
   b.gear=b.gear.filter((g,i,a)=>g.s===10||g.s===16||a.findIndex(x=>x.s===g.s&&x.it===g.it&&x.lv===g.lv)===i);   // the same item listed twice
   for(const g of b.gear){const r=gpReqLevel(g.it);if(r>g.lv)g.lv=r}
   const own=new Map(b.gear.map(g=>[g,gpOwnSD(g)])),sorted=b.gear.filter(wear).sort((a,c)=>a.lv-c.lv);
@@ -2224,7 +2200,7 @@ window.__hpExportBuild=()=>{const lv0=GP_LVONLY;GP_LVONLY=true;try{return __hpEx
 /* open a character read from an offline save file (Build planner > Import save) as a build */
 window.__hpImportSave=(ch,itemText)=>{try{
   const cls=KEYMAP[ch.cls],C=CLS[cls];if(!C)return false;
-  const b=blankBuild(cls);b.name=(ch.name||C.name)+' (imported)';b.level=Math.max(2,Math.min(99,ch.level||1));
+  const b=blankBuild(cls);b.name=(ch.name||C.name)+' (imported)';if(ch.mercId&&ch.mercType!=null){const t=ch.mercType;b.merc=t<6?`Act 1 Rogue (${t%2?'Cold':'Fire'} Arrow)`:[6,7,8,12,13,14,30,31,32].includes(t)?'Act 2 '+['Prayer','Defiance','Blessed Aim'][t%3]:[9,10,11,33,34,35].includes(t)?'Act 2 '+['Thorns','Holy Freeze','Might'][t%3]:t>=15&&t<24?`Act 3 Iron Wolf (${['Fire','Cold','Lightning'][(t-15)%3]})`:t>=24&&t<30?'Act 5 Barbarian':t>=36&&t<39?'Act 5 Barbarian (Frenzy)':''}b.level=Math.max(2,Math.min(99,ch.level||1));
   const ph=blankPhase('From save file',1,cls);b.phase=[ph];
   for(const s of STATS)ph.st[s]=Math.max(C.base[s],ch.stats[s]||0);
   const pts=Object.entries(ch.skills||{}).map(([n,p])=>[C.byName[n],Math.min(20,p)]).filter(([i])=>i!==undefined).sort((x,y)=>C.skills[x[0]].lvl-C.skills[y[0]].lvl||x[0]-y[0]);
@@ -2232,25 +2208,16 @@ window.__hpImportSave=(ch,itemText)=>{try{
   const req=t=>{const x=window.__tipInfo&&window.__tipInfo(t);return x&&x.r?Math.min(b.level,x.r):b.level};
   const SLOT={4:0,5:1,1:2,3:3,10:4,8:5,9:6,2:7,6:8,7:9,11:11,12:15};const g=[];
   const eq=(ch.items||[]).filter(i=>i.loc===1);
-  for(const i of eq){const s=SLOT[i.eq];const txt=itemText(i);if(s===undefined||!txt)continue;const prev=g.find(x=>x.s===s);if(prev)prev.it+=' + '+txt;else g.push({s,lv:req(txt),it:txt,why:''})}
+  for(const i of eq){const s=SLOT[i.eq];const txt=itemText(i);if(s===undefined||!txt)continue;const prev=g.find(x=>x.s===s);if(prev)prev.it+=' + '+txt;else g.push({s,lv:b.level,it:txt,why:''})}
   const ch2=(ch.items||[]).filter(i=>i.loc===0&&i.page===1&&/^cm[123]$/.test(i.code));
   if(ch2.length){const named=[],plain={};for(const i of ch2){if(i.name||i.magicName||i.rareName)named.push(itemText(i));else plain[i.base]=(plain[i.base]||0)+1}
     const parts=[...named,...Object.entries(plain).map(([n,c])=>c>1?`${c}× ${n}`:n)];g.push({s:10,lv:b.level,it:parts.join(', '),why:''})}
-  const MS={4:12,3:13,1:14};for(const i of (ch.merc||[]).filter(i=>i.loc===1)){const s=MS[i.eq];const txt=itemText(i);if(s!==undefined&&txt)g.push({s,lv:req(txt),it:txt,why:''})}
+  const MS={4:12,3:13,1:14};for(const i of (ch.merc||[]).filter(i=>i.loc===1)){const s=MS[i.eq];const txt=itemText(i);if(s!==undefined&&txt)g.push({s,lv:b.level,it:txt,why:''})}
   b.gear=g.sort((x,y)=>x.s-y.s);b.notes={};b.info={good:`Imported from ${ch.name}'s save file: level ${ch.level}, with the gear the character was wearing.`};
   undoB=B;B=b;PI=0;TAB='plan';save();render();toast(`Opened ${b.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}});return true}catch(e){console.error(e);return false}};
 const draft=LS.get('hbp.draft',null);
 const DEF=()=>(LIB.find(x=>x.name==='Blizzard Sorceress')||LIB[0]).make();
-/* Share links: #b=<deflate-compressed build, base64url> (short), or #build=<build code>. */
-const u8ToB64u=u=>{let s='';for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
-const b64uToU8=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0))};
-async function packLink(code){const json=b64d(code.slice(5));if(typeof CompressionStream==='undefined')return '#build='+code;
-  const buf=await new Response(new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer();return '#b='+u8ToB64u(new Uint8Array(buf))}
-async function unpackLink(p){const buf=await new Response(new Blob([b64uToU8(p)]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();return 'D2R2.'+b64e(new TextDecoder().decode(buf))}
-let fromLink=null,linkPacked=null;try{const m=location.hash.match(/^#build=(D2R2\.[A-Za-z0-9_-]+)$/),m2=location.hash.match(/^#b=([A-Za-z0-9_-]+)$/);
-  if(m)fromLink=decode(m[1]);if(m2)linkPacked=m2[1];
-  if(m||m2){try{localStorage.setItem('horadric-mode','planner')}catch(e){}history.replaceState(null,'',location.pathname+location.search)}}catch(e){fromLink=null}
-try{B=fromLink||(draft?decode(draft):DEF())}catch(e){B=DEF()}
+try{B=draft?decode(draft):DEF()}catch(e){B=DEF()}
 
 
 
@@ -2573,7 +2540,7 @@ function weaponCard(C,end,sim,A){
    <p class="hint" style="margin:0">Damage as the character sheet shows it: weapon, ethereal bonus, Str/Dex and enhanced damage from gear. Skill damage, masteries, auras, Might and crushing blow are on top. Attack frames use the D2R animation data from Warren1001's IAS Calculator, including Fanaticism, Burst of Speed, Frenzy, Werewolf and Maul from your own skills.</p></section>`;
 }
 const MAURA={'Might':'Might aura: more physical damage for you and the merc','Holy Freeze':'Holy Freeze aura: slows and chills nearby monsters','Prayer':'Prayer aura: heals the party over time','Defiance':'Defiance aura: more defense for the party','Blessed Aim':'Blessed Aim aura: more attack rating','Thorns':'Thorns aura: reflects melee damage'};
-function mercAura(m){const a=m.match(/Act 2\s+(.+)/);if(a)return MAURA[a[1]]||a[1]+' aura';if(/Act 1/.test(m))return 'Rogue archer: Inner Sight, or fire or cold arrows';if(/Act 3/.test(m))return 'Iron Wolf caster: fire, cold or lightning spells';if(/Act 5/.test(m))return 'Barbarian: Bash and Stun';return m}
+function mercAura(m){const a=m.match(/Act 2\s+(.+)/);if(a)return MAURA[a[1]]||a[1]+' aura';if(/Act 1/.test(m))return 'Rogue archer: Inner Sight, or fire or cold arrows';if(/Act 3/.test(m))return 'Iron Wolf caster: fire, cold or lightning spells';if(/Act 5/.test(m))return /frenzy/i.test(m)?'Barbarian: Frenzy, Iron Skin and Taunt':'Barbarian: Bash and Stun';return m}
 function mercCard(end){
   const xs=[12,13,14].map(s=>(B.gear||[]).filter(x=>x.s===s&&gpEff(B,x)<=end).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean);if(!xs.length&&!B.merc)return '';
   const T={res:0,ias:0,ed:0,life:0,fhr:0},auras=[];
@@ -3235,6 +3202,16 @@ function eqTipHTML(g){let h=eqTipHTML0(g);if(!h||g.s===10||g.s===16&&false)retur
   if(!lines)return h;
   const m=h.match(/<div class="(?:tt-b|tb)">[\s\S]*?<\/div>/)||h.match(/<div class="tn2">[\s\S]*?<\/div>/);
   return m?h.replace(m[0],m[0]+lines):h}
+/* mercenary picker in the Equipment header: the hireling type sets the merc's aura, paper doll and exported hireling */
+const GP_MERCS=[['','No mercenary'],['Act 1 Rogue (Fire Arrow)','Act 1 Rogue · Fire Arrow'],['Act 1 Rogue (Cold Arrow)','Act 1 Rogue · Cold Arrow'],
+  ['Act 2 Prayer','Act 2 Desert Merc · Prayer'],['Act 2 Defiance','Act 2 Desert Merc · Defiance'],['Act 2 Blessed Aim','Act 2 Desert Merc · Blessed Aim'],
+  ['Act 2 Thorns','Act 2 Desert Merc · Thorns'],['Act 2 Holy Freeze','Act 2 Desert Merc · Holy Freeze'],['Act 2 Might','Act 2 Desert Merc · Might'],
+  ['Act 3 Iron Wolf (Fire)','Act 3 Iron Wolf · Fire'],['Act 3 Iron Wolf (Cold)','Act 3 Iron Wolf · Cold'],['Act 3 Iron Wolf (Lightning)','Act 3 Iron Wolf · Lightning'],
+  ['Act 5 Barbarian','Act 5 Barbarian · Bash and Stun'],['Act 5 Barbarian (Frenzy)','Act 5 Barbarian · Frenzy']];
+function gpMercSelectHTML(){const cur=String(B.merc||''),known=GP_MERCS.some(([v])=>v===cur);
+  return '<label class="merc-pick"><span>Mercenary</span><select data-act="merc-pick" aria-label="Mercenary">'+(known?'':'<option value="'+esc(cur)+'" selected>'+esc(cur)+'</option>')+
+    GP_MERCS.map(([v,l])=>'<option value="'+esc(v)+'"'+(v===cur?' selected':'')+'>'+esc(l)+'</option>').join('')+'</select></label>'}
+if(!window.__gpMercBound){window.__gpMercBound=1;document.addEventListener('change',e=>{const s=e.target;if(!s.matches||!s.matches('#hp select[data-act="merc-pick"]'))return;B.merc=s.value;save();render()})}
 
 function equipHTML(){
   const g=B.gear||[];const L=Math.min(B.level,EQL||B.level);try{window.__eqS={L,s:charStatsAt(B,simulate(B),L,{})}}catch(e){window.__eqS=null}
@@ -3248,7 +3225,7 @@ function equipHTML(){
   const tabSource=EQ_SET===2?'weaponswap':'tab';
   const tabs=side=>'<div class="weapon-tabs weapon-tabs-'+side+'" style="background-image:url(images/ui/'+tabSource+'.webp)" role="group" aria-label="'+(side==='left'?'Weapon':'Off-hand')+' set">'+(side==='right'?[2,1]:[1,2]).map(set=>'<button type="button" data-act="eq-set" data-set="'+set+'" aria-pressed="'+(set===EQ_SET)+'">'+(set===1?'I':'II')+'</button>').join('')+'</div>';
   const attribution='';
-  return '<section class="card equip"><header><h2>Equipment</h2><span class="muted">'+CLS[B.cls].name+' · level '+L+'</span></header>'+stepButtons+
+  return '<section class="card equip"><header><h2>Equipment</h2>'+gpMercSelectHTML()+'<span class="muted">'+CLS[B.cls].name+' · level '+L+'</span></header>'+stepButtons+
     '<div class="eqwrap"><div class="eside">'+merc+'</div><div class="doll"><img class="inventory-bg" src="images/ui/inventory-background.webp" alt="" loading="lazy" decoding="async">'+tabs('left')+tabs('right')+doll+'<div class="inv-grid" data-act="inv-slot" tabindex="0" role="button" aria-label="Inventory: add a charm">'+invItems+'</div></div></div><div class="inv-add-row"><button type="button" class="btn inv-add" data-act="inv-add">+ Add to inventory</button></div>'+overflow+
     '<p class="hint" style="margin:0">Use I/II on either tab strip to switch both weapon and off-hand sets. Click an empty slot to choose an item. To put something in the inventory, right-click an empty space or use <b>+ Add to inventory</b>. Click any item (yours, the merc’s or a charm) to pick it up, then click where it should go: it swaps with whatever is there, as long as it fits. Gear can be kept in the inventory too; it only counts once it’s equipped. Right-click any item to change or remove it. Hover or tap an item for its stats.</p>'+attribution+'</section>'}
 function gearHTML(){
@@ -3334,7 +3311,6 @@ function compareHTML(){
 function galClean(list){return (Array.isArray(list)?list:[]).slice(0,12).filter(x=>x&&typeof x.code==='string'&&/^D2R2\.[A-Za-z0-9_-]{10,20000}$/.test(x.code)&&CLASS_ORDER.includes(x.cls)).map(x=>({code:x.code,name:String(x.name||'Untitled').slice(0,60),cls:x.cls,lvl:clamp(+x.lvl||90,2,99),at:+x.at||0,site:String(x.site||'').slice(0,30)}))}
 function galPaint(){const el=document.getElementById('galList');if(el)el.innerHTML=galListHTML();const pb=document.getElementById('galPub');if(pb)pb.disabled=GAL.state!=='on'||!GAL.me||GAL.busy}
 async function galInit(){
-  GAL.state='off';return;
   if(GAL.state!=='idle')return;GAL.state='loading';
   const fail=()=>{if(GAL.state==='loading'){GAL.state='off';galPaint()}};const timer=setTimeout(fail,10000);
   try{
@@ -3388,15 +3364,18 @@ function shareHTML(){
   const sites=['all','Starter','Planner'].map(c=>`<button class="chip" data-act="lib-site" data-c="${c}" aria-pressed="${libSite===c}">${c==='all'?'All sources':c}</button>`).join('');
   return `<div class="share">
    <section class="card"><header><h2>Export</h2></header>
-     <p class="hint" style="margin:0">The share link opens this exact build on Horadric Odds in one click. The build code does the same when pasted into Import. Both carry skills, stats, respecs, gear and notes.</p>
+     <p class="hint" style="margin:0">Share this code on forums, Discord or Reddit. Anyone can paste it into Import to get the same skills, stats, respecs and notes.</p>
      <textarea id="exp" rows="5" readonly>${esc(encode(B))}</textarea>
-     <div class="row"><button class="btn primary" data-act="copy-link">Copy share link</button><button class="btn" data-act="copy-code">Copy build code</button><button class="btn" data-act="copy-text">Copy guide as text</button></div></section>
+     <div class="row"><button class="btn primary" data-act="copy-code">Copy build code</button><button class="btn" data-act="copy-text">Copy guide as text</button></div></section>
    <section class="card"><header><h2>Import</h2></header>
      <p class="hint" style="margin:0">Paste a build code, or a whole message that contains one.</p>
      <textarea id="imp" rows="5" placeholder="D2R2.…"></textarea>
      <div class="row"><button class="btn primary" data-act="import">Load build</button><span id="imp-err" class="over" style="font-size:.88rem"></span></div></section>
    <section class="card"><header><h2>My builds</h2><button class="btn small primary" data-act="lib-save">Save current build</button></header><div class="lib">${libHTML}</div></section>
-
+   <section class="card" style="grid-column:1/-1"><header><h2>Community builds</h2><button class="btn small primary" id="galPub" data-act="gal-pub" ${GAL.state==='on'&&GAL.me&&!GAL.busy?'':'disabled'}>Share current build</button></header>
+     <p class="hint" style="margin:0">Builds other players shared. <b>Share builds you made yourself</b>, and link to guides rather than copying them. Sharing posts the current build code under your claude.ai name; you can remove it any time. Use <b>Report</b> if a shared build shouldn't be here, or email HoradricOdds@hotmail.com. The class filter and search below apply here too.</p>
+     <div class="row" style="flex-wrap:wrap;gap:8px"><label class="row">Sort <select id="gal-sort">${[['new','Newest'],['old','Oldest'],['name','Name'],['class','Class']].map(([v,l])=>`<option value="${v}" ${galSort===v?'selected':''}>${l}</option>`).join('')}</select></label><label class="row"><input type="checkbox" id="gal-mine" ${galMine?'checked':''}> Only mine</label></div>
+     <div class="lib" id="galList">${galListHTML()}</div></section>
    <section class="card bsec" style="grid-column:1/-1"><header><h2>Builds</h2><span class="muted">${shown.length} starter builds · ${Object.values(GUIDES).flat().length} guides</span></header>
      <div class="phasebar">${chips}<input id="lib-q" type="search" placeholder="Search builds and guides" value="${esc(libQ)}" style="background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:6px 8px;flex:1;min-width:10rem"></div>
      ${buildsHTML(shown,q)}
@@ -3503,7 +3482,6 @@ view.addEventListener('click',e=>{
   if(act==='gal-report'){galReport(a.dataset.u,a.dataset.n);return}
   if(act==='lib-cls'){libCls=a.dataset.c;render();return}
   if(act==='lib-site'){libSite=a.dataset.c;render();return}
-  if(act==='copy-link'){packLink(encode(B)).then(h=>copy(location.origin+location.pathname+h,'Share link copied. Anyone who opens it gets this build.')).catch(()=>copy(location.origin+location.pathname+'#build='+encode(B),'Share link copied.'));return}
   if(act==='copy-code'){copy(encode(B),'Build code copied.');return}
   if(act==='copy-text'){copy(guideText(),'Guide copied as text.');return}
   if(act==='import'){try{const nb=decode($('#imp').value);undoB=B;B=nb;PI=0;TAB='plan';save();render();toast(`Loaded ${B.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}})}catch(err){$('#imp-err').textContent=err.message}return}
@@ -3539,9 +3517,6 @@ view.addEventListener('change',e=>{
   if(t.dataset.note){const L=+t.dataset.note;const v=t.value.trim();if(v)B.notes[L]=v.slice(0,200);else delete B.notes[L];save();return}
 });
 render();
-const sharedToast=()=>setTimeout(()=>toast(`Opened a shared build: ${B.name}. Save it in Share & Library to keep it.`),400);
-if(fromLink)sharedToast();
-if(linkPacked)unpackLink(linkPacked).then(c=>{B=decode(c);PI=0;TAB='plan';save();render();sharedToast()}).catch(()=>toast('That share link looks damaged or incomplete.'));
 }
 
 })();
@@ -6386,7 +6361,7 @@ function readD2Sraw(buf){
   r.seek(0x28+sh);const ci=r.byte();ch.cls=CLASSES[ci];if(!ch.cls)throw Error('Unknown character class.');ch.className=CLASSN[ch.cls];
   r.seek(0x2b+sh);ch.level=r.byte();
   r.seek(ver>=0x69?299:ver>0x61?267:0x14);ch.name=r.str(16).replace(/\0[\s\S]*$/,'');
-  r.seek(0xb3+sh);ch.mercId=r.u32();
+  r.seek(0xb3+sh);ch.mercId=r.u32();if(ch.mercId){r.seek(0xb9+sh);ch.mercType=r.u16()}
   /* stats start right after the quest, waypoint and NPC blocks, which begin at "Woo!" */
   let woo=-1;for(let i=0x100;i<Math.min(b.length-4,1200);i++)if(b[i]===0x57&&b[i+1]===0x6f&&b[i+2]===0x6f&&b[i+3]===0x21){woo=i;break}
   r.seek(woo>0?woo+430:765);
@@ -7372,7 +7347,7 @@ function sePlanLoadout(plan,m){const E=seEng(),cat=E.catalog(m),norm=seNormItem,
     }
   }
   const mercItems=resolve.filter(x=>x.merc);let mercType=null;
-  if(plan.merc||mercItems.length){if(!m.expansion)throw Error('This classic save cannot store the planned mercenary equipment section; use an expansion save to export mercenary gear.');const label=String(plan.merc||'Act 2 Nightmare Might');if(!/^act\s*(2|ii)\b/i.test(label))throw Error(`Mercenary “${label}” is not mapped to a known save type yet. Choose an Act II mercenary to export its hireling and equipment.`);mercType=/holy\s*freeze|defensive/i.test(label)?10:/thorns|combat/i.test(label)?9:11;}
+  if(plan.merc||mercItems.length){if(!m.expansion)throw Error('This classic save cannot store the planned mercenary equipment section; use an expansion save to export mercenary gear.');const label=String(plan.merc||'Act 2 Nightmare Might');const act=/^act\s*(1|i)\b/i.test(label)?1:/^act\s*(3|iii)\b/i.test(label)?3:/^act\s*(5|v)\b/i.test(label)?5:/^act\s*(2|ii)\b/i.test(label)?2:0;if(!act)throw Error(`Mercenary “${label}” is not a known hireling. Choose one in the Equipment panel.`);const dif=(+plan.level||1)>=45?2:(+plan.level||1)>=20?1:0,a2=/prayer/i.test(label)?0:/defiance/i.test(label)?1:/blessed\s*aim/i.test(label)?2:/thorns|combat/i.test(label)?3:/holy\s*freeze|defensive/i.test(label)?4:5;mercType=act===1?2*dif+(/cold/i.test(label)?1:0):act===3?15+3*dif+(/cold/i.test(label)?1:/light/i.test(label)?2:0):act===5?(/frenzy/i.test(label)?36+dif:24+2*dif):a2<3?[6,30,12][dif]+a2:[9,9,33][dif]+a2-3;}
   return {items:resolve,mercType}}
 function seCreatePlanItem(planItem,m,pos){const E=seEng(),spec={...planItem.spec,ilvl:Math.max(1,Math.min(99,+planItem.spec.ilvl||m.stats[12]||1))};return E.create(m,spec,pos)}
 function seApplyLoadout(plan,m,prepared){const E=seEng(),hasPlan=Array.isArray(plan.gear),load=prepared||sePlanLoadout(plan,m);if(!hasPlan)return {player:0,merc:0};
@@ -7682,7 +7657,7 @@ function sqPlanHTML(){sqBind();const pl=window.__plannedCharacterBuild||null;if(
 
 function editorHTML(){const h=editorHTML0(),pl=window.__plannedCharacterBuild;if(!SE.m||!pl)return h;return `<div class="tl-card se-plan-ready"><b>Export “${esc(pl.name)}” is ready.</b> <span class="tl-sub">You have ${esc(SE.file||'a save')} open. Download it first if you changed it, then:</span> <button type="button" class="tl-btn primary" data-act="se-plan-show">Close this save and export the build</button> <button type="button" class="tl-btn ghost" data-act="se-plan-cancel-keep">Not now</button></div>`+h}
 function editorHTML0(){const E=seEng();const m=SE.m;
-  const plan=window.__plannedCharacterBuild;let suggested=String(plan&&plan.name||'Hero').replace(/[^A-Za-z0-9_-]/g,'').replace(/^[^A-Za-z]+/,'').slice(0,15);if(suggested.length<2)suggested='Hero';
+  const plan=window.__plannedCharacterBuild;let suggested='';for(const w of String(plan&&plan.name||'Hero').replace(/\([^)]*\)/g,' ').split(/\s+/).map(w=>w.replace(/[^A-Za-z]/g,'')).filter(Boolean)){if((suggested+w).length>15){if(!suggested)suggested=w.slice(0,15);break}suggested+=w}if(suggested.length<2)suggested='Hero';
   if(!m)return `<section class="tl-card"><h3>Save editor</h3>
     <p class="tl-note">Create a new offline character from a planned build or edit an existing .d2s save. Save files are handled on this device and are never uploaded.</p>
     ${plan?`<div class="tl-card se-top"><h4>Export “${esc(plan.name)}” as a character</h4><p class="tl-note">Level ${plan.level} ${esc(plan.className)} · final phase attributes (${plan.statPointsRemaining||0} stat points left), allocated skills, ${plan.gear&&plan.gear.length||0} gear entries${plan.merc?' and '+esc(plan.merc):(plan.gear||[]).some(g=>g.slot>=12&&g.slot<=14)?' and the planned mercenary':''} will be copied in.</p>
@@ -7904,8 +7879,6 @@ if(!root.hidden){render();startTick();try{if(location.hash!=='#'+SUB)history.rep
 
 </script>
 
-<script>/* offline support and install as an app (website only) */if('serviceWorker' in navigator&&location.protocol==='https:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
 <script src="d2-font.js" defer></script>
-</body>
-</html>
 
+</body></html>

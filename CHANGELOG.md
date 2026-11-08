@@ -15,6 +15,8 @@ All notable changes to Horadric Odds, newest first.
 - Ethereal items are half transparent, as in the game.
 - New pictures for Grand Charms, Hellfire Torch and Annihilus. Magic charms named with affixes now show their picture too.
 
+- New **Mercenary** menu at the top of the Equipment panel: any act and aura (Act 2 auras in every difficulty, and the Act 5 Frenzy Barbarian). It sets the merc's aura, is read from imported saves and is used when exporting. Starter builds use an Act 2 Might merc.
+
 ### Requirements
 - Gear only counts toward your totals once its required level, Strength and Dexterity are met. Your other gear's bonuses count; an item's own bonuses don't.
 - Required levels include the base item's (for example, Monarch needs level 54).
@@ -35,6 +37,9 @@ All notable changes to Horadric Odds, newest first.
 - Imported characters with rares and magic charms now export, and rares keep their names.
 - Gear the character can't use yet is still put on the exported character; the game shows it red.
 - Fixed: export failed when any item had custom stats.
+- Imported characters show their gear at the character's level, so the planner no longer warns about requirements the character already meets.
+- Exported names drop "(imported)" and keep whole words ("Blizzard Sorceress" becomes "Blizzard" instead of "BlizzardSorcere").
+- The exported mercenary is hired from the difficulty a character of that level is in: Normal below level 20, Nightmare to 44, then Hell.
 - If a save is already open in the editor, you're offered to close it and export the build.
 
 ### Other
