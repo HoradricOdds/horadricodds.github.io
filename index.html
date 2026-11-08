@@ -1,7 +1,142 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Horadric Odds">
+<meta property="og:title" content="Horadric Odds: the free all-in-one D2R toolkit">
+<meta property="og:description" content="The all-in-one Diablo II: Resurrected toolkit: where any item drops and your odds per kill, build planning with skill damage and breakpoints, the fastest places to level, Holy Grail, runes and run tracking, and a save editor for offline characters (D2R, LoD and Classic). Free, no ads, no sign-up.">
+<meta property="og:url" content="https://horadricodds.github.io/">
+<meta property="og:image" content="https://horadricodds.github.io/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Horadric Odds: drop odds, build planner, experience, Holy Grail, runes and save editor for Diablo II: Resurrected">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#c4513a">
+<link rel="canonical" href="https://horadricodds.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23110e0b'/%3E%3Cpath d='M18 14h28v6l-8 6v14l8 6v4H18v-4l8-6V26l-8-6z' fill='%23cdb57c'/%3E%3Ccircle cx='32' cy='33' r='4' fill='%23c4513a'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Horadric Odds">
 <title>Horadric Odds</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Diablo II: Resurrected drop calculator. Search any item to see where it drops and the chance per kill.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}#hp .skill-tab-emblem{display:none!important}
+#hp .doll .eslot.has,#hp .merc-slot,#hp .inv-item,#hp .inv-grid{cursor:pointer}
+#hp .inv-grid:focus-visible{outline:2px solid rgba(217,178,90,.52);outline-offset:2px}
+#hp .gp-pop{position:fixed;z-index:3000;width:min(380px,calc(100vw - 16px));max-height:min(520px,calc(100vh - 16px));display:flex;flex-direction:column;gap:8px;padding:10px;
+  background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2);font-size:14px}
+#hp .gp-pop.sheet{left:0;right:0;bottom:0;top:auto;width:auto;max-height:78vh;border-radius:12px 12px 0 0;padding:12px max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+#hp .gp-h{display:flex;align-items:baseline;gap:8px}#hp .gp-h b{font-size:15px}#hp .gp-h .muted{font-size:12px;flex:1}
+#hp .gp-x{border:0;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 4px}#hp .gp-x:hover{color:var(--text)}
+#hp .gp-cur{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--sunk);border-radius:4px;font-size:13px}#hp .gp-cur .gp-n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-q{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:7px 9px;font:inherit}
+#hp .gp-q:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#hp .gp-f{display:flex;gap:4px;flex-wrap:wrap}#hp .gp-f button{font:inherit;font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
+#hp .gp-f button[aria-pressed="true"]{background:var(--text);color:var(--panel);border-color:var(--text)}
+#hp .gp-list{list-style:none;margin:0;padding:0;overflow-y:auto;min-height:60px;flex:1;overscroll-behavior:contain;border-top:1px solid var(--line)}
+#hp .gp-row{display:flex;align-items:center;gap:9px;padding:5px 6px;border-radius:4px;cursor:pointer}
+#hp .gp-row:hover,#hp .gp-row.sel{background:var(--sunk)}#hp .gp-row.late{opacity:.62}#hp .gp-row.late:hover,#hp .gp-row.late.sel{opacity:1}
+#hp .gp-art{flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#16120e;border-radius:3px}
+#hp .gp-art img{max-width:28px;max-height:28px;object-fit:contain}#hp .gp-noart{color:#cdb57c;font-size:15px}
+#hp .gp-txt{flex:1;min-width:0;display:flex;flex-direction:column}#hp .gp-n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-b{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hp .gp-l{flex:none;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+#hp .gp-n.q-u{color:var(--unique)}#hp .gp-n.q-s{color:var(--set)}#hp .gp-n.q-rw{color:var(--rune)}#hp .gp-n.q-magic{color:var(--magic)}#hp .gp-n.q-rare{color:var(--rare)}
+#hp .gp-empty{padding:14px 6px;color:var(--muted);font-size:13px}#hp .gp-foot{font-size:11.5px}
+#hp.gp-open .doll .ett,#hp.gp-open .merc-slot .ett,#hp.gp-open .inv-item .ett{display:none!important}
+body .itemtip{z-index:3500}
+#hp .gp-cfg{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+#hp .gp-back{align-self:flex-start;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;padding:0;cursor:pointer}#hp .gp-back:hover{color:var(--text)}
+#hp .gp-rwh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}#hp .gp-rwh .gp-n{font-size:16px}#hp .gp-runes{font-size:12px;color:var(--rune)}
+#hp .gp-best{display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:var(--sunk);border-left:3px solid var(--rune);border-radius:4px;font-size:13px}#hp .gp-best span{color:var(--muted);font-size:12.5px}
+#hp .gp-fld{display:flex;flex-direction:column;gap:4px}#hp .gp-base{font:inherit;padding:6px 8px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px}
+#hp .gp-opts{display:flex;align-items:center;gap:18px;flex-wrap:wrap}#hp .gp-eth{display:flex;align-items:center;gap:6px;cursor:pointer}
+#hp .gp-sock{display:flex;align-items:baseline;gap:6px}#hp .gp-sock b{font-size:15px}#hp .gp-sock .muted{font-size:12px}
+#hp .gp-note{margin:0;font-size:12px;min-height:1.3em}#hp .gp-add{align-self:stretch}
+#hp .gp-more{font-size:15px;color:var(--rune);margin-left:2px}
+#hp .gp-row.cur{box-shadow:inset 3px 0 0 var(--rune)}#hp .gp-eq{flex:none;font-size:11px;padding:1px 6px;border-radius:999px;background:var(--rune);color:var(--panel);margin-right:4px}
+#hp .gear-art.eth img,#hp .inv-item.eth img{opacity:.5}
+#hp .gp-xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px}#hp .gp-xf{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px}#hp .gp-xf span{color:var(--muted);min-width:0}
+#hp .gp-xf input{width:64px;flex:none;font:inherit;padding:4px 6px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;text-align:right}
+#hp .gp-more-st summary{cursor:pointer;font-size:12.5px;color:var(--muted);margin-bottom:6px}#hp .gp-prev{font-size:12px;overflow-wrap:anywhere}
+#hp .gp-cfg>*{flex-shrink:0}
+#hp .inv-item.held{opacity:.25}
+#hp .inv-ghost{position:absolute;z-index:6;pointer-events:none;display:flex;align-items:center;justify-content:center;background:rgba(80,160,90,.28);outline:1px solid rgba(120,220,130,.7)}
+#hp .inv-ghost.swap{background:rgba(200,170,60,.28);outline-color:rgba(230,200,90,.8)}#hp .inv-ghost.bad{background:rgba(190,50,40,.32);outline-color:rgba(230,80,60,.8)}
+#hp .inv-ghost img{max-width:92%;max-height:92%;object-fit:contain}#hp .inv-ghost.eth img{opacity:.5}
+#hp .gp-holdbar{position:absolute;left:4%;right:4%;bottom:1.2%;z-index:7;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;background:rgba(12,10,8,.92);border:1px solid #6e5630;border-radius:4px;color:#ddd5c5;font-size:12.5px}
+#hp .gp-holdbar span{flex:1;min-width:160px}
+#hp .inv-grid:has(.held) .ett{display:none!important}
+#hp .xp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:6px 0}
+#hp .xp-list{list-style:none;margin:4px 0 0;padding:0;font-size:.92rem}#hp .xp-list li{display:flex;gap:8px;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
+#hp .xp-list li b{font-variant-numeric:tabular-nums}
+#hp .gp-add{position:sticky;bottom:0}
+#hp .character-attributes{pointer-events:none}#hp .character-attributes *{pointer-events:auto}#hp .sheet-mode-toggle{z-index:8}
+#hp .eslot.held .gear-art,#hp .merc-slot.held .gear-art{opacity:.3}#hp .eslot.held .ett,#hp .merc-slot.held .ett{display:none!important}
+#hp .doll .eslot.drop-ok,#hp .merc-slot.drop-ok{outline:2px solid rgba(120,220,130,.85)!important;outline-offset:1px;background:rgba(80,160,90,.18)!important}
+#hp .doll .eslot.drop-bad,#hp .merc-slot.drop-bad{outline:2px solid rgba(230,80,60,.85)!important;outline-offset:1px;background:rgba(190,50,40,.18)!important}
+#hp .inv-grid.no-drop{outline:2px solid rgba(230,80,60,.75);outline-offset:1px;background:rgba(190,50,40,.14);cursor:not-allowed}
+/* phones: gear rows wrap, notes and warnings drop below the item instead of squeezing it */
+@media (max-width:640px){#hp .gi{flex-wrap:wrap;row-gap:2px;min-width:0}#hp .gi .gn{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}#hp .gi .gw{flex:1 1 100%;order:10}#hp .chain{min-width:0;max-width:100%}}
+/* Mercenary panel stats, placed on the game panel's own boxes */
+#hp .merc-panel .mname,#hp .merc-panel .mlevel,#hp .merc-panel .maura,#hp .merc-panel .mstat{position:absolute;font-family:var(--font-display);text-shadow:0 1px 3px #000;color:#fff0d1;z-index:3}
+#hp .merc-panel .mname{left:8.5%;top:52.2%;width:83%;font-size:clamp(12px,1.05vw,16px);font-weight:700;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hp .merc-panel .mlevel{left:8.5%;top:58.1%;width:83%;font-size:clamp(10px,.8vw,12.5px);font-variant:small-caps;color:#e9dcc0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hp .merc-panel .maura{left:51.5%;top:63.2%;width:41%;height:4.2%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:clamp(9px,.72vw,11.5px);color:#d9c79a;line-height:1.05;overflow:hidden}
+#hp .merc-panel .mstat{height:4.7%;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:2%;font-size:clamp(9.5px,.78vw,12.5px)}
+#hp .merc-panel .mstat span{text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+#hp .merc-panel .mstat b{text-align:center;white-space:nowrap;overflow:hidden;font-weight:700;color:#f3e4c6}
+#hp .merc-panel .mstat b.mboost{color:#8e8eff}
+#hp .merc-panel .mstat b.mcap{color:#f3e4c6}
+#hp .merc-panel .ms-0,#hp .merc-panel .ms-1,#hp .merc-panel .ms-2,#hp .merc-panel .ms-3,#hp .merc-panel .ms-4{left:7.6%;width:41.4%}
+#hp .merc-panel .ms-0{top:62.7%}#hp .merc-panel .ms-1{top:68.3%}#hp .merc-panel .ms-2{top:73.9%}#hp .merc-panel .ms-3{top:79.4%}#hp .merc-panel .ms-4{top:85%}
+#hp .merc-panel .mr-1,#hp .merc-panel .mr-2,#hp .merc-panel .mr-3,#hp .merc-panel .mr-4{left:51%;width:42%;grid-template-columns:minmax(0,1.6fr) minmax(0,.6fr)}
+#hp .merc-panel .mr-1{top:68.3%}#hp .merc-panel .mr-2{top:73.9%}#hp .merc-panel .mr-3{top:79.4%}#hp .merc-panel .mr-4{top:85%}
+#hp .imm-chips{display:flex;flex-wrap:wrap;gap:6px}
+#hp .imm-chip{font:inherit;font-size:.85rem;padding:3px 10px;border-radius:999px;border:1px solid var(--line2);background:var(--panel2);color:var(--muted);cursor:pointer}
+#hp .imm-chip.on{background:var(--accent,#7a5b2a);border-color:var(--accent,#7a5b2a);color:#fff}
+#hp .imm-sum{margin:.4em 0}
+#hp .imm-t{width:100%;border-collapse:collapse;font-size:.88rem}
+#hp .imm-t th,#hp .imm-t td{text-align:left;padding:4px 6px;border-top:1px solid var(--line2);vertical-align:top}
+#hp .imm-t thead th{border-top:0;color:var(--muted);font-weight:600;font-size:.8rem}
+#hp .imm-t tbody th{font-weight:600;white-space:nowrap}
+#hp .imm-t td.num{white-space:nowrap}
+#hp .imm-tz{font-size:.7rem;padding:0 4px;border-radius:3px;background:var(--panel2);border:1px solid var(--line2);color:var(--muted)}
+.gp-card-modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:16px}
+.gp-card-box{background:var(--panel,#1d1914);border:1px solid var(--line2,#555);border-radius:6px;padding:12px;max-width:min(1000px,100%);max-height:100%;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.gp-card-box img{width:100%;height:auto;display:block;border-radius:3px}
+.gp-card-box .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#hp .imm-l{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column}
+#hp .imm-l li{padding:6px 0;border-top:1px solid var(--line2)}
+#hp .imm-a{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px}
+#hp .imm-a b{font-weight:600}
+#hp .imm-n{margin-left:auto;color:var(--muted);font-size:.85rem;white-space:nowrap}
+#hp .imm-m{font-size:.85rem;color:var(--muted)}
+.site-about{max-width:1400px;margin:32px auto 0;padding:14px 0 0;border-top:1px solid var(--line)}.site-about .about{margin:0}
+#tools .sq{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+#tools .sq-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+#tools .sq-presets{gap:6px;flex-wrap:wrap;align-items:center}
+#tools .sq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+#tools .sq-act{border:1px solid var(--line);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
+#tools .sq-act.locked{opacity:.55}
+#tools .sq-acth{font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:2px}
+#tools .sq-q{display:flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
+#tools .sq-ok{font-size:.75rem;font-weight:400;color:var(--good,#5fd36b);margin-left:auto}
+.shopctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}.shopctl select,.shopctl input{min-width:0}
+@media (max-width:560px){.tabs[aria-label="Search mode"]{display:flex;flex-wrap:wrap}.tabs[aria-label="Search mode"] button{flex:1 1 auto}}.shopwrap{overflow-x:auto;max-width:100%}.itemtip .tt-mg{color:#8b93ff}.itemtip .tt-un{color:#cdb57c}.itemtip .tt-st{color:#4fd65b}#result .k-base{cursor:help}.shopt{width:100%;min-width:620px;border-collapse:collapse;font-size:.9rem}.shopt th,.shopt td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}.shopt .num{text-align:right;white-space:nowrap}.shopt .sub{font-size:.8rem;color:var(--muted)}
+#hp .skill-tab-pts{color:#d9b25a;font-weight:700;margin-left:2px}
+#hp .ett .treq.tt-bad,#hp .ett .tt-bad{color:#ff5a4a!important}
+#tools .se-plan-ready{display:flex!important;flex-direction:row!important;flex-wrap:wrap;justify-content:flex-start;gap:6px 10px;align-items:center;text-align:left}#tools .se-plan-ready .tl-sub{flex:1 1 260px}
+#hp .inv-add-row{display:flex;justify-content:flex-end;margin:6px 0 2px}#hp .inv-add{font-size:.85rem}
+#hp .merc-sheet-title{font-family:var(--font-display)!important;color:#f0d99e!important;text-shadow:0 1px 3px #000,0 0 4px #000;font-size:clamp(14px,1.2vw,18px)!important}#hp .merc-fact span,#hp .merc-fact b,#hp .merc-bottom span{font-family:var(--font-display)!important;font-weight:700;color:#fff0d1!important;text-shadow:0 1px 3px #000;font-size:clamp(10px,.82vw,13px)!important;letter-spacing:.01em}#hp .merc-fact span{font-variant:small-caps}#hp .merc-bottom span{text-align:center}
+#hp .equip>header{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}#hp .equip>header h2{margin-right:auto}#hp .merc-pick{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)}#hp .merc-pick>span{white-space:nowrap}#hp .merc-pick select{max-width:100%;min-width:0;font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--line2);border-radius:3px;padding:3px 6px}@media(max-width:520px){#hp .merc-pick{order:3;flex:1 1 100%}#hp .merc-pick select{flex:1}}
+#hp .tag.gear .never{color:var(--crafted);font-weight:600}
+#hp .eslot.cantwear .gear-art,#hp .merc-slot.cantwear .gear-art{filter:drop-shadow(0 2px 3px rgba(0,0,0,.9)) sepia(1) saturate(4) hue-rotate(-50deg) brightness(.8)}#hp .doll .eslot.cantwear,#hp .merc-slot.cantwear{background:rgba(160,30,20,.22)!important}
+</style>
+
+<meta name="description" content="Horadric Odds is a free all-in-one toolkit for Diablo II: Resurrected: drop odds for every item, a build planner with skill damage and breakpoints, an experience calculator, Holy Grail and rune helpers, and a save editor for offline characters.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -1081,84 +1216,6 @@ button[data-tip],label [data-tip]{cursor:pointer}
 #hp .inline-form{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 #hp .inline-form input{background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:4px 6px}
 @media (prefers-reduced-motion:no-preference){#hp .node,#hp .btn,#hp .chip{transition:border-color .12s,background .12s}}
-#hp .skill-tab-emblem{display:none!important}
-#hp .doll .eslot.has,#hp .merc-slot,#hp .inv-item,#hp .inv-grid{cursor:pointer}
-#hp .inv-grid:focus-visible{outline:2px solid rgba(217,178,90,.52);outline-offset:2px}
-#hp .gp-pop{position:fixed;z-index:3000;width:min(380px,calc(100vw - 16px));max-height:min(520px,calc(100vh - 16px));display:flex;flex-direction:column;gap:8px;padding:10px;
-  background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2);font-size:14px}
-#hp .gp-pop.sheet{left:0;right:0;bottom:0;top:auto;width:auto;max-height:78vh;border-radius:12px 12px 0 0;padding:12px max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
-#hp .gp-h{display:flex;align-items:baseline;gap:8px}#hp .gp-h b{font-size:15px}#hp .gp-h .muted{font-size:12px;flex:1}
-#hp .gp-x{border:0;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 4px}#hp .gp-x:hover{color:var(--text)}
-#hp .gp-cur{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--sunk);border-radius:4px;font-size:13px}#hp .gp-cur .gp-n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-q{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:7px 9px;font:inherit}
-#hp .gp-q:focus{outline:2px solid var(--accent);outline-offset:-1px}
-#hp .gp-f{display:flex;gap:4px;flex-wrap:wrap}#hp .gp-f button{font:inherit;font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
-#hp .gp-f button[aria-pressed="true"]{background:var(--text);color:var(--panel);border-color:var(--text)}
-#hp .gp-list{list-style:none;margin:0;padding:0;overflow-y:auto;min-height:60px;flex:1;overscroll-behavior:contain;border-top:1px solid var(--line)}
-#hp .gp-row{display:flex;align-items:center;gap:9px;padding:5px 6px;border-radius:4px;cursor:pointer}
-#hp .gp-row:hover,#hp .gp-row.sel{background:var(--sunk)}#hp .gp-row.late{opacity:.62}#hp .gp-row.late:hover,#hp .gp-row.late.sel{opacity:1}
-#hp .gp-art{flex:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#16120e;border-radius:3px}
-#hp .gp-art img{max-width:28px;max-height:28px;object-fit:contain}#hp .gp-noart{color:#cdb57c;font-size:15px}
-#hp .gp-txt{flex:1;min-width:0;display:flex;flex-direction:column}#hp .gp-n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-b{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hp .gp-l{flex:none;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-#hp .gp-n.q-u{color:var(--unique)}#hp .gp-n.q-s{color:var(--set)}#hp .gp-n.q-rw{color:var(--rune)}#hp .gp-n.q-magic{color:var(--magic)}#hp .gp-n.q-rare{color:var(--rare)}
-#hp .gp-empty{padding:14px 6px;color:var(--muted);font-size:13px}#hp .gp-foot{font-size:11.5px}
-#hp.gp-open .doll .ett,#hp.gp-open .merc-slot .ett,#hp.gp-open .inv-item .ett{display:none!important}
-body .itemtip{z-index:3500}
-#hp .gp-cfg{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
-#hp .gp-back{align-self:flex-start;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;padding:0;cursor:pointer}#hp .gp-back:hover{color:var(--text)}
-#hp .gp-rwh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}#hp .gp-rwh .gp-n{font-size:16px}#hp .gp-runes{font-size:12px;color:var(--rune)}
-#hp .gp-best{display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:var(--sunk);border-left:3px solid var(--rune);border-radius:4px;font-size:13px}#hp .gp-best span{color:var(--muted);font-size:12.5px}
-#hp .gp-fld{display:flex;flex-direction:column;gap:4px}#hp .gp-base{font:inherit;padding:6px 8px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px}
-#hp .gp-opts{display:flex;align-items:center;gap:18px;flex-wrap:wrap}#hp .gp-eth{display:flex;align-items:center;gap:6px;cursor:pointer}
-#hp .gp-sock{display:flex;align-items:baseline;gap:6px}#hp .gp-sock b{font-size:15px}#hp .gp-sock .muted{font-size:12px}
-#hp .gp-note{margin:0;font-size:12px;min-height:1.3em}#hp .gp-add{align-self:stretch}
-#hp .gp-more{font-size:15px;color:var(--rune);margin-left:2px}
-#hp .gp-row.cur{box-shadow:inset 3px 0 0 var(--rune)}#hp .gp-eq{flex:none;font-size:11px;padding:1px 6px;border-radius:999px;background:var(--rune);color:var(--panel);margin-right:4px}
-#hp .gear-art.eth img,#hp .inv-item.eth img{opacity:.5}
-#hp .gp-xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px}#hp .gp-xf{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px}#hp .gp-xf span{color:var(--muted);min-width:0}
-#hp .gp-xf input{width:64px;flex:none;font:inherit;padding:4px 6px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;text-align:right}
-#hp .gp-more-st summary{cursor:pointer;font-size:12.5px;color:var(--muted);margin-bottom:6px}#hp .gp-prev{font-size:12px;overflow-wrap:anywhere}
-#hp .gp-cfg>*{flex-shrink:0}
-#hp .inv-item.held{opacity:.25}
-#hp .inv-ghost{position:absolute;z-index:6;pointer-events:none;display:flex;align-items:center;justify-content:center;background:rgba(80,160,90,.28);outline:1px solid rgba(120,220,130,.7)}
-#hp .inv-ghost.swap{background:rgba(200,170,60,.28);outline-color:rgba(230,200,90,.8)}#hp .inv-ghost.bad{background:rgba(190,50,40,.32);outline-color:rgba(230,80,60,.8)}
-#hp .inv-ghost img{max-width:92%;max-height:92%;object-fit:contain}#hp .inv-ghost.eth img{opacity:.5}
-#hp .gp-holdbar{position:absolute;left:4%;right:4%;bottom:1.2%;z-index:7;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;background:rgba(12,10,8,.92);border:1px solid #6e5630;border-radius:4px;color:#ddd5c5;font-size:12.5px}
-#hp .gp-holdbar span{flex:1;min-width:160px}
-#hp .inv-grid:has(.held) .ett{display:none!important}
-#hp .xp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:6px 0}
-#hp .xp-list{list-style:none;margin:4px 0 0;padding:0;font-size:.92rem}#hp .xp-list li{display:flex;gap:8px;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--line)}
-#hp .xp-list li b{font-variant-numeric:tabular-nums}
-#hp .gp-add{position:sticky;bottom:0}
-#hp .character-attributes{pointer-events:none}#hp .character-attributes *{pointer-events:auto}#hp .sheet-mode-toggle{z-index:8}
-#hp .eslot.held .gear-art,#hp .merc-slot.held .gear-art{opacity:.3}#hp .eslot.held .ett,#hp .merc-slot.held .ett{display:none!important}
-#hp .doll .eslot.drop-ok,#hp .merc-slot.drop-ok{outline:2px solid rgba(120,220,130,.85)!important;outline-offset:1px;background:rgba(80,160,90,.18)!important}
-#hp .doll .eslot.drop-bad,#hp .merc-slot.drop-bad{outline:2px solid rgba(230,80,60,.85)!important;outline-offset:1px;background:rgba(190,50,40,.18)!important}
-#hp .inv-grid.no-drop{outline:2px solid rgba(230,80,60,.75);outline-offset:1px;background:rgba(190,50,40,.14);cursor:not-allowed}
-/* phones: gear rows wrap, notes and warnings drop below the item instead of squeezing it */
-@media (max-width:640px){#hp .gi{flex-wrap:wrap;row-gap:2px;min-width:0}#hp .gi .gn{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}#hp .gi .gw{flex:1 1 100%;order:10}#hp .chain{min-width:0;max-width:100%}}
-.site-about{max-width:1400px;margin:32px auto 0;padding:14px 0 0;border-top:1px solid var(--line)}.site-about .about{margin:0}
-#tools .sq{display:flex;flex-direction:column;gap:10px;margin:8px 0}
-#tools .sq-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-#tools .sq-presets{gap:6px;flex-wrap:wrap;align-items:center}
-#tools .sq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
-#tools .sq-act{border:1px solid var(--line);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
-#tools .sq-act.locked{opacity:.55}
-#tools .sq-acth{font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:2px}
-#tools .sq-q{display:flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
-#tools .sq-ok{font-size:.75rem;font-weight:400;color:var(--good,#5fd36b);margin-left:auto}
-.shopctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}.shopctl select,.shopctl input{min-width:0}
-@media (max-width:560px){.tabs[aria-label="Search mode"]{display:flex;flex-wrap:wrap}.tabs[aria-label="Search mode"] button{flex:1 1 auto}}.shopwrap{overflow-x:auto;max-width:100%}.itemtip .tt-mg{color:#8b93ff}.itemtip .tt-un{color:#cdb57c}.itemtip .tt-st{color:#4fd65b}#result .k-base{cursor:help}.shopt{width:100%;min-width:620px;border-collapse:collapse;font-size:.9rem}.shopt th,.shopt td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}.shopt .num{text-align:right;white-space:nowrap}.shopt .sub{font-size:.8rem;color:var(--muted)}
-#hp .skill-tab-pts{color:#d9b25a;font-weight:700;margin-left:2px}
-#hp .ett .treq.tt-bad,#hp .ett .tt-bad{color:#ff5a4a!important}
-#tools .se-plan-ready{display:flex!important;flex-direction:row!important;flex-wrap:wrap;justify-content:flex-start;gap:6px 10px;align-items:center;text-align:left}#tools .se-plan-ready .tl-sub{flex:1 1 260px}
-#hp .inv-add-row{display:flex;justify-content:flex-end;margin:6px 0 2px}#hp .inv-add{font-size:.85rem}
-#hp .merc-sheet-title{font-family:var(--font-display)!important;color:#f0d99e!important;text-shadow:0 1px 3px #000,0 0 4px #000;font-size:clamp(14px,1.2vw,18px)!important}#hp .merc-fact span,#hp .merc-fact b,#hp .merc-bottom span{font-family:var(--font-display)!important;font-weight:700;color:#fff0d1!important;text-shadow:0 1px 3px #000;font-size:clamp(10px,.82vw,13px)!important;letter-spacing:.01em}#hp .merc-fact span{font-variant:small-caps}#hp .merc-bottom span{text-align:center}
-#hp .equip>header{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}#hp .equip>header h2{margin-right:auto}#hp .merc-pick{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)}#hp .merc-pick>span{white-space:nowrap}#hp .merc-pick select{max-width:100%;min-width:0;font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--line2);border-radius:3px;padding:3px 6px}@media(max-width:520px){#hp .merc-pick{order:3;flex:1 1 100%}#hp .merc-pick select{flex:1}}
-#hp .tag.gear .never{color:var(--crafted);font-weight:600}
-#hp .eslot.cantwear .gear-art,#hp .merc-slot.cantwear .gear-art{filter:drop-shadow(0 2px 3px rgba(0,0,0,.9)) sepia(1) saturate(4) hue-rotate(-50deg) brightness(.8)}#hp .doll .eslot.cantwear,#hp .merc-slot.cantwear{background:rgba(160,30,20,.22)!important}
 </style>
 <style id="gear-inventory-preview">
 #hp .eqwrap{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:16px;align-items:start}
@@ -1351,6 +1408,9 @@ body .itemtip{z-index:3500}
 #hp .skill-count{font-size:clamp(9px,1.1vw,13px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 3px #000}
 #hp .skill-sheet>.node .nb button{font-size:clamp(9px,1vw,12px)!important;font-weight:700;color:#fff0d1;text-shadow:0 1px 2px #000}
 </style>
+</head>
+<body>
+
 
 <div class="wrap">
   <header>
@@ -1363,7 +1423,7 @@ body .itemtip{z-index:3500}
       <li><b>Play it:</b> the <i>Leveling Guide</i> has a checklist to tick off while you level, and <i>Gear</i> shows where to farm each item. <i>Experience</i> shows the fastest places to level.</li>
       <li><b>Tools:</b> track your Holy Grail and runs, see what your runes make, check rolls and cube recipes, and edit offline characters with the <i>Save editor</i>.</li></ol>
       <div class="wbtns"><button type="button" class="wbtn" id="welcomeOk">Got it</button><button type="button" class="wbtn wguide" id="welcomeGuide">Full guide →</button></div></div>
-    <div class="whatsnew" id="whatsnew" data-v="2026-11-08a" hidden><span><b>What's new</b> · 8 Nov 2026: <span id="wnText">New gear menu in the <i>Build planner</i>: click a slot to pick from the items that fit, choose a runeword's base, sockets and ethereal, enter a charm's stats, and move items around the equipment and inventory like in the game. Gear now only counts once your level, Strength and Dexterity let you wear it, and the starter builds have been fixed to match. Choose your mercenary at the top of the Equipment panel. New <i>Merchants</i> odds next to <i>Gambling</i>. <i>Export Build</i> has its own tab, with tick boxes for quests, acts and difficulties (also in the <i>Save editor</i>). Faster first load, and exporting imported characters with rares and charms now works.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
+    <div class="whatsnew" id="whatsnew" data-v="2026-11-08a" hidden><span><b>What's new</b> · 8 Nov 2026: <span id="wnText">New gear menu in the <i>Build planner</i>: click a slot to pick from the items that fit, choose a runeword's base, sockets and ethereal, enter a charm's stats, and move items around the equipment and inventory like in the game. Gear now only counts once your level, Strength and Dexterity let you wear it, and the starter builds have been fixed to match. Choose your mercenary at the top of the Equipment panel; its panel now shows its stats like the game. New <i>Immunities</i> card and <i>Share as image</i>. New <i>Merchants</i> odds next to <i>Gambling</i>. <i>Export Build</i> has its own tab, with tick boxes for quests, acts and difficulties (also in the <i>Save editor</i>). Faster first load, and exporting imported characters with rares and charms now works.</span></span><button type="button" id="wnClose" aria-label="Hide what's new">✕</button></div>
     <p class="lede">Search any unique, set item, rune, runeword or base (player nicknames like "shako" work too), or search by the stats you want. See which monsters and areas drop it, and your chance per kill at your difficulty, player count and magic find.</p>
   </header>
 
@@ -1556,7 +1616,9 @@ body .itemtip{z-index:3500}
       <li><b>Spend skill points</b> on <i>Skills &amp; Stats</i>. Click a skill, or its + button, to add a point. Its − button removes one (or right-click on PC). Shift-click adds or removes up to 20. Missing prerequisites are added for you, and the order you click is the order the leveling guide spends points. Hover over a skill (press and hold on a phone) to see its in-game tooltip: damage at your level and the next, synergies, masteries and, for attack skills, your damage with the weapon you've planned.</li>
       <li><b>Set your stats</b> with the + and − buttons next to Strength, Dexterity, Vitality and Energy. Hold Ctrl for steps of 5, or Shift for steps of 10.</li>
       <li><b>Plan respecs</b> with <i>+ Respec at a level</i>. Each phase has its own skills and stats, e.g. a leveling build until 75 and an endgame one after that.</li>
-      <li><b>Plan your gear</b> on <i>Gear</i>. Click an empty slot to pick from the items that fit there (search by name or nickname). For a runeword you choose the base, sockets and ethereal; for a charm or rare you can enter its stats. Click any item to pick it up and click where it should go, like in the game; right-click an item to change or remove it. To add to the inventory, right-click an empty space or use <i>+ Add to inventory</i>. Charms in the inventory count toward your totals, and other gear can be stored there. Pick your mercenary from the <i>Mercenary</i> menu at the top of the Equipment panel; it sets the merc's aura and is used when you export the build. Hover or tap an item for its stats and requirements.</li>
+      <li><b>Plan your gear</b> on <i>Gear</i>. Click an empty slot to pick from the items that fit there (search by name or nickname). For a runeword you choose the base, sockets and ethereal; for a charm or rare you can enter its stats. Click any item to pick it up and click where it should go, like in the game; right-click an item to change or remove it. To add to the inventory, right-click an empty space or use <i>+ Add to inventory</i>. Charms in the inventory count toward your totals, and other gear can be stored there. Pick your mercenary from the <i>Mercenary</i> menu at the top of the Equipment panel; its panel shows its life, Strength, Dexterity, damage, defense and resistances at your level with its gear, as in the game, and it is used when you export the build. Hover or tap an item for its stats and requirements.</li>
+      <li><b>Immunities</b> on <i>Skills &amp; Stats</i> lists the Hell areas with monsters immune to the damage your build uses (picked from your skills; tap a type to change it), and counts Conviction from Infinity and Sunder charms.</li>
+      <li><b>Share as image</b> on <i>Share &amp; Library</i> makes a picture of the build (skills, stats, gear, breakpoints, resistances and merc) to post on Discord or Reddit, with a button to copy the share link.</li>
       <li><b>Gear counts once you can wear it.</b> An item only adds to your life, resistances, breakpoints and other totals from the level you meet its required level, Strength and Dexterity (your other gear's bonuses count, its own don't). Requirements you haven't met show in red, and the leveling guide lists each item at the level you can really put it on, or says when a build can never wear it.</li>
       <li><b>Follow the leveling guide.</b> <i>Leveling Guide</i> lists every level: which skill to put the point in, stats, new gear, life and mana. Tick levels off as you play and add your own notes.</li>
     </ol>
@@ -1620,13 +1682,13 @@ body .itemtip{z-index:3500}
       <p>Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Blizzard Entertainment, Maxroll, IGN, Icy Veins or diablo2.io. Diablo II: Resurrected and its game data belong to Blizzard Entertainment. The site is open source under the MIT License.</p>
       <p><b>Game data:</b> items, drop tables, skill trees and formulas come from the game files via <a href="https://github.com/blizzhackers/d2data" target="_blank" rel="noopener">blizzhackers/d2data</a> (MIT License, © 2020 blizzhackers).</p>
       <p><b>Experience:</b> rules checked against <a href="https://theamazonbasin.com/wiki/index.php/Experience" target="_blank" rel="noopener">The Amazon Basin wiki</a>; monster counts per area come from <a href="https://www.reddit.com/user/Pavke/" target="_blank" rel="noopener">u/Pavke</a>'s Experience Calculator (thanks, Pavke!), which was also used to check the numbers. <b>Attack frames:</b> animation frame data and timing rules follow <a href="https://github.com/Warren1001/IAS_Calculator" target="_blank" rel="noopener">Warren1001's IAS Calculator</a> (animation tables dumped by RuffnecKk). <b>Cast, hit-recovery and block breakpoints:</b> <a href="https://d2runewizard.com/breakpoints" target="_blank" rel="noopener">d2runewizard</a>, with the Warlock tables confirmed against <a href="https://www.aoeah.com/news/4399--d2r-warlock-fcr-ias-fhr-fbr-breakpoints--calculation" target="_blank" rel="noopener">AOEAH</a>.</p>
-      <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Community builds belong to the players who share them.</p>
+      <p><b>Builds:</b> starter builds are written for Horadric Odds from the game data and common community knowledge. Full guides by <a href="https://maxroll.gg/d2/category/guides" target="_blank" rel="noopener">Maxroll</a> and <a href="https://www.icy-veins.com/d2/" target="_blank" rel="noopener">Icy Veins</a> are linked from each build and from the Guides list. Share builds as links or build codes from Share &amp; Library.</p>
       <p><b>Save files:</b> the save format comes from the community's reverse engineering (d07riv, <a href="https://github.com/dschu012/d2s" target="_blank" rel="noopener">dschu012/d2s</a> (MIT), nokka/d2s, krisives/d2s-format, and the <a href="https://docs.rs/crate/d2s/latest" target="_blank" rel="noopener">d2s Rust crate</a> for Reign of the Warlock). Lord of Destruction and Classic tables come from the 1.14d game files.</p>
       <p><b>Prices:</b> the optional price links open <a href="https://diablo2.io/" target="_blank" rel="noopener">diablo2.io</a>'s price check for the item, with permission from its admin. Horadric Odds doesn't collect or store any price data.</p>
       <p><b>Artwork:</b> item pictures from <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>; the inventory panel texture from <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio’s D2R UI assets</a>. Diablo II: Resurrected artwork belongs to Blizzard Entertainment; Horadric Odds does not own or claim rights to it and is not affiliated with Blizzard or LootCube.</p>
       <p><b>Bugs and ideas:</b> open an issue on <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">GitHub</a> or email the address below.</p>
-      <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>, or use <i>Report</i> on any shared build.</p></div></details></div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>8 Nov 2026, 3:31 pm</span></p>
+      <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>.</p></div></details></div>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>8 Nov 2026, 4:48 pm</span></p>
 
 
 <script>
@@ -2217,7 +2279,16 @@ window.__hpImportSave=(ch,itemText)=>{try{
   undoB=B;B=b;PI=0;TAB='plan';save();render();toast(`Opened ${b.name}.`,{label:'Undo',fn:()=>{B=undoB;save();render()}});return true}catch(e){console.error(e);return false}};
 const draft=LS.get('hbp.draft',null);
 const DEF=()=>(LIB.find(x=>x.name==='Blizzard Sorceress')||LIB[0]).make();
-try{B=draft?decode(draft):DEF()}catch(e){B=DEF()}
+/* Share links: #b=<deflate-compressed build, base64url> (short), or #build=<build code>. */
+const u8ToB64u=u=>{let s='';for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const b64uToU8=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0))};
+async function packLink(code){const json=b64d(code.slice(5));if(typeof CompressionStream==='undefined')return '#build='+code;
+  const buf=await new Response(new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer();return '#b='+u8ToB64u(new Uint8Array(buf))}
+async function unpackLink(p){const buf=await new Response(new Blob([b64uToU8(p)]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();return 'D2R2.'+b64e(new TextDecoder().decode(buf))}
+let fromLink=null,linkPacked=null;try{const m=location.hash.match(/^#build=(D2R2\.[A-Za-z0-9_-]+)$/),m2=location.hash.match(/^#b=([A-Za-z0-9_-]+)$/);
+  if(m)fromLink=decode(m[1]);if(m2)linkPacked=m2[1];
+  if(m||m2){try{localStorage.setItem('horadric-mode','planner')}catch(e){}history.replaceState(null,'',location.pathname+location.search)}}catch(e){fromLink=null}
+try{B=fromLink||(draft?decode(draft):DEF())}catch(e){B=DEF()}
 
 
 
@@ -2307,7 +2378,7 @@ function planHTML(){
     <p class="hint">Lines join each skill to its prerequisites. Hover over a skill (press and hold on a phone) for its tooltip. Click a skill or its + to add a point; its − or a right-click removes one. Shift-click adds or removes up to 20. Missing prerequisites are added for you. The order you click is the order the leveling guide spends points.</p>
   </div>
   <aside class="rail"><div class="railbar"><button class="linkbtn" data-act="cards-all" data-v="open">Expand all</button><button class="linkbtn" data-act="cards-all" data-v="close">Collapse all</button></div>${rc('skills',S.skills,skillCard(C,ph,end))+rc('weapon','',weaponCard(C,end,sim,A))}</aside>
-  <div class="below">${rc('gear',S.gear,gearTotalsCard(C,end))+rc('mf',S.mf,mfCard(end))+rc('res',S.res,resistCard(end,sim))+rc('bp',S.bp,bpCard(C,end,sim))+rc('egear',S.egear,gearGoalsCard())+rc('merc',S.merc,mercCard(end))+rc('order',S.order,orderCard(C,ph,sim))}</div></div>`;
+  <div class="below">${rc('gear',S.gear,gearTotalsCard(C,end))+rc('mf',S.mf,mfCard(end))+rc('res',S.res,resistCard(end,sim))+rc('imm','',gpImmCard(end))+rc('bp',S.bp,bpCard(C,end,sim))+rc('egear',S.egear,gearGoalsCard())+rc('merc',S.merc,mercCard(end))+rc('order',S.order,orderCard(C,ph,sim))}</div></div>`;
 }
 function skillTreePanelHTML(C,ph,end,cnt){
   if(!(TREE<C.trees.length))TREE=0;
@@ -2844,7 +2915,7 @@ function mercSlotHTML(i,area,L,paperIndex){const g=eqItemAt(i,L),pos=MERC_POS[ar
   const art=a?'<span class="gear-art'+(gpEth(g)?' eth':'')+'" style="width:'+(Math.min(100,100*a.w/pos[4])*factor)+'%;height:'+(Math.min(100,100*a.h/pos[5])*factor)+'%"><img src="'+a.src+'" alt="" loading="lazy" decoding="async" onerror="this.parentElement.remove()"></span>':'';
   const ghost=area==='weapon'?'<span class="merc-paperdoll" style="--paper-frame:'+paperIndex*25+'%" aria-hidden="true"></span>':'';
   return '<div class="merc-slot '+area+(g?' has':'')+(g&&gpEff(B,g)>L?' cantwear':'')+(HOLD&&HOLD.kind==='eq'&&HOLD.g===g?' held':'')+(eqTip===i?' tipon':'')+'" style="left:'+pos[0]+'%;top:'+pos[1]+'%;width:'+pos[2]+'%;height:'+pos[3]+'%" tabindex="0" data-act="eq-slot" data-s="'+i+'" aria-label="'+esc(SLOTS[i])+': '+(g?esc(g.it):'empty')+'">'+ghost+art+(g?eqTipHTML(g):'')+'</div>'}
-function mercPanelHTML(L){const m=String(B.merc||''),paperIndex=/Act\s*1\b/i.test(m)?0:/Act\s*2\b/i.test(m)?1:/Act\s*3\b/i.test(m)?2:/Act\s*5\b/i.test(m)?4:1,atk=mercAttack(B,L),xs=[12,13,14].map(s=>(B.gear||[]).filter(x=>x.s===s&&gpEff(B,x)<=L).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),T={res:0,ias:0,fhr:0};
+function mercPanelHTML0(L){const m=String(B.merc||''),paperIndex=/Act\s*1\b/i.test(m)?0:/Act\s*2\b/i.test(m)?1:/Act\s*3\b/i.test(m)?2:/Act\s*5\b/i.test(m)?4:1,atk=mercAttack(B,L),xs=[12,13,14].map(s=>(B.gear||[]).filter(x=>x.s===s&&gpEff(B,x)<=L).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean),T={res:0,ias:0,fhr:0};
   xs.forEach(g=>gearParts(g.it).forEach(p=>{if(!p.key)return;for(const k in T)T[k]+=IX[p.key][k]||0}));
   const facts=[['Hireling',m||'Not selected'],['Aura',m?mercAura(m):'Choose a hireling'],['Attack',atk?`${atk.now} frames`:'—'],['IAS / FHR',`${T.ias}% / ${T.fhr}%`]];
   const factRows=facts.map(([l,v],i)=>`<div class="merc-fact mf-${i}"><span data-d2-bitmap="1">${esc(l)}</span><b>${esc(v)}</b></div>`).join('');
@@ -2858,6 +2929,8 @@ function packInventoryItems(items){
     for(let yy=spot.y;yy<spot.y+h;yy++)for(let xx=spot.x;xx<spot.x+w;xx++)used[yy][xx]=true;
     placed.push({item,x:spot.x,y:spot.y,w,h,art:a})}
   return {placed,overflow}}
+const GP_HIRE={"0":{"lv":3,"hp":[45,8],"def":[15,6],"str":[35,10],"dex":[45,16],"dmg":[1,3,2],"res":[0,8],"sk":[["Inner Sight",1,10],["Fire Arrow",1,10]],"a":1,"d":1,"n":"Rogue Scout"},"1":{"lv":3,"hp":[45,8],"def":[15,6],"str":[35,10],"dex":[45,16],"dmg":[1,3,2],"res":[0,8],"sk":[["Inner Sight",1,10],["Cold Arrow",1,10]],"a":1,"d":1,"n":"Rogue Scout"},"2":{"lv":25,"hp":[199,12],"def":[132,12],"str":[60,10],"dex":[84,16],"dmg":[6,8,4],"res":[41,7],"sk":[["Inner Sight",7,10],["Fire Arrow",7,10]],"a":1,"d":2,"n":"Rogue Scout"},"3":{"lv":25,"hp":[199,12],"def":[132,12],"str":[60,10],"dex":[84,16],"dmg":[6,8,4],"res":[41,7],"sk":[["Inner Sight",7,10],["Cold Arrow",7,10]],"a":1,"d":2,"n":"Rogue Scout"},"4":{"lv":49,"hp":[438,16],"def":[378,18],"str":[87,10],"dex":[127,16],"dmg":[17,19,6],"res":[80,5],"sk":[["Inner Sight",14,10],["Fire Arrow",14,10]],"a":1,"d":3,"n":"Rogue Scout"},"5":{"lv":49,"hp":[438,16],"def":[378,18],"str":[87,10],"dex":[127,16],"dmg":[17,19,6],"res":[80,5],"sk":[["Inner Sight",14,10],["Cold Arrow",14,10]],"a":1,"d":3,"n":"Rogue Scout"},"6":{"lv":9,"hp":[120,15],"def":[45,11],"str":[57,14],"dex":[40,12],"dmg":[7,14,4],"res":[18,8],"sk":[["Jab",3,10],["Prayer",3,10]],"a":2,"d":1,"n":"Desert Mercenary"},"7":{"lv":9,"hp":[120,10],"def":[45,9],"str":[57,14],"dex":[40,12],"dmg":[7,14,4],"res":[18,8],"sk":[["Jab",3,10],["Defiance",3,10]],"a":2,"d":1,"n":"Desert Mercenary"},"8":{"lv":9,"hp":[120,10],"def":[45,9],"str":[57,14],"dex":[40,12],"dmg":[7,14,4],"res":[18,8],"sk":[["Jab",3,10],["Blessed Aim",3,10]],"a":2,"d":1,"n":"Desert Mercenary"},"9":{"lv":31,"hp":[306,20],"def":[219,16],"str":[92,14],"dex":[69,12],"dmg":[16,23,6],"res":[59,7],"sk":[["Jab",9,10],["Thorns",5,10]],"a":2,"d":2,"n":"Desert Mercenary"},"10":{"lv":31,"hp":[306,20],"def":[219,16],"str":[92,14],"dex":[69,12],"dmg":[16,23,6],"res":[59,7],"sk":[["Jab",9,10],["Holy Freeze",6,10]],"a":2,"d":2,"n":"Desert Mercenary"},"11":{"lv":31,"hp":[306,20],"def":[219,16],"str":[92,14],"dex":[69,12],"dmg":[16,23,6],"res":[59,7],"sk":[["Jab",9,10],["Might",7,8]],"a":2,"d":2,"n":"Desert Mercenary"},"12":{"lv":55,"hp":[707,35],"def":[543,24],"str":[130,14],"dex":[101,12],"dmg":[32,39,8],"res":[98,4],"sk":[["Jab",16,10],["Prayer",16,0]],"a":2,"d":3,"n":"Desert Mercenary"},"13":{"lv":55,"hp":[707,35],"def":[543,24],"str":[130,14],"dex":[101,12],"dmg":[32,39,8],"res":[98,4],"sk":[["Jab",16,0],["Defiance",16,0]],"a":2,"d":3,"n":"Desert Mercenary"},"14":{"lv":55,"hp":[707,35],"def":[543,24],"str":[130,14],"dex":[101,12],"dmg":[32,39,8],"res":[98,4],"sk":[["Jab",16,0],["Blessed Aim",16,0]],"a":2,"d":3,"n":"Desert Mercenary"},"30":{"lv":43,"hp":[630,25],"def":[419,19],"str":[117,14],"dex":[91,12],"dmg":[24,31,6],"res":[86,7],"sk":[["Jab",14,10],["Prayer",11,7]],"a":2,"d":2,"n":"Desert Mercenary"},"31":{"lv":43,"hp":[630,25],"def":[419,19],"str":[117,14],"dex":[91,12],"dmg":[24,31,6],"res":[86,7],"sk":[["Jab",14,10],["Defiance",11,7]],"a":2,"d":2,"n":"Desert Mercenary"},"32":{"lv":43,"hp":[630,25],"def":[419,19],"str":[117,14],"dex":[91,12],"dmg":[24,31,6],"res":[86,7],"sk":[["Jab",14,10],["Blessed Aim",11,7]],"a":2,"d":2,"n":"Desert Mercenary"},"33":{"lv":75,"hp":[1430,40],"def":[1027,28],"str":[173,14],"dex":[139,12],"dmg":[48,55,8],"res":[142,4],"sk":[["Jab",23,10],["Thorns",21,10]],"a":2,"d":3,"n":"Desert Mercenary"},"34":{"lv":75,"hp":[1430,40],"def":[1027,28],"str":[173,14],"dex":[139,12],"dmg":[48,55,8],"res":[142,4],"sk":[["Jab",23,0],["Holy Freeze",16,0]],"a":2,"d":3,"n":"Desert Mercenary"},"35":{"lv":75,"hp":[1430,40],"def":[1027,28],"str":[173,14],"dex":[139,12],"dmg":[48,55,8],"res":[142,4],"sk":[["Jab",23,0],["Might",15,8]],"a":2,"d":3,"n":"Desert Mercenary"},"15":{"lv":15,"hp":[160,8],"def":[80,4],"str":[49,10],"dex":[40,8],"dmg":[1,7,4],"res":[25,7],"sk":[["Inferno",6,10],["Fire Ball",4,10]],"a":3,"d":1,"n":"Eastern Sorceror"},"16":{"lv":15,"hp":[160,8],"def":[80,4],"str":[49,10],"dex":[40,8],"dmg":[1,7,4],"res":[25,7],"sk":[["Glacial Spike",1,5],["Chilling Armor",2,10],["Ice Blast",6,10]],"a":3,"d":1,"n":"Eastern Sorceror"},"17":{"lv":15,"hp":[160,8],"def":[80,4],"str":[49,10],"dex":[40,8],"dmg":[1,7,4],"res":[25,7],"sk":[["Charged Bolt",4,5],["Lightning",3,10]],"a":3,"d":1,"n":"Eastern Sorceror"},"18":{"lv":37,"hp":[302,14],"def":[151,10],"str":[73,10],"dex":[58,8],"dmg":[10,16,4],"res":[61,7],"sk":[["Inferno",12,10],["Fire Ball",10,10]],"a":3,"d":2,"n":"Eastern Sorceror"},"19":{"lv":37,"hp":[302,14],"def":[151,10],"str":[73,10],"dex":[58,8],"dmg":[10,16,4],"res":[61,7],"sk":[["Glacial Spike",4,5],["Chilling Armor",8,10],["Ice Blast",12,10]],"a":3,"d":2,"n":"Eastern Sorceror"},"20":{"lv":37,"hp":[302,14],"def":[151,10],"str":[73,10],"dex":[58,8],"dmg":[10,16,4],"res":[61,7],"sk":[["Charged Bolt",7,5],["Lightning",9,10]],"a":3,"d":2,"n":"Eastern Sorceror"},"21":{"lv":61,"hp":[574,20],"def":[352,16],"str":[99,10],"dex":[78,8],"dmg":[20,26,4],"res":[100,4],"sk":[["Inferno",19,10],["Fire Ball",17,10]],"a":3,"d":3,"n":"Eastern Sorceror"},"22":{"lv":61,"hp":[574,20],"def":[352,16],"str":[99,10],"dex":[78,8],"dmg":[20,26,4],"res":[100,4],"sk":[["Glacial Spike",7,5],["Chilling Armor",15,10],["Ice Blast",19,10]],"a":3,"d":3,"n":"Eastern Sorceror"},"23":{"lv":61,"hp":[574,20],"def":[352,16],"str":[99,10],"dex":[78,8],"dmg":[20,27,4],"res":[100,4],"sk":[["Charged Bolt",10,5],["Lightning",16,10]],"a":3,"d":3,"n":"Eastern Sorceror"},"24":{"lv":28,"hp":[288,14],"def":[180,7],"str":[101,15],"dex":[63,10],"dmg":[16,20,6],"res":[56,7],"sk":[["Bash",4,10],["Stun",3,8]],"a":5,"d":1,"n":"Barbarian"},"25":{"lv":28,"hp":[288,14],"def":[180,7],"str":[101,15],"dex":[63,10],"dmg":[16,20,6],"res":[56,7],"sk":[["Bash",4,10],["Stun",3,8]],"a":5,"d":1,"n":"Barbarian"},"26":{"lv":42,"hp":[436,21],"def":[250,20],"str":[125,15],"dex":[76,10],"dmg":[25,29,8],"res":[78,7],"sk":[["Bash",8,10],["Stun",6,8]],"a":5,"d":2,"n":"Barbarian"},"27":{"lv":42,"hp":[436,21],"def":[250,20],"str":[125,15],"dex":[76,10],"dmg":[25,29,8],"res":[78,7],"sk":[["Bash",8,10],["Stun",6,8]],"a":5,"d":2,"n":"Barbarian"},"28":{"lv":75,"hp":[1016,35],"def":[819,40],"str":[184,15],"dex":[113,10],"dmg":[56,60,8],"res":[133,4],"sk":[["Bash",18,0],["Stun",14,0]],"a":5,"d":3,"n":"Barbarian"},"29":{"lv":75,"hp":[1016,35],"def":[819,40],"str":[184,15],"dex":[113,10],"dmg":[56,60,8],"res":[133,4],"sk":[["Bash",18,0],["Stun",14,0]],"a":5,"d":3,"n":"Barbarian"},"36":{"lv":28,"hp":[450,19],"def":[300,15],"str":[101,15],"dex":[63,10],"dmg":[16,20,6],"res":[56,7],"sk":[["Frenzy",2,7],["Iron Skin",2,6],["Taunt",7,6]],"a":5,"d":1,"n":"Barbarian"},"37":{"lv":58,"hp":[1020,30],"def":[775,25],"str":[158,15],"dex":[101,10],"dmg":[39,43,8],"res":[109,7],"sk":[["Frenzy",9,7],["Iron Skin",8,6],["Taunt",13,6]],"a":5,"d":2,"n":"Barbarian"},"38":{"lv":80,"hp":[1680,45],"def":[1332,35],"str":[200,15],"dex":[129,10],"dmg":[61,65,8],"res":[148,4],"sk":[["Frenzy",13,7],["Iron Skin",12,6],["Taunt",17,6]],"a":5,"d":3,"n":"Barbarian"}};
+const GP_IMM={"m":[["Arach",50,0,110,0,0,50],["Poison Spinner",50,0,0,0,0,110],["Flame Spider",50,0,115,0,0,60],["Spider Magus",50,0,120,0,0,65],["Arach",50,0,120,25,50,0],["Arach",50,0,120,25,50,0],["Dune Beast",33,0,0,100,50,25],["Jungle Hunter",45,0,0,105,50,25],["Doom Ape",45,0,0,105,50,25],["Temple Guard",50,0,0,110,50,25],["Night Marauder",100,0,0,0,33,105],["Temple Guard",33,0,0,100,33,0],["Temple Guard",33,0,0,100,33,0],["Desert Wing",15,25,100,0,0,0],["Fiend",15,25,0,110,0,0],["Gloombat",15,25,0,0,100,0],["Blood Diver",15,25,105,0,0,0],["Dark Familiar",15,25,0,120,0,0],["Gloombat",10,0,33,100,33,0],["Fiend",10,0,33,100,33,0],["Afflicted",25,0,0,100,0,0],["Tainted",25,0,0,105,0,0],["Misshapen",25,0,0,110,0,0],["Disfigured",25,0,0,115,0,0],["Damned",25,0,0,120,0,0],["Afflicted",25,0,50,100,90,15],["Night Lord",66,33,33,100,33,33],["Blood Lord",100,33,33,33,33,33],["Death Lord",66,33,120,33,33,33],["Moon Lord",75,50,140,50,75,0],["Hell Lord",75,50,50,100,75,0],["Blunderbore",55,0,115,50,50,0],["Gorebelly",55,0,50,50,140,0],["Mauler",55,0,50,100,50,0],["Urdar",55,0,75,75,75,0],["Blunderbore",75,0,33,33,33,0],["Mauler",75,0,33,33,33,0],["Undead Flayer",25,0,33,0,75,110],["Undead Soul Killer",25,0,33,0,75,115],["Undead Stygian Doll",25,0,33,0,75,120],["Undead Stygian Doll",33,0,25,0,33,105],["Undead Soul Killer",33,0,25,0,33,110],["Gargantuan Beast",50,0,0,0,100,0],["Brute",50,0,0,0,120,0],["Yeti",50,0,0,0,130,0],["Crusher",50,0,0,50,140,0],["Wailing Beast",50,100,75,0,0,0],["Sexton",10,0,25,33,140,20],["Cantor",10,0,25,100,75,20],["Heirophant",10,0,25,33,160,20],["Heirophant",15,0,20,50,20,0],["Heirophant",15,0,20,50,20,0],["Serpent Magus",25,70,33,25,0,115],["Claw Viper",40,0,33,0,120,0],["Salamander",40,0,33,0,110,0],["Serpent Magus",40,70,33,0,120,60],["Claw Viper",25,25,25,90,90,90],["Pit Viper",70,0,70,25,145,110],["Salamander",25,0,115,25,0,50],["Tomb Viper",25,0,33,100,0,110],["Dark Hunter",20,20,33,33,100,20],["Vile Hunter",20,20,33,33,120,20],["Dark Stalker",20,20,33,33,130,20],["Black Rogue",20,20,33,33,140,20],["Flesh Hunter",40,20,33,33,150,20],["Flesh Hunter",40,20,33,33,150,20],["Dark Ranger",15,0,25,100,25,25],["Vile Archer",15,0,110,25,25,25],["Dark Archer",15,0,25,110,25,25],["Black Archer",15,0,25,115,25,25],["Flesh Archer",15,0,25,25,130,25],["Vile Archer",15,0,115,50,0,15],["Dark Archer",15,0,50,50,140,15],["Dark Archer",15,0,50,50,140,15],["Dark Spearwoman",45,0,25,100,25,25],["Vile Lancer",45,0,110,25,25,25],["Dark Lancer",45,0,25,110,25,25],["Vile Lancer",33,0,25,100,50,15],["Dark Lancer",33,0,25,100,50,15],["Black Lancer",33,0,25,100,50,15],["Foul Crow Nest",0,0,0,0,0,0],["Blood Hawk Nest",0,0,0,0,0,0],["Black Raptor Nest",0,0,0,0,0,0],["Death Mauler",33,0,50,100,50,0],["Death Brawler",33,0,50,100,50,0],["Death Slasher",33,0,50,50,135,0],["Death Berserker",100,0,25,25,25,0],["Death Brigadier",33,0,50,50,145,0],["Oblivion Knight",33,0,60,60,140,75],["Oblivion Knight",33,0,60,60,145,75],["Oblivion Knight",33,0,60,60,145,75],["Doom Knight",33,0,110,20,20,50],["Abyss Knight",33,0,40,100,40,50],["Oblivion Knight",33,25,60,60,180,75],["Fallen",15,0,100,0,40,0],["Carver",15,0,110,0,40,0],["Devilkin",15,0,120,0,40,0],["Dark One",15,0,125,0,40,0],["Fallen Shaman",15,0,100,0,0,0],["Carver Shaman",15,0,105,0,0,0],["Devilkin Shaman",15,0,110,0,0,0],["Dark Shaman",15,0,115,0,0,0],["Carver Shaman",25,50,66,50,75,0],["Devilkin Shaman",25,50,66,50,75,0],["Dark Shaman",25,50,66,50,75,0],["Rat Man",0,0,100,33,33,50],["Fetish",0,0,33,100,33,50],["Flayer",0,0,33,33,100,50],["Soul Killer",0,0,33,110,33,50],["Flayer",15,0,105,25,25,33],["Soul Killer",15,0,115,25,25,33],["Fetish",0,0,0,100,0,50],["Flayer",0,0,0,0,140,50],["Flayer",15,0,105,25,25,33],["Stygian Doll",15,0,110,25,25,33],["Soul Killer",15,0,115,25,25,33],["Fetish Shaman",25,25,110,25,0,50],["Flayer Shaman",25,25,115,25,0,50],["Soul Killer Shaman",25,25,120,25,0,50],["Flayer Shaman",15,10,120,25,25,33],["Soul Killer Shaman",15,10,130,25,25,33],["Doom Caster",50,0,0,100,0,0],["Strangler",50,0,0,100,0,0],["Storm Caster",50,0,0,100,0,0],["Strangler",40,0,66,100,25,25],["Storm Caster",40,0,66,100,25,25],["Cloud Stalker",0,0,50,100,0,0],["Foul Crow",0,50,33,25,120,0],["Swamp Dweller",15,0,100,0,25,50],["Bog Creature",15,0,0,0,120,50],["Slime Prince",15,0,0,0,25,110],["Frozen Creeper",25,0,0,33,150,33],["Frozen Terror",25,0,0,33,160,33],["Moon Clan",50,0,0,0,100,0],["Death Clan",40,50,33,33,165,50],["Night Clan",50,0,0,110,0,0],["Blood Clan",50,0,100,0,0,0],["Hell Clan",50,0,110,0,0,0],["Death Clan",50,50,75,0,0,0],["Night Clan",40,50,25,50,135,25],["Hell Clan",40,50,25,50,155,25],["Blood Clan",40,50,110,25,50,25],["Hell Bovine",50,33,50,50,50,33],["Demon Imp",0,25,100,25,33,0],["Demon Rascal",0,25,105,25,33,0],["Demon Gremlin",0,25,110,25,33,0],["Demon Sprite",0,25,120,25,33,0],["Demon Imp",0,0,110,25,25,0],["Demon Trickster",0,0,115,25,25,0],["Demon Trickster",0,0,115,25,25,0],["Pit Lord",50,0,120,75,50,75],["Venom Lord",50,0,130,75,50,75],["Balrog",50,20,140,33,0,50],["Pit Lord",50,20,145,33,0,50],["Pit Lord",50,145,145,145,145,145],["Enslaved",25,0,66,15,130,15],["Hell Spawn",33,0,110,25,50,0],["Greater Hell Spawn",33,0,50,25,135,0],["Slayer",25,0,105,15,33,15],["Fire Boar",25,0,110,15,33,15],["Hell Spawn",33,0,115,15,33,15],["Slayer",33,0,50,25,130,0],["Sucker",0,0,0,33,0,105],["Feeder",0,0,0,33,0,110],["Blood Wing",0,0,0,33,0,120],["Dried Corpse",50,0,0,33,33,100],["Decayed",50,0,0,33,33,100],["Embalmed",50,0,0,33,33,105],["Preserved Dead",50,0,0,33,33,105],["Cadaver",50,0,0,33,33,110],["Cadaver",50,0,0,50,50,130],["Overseer",40,0,33,20,120,0],["Lasher",40,0,33,20,130,0],["Blood Boss",40,0,33,20,150,0],["Hell Whip",40,0,33,20,160,0],["Hell Whip",40,0,33,20,160,0],["Huntress",15,0,0,0,100,0],["Saber Cat",15,0,100,0,0,0],["Night Tiger",15,0,0,100,0,0],["Hell Cat",15,0,0,0,120,0],["Saber Cat",50,0,50,50,50,50],["Wretched Defiler",0,0,50,50,50,105],["Fetid Defiler",0,0,50,50,50,110],["Rancid Defiler",0,0,50,50,50,115],["Quill Rat",50,0,0,0,50,0],["Spike Fiend",50,0,0,0,50,0],["Thorn Beast",50,0,0,0,50,0],["Razor Spine",50,0,0,0,50,0],["Quill Rat",33,0,100,50,25,33],["Spike Fiend",33,0,25,50,100,33],["Razor Spine",33,0,25,100,75,33],["Rot Walker",50,0,0,33,130,70],["Reanimated Horde",50,0,0,33,150,80],["Prowling Dead",50,0,0,33,170,90],["Unholy Corpse",50,50,0,0,0,120],["Corpulent",50,0,0,0,0,100],["Corpse Spitter",50,0,0,0,0,105],["Maw Fiend",50,0,0,0,0,110],["Maw Fiend",50,0,0,0,0,110],["Sand Leaper",0,0,100,0,0,0],["Cave Leaper",0,0,0,0,100,0],["Tomb Creeper",0,0,105,0,0,0],["Tree Lurker",0,0,80,100,0,0],["Cliff Lurker",25,0,80,100,0,0],["Cave Leaper",0,25,33,0,100,15],["Tomb Creeper",0,25,33,0,120,15],["Sand Maggot",66,0,33,0,0,105],["Rock Worm",66,0,33,0,0,110],["Devourer",66,0,33,0,0,115],["Giant Lamprey",66,0,33,0,0,120],["Blood Maggot",66,0,33,0,0,125],["Blood Maggot",40,0,25,100,25,105],["Blood Maggot",40,0,25,100,25,105],["Sand Raider",25,0,100,50,0,33],["Assailant",35,0,130,50,50,25],["Marauder",25,0,50,0,100,33],["Invader",25,0,110,50,0,33],["Infidel",25,0,50,0,110,33],["Infidel",35,0,50,50,150,25],["Invader",35,0,50,50,160,25],["Dung Soldier",50,0,0,100,0,0],["Death Beetle",50,0,0,105,0,0],["Scarab",50,0,0,110,0,0],["Steel Scarab",50,0,0,115,0,0],["Bone Scarab",50,0,0,120,0,0],["Scarab",50,0,0,100,0,0],["Steel Scarab",50,0,0,100,0,0],["Steel Scarab",50,0,0,100,0,0],["Siege Beast",50,0,110,33,50,0],["Crush Beast",50,0,120,33,50,0],["Blood Bringer",50,0,75,33,120,0],["Skeleton Archer",40,0,33,0,33,100],["Horror Archer",33,10,66,66,66,140],["Returned Archer",40,0,33,0,33,105],["Bone Archer",45,0,33,0,75,105],["Burning Dead Archer",45,0,75,0,33,110],["Horror Archer",50,75,0,75,0,110],["Burning Dead Archer",33,10,90,50,25,100],["Bone Archer",33,10,25,50,90,110],["Returned Archer",33,10,25,50,90,130],["Skeleton",33,0,0,100,0,75],["Returned",33,0,0,0,0,100],["Bone Warrior",33,0,0,0,110,75],["Burning Dead",33,0,100,0,0,75],["Horror",33,70,0,120,0,75],["Bone Warrior",33,70,50,100,25,105],["Returned",33,70,50,100,25,110],["Horror Mage",33,0,0,0,170,75],["Bone Mage",33,0,50,0,160,110],["Returned Mage",33,0,100,0,0,75],["Bone Mage",33,0,105,0,0,75],["Burning Dead Mage",33,0,110,0,0,75],["Horror Mage",33,0,115,0,0,75],["Returned Mage",33,0,125,0,50,110],["Burning Dead Mage",33,0,130,0,50,110],["Returned Mage",33,0,0,100,0,75],["Bone Mage",33,0,0,105,0,75],["Burning Dead Mage",33,0,0,110,0,75],["Horror Mage",33,0,0,115,0,75],["Returned Mage",33,50,0,120,0,110],["Horror Mage",33,50,0,130,0,110],["Burning Dead Mage",33,0,0,0,15,75],["Horror Mage",33,0,0,0,15,75],["Horror Mage",33,0,0,0,0,75],["Horror Mage",33,0,0,0,0,75],["Slinger",10,0,25,0,120,0],["Spear Cat",10,0,25,0,140,0],["Hell Slinger",10,0,105,0,0,0],["Spear Cat",15,0,75,50,0,0],["Night Slinger",15,0,75,50,0,0],["Slinger",25,0,110,15,15,15],["Slinger",25,0,50,15,150,15],["Slinger",25,0,50,50,50,100],["Snow Drifter",40,0,0,25,150,0],["Abominable",40,0,0,25,170,0],["Succubus",10,0,120,50,50,25],["Hell Temptress",100,0,66,50,50,25],["Blood Temptress",25,0,66,50,50,120],["Succubus",25,66,66,33,66,66],["Hell Temptress",25,66,66,33,66,66],["Hell Temptress",25,66,66,33,66,66],["Hell Witch",25,0,25,66,160,25],["Siren",25,66,66,33,125,66],["Hell Witch",25,66,66,33,145,66],["Vile Witch",25,66,66,33,155,66],["Vile Witch",25,66,66,33,155,66],["Frenzied Ice Spawn",33,0,33,15,150,15],["Itchies",100,0,0,0,0,0],["Black Locusts",100,0,0,0,0,0],["Hell Swarm",100,0,0,70,0,0],["Hell Swarm",100,0,0,70,0,0],["Thorned Hulk",25,0,0,0,120,0],["Bramble Hulk",25,0,0,0,130,0],["Thrasher",25,0,0,0,140,0],["Thorned Hulk",66,0,0,100,40,66],["Hollow One",33,20,20,100,20,50],["Guardian",33,100,100,20,20,50],["Unraveler",33,100,20,20,100,50],["Horadrim Ancient",33,100,50,50,50,50],["Guardian",33,100,50,50,25,50],["Unraveler",33,100,50,25,50,50],["Horadrim Ancient",33,100,25,50,50,50],["Horadrim Ancient",33,100,50,50,50,25],["Ghoul Lord",30,0,33,25,110,50],["Night Lord",35,0,33,25,120,50],["Dark Lord",40,0,33,25,130,50],["Blood Lord",45,0,33,25,140,50],["The Banished",50,0,33,25,150,50],["Blood Lord",75,0,33,33,125,50],["Ghoul Lord",75,0,33,33,130,50],["Dark Lord",75,0,33,33,135,50],["Flesh Spawner",66,0,0,0,140,0],["Stygian Hag",66,0,0,0,150,0],["Grotesque",66,0,0,0,160,0],["Grotesque",45,0,33,33,140,25],["Flesh Spawner",45,0,33,33,145,25],["Carrion Bird",0,0,25,0,0,110],["Undead Scavenger",0,0,25,100,0,25],["Hell Buzzard",0,0,100,0,0,25],["Winged Nightmare",0,0,25,100,0,25],["Carrion Bird",10,0,0,0,33,100],["Gloam",60,0,0,100,0,0],["Burning Soul",80,0,0,110,0,0],["Gloam",90,50,0,100,33,105],["Black Soul",90,50,0,100,33,110],["Burning Soul",90,50,0,100,33,115],["Ghost",100,50,0,0,50,75],["Wraith",100,50,0,0,60,75],["Specter",100,50,0,0,70,75],["Apparition",100,50,0,0,75,75],["Dark Shape",100,50,0,0,80,75],["Ghost",100,50,0,0,50,100],["Wraith",100,50,0,0,50,100],["Specter",100,50,0,0,50,100],["Zakarumite",10,0,100,33,33,20],["Faithful",10,0,25,33,140,20],["Zealot",10,0,25,100,33,20],["Zombie",50,0,0,0,120,75],["Hungry Dead",50,0,0,110,0,75],["Ghoul",50,0,100,0,0,75],["Drowned Carcass",50,0,110,0,0,75],["Plague Bearer",50,100,0,0,0,75]],"a":{"2":["Blood Moor",1,1,[337,94,184]],"3":["Cold Plains",1,1,[42,60,98,74]],"4":["Stony Field",1,1,[240,338,80,133,66]],"5":["Dark Wood",1,1,[95,61,185,75,231]],"6":["Black Marsh",1,1,[81,241,43,135,99,67]],"7":["Tamoe Highland",1,1,[62,186,76,233,249]],"8":["Den of Evil",1,1,[337,42,98]],"9":["Cave Level 1",1,1,[240,338,66]],"10":["Underground Passage Level 1",1,1,[22,95,61,231]],"11":["Hole Level 1",1,1,[22,95,43,67]],"12":["Pit Level 1",1,1,[242,96,62,68]],"13":["Cave Level 2",1,1,[240,338,66]],"14":["Underground Passage Level 2",1,1,[22,95,61,231]],"15":["Hole Level 2",1,1,[22,95,43,67]],"16":["Pit Level 2",1,1,[242,96,62,68]],"17":["Burial Grounds",1,1,[240,338]],"18":["Crypt",1,1,[240,338]],"19":["Mausoleum",1,1,[240,338]],"21":["Tower Cellar Level 1",1,1,[96,326,136,68]],"22":["Tower Cellar Level 2",1,1,[96,326,136,68]],"23":["Tower Cellar Level 3",1,1,[96,326,136,68]],"24":["Tower Cellar Level 4",1,1,[96,326,136,68]],"25":["Tower Cellar Level 5",1,1,[96,326,136,68]],"26":["Monastery Gate",1,1,[23,62,233,255]],"27":["Outer Cloister",1,1,[44,63,100,187]],"28":["Barracks",1,1,[63,138,100,234,250]],"29":["Jail Level 1",1,1,[97,327,138,234,250]],"30":["Jail Level 2",1,1,[97,327,138,234,250]],"31":["Jail Level 3",1,1,[97,327,138,234,256]],"32":["Inner Cloister",1,1,[97,69,256]],"33":["Cathedral",1,1,[21,327,101]],"34":["Catacombs Level 1",1,1,[21,101,105]],"35":["Catacombs Level 2",1,1,[21,101,0]],"36":["Catacombs Level 3",1,1,[339,20,307]],"37":["Catacombs Level 4",1,1,[339,20]],"38":["Tristram",1,1,[241,135,99,231]],"39":["Moo Moo Farm",1,1,[142]],"41":["Rocky Waste",2,1,[199,176,220,316,265]],"42":["Dry Hills",2,1,[200,177,317,268]],"43":["Far Oasis",2,1,[82,206,287,221,317]],"44":["Lost City",2,1,[341,215,201,178,269]],"45":["Valley of Snakes",2,1,[53,54,167,296]],"46":["Canyon of the Magi",2,1,[45,208,179,223,267]],"47":["Sewers Level 1",2,1,[243,213,165,235]],"48":["Sewers Level 2",2,1,[243,213,165,235]],"49":["Sewers Level 3",2,1,[243,176,165,251]],"51":["Harem Level 2",2,1,[216,6,236,31,247]],"52":["Palace Cellar Level 1",2,1,[216,6,236,31,252]],"53":["Palace Cellar Level 2",2,1,[216,6,236,31,262]],"54":["Palace Cellar Level 3",2,1,[216,6,236,31,258]],"55":["Stony Tomb Level 1",2,1,[244,220,257]],"56":["Halls of the Dead Level 1",2,1,[166,295,13,266]],"57":["Halls of the Dead Level 2",2,1,[166,295,13,266]],"58":["Claw Viper Temple Level 1",2,1,[53,54,167,296]],"59":["Stony Tomb Level 2",2,1,[244,220,261]],"60":["Halls of the Dead Level 3",2,1,[166,295,13,266]],"61":["Claw Viper Temple Level 2",2,1,[53,54,167,296]],"62":["Maggot Lair Level 1",2,1,[206,207,288,221,222]],"63":["Maggot Lair Level 2",2,1,[206,207,288,221,222]],"64":["Maggot Lair Level 3",2,1,[206,207,288,221,222]],"65":["Ancient Tunnels",2,1,[341,216,167,258]],"66":["Tal Rasha's Tomb",2,1,[329,223,168,297,303,32]],"67":["Tal Rasha's Tomb",2,1,[329,223,168,297,303,32]],"68":["Tal Rasha's Tomb",2,1,[329,223,168,297,303,32]],"69":["Tal Rasha's Tomb",2,1,[329,223,168,297,303,32]],"70":["Tal Rasha's Tomb",2,1,[329,223,168,297,303,32]],"71":["Tal Rasha's Tomb",2,1,[329,223,168,297,303,32]],"72":["Tal Rasha's Tomb",2,1,[329,223,168,297,303,32]],"73":["Duriel's Lair",2,1,[329,223,168,297,303,32]],"74":["Arcane Sanctuary",2,1,[328,137,303]],"76":["Spider Forest",3,1,[7,162,291,106,111,126]],"77":["Great Marsh",3,1,[128,129,292,340,116,321]],"78":["Flayer Jungle",3,1,[107,117,108,118,319,130,112]],"79":["Lower Kurast",3,1,[8,202,318,334]],"80":["Kurast Bazaar",3,1,[293,289,335,47]],"81":["Upper Kurast",3,1,[319,336,48,293]],"82":["Kurast Causeway",3,1,[217,9,49]],"83":["Travincal",3,1,[49,304]],"84":["Spider Cave",3,1,[1,2,14,209]],"85":["Spider Cavern",3,1,[1,2,14,209]],"86":["Swampy Pit Level 1",3,1,[168,38,14,321,39]],"87":["Swampy Pit Level 2",3,1,[38,340,14,321,39]],"88":["Flayer Dungeon Level 1",3,1,[107,117,108,118,15,330,112,37]],"89":["Flayer Dungeon Level 2",3,1,[107,117,108,118,15,330,112,37]],"90":["Swampy Pit Level 3",3,1,[38,39,14,321]],"91":["Flayer Dungeon Level 3",3,1,[107,117,108,118,15,330,112,37]],"92":["Sewers Level 1",3,1,[168,163,15,298,38]],"93":["Sewers Level 2",3,1,[168,298,164,130,38]],"94":["Ruined Temple",3,1,[46,64,3,304]],"95":["Disused Fane",3,1,[46,64,3,304]],"96":["Forgotten Reliquary",3,1,[46,64,3,304]],"97":["Forgotten Temple",3,1,[55,224,16,70]],"98":["Ruined Fane",3,1,[55,224,16,70]],"99":["Disused Reliquary",3,1,[55,224,16,70]],"100":["Durance of Hate Level 1",3,1,[169,305,33,39]],"101":["Durance of Hate Level 2",3,1,[169,305,33,39]],"102":["Durance of Hate Level 3",3,1,[306]],"104":["Outer Steppes",4,1,[203,311,121,195,91,151]],"105":["Plains of Despair",4,1,[322,311,121,195,91,151]],"106":["City of the Damned",4,1,[24,17,312,122,196,92,150]],"107":["River of Flame",4,1,[210,34,313,122,197,92,150]],"108":["Chaos Sanctum",4,1,[123,93,151]],"110":["Bloody Foothills",5,1,[155,83,171,143,237,188,127,320,294,270]],"111":["Rigid Highlands",5,1,[145,228,158,84,237,71,77,271,35,172]],"112":["Arreat Plateau",5,1,[85,159,230,174,145,272,259,253,139,102]],"113":["Crystalized Cavern Level 1",5,1,[273,131,275,27,218,204,248,72,331,56]],"114":["Cellar of Pity",5,1,[273,131,278,191,282,323,248,78,331,56]],"115":["Crystalized Cavern Level 2",5,1,[273,131,191,245,332,18,248,29,57]],"116":["Echo Chamber",5,1,[274,278,132,25,139,72,248,331,29,218]],"117":["Tundra Wastelands",5,1,[229,144,86,160,277,238,320,259,134,180]],"118":["Glacial Caves Level 1",5,1,[132,274,30,102,189,78,248,192,25]],"119":["Glacial Caves Level 2",5,1,[274,276,30,132,57,39,323,18,331,282]],"122":["Halls of Anguish",5,1,[193,26,87,246,205,103,225,109,263,11]],"123":["Halls of Death's Calling",5,1,[26,218,12,141,190,299,113,50,314,211]],"124":["Halls of Vaught",5,1,[161,276,181,193,331,4,239,119,10,59]],"125":["Hell1",5,1,[27,147,152,279,283,104,232,40,124,156]],"126":["Hell2",5,1,[27,147,152,279,58,36,300,254,140,198]],"127":["Hell3",5,1,[148,173,152,58,26,281,308,114,194,88]],"128":["The Worldstone Keep Level 1",5,1,[194,284,182,219,28,79,315,51,309,120]],"129":["The Worldstone Keep Level 2",5,1,[286,157,110,19,52,170,264,301,226,324]],"130":["The Worldstone Keep Level 3",5,1,[28,146,183,125,89,115,260,333,276,173]],"131":["Throne of Destruction",5,1,[28,281,41,214,325,310,153,302,89,52]],"133":["Pandemonium Run 1",5,0,[280,285,65,73,79]],"134":["Pandemonium Run 2",5,0,[290,212,5,227]],"135":["Pandemonium Run 3",5,0,[175,90,154,149]]}};
 /* ---------- gear picker: click a paper-doll slot or the inventory to choose from the items that fit there ---------- */
 const GP_CLS={amazon:'amaz',assassin:'assn',barbarian:'barb',druid:'drui',necromancer:'necr',paladin:'pala',sorceress:'sorc',warlock:'warl'};
 let GP=null;
@@ -3226,6 +3299,161 @@ function gpLibDecode(text){const m=String(text||'').match(/HOLIB1\.([A-Za-z0-9_-
 function gpLibAdd(items){const lib=LS.get('hbp.library',[]);let added=0,updated=0;
   for(const it of items){const i=lib.findIndex(x=>x.name===it.name&&x.cls===it.cls);if(i>=0){lib[i]=it;updated++}else{lib.push(it);added++}}
   LS.set('hbp.library',lib);return {added,updated}}
+/* ---------- mercenary stats, laid out like the game's Mercenary panel ----------
+   Base stats come from the game's hireling table for the hireling picked, the difficulty a merc of that level is from
+   and its level; gear adds Strength, Dexterity, life, resistances, defense and weapon damage at the planned (best) rolls. */
+function gpMercId(label,L){const t=String(label||''),dif=L>=45?2:L>=20?1:0;
+  const act=/^act\s*(1|i)\b/i.test(t)?1:/^act\s*(3|iii)\b/i.test(t)?3:/^act\s*(5|v)\b/i.test(t)?5:/^act\s*(2|ii)\b/i.test(t)?2:0;if(!act)return null;
+  if(act===1)return 2*dif+(/cold/i.test(t)?1:0);if(act===3)return 15+3*dif+(/cold/i.test(t)?1:/light/i.test(t)?2:0);if(act===5)return /frenzy/i.test(t)?36+dif:24+2*dif;
+  const a2=/prayer/i.test(t)?0:/defiance/i.test(t)?1:/blessed\s*aim/i.test(t)?2:/thorns|combat/i.test(t)?3:/holy\s*freeze|defensive/i.test(t)?4:5;
+  return a2<3?[6,30,12][dif]+a2:[9,9,33][dif]+a2-3}
+let GP_ARMOR=null;
+/* the best roll of a tooltip line, e.g. "+(100-150)% Enhanced Defense" gives 150 */
+function gpTipMax(name,re){const ti=name&&window.__tipInfo&&window.__tipInfo(name);if(!ti||!ti.l)return 0;let n=0;
+  for(const l of ti.l)if(re.test(l)){const m=l.match(/[+-]?\(?(\d+)(?:-(\d+))?\)?/);if(m)n+=+(m[2]||m[1])}return n}
+function gpArmorData(){if(!GP_ARMOR){try{const d=JSON.parse(document.getElementById('armor-data').textContent);GP_ARMOR=d[plannerVersionKey()]||d.d2r||null}catch(e){GP_ARMOR=null}}return GP_ARMOR}
+const GP_AURA_DMG={Might:l=>40+10*(l-1),Concentration:l=>60+15*(l-1)};
+function gpMercStats(b,L){const label=String(b.merc||'');if(!label)return null;const id=gpMercId(label,L),h=GP_HIRE[id];if(!h)return null;
+  const dl=L-h.lv,pen=[0,-40,-100][h.d-1]||0;
+  const xs=[12,13,14].map(s=>(b.gear||[]).filter(x=>x.s===s&&gpEff(b,x)<=L).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean);
+  const T={str:0,dex:0,life:0,res:0,rf:0,rc:0,rl:0,rp:0,mr:0,mrf:0,mrc:0,mrl:0,mrp:0,ias:0,fhr:0,ed:0},auras=[];
+  for(const g of xs){const x=g.x&&typeof g.x==='object'?g.x:null;if(x)for(const k in T)if(+x[k])T[k]+=+x[k];
+    for(const p of gearParts(g.it)){if(!p.key)continue;const st=IX[p.key]||{};for(const k in T)if(st[k]&&k!=='ed')T[k]+=st[k]*p.n;if(st.ed&&g.s!==12)T.ed+=st.ed;if(st.aura)auras.push(st.aura)}}
+  const str=Math.floor(h.str[0]+h.str[1]*dl/8)+T.str,dex=Math.floor(h.dex[0]+h.dex[1]*dl/8)+T.dex,life=h.hp[0]+h.hp[1]*dl+T.life;
+  // defense: the merc's own, its armor and helm at their best rolls (ethereal x1.5), plus a quarter of its Dexterity
+  const D=gpArmorData();let gdef=0;
+  for(const g of xs){for(const p of gearParts(g.it)){const bm=p.base&&((D&&D.bases&&D.bases[p.base]&&+D.bases[p.base][1])||(BASES[p.base]&&gpTipMax(BASES[p.base].n,/^Defense:/))),base=bm?[0,bm]:null,ps=(D&&p.key&&D.items[p.name])||[];
+    const rng=k=>ps.filter(q=>q&&q[0]===k).reduce((n,q)=>n+(+q[2]||+q[1]||0),0);
+    const ed=(ps.length?rng('ac%'):gpTipMax(p.key,/Enhanced Defense$/))+((g.x&&+g.x.defp)||0),flat=(ps.length?rng('ac'):gpTipMax(p.key,/^\+\(?[\d-]+\)? Defense$/))+((g.x&&+g.x.def)||0);
+    if(base&&(g.s===13||g.s===14)){const eth=p.eth?1.5:1;gdef+=Math.floor(Math.floor((+base[1]||0)*eth+(ed?1:0))*(1+ed/100))+flat}else gdef+=flat}}
+  const def=h.def[0]+h.def[1]*dl+gdef+Math.floor(dex/4);
+  // the merc's own skills (its aura) at its level, plus auras from gear
+  const own=(h.sk||[]).map(([n,l0,pl])=>[n,Math.max(1,Math.floor(l0+dl*pl/32))]);
+  const all=[...own,...auras];let auraPct=0;for(const [n,l] of all)if(GP_AURA_DMG[n])auraPct+=GP_AURA_DMG[n](l);
+  // damage: weapon damage with its enhanced damage, then Strength/Dexterity bonus, off-weapon ED and offensive auras
+  let dmg=null,wname='';const w=xs.find(g=>g.s===12);
+  if(w){const p=gearParts(w.it)[0],bs=p&&p.base&&BASES[p.base];if(bs&&(bs.d||bs.d2)){const ix=(p.key&&IX[p.key])||{},base=bs.th&&bs.d2?bs.d2:(bs.d||bs.d2),kk=p.eth?1.5:1,ed=(ix.ed||0)+((w.x&&+w.x.ed)||0);
+    const wd=[Math.floor(Math.floor(base[0]*kk)*(1+ed/100))+(ix.dmin||0),Math.floor(Math.floor(base[1]*kk)*(1+ed/100))+(ix.dmax||0)];
+    const pct=str*(bs.sb||0)/100+dex*(bs.db||0)/100+T.ed+auraPct;dmg=wd.map(n=>Math.floor(n*(1+pct/100)));wname=bs.n}}
+  if(!dmg){const lo=Math.floor(h.dmg[0]+h.dmg[2]*dl/8),hi=Math.floor(h.dmg[1]+h.dmg[2]*dl/8);dmg=[Math.floor(lo*(1+auraPct/100)),Math.floor(hi*(1+auraPct/100))]}
+  const r0=Math.floor(h.res[0]+h.res[1]*dl/4)+pen+T.res,res={};
+  for(const [k,mk] of [['rf','mrf'],['rc','mrc'],['rl','mrl'],['rp','mrp']]){const v=r0+T[k],max=75+T.mr+T[mk];res[k]={v:Math.min(v,max),over:Math.max(0,v-max),cap:v>=max}}
+  const kind={1:'Rogue Scout',2:'Desert Mercenary',3:'Iron Wolf',5:'Barbarian'}[h.a]||h.n;
+  return {id,kind,diff:['Normal','Nightmare','Hell'][h.d-1],level:L,life,str,dex,def,dmg,wname,res,auras:all,auraPct,boost:{str:T.str>0,dex:T.dex>0,life:T.life>0,def:gdef>0},ias:T.ias,fhr:T.fhr,items:xs.length}}
+/* the Mercenary panel: name bar, then Life, Strength, Dexterity, Damage and Defense on the left and resistances on the right */
+function mercPanelHTML(L){const m=String(B.merc||''),pIdx=/Act\s*1\b/i.test(m)?0:/Act\s*2\b/i.test(m)?1:/Act\s*3\b/i.test(m)?2:/Act\s*5\b/i.test(m)?4:1;
+  const S=gpMercStats(B,L),atk=mercAttack(B,L);
+  const slots=[[12,'weapon'],[14,'helm'],[13,'armor']].map(([i,area])=>mercSlotHTML(i,area,L,pIdx)).join('');
+  const row=(cls,label,val,tip,boost)=>`<div class="mstat ${cls}" title="${esc(tip||'')}"><span data-d2-bitmap="1">${esc(label)}</span><b data-d2-bitmap="1" class="${boost?'mboost':''}">${esc(val)}</b></div>`;
+  if(!S)return `<div class="merc-panel"><div class="merc-sheet-title" data-d2-bitmap="1">Mercenary</div>${slots}<div class="mname" data-d2-bitmap="1">No mercenary</div><div class="mlevel" data-d2-bitmap="1">Pick one in the Mercenary menu above</div></div>`;
+  const auraTxt=S.auras.filter(([n])=>/Might|Holy Freeze|Defiance|Prayer|Blessed Aim|Thorns|Meditation|Conviction|Concentration|Fanaticism|Sanctuary|Vigor|Salvation|Cleansing|Redemption|Holy Fire|Holy Shock|Resist/.test(n)).map(([n,l])=>`${n} ${l}`).join(' · ')||mercAura(m);
+  const dmgTip=`${S.wname?S.wname+': ':''}weapon damage with its enhanced damage, plus ${S.str} Strength${S.auraPct?` and +${S.auraPct}% from auras`:''}. Best rolls; no Deadly Strike or Crushing Blow.${atk?` Attack: ${atk.now} frames`:''} IAS ${S.ias}% · FHR ${S.fhr}%.`;
+  const left=[row('ms-0','Life',`${S.life} / ${S.life}`,'Base life for its level plus +life on its gear.',S.boost.life),row('ms-1','Strength',S.str,'',S.boost.str),row('ms-2','Dexterity',S.dex,'',S.boost.dex),row('ms-3','Damage',`${S.dmg[0]}-${S.dmg[1]}`,dmgTip,false),row('ms-4','Defense',S.def,'Its own defense, its armor and helm at their best rolls, and a quarter of its Dexterity.',S.boost.def)].join('');
+  const R=S.res,rr=(cls,label,r)=>`<div class="mstat ${cls}" title="${r.over?`${r.over}% over the cap`:''}"><span data-d2-bitmap="1">${label}</span><b data-d2-bitmap="1" class="${r.cap?'mcap':''}">${r.v}%</b></div>`;
+  const right=rr('mr-1','Fire Resistance',R.rf)+rr('mr-2','Cold Resistance',R.rc)+rr('mr-3','Lightning Resistance',R.rl)+rr('mr-4','Poison Resistance',R.rp);
+  return `<div class="merc-panel"><div class="merc-sheet-title" data-d2-bitmap="1">Mercenary</div>${slots}
+    <div class="mname" data-d2-bitmap="1">${esc(m.replace(/^Act\s*\d\s*/i,''))}</div><div class="mlevel" data-d2-bitmap="1">Level ${S.level} ${esc(S.kind)} · ${esc(S.diff)}</div>
+    <div class="maura" title="Auras and skills at its level" data-d2-bitmap="1">${esc(auraTxt)}</div>${left}${right}</div>`}
+/* ---------- Immunities: where in Hell monsters are immune to the damage this build uses ----------
+   Monster resistances (Hell) and which monsters spawn in each area come from the game's monster and level tables.
+   Conviction (e.g. Infinity) lowers an immune monster's resistance by a fifth of its value; a Sunder charm breaks that
+   element's immunities. */
+const GP_IMM_EL=[['dm','Physical','Bone Break'],['ma','Magic','Black Cleft'],['fi','Fire','Flame Rift'],['li','Lightning','Crack of the Heavens'],['co','Cold','Cold Rupture'],['po','Poison','Rotting Fissure']];
+const GP_EL_MAP={cold:'co',fire:'fi',ltng:'li',pois:'po',mag:'ma'};
+let GP_IMM_SEL=null,GP_IMM_FOR=null,GP_IMM_ALL=false;
+function gpBuildElems(b){const C=CLS[b.cls],ph=b.phase[b.phase.length-1],cnt=counts(ph),out=[];
+  const xs=Object.entries(cnt).map(([id,n])=>[+id,n]).filter(([id,n])=>C.skills[id]&&n>=5).sort((a,c)=>c[1]-a[1]);
+  for(const [id,n] of xs){const s=C.skills[id];let el=null;
+    try{const c=skillCalc(b.cls,id,n,cnt),ln=((c&&c.lines)||[]).find(x=>/^[A-Za-z ]*Damage:\s*\+?\d/.test(x));
+      if(ln)el=/^Cold/i.test(ln)?'co':/^Fire|^Burning/i.test(ln)?'fi':/^Lightning/i.test(ln)?'li':/^Poison/i.test(ln)?'po':/^Magic/i.test(ln)?'ma':'dm'}catch(e){}
+    if(!el){const d=SKDESC[s.name];el=(d&&GP_EL_MAP[d.el])||(ATKSK.includes(s.name)?'dm':null)}
+    if(el&&!out.includes(el))out.push(el);if(out.length>=2)break}
+  return out.length?out:['dm']}
+function gpImmBreak(b,L){const conv=[],sunder=new Set();
+  for(const s of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]){const xs=(b.gear||[]).filter(x=>x.s===s&&gpEff(b,x)<=L);if(!xs.length)continue;
+    const list=s===10?xs:[xs.sort((a,c)=>c.lv-a.lv)[0]];
+    for(const g of list)for(const p of gearParts(g.it)){const ix=p.key&&IX[p.key];if(ix&&ix.aura&&ix.aura[0]==='Conviction')conv.push([ix.aura[1],p.key,s>=12?'merc':'you']);
+      for(const [k,,n] of GP_IMM_EL)if(new RegExp(n,'i').test(g.it))sunder.add(k)}}
+  const lv=conv.reduce((a,c)=>Math.max(a,c[0]),0),pct=lv?Math.min(150,30+5*(lv-1)):0;
+  return {conv:pct,convFrom:conv[0]||null,sunder}}
+function gpImmRows(end){if(GP_IMM_FOR!==B){GP_IMM_FOR=B;GP_IMM_SEL=gpBuildElems(B)}
+  const sel=GP_IMM_SEL,BR=gpImmBreak(B,end),EI={dm:1,ma:2,fi:3,li:4,co:5,po:6};
+  const eff=(r,k)=>BR.sunder.has(k)&&r>=100?95:r>=100?r-Math.floor(BR.conv/5):r;     // resistance after breaking
+  const rows=Object.entries(GP_IMM.a).map(([aid,[an,aa,atz,ms]])=>{const a={n:an,a:aa,tz:atz};
+      const mons=ms.map(i=>GP_IMM.m[i]),blocked=mons.filter(m=>sel.length&&sel.every(k=>eff(m[EI[k]],k)>=100));
+      const per=sel.map(k=>[k,mons.filter(m=>eff(m[EI[k]],k)>=100).map(m=>m[0])]);
+      return {aid,name:a.n,act:a.a,tz:!!a.tz,n:mons.length,blocked,per}}).filter(Boolean);
+  const bad=rows.filter(r=>r.blocked.length).sort((x,y)=>y.blocked.length/y.n-x.blocked.length/x.n||x.act-y.act);
+  return {sel,BR,rows,bad}}
+function gpImmCard(end){if(typeof GP_IMM==='undefined')return '';const {sel,BR,rows,bad}=gpImmRows(end);
+  const elName=k=>GP_IMM_EL.find(x=>x[0]===k)[1];
+  const chips=GP_IMM_EL.map(([k,n])=>`<button type="button" class="imm-chip${sel.includes(k)?' on':''}" data-act="imm-el" data-k="${k}" aria-pressed="${sel.includes(k)}">${n}</button>`).join('');
+  const list=(GP_IMM_ALL?bad:bad.slice(0,10)).map(r=>`<li><div class="imm-a"><b>${esc(r.name)}</b>${r.tz?' <span class="imm-tz" title="Can be a terror zone">TZ</span>':''}<span class="muted"> · Act ${r.act}</span><span class="imm-n num">${r.blocked.length} of ${r.n}</span></div><div class="imm-m">${esc(r.blocked.map(m=>m[0]).join(', '))}</div></li>`).join('');
+  const brk=[BR.conv?`Conviction ${BR.conv}% from ${esc(BR.convFrom[1])} (${BR.convFrom[2]==='merc'?'your merc':'you'}) lowers immunities by ${Math.floor(BR.conv/5)}%`:'',
+    BR.sunder.size?`Sunder charm${BR.sunder.size>1?'s':''} break ${[...BR.sunder].map(elName).join(' and ')} immunities`:''].filter(Boolean);
+  const cnt=bad.length,tot=rows.length;
+  const sum=!sel.length?'Pick a damage type':cnt?`${cnt} of ${tot} Hell areas have monsters immune to ${sel.length>1?'all of it':'it'}`:'Nothing in Hell is immune to all of it';
+  return `<section class="card imm"><header><h2>Immunities</h2><span class="muted num">Hell · L${end}</span></header>
+    <div class="imm-chips" role="group" aria-label="Damage types this build uses">${chips}</div>
+    <p class="imm-sum"><b>${esc(sum)}.</b> ${sel.length>1?'A monster only counts when it is immune to every type you picked. Each area shows how many of its monster types are immune.':''}</p>
+    ${brk.length?`<p class="hint" style="margin:0">${brk.join('. ')}.</p>`:''}
+    ${cnt?`<ul class="imm-l">${list}</ul>${bad.length>10?`<button type="button" class="linkbtn" data-act="imm-all">${GP_IMM_ALL?'Show fewer':`Show all ${bad.length} areas`}</button>`:''}`:''}
+    <p class="hint" style="margin:0">Picked from your skills with the most points; tap a type to change it. Uses each area's regular monsters in Hell (bosses, champions and uniques can roll extra immunities). Conviction lowers an immunity by a fifth of its value, and a Sunder charm breaks one element's immunities.</p></section>`}
+if(!window.__gpImmBound){window.__gpImmBound=1;document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('#hp [data-act="imm-el"],#hp [data-act="imm-all"]');if(!a)return;
+  if(a.dataset.act==='imm-all')GP_IMM_ALL=!GP_IMM_ALL;else{const k=a.dataset.k,s=GP_IMM_SEL||[];GP_IMM_SEL=s.includes(k)?s.filter(x=>x!==k):[...s,k]}render()},true)}
+/* ---------- Share as image: a build card (PNG) for Discord, Reddit and forums ---------- */
+function gpCardData(){const C=CLS[B.cls],last=B.phase.length-1,end=phaseEnd(B,last),ph=B.phase[last];
+  const plan=window.__hpExportBuild&&window.__hpExportBuild()||null,sim=simulate(B),R=gearTotals(B,end),T=R.t,DF=defenseInfo(B,end,sim);
+  const st=plan&&plan.level===end?plan.stats:{...ph.st};
+  const life=Math.floor(C.life[0]+C.life[1]*(end-1)+C.life[2]*(st.vit-C.base.vit)+T.life+C.life[2]*T.vit),mana=Math.floor(C.mana[0]+C.mana[1]*(end-1)+C.mana[2]*(st.ene-C.base.ene)+T.mana+C.mana[2]*T.ene);
+  const cnt=counts(ph),skills=Object.entries(cnt).map(([id,n])=>[C.skills[+id]&&C.skills[+id].name,n]).filter(([n,p])=>n&&p>1).sort((a,b)=>b[1]-a[1]).slice(0,7);
+  const frames=(tbl,val)=>{if(!tbl)return null;const [bps,start]=tbl;let hit=0;bps.forEach((p,i)=>{if(val>=p)hit=i});return start-hit};
+  const fcr=T.fcr+(B.fcr||0),fhr=T.fhr+(B.fhr||0);
+  const res=[['Fire','rf','mrf'],['Cold','rc','mrc'],['Light','rl','mrl'],['Poison','rp','mrp']].map(([n,k,mk])=>{const mx=75+T.mr+T[mk]+((DF.mx&&DF.mx[k])||0),v=T.res+T[k]+(DF.nr||0)-100+30;return [n,Math.min(v,mx)]});
+  const gear=[0,1,2,3,4,5,6,7,8,9,11,15].map(s=>{const g=gearAt(B,end).concat(gearAt(B,end,true)).filter(x=>x.s===s).sort((a,c)=>c.lv-a.lv)[0];return g?[SLOTS[s],g.it]:null}).filter(Boolean);
+  const charms=gearAt(B,end).filter(x=>x.s===10).map(g=>g.it).join(', ');
+  const M=gpMercStats(B,end),mitems=[12,13,14].map(s=>(B.gear||[]).filter(x=>x.s===s&&gpEff(B,x)<=end).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean).map(g=>g.it);
+  let imm='';try{const I=gpImmRows(end),nm=I.sel.map(k=>GP_IMM_EL.find(x=>x[0]===k)[1]);imm=I.bad.length?`${nm.join(' + ')}: ${I.bad.length} of ${I.rows.length} Hell areas have immunes`:`${nm.join(' + ')}: no full immunes in Hell`;if(I.BR.conv)imm+=` (Conviction ${I.BR.conv}%)`}catch(e){}
+  return {name:B.name||C.name,cls:C.name,level:end,stats:st,life,mana,skills,fcr,fhr,fcrF:frames(C.fcr,fcr),fhrF:frames(C.fhr,fhr),ias:T.ias,mf:T.mf,res,gear,charms,merc:B.merc||'',M,mitems,imm,allsk:R.all||0}}
+async function gpCardCanvas(){const d=gpCardData(),W=1200,H=675,cv=document.createElement('canvas');cv.width=W*2;cv.height=H*2;const x=cv.getContext('2d');x.scale(2,2);
+  try{await document.fonts.ready}catch(e){}
+  const cs=getComputedStyle(document.documentElement),disp=(cs.getPropertyValue('--font-display')||'Georgia,serif').trim(),body=getComputedStyle(document.body).fontFamily||'system-ui,sans-serif';
+  const gold='#e8c983',ink='#efe4cc',dim='#a99c84',line='#5a4a32';
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1c1813');g.addColorStop(1,'#0f0d0a');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.strokeStyle=line;x.lineWidth=2;x.strokeRect(14,14,W-28,H-28);x.strokeStyle='#2c2419';x.strokeRect(20,20,W-40,H-40);
+  const fit=(t,max)=>{t=String(t);if(x.measureText(t).width<=max)return t;while(t.length>1&&x.measureText(t+'…').width>max)t=t.slice(0,-1);return t+'…'};
+  const txt=(t,X,Y,f,c,max,al)=>{x.font=f;x.fillStyle=c;x.textAlign=al||'left';x.fillText(max?fit(t,max):t,X,Y)};
+  const head=(t,X,Y)=>{txt(t.toUpperCase(),X,Y,`600 13px ${body}`,dim);x.fillStyle=line;x.fillRect(X,Y+7,330,1)};
+  txt(d.name,48,82,`700 40px ${disp}`,gold,820);txt(`Level ${d.level} ${d.cls}${d.allsk?` · +${d.allsk} all skills`:''}`,48,116,`500 19px ${body}`,ink,820);
+  txt('Horadric Odds',W-48,74,`700 22px ${disp}`,gold,0,'right');txt('Build planner',W-48,100,`500 15px ${body}`,dim,0,'right');
+  // column 1: skills and stats
+  let y=168;head('Skills',48,y);y+=30;for(const [n,p] of d.skills){txt(n,48,y,`500 17px ${body}`,ink,270);txt(String(p),378,y,`700 17px ${body}`,gold,0,'right');y+=26}
+  y+=14;head('Stats',48,y);y+=30;for(const [k,n] of [['str','Strength'],['dex','Dexterity'],['vit','Vitality'],['ene','Energy']]){txt(n,48,y,`500 17px ${body}`,ink);txt(String(d.stats[k]),378,y,`700 17px ${body}`,gold,0,'right');y+=26}
+  // column 2: gear
+  y=168;head('Gear',420,y);y+=30;for(const [s,it] of d.gear){txt(s,420,y,`500 14px ${body}`,dim,110);txt(it,530,y,`600 16px ${body}`,ink,250);y+=25}
+  if(d.charms){txt('Charms',420,y,`500 14px ${body}`,dim);txt(d.charms,530,y,`600 16px ${body}`,ink,250);y+=25}
+  // column 3: numbers, merc, immunities
+  const X3=820;y=168;head('At level '+d.level,X3,y);y+=30;
+  const kv=(k,v)=>{txt(k,X3,y,`500 17px ${body}`,ink);txt(v,W-48,y,`700 17px ${body}`,gold,0,'right');y+=26};
+  kv('Life / Mana',`${d.life} / ${d.mana}`);kv('Faster cast rate',`${d.fcr}%${d.fcrF!=null?` · ${d.fcrF} frames`:''}`);kv('Faster hit recovery',`${d.fhr}%${d.fhrF!=null?` · ${d.fhrF} frames`:''}`);if(d.ias)kv('Increased attack speed',`${d.ias}%`);if(d.mf)kv('Magic find',`${d.mf}%`);
+  txt('Hell resistances',X3,y,`500 17px ${body}`,ink);y+=26;x.font=`700 17px ${body}`;const rc={Fire:'#e2775a',Cold:'#7fa7ff',Light:'#f0d070',Poison:'#7ccf6a'};let rx=X3;for(const [n,v] of d.res){x.fillStyle=rc[n];x.textAlign='left';x.fillText(`${n} ${v}`,rx,y);rx+=x.measureText(`${n} ${v}`).width+16}y+=34;
+  if(d.merc){head('Mercenary',X3,y);y+=28;txt(d.merc+(d.M?` · L${d.M.level}`:''),X3,y,`600 16px ${body}`,ink,330);y+=24;for(const it of d.mitems){txt(it,X3,y,`500 15px ${body}`,dim,330);y+=22}y+=10}
+  if(d.imm){head('Immunities',X3,y);y+=28;txt(d.imm,X3,y,`500 15px ${body}`,ink,330)}
+  txt('horadricodds.github.io · free D2R drop odds, build planner and tools',48,H-38,`500 15px ${body}`,dim);
+  return cv}
+async function gpCardShow(){let cv;try{cv=await gpCardCanvas()}catch(e){toast('Could not draw the card: '+e.message);return}
+  const blob=await new Promise(r=>cv.toBlob(r,'image/png')),url=URL.createObjectURL(blob),fname=(String(B.name||'build').replace(/[^\w -]+/g,'').trim().replace(/\s+/g,'-')||'build')+'.png';
+  document.querySelector('.gp-card-modal')&&document.querySelector('.gp-card-modal').remove();
+  const m=document.createElement('div');m.className='gp-card-modal';m.setAttribute('role','dialog');m.setAttribute('aria-label','Build card');
+  m.innerHTML=`<div class="gp-card-box"><img src="${url}" alt="Build card for ${esc(B.name||'this build')}"><div class="row"><button class="btn primary" data-c="copy">Copy image</button><button class="btn" data-c="dl">Download PNG</button><button class="btn" data-c="code">${document.querySelector('#hp [data-act="copy-link"]')?'Copy share link':'Copy build code'}</button><button class="btn" data-c="close">Close</button><span class="hint gp-card-msg" style="margin:0"></span></div></div>`;
+  document.body.appendChild(m);const msg=t=>{m.querySelector('.gp-card-msg').textContent=t};
+  const close=()=>{m.remove();URL.revokeObjectURL(url);document.removeEventListener('keydown',esc1)},esc1=e=>{if(e.key==='Escape')close()};document.addEventListener('keydown',esc1);
+  m.addEventListener('click',async e=>{if(e.target===m)return close();const b=e.target.closest('[data-c]');if(!b)return;const c=b.dataset.c;
+    if(c==='close')return close();
+    if(c==='code'){const ln=document.querySelector('#hp [data-act="copy-link"]');if(ln){ln.click();msg('Share link copied. Post it with the image so people can open the build.');return}try{await navigator.clipboard.writeText(encode(B));msg('Build code copied. Post it with the image so people can open the build.')}catch(err){msg('Copy blocked here; use Copy build code on the Share tab.')}return}
+    if(c==='copy'){try{await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);msg('Image copied. Paste it into Discord or Reddit.')}catch(err){msg('This browser won’t copy images here; use Download PNG.')}return}
+    if(c==='dl'){try{if(window.claude&&window.claude.use){const dl=await window.claude.use('downloads');if(dl){try{await dl.save({filename:fname,data:blob});msg('Saved.')}catch(err){msg(err&&err.code==='declined'?'Download cancelled.':'This view can’t download files.')}return}}}catch(err){}
+      const a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();msg('Downloaded '+fname+'.')}})}
 
 function equipHTML(){
   const g=B.gear||[];const L=Math.min(B.level,EQL||B.level);try{window.__eqS={L,s:charStatsAt(B,simulate(B),L,{})}}catch(e){window.__eqS=null}
@@ -3325,6 +3553,7 @@ function compareHTML(){
 function galClean(list){return (Array.isArray(list)?list:[]).slice(0,12).filter(x=>x&&typeof x.code==='string'&&/^D2R2\.[A-Za-z0-9_-]{10,20000}$/.test(x.code)&&CLASS_ORDER.includes(x.cls)).map(x=>({code:x.code,name:String(x.name||'Untitled').slice(0,60),cls:x.cls,lvl:clamp(+x.lvl||90,2,99),at:+x.at||0,site:String(x.site||'').slice(0,30)}))}
 function galPaint(){const el=document.getElementById('galList');if(el)el.innerHTML=galListHTML();const pb=document.getElementById('galPub');if(pb)pb.disabled=GAL.state!=='on'||!GAL.me||GAL.busy}
 async function galInit(){
+  GAL.state='off';return;
   if(GAL.state!=='idle')return;GAL.state='loading';
   const fail=()=>{if(GAL.state==='loading'){GAL.state='off';galPaint()}};const timer=setTimeout(fail,10000);
   try{
@@ -3378,18 +3607,15 @@ function shareHTML(){
   const sites=['all','Starter','Planner'].map(c=>`<button class="chip" data-act="lib-site" data-c="${c}" aria-pressed="${libSite===c}">${c==='all'?'All sources':c}</button>`).join('');
   return `<div class="share">
    <section class="card"><header><h2>Export</h2></header>
-     <p class="hint" style="margin:0">Share this code on forums, Discord or Reddit. Anyone can paste it into Import to get the same skills, stats, respecs and notes.</p>
+     <p class="hint" style="margin:0">The share link opens this exact build on Horadric Odds in one click. The build code does the same when pasted into Import. Both carry skills, stats, respecs, gear and notes.</p>
      <textarea id="exp" rows="5" readonly>${esc(encode(B))}</textarea>
-     <div class="row"><button class="btn primary" data-act="copy-code">Copy build code</button><button class="btn" data-act="copy-text">Copy guide as text</button></div></section>
+     <div class="row"><button class="btn primary" data-act="copy-link">Copy share link</button><button class="btn" data-act="copy-code">Copy build code</button><button class="btn" data-act="copy-text">Copy guide as text</button><button class="btn" data-act="share-card">Share as image</button></div></section>
    <section class="card"><header><h2>Import</h2></header>
      <p class="hint" style="margin:0">Paste a build code, or a whole message that contains one. A library code (from <i>Copy all as one code</i>) adds its builds to My builds.</p>
      <textarea id="imp" rows="5" placeholder="D2R2.…"></textarea>
      <div class="row"><button class="btn primary" data-act="import">Load build</button><span id="imp-err" class="over" style="font-size:.88rem"></span></div></section>
    <section class="card"><header><h2>My builds</h2><button class="btn small primary" data-act="lib-save">Save current build</button></header><div class="lib">${libHTML}</div>${lib.length>1?`<div class="row"><button class="btn small" data-act="lib-copy-all">Copy all ${lib.length} as one code</button><span class="hint" style="margin:0">Paste it into <i>Import</i> on any browser to add them all.</span></div>`:''}</section>
-   <section class="card" style="grid-column:1/-1"><header><h2>Community builds</h2><button class="btn small primary" id="galPub" data-act="gal-pub" ${GAL.state==='on'&&GAL.me&&!GAL.busy?'':'disabled'}>Share current build</button></header>
-     <p class="hint" style="margin:0">Builds other players shared. <b>Share builds you made yourself</b>, and link to guides rather than copying them. Sharing posts the current build code under your claude.ai name; you can remove it any time. Use <b>Report</b> if a shared build shouldn't be here, or email HoradricOdds@hotmail.com. The class filter and search below apply here too.</p>
-     <div class="row" style="flex-wrap:wrap;gap:8px"><label class="row">Sort <select id="gal-sort">${[['new','Newest'],['old','Oldest'],['name','Name'],['class','Class']].map(([v,l])=>`<option value="${v}" ${galSort===v?'selected':''}>${l}</option>`).join('')}</select></label><label class="row"><input type="checkbox" id="gal-mine" ${galMine?'checked':''}> Only mine</label></div>
-     <div class="lib" id="galList">${galListHTML()}</div></section>
+
    <section class="card bsec" style="grid-column:1/-1"><header><h2>Builds</h2><span class="muted">${shown.length} starter builds · ${Object.values(GUIDES).flat().length} guides</span></header>
      <div class="phasebar">${chips}<input id="lib-q" type="search" placeholder="Search builds and guides" value="${esc(libQ)}" style="background:var(--bg);border:1px solid var(--line2);border-radius:3px;padding:6px 8px;flex:1;min-width:10rem"></div>
      ${buildsHTML(shown,q)}
@@ -3496,7 +3722,9 @@ view.addEventListener('click',e=>{
   if(act==='gal-report'){galReport(a.dataset.u,a.dataset.n);return}
   if(act==='lib-cls'){libCls=a.dataset.c;render();return}
   if(act==='lib-site'){libSite=a.dataset.c;render();return}
+  if(act==='copy-link'){packLink(encode(B)).then(h=>copy(location.origin+location.pathname+h,'Share link copied. Anyone who opens it gets this build.')).catch(()=>copy(location.origin+location.pathname+'#build='+encode(B),'Share link copied.'));return}
   if(act==='copy-code'){copy(encode(B),'Build code copied.');return}
+  if(act==='share-card'){gpCardShow();return}
   if(act==='lib-copy'){const it=LS.get('hbp.library',[])[+a.dataset.i];if(it)copy(it.code,`Build code for ${it.name} copied.`);return}
   if(act==='lib-copy-all'){const lib=LS.get('hbp.library',[]);copy(gpLibEncode(lib),`Library code for ${lib.length} builds copied.`);return}
   if(act==='copy-text'){copy(guideText(),'Guide copied as text.');return}
@@ -3533,6 +3761,9 @@ view.addEventListener('change',e=>{
   if(t.dataset.note){const L=+t.dataset.note;const v=t.value.trim();if(v)B.notes[L]=v.slice(0,200);else delete B.notes[L];save();return}
 });
 render();
+const sharedToast=()=>setTimeout(()=>toast(`Opened a shared build: ${B.name}. Save it in Share & Library to keep it.`),400);
+if(fromLink)sharedToast();
+if(linkPacked)unpackLink(linkPacked).then(c=>{B=decode(c);PI=0;TAB='plan';save();render();sharedToast()}).catch(()=>toast('That share link looks damaged or incomplete.'));
 }
 
 })();
@@ -7896,6 +8127,8 @@ if(!root.hidden){render();startTick();try{if(location.hash!=='#'+SUB)history.rep
 
 </script>
 
+<script>/* offline support and install as an app (website only) */if('serviceWorker' in navigator&&location.protocol==='https:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
 <script src="d2-font.js" defer></script>
+</body>
+</html>
 
-</body></html>

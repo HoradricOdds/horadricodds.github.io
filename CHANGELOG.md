@@ -4,6 +4,11 @@ All notable changes to Horadric Odds, newest first.
 
 ## 8 November 2026
 
+### New: build cards, immunities and merc stats
+- **Share as image** (Share & Library): a picture of the build with its skills, stats, gear, breakpoints, Hell resistances, merc and immunities, ready to copy or download, plus a button to copy the share link.
+- **Immunities** card (Skills & Stats): the Hell areas with monsters immune to the damage your build uses, picked from your skills and changeable. Counts Conviction from Infinity and Sunder charms. Monster data comes from the game's monster and level tables.
+- The **Mercenary panel** now shows its life, Strength, Dexterity, damage, defense and resistances at your level with its gear, laid out like the game. Checked against an exported character in D2R: life, Strength, Dexterity, defense (within 0.3%) and three of four resistances match.
+
 ### Gear and inventory
 - New gear menu: click an empty equipment slot to pick from the items that fit there, with search by name or nickname.
 - Runewords: the menu suggests the best base and lets you choose the base, socket count and ethereal.

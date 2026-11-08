@@ -23,6 +23,9 @@ No ads, no sign-up, works on PC and phone.
 - Breakpoints worked out from your gear: cast speed, hit recovery, block and attack frames.
 - An equipment panel and inventory that work like the game: click a slot to pick from the items that fit (with runeword bases, sockets and ethereal, and your own charm and rare stats), pick items up and move them, and right-click to change or remove them. Hover or tap any item for its stats and requirements.
 - Choose your build's mercenary (any act and aura); it sets the merc's aura, is read from imported saves and goes into exported characters.
+- The merc panel shows your mercenary's life, Strength, Dexterity, damage, defense and resistances with its gear, like the game.
+- An Immunities card lists the Hell areas with monsters immune to your build's damage, counting Conviction and Sunder charms.
+- Share as image: a build card to post on Discord or Reddit.
 - Gear only counts toward your totals once its required level, Strength and Dexterity are met, and the leveling guide shows each item at the level you can really wear it.
 - Resistances per difficulty, charms in the inventory counted toward your totals, and a gear plan that shows where to farm each item.
 - A level-by-level leveling guide with a checklist to tick off while you play.
