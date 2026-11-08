@@ -1688,7 +1688,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <p><b>Artwork:</b> item pictures from <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>; the inventory panel texture from <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio’s D2R UI assets</a>. Diablo II: Resurrected artwork belongs to Blizzard Entertainment; Horadric Odds does not own or claim rights to it and is not affiliated with Blizzard or LootCube.</p>
       <p><b>Bugs and ideas:</b> open an issue on <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">GitHub</a> or email the address below.</p>
       <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>.</p></div></details></div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>8 Nov 2026, 4:48 pm</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>8 Nov 2026, 5:04 pm</span></p>
 
 
 <script>
@@ -3415,31 +3415,35 @@ function gpCardData(){const C=CLS[B.cls],last=B.phase.length-1,end=phaseEnd(B,la
   const M=gpMercStats(B,end),mitems=[12,13,14].map(s=>(B.gear||[]).filter(x=>x.s===s&&gpEff(B,x)<=end).sort((a,c)=>c.lv-a.lv)[0]).filter(Boolean).map(g=>g.it);
   let imm='';try{const I=gpImmRows(end),nm=I.sel.map(k=>GP_IMM_EL.find(x=>x[0]===k)[1]);imm=I.bad.length?`${nm.join(' + ')}: ${I.bad.length} of ${I.rows.length} Hell areas have immunes`:`${nm.join(' + ')}: no full immunes in Hell`;if(I.BR.conv)imm+=` (Conviction ${I.BR.conv}%)`}catch(e){}
   return {name:B.name||C.name,cls:C.name,level:end,stats:st,life,mana,skills,fcr,fhr,fcrF:frames(C.fcr,fcr),fhrF:frames(C.fhr,fhr),ias:T.ias,mf:T.mf,res,gear,charms,merc:B.merc||'',M,mitems,imm,allsk:R.all||0}}
-async function gpCardCanvas(){const d=gpCardData(),W=1200,H=675,cv=document.createElement('canvas');cv.width=W*2;cv.height=H*2;const x=cv.getContext('2d');x.scale(2,2);
-  try{await document.fonts.ready}catch(e){}
-  const cs=getComputedStyle(document.documentElement),disp=(cs.getPropertyValue('--font-display')||'Georgia,serif').trim(),body=getComputedStyle(document.body).fontFamily||'system-ui,sans-serif';
-  const gold='#e8c983',ink='#efe4cc',dim='#a99c84',line='#5a4a32';
-  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1c1813');g.addColorStop(1,'#0f0d0a');x.fillStyle=g;x.fillRect(0,0,W,H);
-  x.strokeStyle=line;x.lineWidth=2;x.strokeRect(14,14,W-28,H-28);x.strokeStyle='#2c2419';x.strokeRect(20,20,W-40,H-40);
-  const fit=(t,max)=>{t=String(t);if(x.measureText(t).width<=max)return t;while(t.length>1&&x.measureText(t+'…').width>max)t=t.slice(0,-1);return t+'…'};
-  const txt=(t,X,Y,f,c,max,al)=>{x.font=f;x.fillStyle=c;x.textAlign=al||'left';x.fillText(max?fit(t,max):t,X,Y)};
-  const head=(t,X,Y)=>{txt(t.toUpperCase(),X,Y,`600 13px ${body}`,dim);x.fillStyle=line;x.fillRect(X,Y+7,330,1)};
-  txt(d.name,48,82,`700 40px ${disp}`,gold,820);txt(`Level ${d.level} ${d.cls}${d.allsk?` · +${d.allsk} all skills`:''}`,48,116,`500 19px ${body}`,ink,820);
-  txt('Horadric Odds',W-48,74,`700 22px ${disp}`,gold,0,'right');txt('Build planner',W-48,100,`500 15px ${body}`,dim,0,'right');
-  // column 1: skills and stats
-  let y=168;head('Skills',48,y);y+=30;for(const [n,p] of d.skills){txt(n,48,y,`500 17px ${body}`,ink,270);txt(String(p),378,y,`700 17px ${body}`,gold,0,'right');y+=26}
-  y+=14;head('Stats',48,y);y+=30;for(const [k,n] of [['str','Strength'],['dex','Dexterity'],['vit','Vitality'],['ene','Energy']]){txt(n,48,y,`500 17px ${body}`,ink);txt(String(d.stats[k]),378,y,`700 17px ${body}`,gold,0,'right');y+=26}
-  // column 2: gear
-  y=168;head('Gear',420,y);y+=30;for(const [s,it] of d.gear){txt(s,420,y,`500 14px ${body}`,dim,110);txt(it,530,y,`600 16px ${body}`,ink,250);y+=25}
-  if(d.charms){txt('Charms',420,y,`500 14px ${body}`,dim);txt(d.charms,530,y,`600 16px ${body}`,ink,250);y+=25}
-  // column 3: numbers, merc, immunities
+/* the card's text styles: [font, weight, size in px at 1200x675]; the Discord bot draws the same card with these */
+const GP_CARD_ST={title:['disp',700,40],sub:['body',500,19],brand:['disp',700,22],brand2:['body',500,15],head:['body',700,13],row:['body',500,17],rowb:['body',700,17],slot:['body',500,14],item:['body',700,16],mi:['body',500,15],foot:['body',500,15]};
+/* lays the card out on any surface A: A.W, A.H, A.rect(x,y,w,h,color), A.vgrad(top,bottom), A.stroke(x,y,w,h,color),
+   A.text(t,x,y,style,color,align), A.measure(t,style) */
+function gpCardLayout(d,A){const W=A.W,H=A.H,gold='#e8c983',ink='#efe4cc',dim='#a99c84',line='#5a4a32';
+  A.vgrad('#1c1813','#0f0d0a');A.stroke(14,14,W-28,H-28,line);A.stroke(20,20,W-40,H-40,'#2c2419');
+  const fit=(t,st,max)=>{t=String(t);if(!max||A.measure(t,st)<=max)return t;while(t.length>1&&A.measure(t+'…',st)>max)t=t.slice(0,-1);return t+'…'};
+  const txt=(t,X,Y,st,c,max,al)=>A.text(fit(t,st,max),X,Y,st,c,al||'left');
+  const head=(t,X,Y)=>{txt(t.toUpperCase(),X,Y,'head',dim);A.rect(X,Y+7,330,1,line)};
+  txt(d.name,48,82,'title',gold,800);txt(`Level ${d.level} ${d.cls}${d.allsk?` · +${d.allsk} all skills`:''}`,48,116,'sub',ink,800);
+  txt('Horadric Odds',W-48,74,'brand',gold,0,'right');txt('Build planner',W-48,100,'brand2',dim,0,'right');
+  let y=168;head('Skills',48,y);y+=30;for(const [n,p] of d.skills){txt(n,48,y,'row',ink,270);txt(String(p),378,y,'rowb',gold,0,'right');y+=26}
+  y+=14;head('Stats',48,y);y+=30;for(const [k,n] of [['str','Strength'],['dex','Dexterity'],['vit','Vitality'],['ene','Energy']]){txt(n,48,y,'row',ink);txt(String(d.stats[k]),378,y,'rowb',gold,0,'right');y+=26}
+  y=168;head('Gear',420,y);y+=30;for(const [s,it] of d.gear){txt(s,420,y,'slot',dim,104);txt(it,530,y,'item',ink,262);y+=25}
+  if(d.charms){txt('Charms',420,y,'slot',dim);txt(d.charms,530,y,'item',ink,262);y+=25}
   const X3=820;y=168;head('At level '+d.level,X3,y);y+=30;
-  const kv=(k,v)=>{txt(k,X3,y,`500 17px ${body}`,ink);txt(v,W-48,y,`700 17px ${body}`,gold,0,'right');y+=26};
+  const kv=(k,v)=>{txt(k,X3,y,'row',ink);txt(v,W-48,y,'rowb',gold,0,'right');y+=26};
   kv('Life / Mana',`${d.life} / ${d.mana}`);kv('Faster cast rate',`${d.fcr}%${d.fcrF!=null?` · ${d.fcrF} frames`:''}`);kv('Faster hit recovery',`${d.fhr}%${d.fhrF!=null?` · ${d.fhrF} frames`:''}`);if(d.ias)kv('Increased attack speed',`${d.ias}%`);if(d.mf)kv('Magic find',`${d.mf}%`);
-  txt('Hell resistances',X3,y,`500 17px ${body}`,ink);y+=26;x.font=`700 17px ${body}`;const rc={Fire:'#e2775a',Cold:'#7fa7ff',Light:'#f0d070',Poison:'#7ccf6a'};let rx=X3;for(const [n,v] of d.res){x.fillStyle=rc[n];x.textAlign='left';x.fillText(`${n} ${v}`,rx,y);rx+=x.measureText(`${n} ${v}`).width+16}y+=34;
-  if(d.merc){head('Mercenary',X3,y);y+=28;txt(d.merc+(d.M?` · L${d.M.level}`:''),X3,y,`600 16px ${body}`,ink,330);y+=24;for(const it of d.mitems){txt(it,X3,y,`500 15px ${body}`,dim,330);y+=22}y+=10}
-  if(d.imm){head('Immunities',X3,y);y+=28;txt(d.imm,X3,y,`500 15px ${body}`,ink,330)}
-  txt('horadricodds.github.io · free D2R drop odds, build planner and tools',48,H-38,`500 15px ${body}`,dim);
+  txt('Hell resistances',X3,y,'row',ink);y+=26;const rc={Fire:'#e2775a',Cold:'#7fa7ff',Light:'#f0d070',Poison:'#7ccf6a'};let rx=X3;for(const [n,v] of d.res){const s=`${n} ${v}`;A.text(s,rx,y,'rowb',rc[n],'left');rx+=A.measure(s,'rowb')+16}y+=34;
+  if(d.merc){head('Mercenary',X3,y);y+=28;txt(d.merc+(d.M?` · L${d.M.level}`:''),X3,y,'item',ink,330);y+=24;for(const it of d.mitems){txt(it,X3,y,'mi',dim,330);y+=22}y+=10}
+  if(d.imm){head('Immunities',X3,y);y+=28;txt(d.imm,X3,y,'mi',ink,330)}
+  txt('horadricodds.github.io · free D2R drop odds, build planner and tools',48,H-38,'foot',dim)}
+window.__hoCardLayout=gpCardLayout;window.__hoCardStyles=GP_CARD_ST;
+async function gpCardCanvas(){const d=gpCardData(),W=1200,H=675,cv=document.createElement('canvas');cv.width=W*2;cv.height=H*2;const x=cv.getContext('2d');x.scale(2,2);
+  try{await document.fonts.ready;await Promise.all(['700 40px "Alegreya SC"','500 16px "Alegreya Sans"','700 16px "Alegreya Sans"'].map(f=>document.fonts.load(f)))}catch(e){}
+  const cs=getComputedStyle(document.documentElement),FAM={disp:(cs.getPropertyValue('--font-display')||'Georgia,serif').trim(),body:(cs.getPropertyValue('--font-body')||'').trim()||getComputedStyle(document.body).fontFamily||'sans-serif'};
+  const font=st=>{const [f,w,z]=GP_CARD_ST[st];return `${w} ${z}px ${FAM[f]}`};
+  gpCardLayout(d,{W,H,rect:(X,Y,w,h,c)=>{x.fillStyle=c;x.fillRect(X,Y,w,h)},vgrad:(a,b)=>{const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,a);g.addColorStop(1,b);x.fillStyle=g;x.fillRect(0,0,W,H)},
+    stroke:(X,Y,w,h,c)=>{x.strokeStyle=c;x.lineWidth=2;x.strokeRect(X,Y,w,h)},text:(t,X,Y,st,c,al)=>{x.font=font(st);x.fillStyle=c;x.textAlign=al;x.fillText(t,X,Y)},measure:(t,st)=>{x.font=font(st);return x.measureText(t).width}});
   return cv}
 async function gpCardShow(){let cv;try{cv=await gpCardCanvas()}catch(e){toast('Could not draw the card: '+e.message);return}
   const blob=await new Promise(r=>cv.toBlob(r,'image/png')),url=URL.createObjectURL(blob),fname=(String(B.name||'build').replace(/[^\w -]+/g,'').trim().replace(/\s+/g,'-')||'build')+'.png';
@@ -3454,6 +3458,8 @@ async function gpCardShow(){let cv;try{cv=await gpCardCanvas()}catch(e){toast('C
     if(c==='copy'){try{await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);msg('Image copied. Paste it into Discord or Reddit.')}catch(err){msg('This browser won’t copy images here; use Download PNG.')}return}
     if(c==='dl'){try{if(window.claude&&window.claude.use){const dl=await window.claude.use('downloads');if(dl){try{await dl.save({filename:fname,data:blob});msg('Saved.')}catch(err){msg(err&&err.code==='declined'?'Download cancelled.':'This view can’t download files.')}return}}}catch(err){}
       const a=document.createElement('a');a.href=url;a.download=fname;document.body.appendChild(a);a.click();a.remove();msg('Downloaded '+fname+'.')}})}
+/* for the Discord bot: card data for any build code, without changing the build that is open */
+window.__hoCardData=code=>{const prev=B,pi=PI;try{B=decode(code);return gpCardData()}finally{B=prev;PI=pi}};
 
 function equipHTML(){
   const g=B.gear||[];const L=Math.min(B.level,EQL||B.level);try{window.__eqS={L,s:charStatsAt(B,simulate(B),L,{})}}catch(e){window.__eqS=null}
