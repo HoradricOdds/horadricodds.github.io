@@ -28,7 +28,7 @@ No ads, no sign-up, works on PC and phone.
 - A level-by-level leveling guide with a checklist to tick off while you play.
 - Side-by-side build comparison.
 - Starter builds to open in the planner, with stats and gear levels that match what each character can wear, and links to the matching Maxroll and Icy Veins guides.
-- Share builds as links or build codes.
+- Share builds as links or build codes, save them to My builds, and copy your whole library as one code to move it to another browser or share it.
 - **Import save:** load a single-player character (.d2s) to open its build with its skills, stats and gear (magic and rare items by name), fill your Grail and count your runes; add your shared stash (.d2i) too. Files are read on your device and never uploaded.
 - **Export Build:** turn a build into an offline character in the save editor, with its skills, stats, gear and mercenary, and tick the quests, acts and difficulties it should have completed.
 

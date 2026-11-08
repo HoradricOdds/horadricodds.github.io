@@ -39,10 +39,13 @@ All notable changes to Horadric Odds, newest first.
 - Fixed: export failed when any item had custom stats.
 - Imported characters show their gear at the character's level, so the planner no longer warns about requirements the character already meets.
 - Exported names drop "(imported)" and keep whole words ("Blizzard Sorceress" becomes "Blizzard" instead of "BlizzardSorcere").
+- Export Build exports the final phase by default, with an **Export at** menu to pick another (it used to take whichever phase you were editing, so the default build exported at level 30).
+- Magic charms keep their names on export ("Beryl Small Charm of Good Luck" instead of a plain Small Charm).
 - The exported mercenary is hired from the difficulty a character of that level is in: Normal below level 20, Nightmare to 44, then Hell.
 - If a save is already open in the editor, you're offered to close it and export the build.
 
 ### Other
+- My builds: a **Copy code** button on each saved build, and **Copy all as one code** to move or share your whole library; paste it into Import to add the builds.
 - New **Merchants** odds next to Gambling: your chance of a chosen merchant selling an item with the stats you want.
 - Base items show their best magic rolls and the uniques and set items made from them.
 - The skill tree opens on the tab with points, and each tab shows its point total.
