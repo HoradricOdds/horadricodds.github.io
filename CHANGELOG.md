@@ -4,6 +4,11 @@ All notable changes to Horadric Odds, newest first.
 
 ## 8 November 2026
 
+### New: languages
+- The whole site can be read in **Español, Português (BR), Deutsch, 한국어 and 简体中文**: pick one from the menu at the top right. The first visit follows your browser's language.
+- Item, rune, runeword, skill and monster names come from the game's own translations, so they match what you see in D2R. Spanish uses the Latin American names.
+- Reign of the Warlock skills and items missing from the translated game files, Portuguese area names and Chinese area names are Horadric Odds' own translations.
+
 ### New: build cards, immunities and merc stats
 - **Share as image** (Share & Library): a picture of the build with its skills, stats, gear, breakpoints, Hell resistances, merc and immunities, ready to copy or download, plus a button to copy the share link.
 - **Immunities** card (Skills & Stats): the Hell areas with monsters immune to the damage your build uses, picked from your skills and changeable. Counts Conviction from Infinity and Sunder charms. Monster data comes from the game's monster and level tables.
@@ -11,6 +16,7 @@ All notable changes to Horadric Odds, newest first.
 
 ### Gear and inventory
 - New gear menu: click an empty equipment slot to pick from the items that fit there, with search by name or nickname.
+- Hovering an item in the gear menu (or moving through it with the arrow keys) previews how it would change your skills, cast rate, resistances and damage.
 - Runewords: the menu suggests the best base and lets you choose the base, socket count and ethereal.
 - Charms and rares: Small, Large and Grand Charms (and rares) can have your own stats, and the stats count toward your totals.
 - Equipment, merc gear and the inventory work like the game: click to pick an item up and click to put it down; right-click to change or remove it.

@@ -2,7 +2,7 @@
 
 **The free all-in-one toolkit for Diablo II: Resurrected.**
 Drop odds, a build planner, an experience calculator, Holy Grail and rune helpers, and a save editor for offline characters, all in one page.
-No ads, no sign-up, works on PC and phone.
+No ads, no sign-up, works on PC and phone, in English, Español, Português, Deutsch, 한국어 and 简体中文.
 
 👉 **Open it: [horadricodds.github.io](https://horadricodds.github.io/)**
 
@@ -21,7 +21,7 @@ No ads, no sign-up, works on PC and phone.
 ### Build planner
 - Skill trees for all eight classes, including Warlock. Hover over a skill (or press and hold on a phone) for its in-game tooltip: damage at your level and the next, synergies, masteries and, for attack skills, your damage with the weapon you've planned.
 - Breakpoints worked out from your gear: cast speed, hit recovery, block and attack frames.
-- An equipment panel and inventory that work like the game: click a slot to pick from the items that fit (with runeword bases, sockets and ethereal, and your own charm and rare stats), pick items up and move them, and right-click to change or remove them. Hover or tap any item for its stats and requirements.
+- An equipment panel and inventory that work like the game: click a slot to pick from the items that fit (hovering one shows how it would change your skills, cast rate, resistances and damage) (with runeword bases, sockets and ethereal, and your own charm and rare stats), pick items up and move them, and right-click to change or remove them. Hover or tap any item for its stats and requirements.
 - Choose your build's mercenary (any act and aura); it sets the merc's aura, is read from imported saves and goes into exported characters.
 - The merc panel shows your mercenary's life, Strength, Dexterity, damage, defense and resistances with its gear, like the game.
 - An Immunities card lists the Hell areas with monsters immune to your build's damage, counting Conviction and Sunder charms.
@@ -48,6 +48,11 @@ No ads, no sign-up, works on PC and phone.
 - **Cube recipes:** every Horadric Cube recipe from the game files, searchable by ingredient.
 - **Roll checker:** type in your item's numbers to see how good each roll is, from 0% to perfect.
 - **Sockets & affixes:** how many sockets a base can get at its item level (Larzuk and cube), and which magic or rare affixes can roll on it, including charms.
+
+### Languages
+- Pick English, Español, Português (BR), Deutsch, 한국어 or 简体中文 from the menu at the top right. The choice is remembered in your browser, and the first visit follows your browser's language.
+- Item, rune, runeword, skill and monster names use the game's own translations. Spanish uses the Latin American game names.
+- Some names are Horadric Odds' own translations: Reign of the Warlock skills and items that aren't in the translated game files, Portuguese area names, and Chinese area names (converted from the game's older Traditional Chinese text).
 
 ### Offline and as an app
 - Once opened, the site works without an internet connection, and you can install it to your phone's home screen or as a desktop app from your browser.
