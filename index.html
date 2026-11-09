@@ -1697,7 +1697,7 @@ button[data-tip],label [data-tip]{cursor:pointer}
       <p><b>Artwork:</b> item pictures from <a href="https://lootcube.net/en/base-items" target="_blank" rel="noopener">LootCube</a>; the inventory panel texture from <a href="https://i.dimentio.dev/d2r/ui/panel/inventory/background.png" target="_blank" rel="noopener">Dimentio’s D2R UI assets</a>. Diablo II: Resurrected artwork belongs to Blizzard Entertainment; Horadric Odds does not own or claim rights to it and is not affiliated with Blizzard or LootCube.</p>
       <p><b>Bugs and ideas:</b> open an issue on <a href="https://github.com/HoradricOdds/horadricodds.github.io/issues" target="_blank" rel="noopener">GitHub</a> or email the address below.</p>
       <p><b>Contact, problems or takedown requests:</b> email <a href="mailto:HoradricOdds@hotmail.com" style="user-select:all">HoradricOdds@hotmail.com</a>.</p></div></details></div>
-<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>9 Nov 2026, 7:06 pm</span></p>
+<p class="buildtag" id="buildtag"><a id="reportLink" href="https://github.com/HoradricOdds/horadricodds.github.io/issues/new" target="_blank" rel="noopener">Something wrong? Report it</a> · Horadric Odds · version <span data-stamp>9 Nov 2026, 7:20 pm</span></p>
 
 
 <script>
@@ -8267,6 +8267,49 @@ if(!ready){R.classList.add('ho-i18n-wait');const st=document.createElement('styl
 let went=false;function go(){if(went||!ready||document.readyState==='loading')return;went=true;try{start()}catch(e){}}
 function boot(){try{picker()}catch(e){}go()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot()
+})();
+
+</script>
+<script>
+/* Long help notes fold to one line with a "More" button, so the tools stay tidy. Opening one is remembered. */
+(function(){
+  const SEL='p.hint,div.hint,p.tl-note,p.xnote,p.gp-note,p.xp-credit,p.lede';
+  const OPEN=new Set();try{(JSON.parse(localStorage.getItem('ho.open')||'[]')||[]).forEach(k=>OPEN.add(k))}catch(e){}
+  const save=()=>{try{localStorage.setItem('ho.open',JSON.stringify([...OPEN].slice(-200)))}catch(e){}};
+  const st=document.createElement('style');
+  st.textContent='.ho-cl{position:relative}'+
+    '.ho-cl:not(.open){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-clamp:1;overflow:hidden;padding-right:5.5em}'+
+    '.ho-cl.open{padding-right:5.5em}.ho-cl.fits{padding-right:0!important}.ho-cl.fits>.ho-more{display:none}'+
+    '.ho-more{position:absolute;right:0;bottom:0;border:0;background:none;padding:0 0 0 .6em;margin:0;font:inherit;font-size:.95em;line-height:inherit;color:var(--gold,#c7a35a);cursor:pointer;white-space:nowrap;text-decoration:underline;text-underline-offset:2px}'+
+    '.ho-more:hover,.ho-more:focus-visible{color:var(--gold-hi,#e6c47a)}';
+  (document.head||document.documentElement).appendChild(st);
+  const keyOf=el=>el.dataset.ck||(el.dataset.ck=(el.textContent||'').replace(/\s+/g,' ').trim().slice(0,48));
+  const RO=typeof ResizeObserver!=='undefined'?new ResizeObserver(es=>es.forEach(e=>check(e.target))):null;
+  function check(el){
+    if(!el.isConnected||!el.offsetWidth)return;
+    if(el.classList.contains('open')){const lh=parseFloat(getComputedStyle(el).lineHeight)||18;el.classList.toggle('fits',el.scrollHeight<=lh*1.5)}
+    else el.classList.toggle('fits',el.scrollHeight<=el.clientHeight+1);
+  }
+  function setOpen(el,open){
+    el.classList.toggle('open',open);const b=el.querySelector(':scope>.ho-more');
+    if(b){b.textContent=open?'Less':'More';b.setAttribute('aria-expanded',open?'true':'false')}
+    check(el);
+  }
+  function prep(el){
+    if(el.dataset.cl||el.closest('.tt,.tip,[role="dialog"],.modal'))return;
+    if(el.querySelector('input,select,textarea,button'))return;
+    if((el.textContent||'').trim().length<90)return;
+    el.dataset.cl='1';el.classList.add('ho-cl');
+    const b=document.createElement('button');b.type='button';b.className='ho-more';
+    b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const k=keyOf(el),o=!el.classList.contains('open');o?OPEN.add(k):OPEN.delete(k);save();setOpen(el,o)});
+    el.appendChild(b);setOpen(el,OPEN.has(keyOf(el)));
+    if(RO)RO.observe(el);
+  }
+  function scan(root){if(!root||root.nodeType!==1)return;if(root.matches&&root.matches(SEL))prep(root);root.querySelectorAll&&root.querySelectorAll(SEL).forEach(prep)}
+  function boot(){scan(document.body);
+    new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes)scan(n)}).observe(document.body,{childList:true,subtree:true})}
+  if(typeof MutationObserver==='undefined')return;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
 
 </script>

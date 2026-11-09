@@ -5,6 +5,7 @@ All notable changes to Horadric Odds, newest first.
 ## 9 November 2026
 - Added community files to the repository: code of conduct, contributing guide, security policy, accessibility statement, issue forms (bug report, wrong numbers, translation fix, idea) and a pull request template.
 - The "Something wrong? Report it" link now includes the site language.
+- Long help notes across the site fold to one line with a **More** button, so the tools are tidier. Notes you open stay open.
 
 ## 8 November 2026
 
