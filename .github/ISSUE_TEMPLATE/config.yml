@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report privately (security, takedowns, anything personal)
+    url: https://github.com/HoradricOdds/horadricodds.github.io/blob/main/SECURITY.md
+    about: Don't post it publicly. Email HoradricOdds@hotmail.com instead (security problems, takedown requests, anything personal).
+  - name: Open Horadric Odds
+    url: https://horadricodds.github.io/
+    about: Tip — the "Something wrong? Report it" link at the bottom of every page fills in the version and your settings for you.

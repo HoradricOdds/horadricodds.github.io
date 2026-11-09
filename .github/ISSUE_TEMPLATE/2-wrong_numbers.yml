@@ -1,0 +1,35 @@
+name: Wrong odds or numbers
+description: A drop chance, experience figure, breakpoint, resistance, damage or other number doesn't match the game.
+title: "Numbers: "
+labels: ["data"]
+body:
+  - type: input
+    id: what
+    attributes:
+      label: Which item, build, monster or area?
+      placeholder: e.g. Harlequin Crest from Hell Mephisto, or my merc's damage
+    validations:
+      required: true
+  - type: textarea
+    id: shown
+    attributes:
+      label: What Horadric Odds shows
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and where it comes from
+      description: An in-game screenshot is best. Otherwise say which source or calculator you compared with.
+    validations:
+      required: true
+  - type: textarea
+    id: settings
+    attributes:
+      label: Your settings
+      description: Game version, difficulty, players, party, magic find, level, and the build code if it's from the planner.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The date at the bottom of the page.

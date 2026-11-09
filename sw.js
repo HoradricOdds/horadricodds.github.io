@@ -8,6 +8,7 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });
+const page0 = (req, url) => /\.json$/.test(url.pathname) && req.mode !== 'navigate' ? caches.match(req) : caches.match('./index.html').then((r) => r || caches.match('./'));
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
@@ -15,12 +16,13 @@ self.addEventListener('fetch', (e) => {
   const sameSite = url.origin === self.location.origin;
   const fonts = /fonts\.(googleapis|gstatic)\.com$/.test(url.hostname);
   if (!sameSite && !fonts) return;
-  if (req.mode === 'navigate' || (sameSite && /\/(index\.html)?$/.test(url.pathname))) {
-    /* the page: network first, cached copy when offline */
+  if (req.mode === 'navigate' || (sameSite && /\/(index\.html)?$/.test(url.pathname)) || (sameSite && /\/i18n\/[a-z]+\.json$/.test(url.pathname))) {
+    /* the page and its translations: network first, cached copy when offline */
     e.respondWith(fetch(req).then((res) => {
-      if (res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put('./index.html', copy)); }
+      const page = req.mode === 'navigate' || !/\.json$/.test(url.pathname);
+      if (res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(page ? './index.html' : req, copy)); }
       return res;
-    }).catch(() => caches.match('./index.html').then((r) => r || caches.match('./'))));
+    }).catch(() => page0(req, url)));
     return;
   }
   /* icons, manifest and fonts: cached copy first, refreshed in the background */

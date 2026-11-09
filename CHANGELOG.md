@@ -2,12 +2,18 @@
 
 All notable changes to Horadric Odds, newest first.
 
+## 9 November 2026
+- Added community files to the repository: code of conduct, contributing guide, security policy, accessibility statement, issue forms (bug report, wrong numbers, translation fix, idea) and a pull request template.
+- The "Something wrong? Report it" link now includes the site language.
+
 ## 8 November 2026
 
 ### New: languages
 - The whole site can be read in **Español, Português (BR), Deutsch, 한국어 and 简体中文**: pick one from the menu at the top right. The first visit follows your browser's language.
-- Item, rune, runeword, skill and monster names come from the game's own translations, so they match what you see in D2R. Spanish uses the Latin American names.
-- Reign of the Warlock skills and items missing from the translated game files, Portuguese area names and Chinese area names are Horadric Odds' own translations.
+- Item, rune, runeword, skill, monster, area and class names come from the game's own current translations (including Reign of the Warlock), so they match what you see in D2R. Spanish uses the Latin American text.
+- Every other line was checked against the official game terms in each language, with meaning, placeholders and grammar reviewed separately.
+- Each language's text is its own small file that loads only when picked, so the page is no bigger for English readers.
+- English area names now match the game: Frigid Highlands, Chaos Sanctuary, Nihlathak's Temple, Crystalline Passage and others were showing internal names like "Rigid Highlands" and "Chaos Sanctum".
 
 ### New: build cards, immunities and merc stats
 - **Share as image** (Share & Library): a picture of the build with its skills, stats, gear, breakpoints, Hell resistances, merc and immunities, ready to copy or download, plus a button to copy the share link.

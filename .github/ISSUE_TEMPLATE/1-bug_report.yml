@@ -1,0 +1,56 @@
+name: Bug report
+description: Something doesn't work, looks broken or shows an error.
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! Tip — the **Something wrong? Report it** link at the bottom of the site fills in the version and your settings for you.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where on the site?
+      options:
+        - Drop odds
+        - Build planner
+        - Experience
+        - Tools (Grail, runes, run tracker, farm planner, rolls, sockets, cube)
+        - Save editor / Import save / Export Build
+        - How to use
+        - Discord bot
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Steps to reproduce help a lot. Screenshots are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The date at the bottom of the page, e.g. "8 Nov 2026, 9:07 pm".
+  - type: input
+    id: device
+    attributes:
+      label: Device and browser
+      placeholder: e.g. Windows · Chrome, or iPhone · Safari
+  - type: dropdown
+    id: language
+    attributes:
+      label: Site language
+      options: [English, Español, Português, Deutsch, 한국어, 简体中文]
+  - type: textarea
+    id: extra
+    attributes:
+      label: Build code, link or anything else
+      description: Paste a build code or the page link if it's about a specific build or item. Please don't share anything private.

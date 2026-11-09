@@ -51,8 +51,8 @@ No ads, no sign-up, works on PC and phone, in English, Español, Português, Deu
 
 ### Languages
 - Pick English, Español, Português (BR), Deutsch, 한국어 or 简体中文 from the menu at the top right. The choice is remembered in your browser, and the first visit follows your browser's language.
-- Item, rune, runeword, skill and monster names use the game's own translations. Spanish uses the Latin American game names.
-- Some names are Horadric Odds' own translations: Reign of the Warlock skills and items that aren't in the translated game files, Portuguese area names, and Chinese area names (converted from the game's older Traditional Chinese text).
+- Item, rune, runeword, skill, monster, area and class names use the game's own current translations, including Reign of the Warlock. Spanish uses the Latin American game text.
+- The rest of the site was translated for Horadric Odds and then checked line by line against the official game terms. A few skill names the current game files don't include (such as the Barbarian weapon masteries) are Horadric Odds' own translations.
 
 ### Offline and as an app
 - Once opened, the site works without an internet connection, and you can install it to your phone's home screen or as a desktop app from your browser.
@@ -63,7 +63,8 @@ No ads, no sign-up, works on PC and phone, in English, Español, Português, Deu
 
 ## Reporting problems
 
-- **Bugs and ideas:** [open an issue](https://github.com/HoradricOdds/horadricodds.github.io/issues).
+- **Bugs, wrong numbers, translation fixes and ideas:** [open an issue](https://github.com/HoradricOdds/horadricodds.github.io/issues/new/choose) and pick a form, or use **Something wrong? Report it** at the bottom of any page. See [CONTRIBUTING.md](CONTRIBUTING.md) for what helps.
+- **Security problems:** please email instead of opening an issue; see [SECURITY.md](SECURITY.md).
 - **Anything else, including takedown requests:** HoradricOdds@hotmail.com
 
 When reporting wrong odds or numbers, it helps to include the item or build, the settings you used (difficulty, players, magic find, level), and what you expected. The version at the bottom of the page tells us which copy you were using.
@@ -83,7 +84,14 @@ Horadric Odds is free and fan-made. It isn't affiliated with or endorsed by Bliz
 
 ## How it's built
 
-The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.
+The whole site is a single `index.html` file with no server, plus `manifest.webmanifest`, `sw.js` and the icons for offline use and installing. Each language's text is in `i18n/` (one file per language), and the page only downloads the one you pick. Odds are calculated in your browser from the game's own tables. Saved builds, settings, your Grail, runes and run trackers stay in your browser.
+
+## Community
+
+- [Code of conduct](CODE_OF_CONDUCT.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Accessibility](ACCESSIBILITY.md)
 
 ## License
 
